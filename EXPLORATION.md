@@ -47,9 +47,28 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] R4 WebGL mesh for the site (scrub in the browser)
   [ ] R5 the human-gravity slider G in [-1, +1]: attractive flow (anti-cartogram) | Earth | repulsive flow (cartogram)
 
+ ARTEFACT (the globe, Act 3)
+  [ ] A1 compute on a cylinder: periodic in longitude (FFT in x, DCT in y); the dateline must not tear
+  [ ] A2 equal-area cylindrical grid (x = lon, y = sin lat) for anything shown on a sphere:
+         sphere area = people, exactly; Mercator pixels stay only for the flat rectangle picture
+  [ ] A3 sphere-native solvers later (diffusion via spherical harmonics; OT on S^2 is research-grade,
+         Hamfeldt-Turnquist 2021 has numerics, no public code)
+  [ ] A4 globe renderer: one sphere mesh (~1024x512), vertices displaced along the sphere per epoch,
+         UVs fixed to geography so every raster overlay comes for free; no inverse map needed
+  [ ] A5 overlays as textures through the same warp: night lights (VIIRS VNL / Black Marble), road
+         density (GRIP4), terrain, shipping (AIS density), flights; each one reads as a PER-CAPITA map
+  [ ] A6 labels: ~300 largest cities at warped positions, text unwarped; ghost graticule; dark Apple-style base
+  [ ] A7 time on the globe: per-epoch displacement textures (RGBA16F 1024x512 x ~80 epochs ~ 80 MB),
+         blended in the vertex shader; log-time scrubber; growth shown by globe radius ~ sqrt(population)
+  [ ] A8 controls kept small: time is the hero; method, G-slider, morph and overlay behind one cluster
+  [ ] A9 static hosting on the existing site (no server, no cost); WebGL2 or WebGPU
+  [ ] A10 lumpy Earth: isometric-ish 3D embedding of the population manifold on the sphere (spring
+         relaxation of a sphere mesh with population rest lengths); the sculpture, ties to G1-G3
+
  TIMELINE (Act 2)
   [ ] T1 HYDE ingestion, ~80 epochs through the same prep
-  [ ] T2 how to show growth vs redistribution: fixed frame / growing frame / people-per-pixel caption
+  [ ] T2 how to show growth vs redistribution: fixed frame / growing frame / people-per-pixel caption /
+         growing globe (radius ~ sqrt(pop): 6000 BC is a marble)
   [ ] T3 time interpolation (log-time); OT displacement interpolation between epochs
   [ ] T4 honesty: pre-1700 HYDE is a model, not observation; say so on the artefact
 ```

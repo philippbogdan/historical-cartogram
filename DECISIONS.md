@@ -20,3 +20,10 @@
 - 2026-08-28  experiments/INDEX.md is the running comparison table; regenerate it, do not hand-edit.
 - 2026-08-28  Population-as-mass ideas recorded in notes/gravity.md: M9 (jellium flow), M10 (Poisson
   iteration) and the G-slider (R5) join the map; the curvature/GR version is a side branch, not a cartogram.
+- 2026-08-28  Two artefacts, one codebase: (i) the flat Mercator-rectangle cartogram (area in the picture =
+  people), (ii) the globe (sphere area = people). (ii) cannot reuse a Mercator warp: it must be computed on
+  an equal-area cylindrical grid, periodic in longitude. The solver takes the grid as a parameter.
+- 2026-08-28  Overlays are the intellectual payload of the globe: any layer pushed through a population
+  cartogram becomes a per-capita map (light per person, roads per person). Night lights should come
+  out almost uniform; where they do not is the story.
+- 2026-08-28  Folds (X2) must be exactly zero before anything goes on a sphere mesh.

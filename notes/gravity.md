@@ -68,3 +68,9 @@ Consequences:
 
 Second-order dynamics (points would orbit), the Higgs analogy, extrinsic "dents" as GR, and
 "the same skeleton as gravity" beyond first order.
+
+## Globe note (2026-08-28)
+
+Any raster overlaid on a population cartogram is a per-capita map by construction: the warp divides
+by people. Night lights on the cartogram globe should be nearly uniform brightness; the residual
+pattern is light per person, which tracks wealth. Roads per person, emissions per person, the same.
