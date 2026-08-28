@@ -172,21 +172,23 @@ class TorchDiffusionCartogram(_Base):
         c = self.coef * self.torch.exp(-self.k2 * t)
         return self.torch.fft.irfft2(c, s=self.ext_shape)[:self.H, :self.W]
 
-    def velocity(self, t):
+    def _grad(self, f):
+        """Central differences of a grid field with the boundary rules (wrap or mirror in x, mirror in y)."""
         T = self.torch
-        rho = self.rho_at(t)
-        H, W = self.H, self.W
-        # neighbours with the right boundary rule
-        up = T.cat([rho[:1], rho[:-1]], 0)
-        down = T.cat([rho[1:], rho[-1:]], 0)
+        up = T.cat([f[:1], f[:-1]], 0)
+        down = T.cat([f[1:], f[-1:]], 0)
         if self.x_boundary == "periodic":
-            left, right = T.roll(rho, 1, 1), T.roll(rho, -1, 1)
+            left, right = T.roll(f, 1, 1), T.roll(f, -1, 1)
         else:
-            left = T.cat([rho[:, :1], rho[:, :-1]], 1)
-            right = T.cat([rho[:, 1:], rho[:, -1:]], 1)
-        vx = -(right - left) / 2 / rho
-        vy = -(down - up) / 2 / rho
-        # padded (2, H+2, W+2)
+            left = T.cat([f[:, :1], f[:, :-1]], 1)
+            right = T.cat([f[:, 1:], f[:, -1:]], 1)
+        return (right - left) / 2, (down - up) / 2
+
+    def _pad_velocity(self, vx, vy):
+        """Padded (2, H+2, W+2) field; normal component antisymmetric across walls so it
+        interpolates to zero on them; periodic wrap in x when the domain is a cylinder."""
+        T = self.torch
+        H, W = self.H, self.W
         V = T.zeros(2, H + 2, W + 2, device=self.dev)
         V[0, 1:-1, 1:-1] = vx
         V[1, 1:-1, 1:-1] = vy
@@ -198,7 +200,27 @@ class TorchDiffusionCartogram(_Base):
         else:
             V[0, :, 0], V[0, :, -1] = -V[0, :, 1], -V[0, :, -2]
             V[1, :, 0], V[1, :, -1] = V[1, :, 1], V[1, :, -2]
-        return V, rho
+        return V
+
+    def solve_poisson(self, src, smooth_px=0.0):
+        """lap(Phi) = src - mean(src) with the domain's boundary rules; optional Gaussian smoothing."""
+        T = self.torch
+        ext = T.cat([src, src.flip(0)], dim=0)
+        if self.x_boundary == "wall":
+            ext = T.cat([ext, ext.flip(1)], dim=1)
+        S = T.fft.rfft2(ext)
+        if smooth_px > 0:
+            S = S * T.exp(-self.k2 * smooth_px ** 2 / 2)
+        S = T.where(self.k2 > 0, -S / T.clamp(self.k2, min=1e-30), T.zeros_like(S))
+        return T.fft.irfft2(S, s=self.ext_shape)[:self.H, :self.W]
+
+    def begin_step(self, pts):
+        """Hook for state-dependent flows (M9); the diffusion flow needs nothing."""
+
+    def velocity(self, t):
+        rho = self.rho_at(t)
+        gx, gy = self._grad(rho)
+        return self._pad_velocity(-gx / rho, -gy / rho), rho
 
     def sample(self, V, pts):
         T = self.torch
@@ -215,17 +237,24 @@ class TorchDiffusionCartogram(_Base):
         pts[:, 1] = pts[:, 1].clamp(0, self.H)
         return pts
 
-    def advect(self, pts, tol=1e-3, dt0=1e-2, max_disp=0.5, growth=1.15, t_max=None, t_start=0.5, cap_frac=0.1, log=print):
+    def advect(self, pts, tol=1e-3, dt0=1e-2, max_disp=0.5, growth=1.15, t_max=None, t_start=0.5, cap_frac=0.1, t_end=None, log=print):
+        """RK4 with the displacement cap. With t_end set (prescribed-path flows, M2) the
+        loop runs exactly to t_end; otherwise it stops when the density is uniform to tol."""
         T = self.torch
         pts = self.clamp(T.tensor(np.asarray(pts), dtype=T.float32, device=self.dev))
         t, dt, n_acc, n_rej = t_start, dt0, 0, 0
         if t_max is None:
             t_max = -np.log(tol) / (np.pi / max(self.H, self.W)) ** 2 * 4
+        self.begin_step(pts)
         V0, rho = self.velocity(t)
         t0 = time.time()
         while True:
             dev = (rho - 1).abs().max().item()
-            if dev < tol or t > t_max:
+            if t_end is not None:
+                if t >= t_end - 1e-9:
+                    break
+                dt = min(dt, t_end - t)
+            elif dev < tol or t > t_max:
                 break
             Vh, _ = self.velocity(t + dt / 2)
             V1, rho1 = self.velocity(t + dt)
@@ -235,16 +264,19 @@ class TorchDiffusionCartogram(_Base):
             k4 = self.sample(V1, pts + dt * k3)
             step = dt / 6 * (k1 + 2 * k2 + 2 * k3 + k4)
             m = step.abs().max().item()
-            cap = max(max_disp, cap_frac * np.sqrt(2 * t))
+            cap = max(max_disp, cap_frac * np.sqrt(2 * t)) if t_end is None else max_disp
             if m > cap:
                 dt *= 0.5
                 n_rej += 1
                 continue
             pts = self.clamp(pts + step)
             t += dt
-            V0, rho = V1, rho1
             n_acc += 1
             dt *= growth if m < 0.5 * cap else 1.0
+            if self.begin_step(pts):  # state-dependent flow: recompute the field at the new state
+                V0, rho = self.velocity(t)
+            else:
+                V0, rho = V1, rho1
             if n_acc % 100 == 0:
                 log(f"  step {n_acc} t={t:.3g} dt={dt:.3g} maxdisp={m:.3f} dev={dev:.4f} {time.time()-t0:.0f}s")
         log(f"  done: {n_acc} steps ({n_rej} rejected), t={t:.4g}, dev={dev:.2e}, {time.time()-t0:.0f}s")
@@ -292,11 +324,12 @@ def equalisation_metrics(rho0, X, Y):
     }
 
 
-def repair_folds(X, Y, periodic=True, max_iter=500, radius=2, log=print):
+def repair_folds(X, Y, periodic=True, max_iter=500, radius=2, mass=None, max_mass=0.1, log=print):
     """S4: smooth the displacement field only where cells fold, until no cell has
     negative area. Folds live where cells are compressed below the pixel scale
-    (ocean seams), so the population-weighted metrics should not move; the caller
-    checks that. Returns (X, Y, info)."""
+    (ocean seams), so only corners whose surrounding cells carry little population
+    (mass < max_mass, in units of the mean) are allowed to move; folds inside
+    populated cells are reported as unrepairable rather than smoothed away."""
     from scipy import ndimage
     H1, W1 = X.shape
     W = W1 - 1
@@ -304,6 +337,12 @@ def repair_folds(X, Y, periodic=True, max_iter=500, radius=2, log=print):
     U, V = X - xs, Y - ys
     mode = ("reflect", "wrap") if periodic else "reflect"
     n0 = int((quad_areas(X, Y) <= 0).sum())
+    allowed = np.ones((H1, W1), bool)
+    if mass is not None:
+        heavy = mass > max_mass
+        hm = np.zeros((H1, W1), bool)
+        hm[:-1, :-1] |= heavy; hm[:-1, 1:] |= heavy; hm[1:, :-1] |= heavy; hm[1:, 1:] |= heavy
+        allowed = ~hm
     touched = np.zeros((H1, W1), bool)
     for it in range(max_iter):
         A = quad_areas(xs + U, ys + V)
@@ -312,9 +351,11 @@ def repair_folds(X, Y, periodic=True, max_iter=500, radius=2, log=print):
             break
         cm = np.zeros((H1, W1), bool)
         cm[:-1, :-1] |= bad; cm[:-1, 1:] |= bad; cm[1:, :-1] |= bad; cm[1:, 1:] |= bad
-        cm = ndimage.binary_dilation(cm, iterations=radius)
+        cm = ndimage.binary_dilation(cm, iterations=radius) & allowed
+        if not cm.any():
+            break
         touched |= cm
-        Uw, Vw = U[:, :W], V[:, :W]  # drop the closing column, smooth periodically
+        Uw, Vw = U[:, :W], V[:, :W]
         Us = ndimage.uniform_filter(Uw, 3, mode=mode)
         Vs = ndimage.uniform_filter(Vw, 3, mode=mode)
         m = cm[:, :W]
@@ -325,7 +366,10 @@ def repair_folds(X, Y, periodic=True, max_iter=500, radius=2, log=print):
         else:
             U[:, 0], U[:, W] = 0.0, 0.0
         V[0, :], V[-1, :] = 0.0, 0.0
-    n1 = int((quad_areas(xs + U, ys + V) <= 0).sum())
-    info = {"folds_before_repair": n0, "folds_after_repair": n1, "repair_iterations": it, "repaired_corners": int(touched.sum())}
-    log(f"  fold repair: {n0} -> {n1} folds in {it} iterations, {int(touched.sum())} corners touched")
+    A = quad_areas(xs + U, ys + V)
+    n1 = int((A <= 0).sum())
+    heavy_folds = int(((A <= 0) & (mass > max_mass)).sum()) if mass is not None else None
+    info = {"folds_before_repair": n0, "folds_after_repair": n1, "repair_iterations": it,
+            "repaired_corners": int(touched.sum()), "folds_in_populated_cells": heavy_folds}
+    log(f"  fold repair: {n0} -> {n1} folds ({heavy_folds} in populated cells) in {it} iterations, {int(touched.sum())} corners touched")
     return xs + U, ys + V, info

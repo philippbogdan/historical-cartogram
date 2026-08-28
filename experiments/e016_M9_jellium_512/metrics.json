@@ -1,0 +1,30 @@
+{
+ "folds": 2315,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.0982511367237495,
+ "log_ratio_popweighted_p50": 0.0004424121591820938,
+ "log_ratio_popweighted_p95": 0.10540728330632729,
+ "log_ratio_min": -4.916937397680904,
+ "log_ratio_max": 8.303982523448356,
+ "anisotropy_popweighted_p50": 3.672606533329072,
+ "anisotropy_popweighted_p95": 17.519589491391844,
+ "displacement_mean_px": 109.06433960547177,
+ "displacement_max_px": 250.40113314515014,
+ "folds_before_repair": 7989,
+ "folds_after_repair": 2315,
+ "repair_iterations": 499,
+ "repaired_corners": 43450,
+ "folds_in_populated_cells": 1136,
+ "p95_shift_by_repair": 0.0009384253837813883,
+ "pre_repair": {
+  "log_ratio_popweighted_p05": -0.09815468161237156,
+  "log_ratio_popweighted_p95": 0.1044688579225459,
+  "anisotropy_popweighted_p50": 3.670697767760863,
+  "anisotropy_popweighted_p95": 17.22416533771781
+ },
+ "steps": 360,
+ "rejected": 0,
+ "t_end": 30.873884742508423,
+ "final_dev": 1.1391913890838623,
+ "seconds": 37.23016095161438
+}

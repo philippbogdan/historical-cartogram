@@ -1,0 +1,53 @@
+grid mercator 512x512 lat_cut 85.0511; GHS-POP block-summed by 40
+total 8.1920 bn people; dropped beyond +-85.0511: 28; sigma 3.01 px; max_disp 1.5028663281130785
+  step 100 t=0.0101 dt=0.000115 maxdisp=0.854 dev=135.4066 0s
+  step 200 t=0.0223 dt=0.000132 maxdisp=0.816 dev=133.7416 1s
+  step 300 t=0.0367 dt=0.000152 maxdisp=0.781 dev=131.7781 1s
+  step 400 t=0.0541 dt=0.000201 maxdisp=0.839 dev=129.4066 2s
+  step 500 t=0.0756 dt=0.000231 maxdisp=0.806 dev=126.4615 2s
+  step 600 t=0.102 dt=0.000266 maxdisp=0.781 dev=122.9229 3s
+  step 700 t=0.133 dt=0.000352 maxdisp=0.861 dev=118.6147 3s
+  step 800 t=0.171 dt=0.000405 maxdisp=0.832 dev=113.4927 4s
+  step 900 t=0.214 dt=0.000465 maxdisp=0.792 dev=107.5028 4s
+  step 1000 t=0.268 dt=0.000615 maxdisp=0.830 dev=100.2617 4s
+  step 1100 t=0.333 dt=0.000708 maxdisp=0.831 dev=91.2655 5s
+  step 1200 t=0.411 dt=0.000814 maxdisp=0.790 dev=80.6730 5s
+  step 1300 t=0.503 dt=0.000936 maxdisp=0.773 dev=68.0742 6s
+  step 1400 t=0.612 dt=0.00124 maxdisp=0.855 dev=53.2545 6s
+  step 1500 t=0.745 dt=0.00142 maxdisp=0.834 dev=35.1090 7s
+  step 1600 t=0.898 dt=0.00164 maxdisp=0.807 dev=14.1540 7s
+  done: 1663 steps (0 rejected), t=1, dev=0.00e+00, 7s
+pre-repair: {"folds": 1582, "gate_folds": "FAIL", "log_ratio_popweighted_p05": -0.0871, "log_ratio_popweighted_p50": 0.0018, "log_ratio_popweighted_p95": 0.06, "log_ratio_min": -7.6697, "log_ratio_max": 8.7484, "anisotropy_popweighted_p50": 7.724, "anisotropy_popweighted_p95": 62.0967, "displacement_mean_px": 126.6551, "displacement_max_px": 283.2113}
+  fold repair: 1582 -> 2970 folds (451 in populated cells) in 499 iterations, 10389 corners touched
+{
+ "folds": 2970,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.08823231545402503,
+ "log_ratio_popweighted_p50": 0.0018050804186857262,
+ "log_ratio_popweighted_p95": 0.05998745931586814,
+ "log_ratio_min": -8.64174176041041,
+ "log_ratio_max": 8.748436881593786,
+ "anisotropy_popweighted_p50": 7.723898079582442,
+ "anisotropy_popweighted_p95": 61.531711609595895,
+ "displacement_mean_px": 126.37539004744792,
+ "displacement_max_px": 283.2113012918908,
+ "folds_before_repair": 1582,
+ "folds_after_repair": 2970,
+ "repair_iterations": 499,
+ "repaired_corners": 10389,
+ "folds_in_populated_cells": 451,
+ "p95_shift_by_repair": 0.0,
+ "pre_repair": {
+  "log_ratio_popweighted_p05": -0.08706161020993049,
+  "log_ratio_popweighted_p95": 0.05998745931586814,
+  "anisotropy_popweighted_p50": 7.724037811223651,
+  "anisotropy_popweighted_p95": 62.096692971870425
+ },
+ "steps": 1663,
+ "rejected": 0,
+ "t_end": 1.0,
+ "final_dev": 0.0,
+ "seconds": 11.804076194763184
+}
+renders in 2s
+gate S4 folds: FAIL (2970); wrote /Users/phil/historical-cartogram/experiments/e015_M2_gsm_512_f05

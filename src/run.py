@@ -6,7 +6,7 @@ import argparse, json, os, sys, time
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(__file__))
-from hc import prep, diffusion, render, ot_poisson
+from hc import prep, diffusion, render, ot_poisson, flow
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, "data", "raw")
@@ -29,7 +29,8 @@ def get_lonlat(factor):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", required=True)
-    ap.add_argument("--method", default="diffusion", choices=["diffusion", "ot_poisson_oneshot", "ot_poisson"])
+    ap.add_argument("--method", default="diffusion", choices=["diffusion", "ot_poisson_oneshot", "ot_poisson", "gsm", "jellium", "gravity"])
+    ap.add_argument("--t-max", type=float, default=None, help="jellium/gravity: stop time (gravity: the anti-cartogram time)")
     ap.add_argument("--iters", type=int, default=300)
     ap.add_argument("--damping", type=float, default=0.5)
     ap.add_argument("--grid", default="mercator", choices=["mercator", "equalarea"])
@@ -67,15 +68,23 @@ def main():
         cls = diffusion.TorchDiffusionCartogram if args.backend == "torch" else diffusion.DiffusionCartogram
         dc = cls(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
         X, Y, info = dc.run(tol=args.tol, max_disp=max_disp, cap_frac=args.cap_frac, log=log)
+    elif args.method == "gsm":
+        dc = flow.GSMFlow(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
+        X, Y, info = dc.run(max_disp=max_disp, log=log)
+    elif args.method in ("jellium", "gravity"):
+        dc = flow.JelliumFlow(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary, sign=+1.0 if args.method == "jellium" else -1.0)
+        X, Y, info = dc.run(max_disp=max_disp, tol=args.tol if args.method == "jellium" else 0.0, t_max=args.t_max or (30.0 if args.method == "jellium" else 0.5), log=log)
     else:
         dc = ot_poisson.PoissonOT(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
         X, Y, info = dc.run(iters=args.iters, damping=args.damping, one_shot_only=(args.method == "ot_poisson_oneshot"), log=log)
     metrics0 = diffusion.equalisation_metrics(dc.rho0, X, Y)
+    log("pre-repair: " + json.dumps({k: round(v, 4) if isinstance(v, float) else v for k, v in metrics0.items()}))
     if metrics0["folds"] > 0 and not args.no_repair:
-        X, Y, rep = diffusion.repair_folds(X, Y, periodic=(args.x_boundary == "periodic"), log=log)
+        X, Y, rep = diffusion.repair_folds(X, Y, periodic=(args.x_boundary == "periodic"), mass=dc.rho0, log=log)
         metrics = diffusion.equalisation_metrics(dc.rho0, X, Y)
         metrics.update(rep)
         metrics["p95_shift_by_repair"] = metrics["log_ratio_popweighted_p95"] - metrics0["log_ratio_popweighted_p95"]
+        metrics["pre_repair"] = {k: metrics0[k] for k in ("log_ratio_popweighted_p05", "log_ratio_popweighted_p95", "anisotropy_popweighted_p50", "anisotropy_popweighted_p95")}
     else:
         metrics = metrics0
     metrics.update(info)

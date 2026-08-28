@@ -11,7 +11,7 @@ for name in sys.argv[1:]:
     z = np.load(os.path.join(out, "mesh.npz"))
     X, Y, rho0 = z["X"].astype(np.float64), z["Y"].astype(np.float64), z["rho0"].astype(np.float64)
     m0 = diffusion.equalisation_metrics(rho0, X, Y)
-    X, Y, rep = diffusion.repair_folds(X, Y, periodic=(p.get("x_boundary", "wall") == "periodic"))
+    X, Y, rep = diffusion.repair_folds(X, Y, periodic=(p.get("x_boundary", "wall") == "periodic"), mass=rho0)
     m1 = diffusion.equalisation_metrics(rho0, X, Y)
     m.update(m1); m.update(rep); m["p95_shift_by_repair"] = m1["log_ratio_popweighted_p95"] - m0["log_ratio_popweighted_p95"]
     json.dump(m, open(os.path.join(out, "metrics.json"), "w"), indent=1)

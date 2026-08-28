@@ -1,0 +1,23 @@
+{
+ "name": "e009_S2_merc_4096_f05",
+ "method": "diffusion",
+ "iters": 300,
+ "damping": 0.5,
+ "grid": "mercator",
+ "lat_cut": 85.0511,
+ "width": 4096,
+ "x_boundary": "periodic",
+ "backend": "torch",
+ "floor": 0.05,
+ "sigma_km": 30.0,
+ "tol": 0.001,
+ "max_disp": 1.5348422074346335,
+ "cap_frac": 0.1,
+ "no_repair": false,
+ "out_width": null,
+ "vectors": "50m",
+ "H": 4096,
+ "W": 4096,
+ "sigma_px": 3.069684414869267,
+ "factor": 5
+}

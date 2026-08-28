@@ -1,0 +1,40 @@
+grid mercator 512x512 lat_cut 85.0511; GHS-POP block-summed by 40
+total 8.1920 bn people; dropped beyond +-85.0511: 28; sigma 3.01 px; max_disp 1.5028663281130785
+  step 100 t=0.216 dt=0.00329 maxdisp=0.762 dev=5.3357 4s
+  step 200 t=0.714 dt=0.00761 maxdisp=0.747 dev=1.6489 13s
+  step 300 t=2.13 dt=0.0308 maxdisp=0.801 dev=0.8527 24s
+  done: 360 steps (0 rejected), t=30.87, dev=1.14e+00, 31s
+pre-repair: {"folds": 7989, "gate_folds": "FAIL", "log_ratio_popweighted_p05": -0.0982, "log_ratio_popweighted_p50": 0.0004, "log_ratio_popweighted_p95": 0.1045, "log_ratio_min": -5.0714, "log_ratio_max": 8.3139, "anisotropy_popweighted_p50": 3.6707, "anisotropy_popweighted_p95": 17.2242, "displacement_mean_px": 109.0706, "displacement_max_px": 250.4011}
+  fold repair: 7989 -> 2315 folds (1136 in populated cells) in 499 iterations, 43450 corners touched
+{
+ "folds": 2315,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.0982511367237495,
+ "log_ratio_popweighted_p50": 0.0004424121591820938,
+ "log_ratio_popweighted_p95": 0.10540728330632729,
+ "log_ratio_min": -4.916937397680904,
+ "log_ratio_max": 8.303982523448356,
+ "anisotropy_popweighted_p50": 3.672606533329072,
+ "anisotropy_popweighted_p95": 17.519589491391844,
+ "displacement_mean_px": 109.06433960547177,
+ "displacement_max_px": 250.40113314515014,
+ "folds_before_repair": 7989,
+ "folds_after_repair": 2315,
+ "repair_iterations": 499,
+ "repaired_corners": 43450,
+ "folds_in_populated_cells": 1136,
+ "p95_shift_by_repair": 0.0009384253837813883,
+ "pre_repair": {
+  "log_ratio_popweighted_p05": -0.09815468161237156,
+  "log_ratio_popweighted_p95": 0.1044688579225459,
+  "anisotropy_popweighted_p50": 3.670697767760863,
+  "anisotropy_popweighted_p95": 17.22416533771781
+ },
+ "steps": 360,
+ "rejected": 0,
+ "t_end": 30.873884742508423,
+ "final_dev": 1.1391913890838623,
+ "seconds": 37.23016095161438
+}
+renders in 1s
+gate S4 folds: FAIL (2315); wrote /Users/phil/historical-cartogram/experiments/e016_M9_jellium_512
