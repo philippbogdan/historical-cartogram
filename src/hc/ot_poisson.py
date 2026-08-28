@@ -106,13 +106,47 @@ class PoissonOT:
         Y[0, :], Y[-1, :] = 0.0, H
         return X, Y
 
-    def run(self, iters=200, damping=0.5, one_shot_only=False, log=print, **_):
+    def run(self, iters=200, damping=0.5, one_shot_only=False, coarse_to_fine=True, min_width=512, log=print, **_):
+        """Coarse-to-fine: solve on block-summed grids from min_width up, upsampling psi
+        (x4 per doubling, psi is in px^2) as the next level's initial guess. The Poisson
+        iteration is a fixed-point scheme whose convergence slows with grid size, so a
+        good initial guess is what makes 4096 affordable."""
         t0 = time.time()
-        self.one_shot()
         info = {"mode": "one_shot"}
-        if not one_shot_only:
+        if not one_shot_only and coarse_to_fine and self.W > min_width:
+            from scipy import ndimage
+            levels = []
+            f = 1
+            while self.W // (2 * f) >= min_width and (self.H // (2 * f)) * (2 * f) == self.H and (self.W // (2 * f)) * (2 * f) == self.W:
+                f *= 2
+                levels.append(f)
+            psi = None
+            for f in reversed(levels):
+                h, w = self.H // f, self.W // f
+                rho_c = self.rho0.reshape(h, f, w, f).mean(axis=(1, 3))
+                sub = PoissonOT.__new__(PoissonOT)
+                sub.x_boundary = self.x_boundary
+                sub.rho0 = rho_c / rho_c.mean()
+                sub.H, sub.W = h, w
+                ky = np.pi * np.arange(h) / h
+                kx = 2 * np.pi * np.fft.rfftfreq(w) if self.x_boundary == "periodic" else np.pi * np.arange(w) / w
+                sub.k2 = ky[:, None] ** 2 + kx[None, :] ** 2
+                sub.k2[0, 0] = np.inf
+                sub.psi = np.zeros((h, w)) if psi is None else psi
+                if psi is None:
+                    sub.one_shot()
+                log(f"  level {w}x{h}")
+                sub.iterate(iters=iters, damping=damping, log=log)
+                psi = ndimage.zoom(sub.psi, 2, order=1, mode="wrap" if self.x_boundary == "periodic" else "reflect") * 4
+            self.psi = psi
+            info = self.iterate(iters=max(iters // 4, 50), damping=damping, log=log)
+            info["mode"] = "coarse_to_fine"
+        elif not one_shot_only:
+            self.one_shot()
             info = self.iterate(iters=iters, damping=damping, log=log)
             info["mode"] = "iterated"
+        else:
+            self.one_shot()
         X, Y = self.mesh()
         info["seconds_solve"] = time.time() - t0
         return X, Y, info

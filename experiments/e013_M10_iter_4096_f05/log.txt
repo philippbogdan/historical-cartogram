@@ -1,0 +1,60 @@
+grid mercator 4096x4096 lat_cut 85.0511; GHS-POP block-summed by 5
+total 8.1920 bn people; dropped beyond +-85.0511: 44; sigma 3.07 px; max_disp 1.5348422074346335
+  iter 0 residual 3433.2884 folds 16019960 1s
+  iter 10 residual 271.3102 folds 14445294 6s
+  iter 20 residual 58.4570 folds 15353382 14s
+  iter 30 residual 19.7409 folds 11458288 21s
+  iter 40 residual 7.9948 folds 5533476 29s
+  iter 50 residual 3.7725 folds 1986313 37s
+  iter 60 residual 2.1250 folds 1036960 45s
+  iter 70 residual 1.4221 folds 529342 53s
+  iter 80 residual 1.1115 folds 398636 61s
+  iter 90 residual 0.9723 folds 330349 71s
+  iter 100 residual 0.9043 folds 295255 79s
+  iter 110 residual 0.8760 folds 271183 87s
+  iter 120 residual 0.8728 folds 251765 94s
+  iter 130 residual 0.8793 folds 235195 99s
+  iter 140 residual 0.8865 folds 220086 103s
+  iter 150 residual 0.8919 folds 207046 108s
+  iter 160 residual 0.8956 folds 196417 112s
+  iter 170 residual 0.8981 folds 187431 117s
+  iter 180 residual 0.8998 folds 179478 122s
+  iter 190 residual 0.9010 folds 172373 126s
+  iter 200 residual 0.9018 folds 165577 131s
+  iter 210 residual 0.9023 folds 159051 135s
+  iter 220 residual 0.9026 folds 152819 140s
+  iter 230 residual 0.9028 folds 147198 144s
+  iter 240 residual 0.9030 folds 142757 149s
+  iter 250 residual 0.9030 folds 138403 153s
+  iter 260 residual 0.9031 folds 134773 158s
+  iter 270 residual 0.9031 folds 131471 163s
+  iter 280 residual 0.9031 folds 128541 167s
+  iter 290 residual 0.9031 folds 125662 173s
+  iter 299 residual 0.9031 folds 123288 179s
+  fold repair: 130345 -> 18748 folds in 499 iterations, 263104 corners touched
+{
+ "folds": 18748,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.050033624457743515,
+ "log_ratio_popweighted_p50": 0.0028403903412732483,
+ "log_ratio_popweighted_p95": 0.03752049735803523,
+ "log_ratio_min": -4.85927785546677,
+ "log_ratio_max": 11.631245271798656,
+ "anisotropy_popweighted_p50": 3.9133221585463542,
+ "anisotropy_popweighted_p95": 25.214651142295008,
+ "displacement_mean_px": 905.8462709341875,
+ "displacement_max_px": 2014.3457139160714,
+ "folds_before_repair": 130345,
+ "folds_after_repair": 18748,
+ "repair_iterations": 499,
+ "repaired_corners": 263104,
+ "p95_shift_by_repair": 0.001078308647215885,
+ "iters": 300,
+ "residual": 0.9030588964236228,
+ "cell_folds": 123288,
+ "mode": "iterated",
+ "seconds_solve": 179.35127305984497,
+ "seconds": 482.9329311847687
+}
+renders in 145s
+gate S4 folds: FAIL (18748); wrote /Users/phil/historical-cartogram/experiments/e013_M10_iter_4096_f05

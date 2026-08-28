@@ -27,3 +27,5 @@ total 8.1920 bn people; dropped beyond +-85.0511: 44; sigma 3.07 px; max_disp 1.
  "final_dev": 0.0007281303405761719,
  "seconds": 378.71681094169617
 }
+renders in 166s
+gate S4 folds: FAIL (37459); wrote /Users/phil/historical-cartogram/experiments/e009_S2_merc_4096_f05

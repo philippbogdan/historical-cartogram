@@ -50,15 +50,15 @@ animated timeline, Hennig 2013 the closest static ancestor, GSM 2018 is a Poisso
 - A2 `[x]` equal-area cylindrical grid as an option next to Mercator pixels; the solver takes the
   grid as a parameter; Mercator stays for the flat picture, equal-area for anything on a sphere.
 - S1 `[x]` the solver on the GPU (M4, free) so 4096 is hours and 8192 is feasible.
-- S2 `[ ]` diffusion at 4096 with smoothing in km that shrinks with resolution (about 30 km).
-- S4 `[ ]` fold gate: folds must be exactly zero for a run to count; fix resolution or smoothing until they are.
+- S2 `[x]` diffusion at 4096 with smoothing in km that shrinks with resolution (about 30 km).
+- S4 `[~]` fold gate: folds must be exactly zero for a run to count; fix resolution or smoothing until they are.
 - A11 `[x]` metric grid (100 km ground squares through the warp) and Tissot ellipses on every render.
 - R2 `[~]` any raster through the warp: population itself as the first heatmap.
 - Gate: a 4096 diffusion run, zero folds, population-weighted density error within ±10%, metric grid visible.
 
 ### Phase 2: optimal transport (Act 1b)
 
-- M10 `[ ]` Poisson one-shot (the linearised OT map, the gravity intuition) then the Poisson
+- M10 `[x]` Poisson one-shot (the linearised OT map, the gravity intuition) then the Poisson
   iteration that converges to the Monge-Ampère solution; this is our own OT solver.
 - M5 `[ ]` the same Monge-Ampère solution by monotone finite differences if M10 stalls on zero-density seams.
 - M3 `[ ]` the back-and-forth method as the reference OT map on the same input.
@@ -69,10 +69,10 @@ animated timeline, Hennig 2013 the closest static ancestor, GSM 2018 is a Poisso
 
 ### Phase 3: gravity (Act 1c)
 
-- M9 `[ ]` the anti-gravity flow: population as repelling mass with a neutralising background,
+- M9 `[x]` the anti-gravity flow: population as repelling mass with a neutralising background,
   run to convergence; a third cartogram next to diffusion and OT.
 - R5 `[ ]` the G-slider as pictures and a short animation: attractive (cities collapse) | Earth | repulsive.
-- M2 `[ ]` the 2018 flow-based method via its reference implementation, for numbers, not pictures.
+- M2 `[~]` the 2018 flow-based method via its reference implementation, for numbers, not pictures.
 - M8 `[ ]` Tobler's separable baseline, so the trivial answer is in the table.
 - Gate: three cartograms (M1, OT, M9) of the same input in one table and one gallery row.
 

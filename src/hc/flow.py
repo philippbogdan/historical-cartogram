@@ -38,7 +38,7 @@ class GSMFlow(TorchDiffusionCartogram):
 
 
 class JelliumFlow(TorchDiffusionCartogram):
-    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic", device=None, sign=+1.0, smooth_px=1.0, ss=1.5):
+    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic", device=None, sign=+1.0, smooth_px=2.0, ss=2.5):
         super().__init__(counts, floor, sigma, x_boundary, device)
         T = self.torch
         self.mass = T.tensor(self.rho0, dtype=T.float32, device=self.dev)  # mean 1: mass per cell
@@ -77,18 +77,28 @@ class JelliumFlow(TorchDiffusionCartogram):
                     acc.index_put_((py * W + px,), m, accumulate=True)
         return acc.reshape(H, W)
 
+    def lagrangian_error(self, pts):
+        """Population-weighted mean |log(rho0 / cell area)| on the current mesh: the true X1."""
+        T = self.torch
+        H, W = self.H, self.W
+        cols = W if self.x_boundary == "periodic" else W + 1
+        X = pts[:, 0].reshape(H + 1, cols)
+        Y = pts[:, 1].reshape(H + 1, cols)
+        if self.x_boundary == "periodic":
+            X = T.cat([X, X[:, :1] + W], 1)
+            Y = T.cat([Y, Y[:, :1]], 1)
+        A = quad_areas_t(X, Y)
+        ok = A > 0
+        err = (T.log(self.mass / A.clamp(min=1e-9)).abs() * self.mass)[ok].sum() / self.mass[ok].sum()
+        return err.item()
+
     def begin_step(self, pts):
         rho = self.deposit(pts)
         phi = self.solve_poisson(rho - 1, smooth_px=self.smooth_px)
         gx, gy = self._grad(phi)
         self.V = self._pad_velocity(self.sign * gx, self.sign * gy)
-        # the convergence check uses the smoothed density the field actually saw
-        T = self.torch
-        ext = T.cat([rho, rho.flip(0)], 0)
-        if self.x_boundary == "wall":
-            ext = T.cat([ext, ext.flip(1)], 1)
-        S = T.fft.rfft2(ext) * T.exp(-self.k2 * self.smooth_px ** 2 / 2)
-        self.rho_t = T.fft.irfft2(S, s=self.ext_shape)[:self.H, :self.W]
+        # the stopping test is Lagrangian (mesh areas), not the noisy deposited density
+        self.rho_t = 1 + self.lagrangian_error(pts) * self.torch.ones(1, device=self.dev)
         return True
 
     def velocity(self, t):

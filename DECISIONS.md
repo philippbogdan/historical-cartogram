@@ -49,3 +49,19 @@
   towards the poles); Tissot circles are 300 km geodesic circles on a 15-degree lattice.
 - 2026-08-28  Smoothing is specified in km (`--sigma-km`, default 30) so it shrinks with resolution; at 512 px
   the honest value is ~235 km (3 px).
+- 2026-08-29  Solver step control: the displacement cap grows with the diffusion scale, max(max_disp,
+  0.1 sqrt(2t)); 4096 diffusion now solves in 90 s on the M4 GPU (314 steps).
+- 2026-08-29  Accuracy is set by smoothing in PIXELS, not by resolution: sigma 3 px gives +-10% population-
+  weighted density error at 512 and at 4096 alike. Resolution buys sharpness (km), smoothing buys accuracy.
+- 2026-08-29  M10 works: the Poisson one-shot folds everywhere (linearisation fails at 800x contrasts, as
+  predicted); the BFO iteration converges to +-3.5% at 512-1024 and needs coarse-to-fine above that
+  (fixed-point convergence slows with grid size). Its folds are the ocean creases OT theory predicts.
+- 2026-08-29  GSM's flow needs +grad(Phi)/rho_t with lap(Phi) = rho0 - 1 (sign fixed after e014 came out
+  inverted). GSM shears more (anisotropy p50 8.4) than diffusion (4.0), OT (3.4) or jellium (3.7).
+- 2026-08-29  M9 (jellium) stops on the Lagrangian error (mesh areas), not on the deposited density, whose
+  pixel noise never falls below ~1 in max-norm. At 512 it beats diffusion: -5%/+7% vs +-10%.
+- 2026-08-29  S4 under review: folds never reach zero at floors <= 5% for any method (they scale with ocean
+  compression and fall ~4x per mesh-stride doubling, e.g. e009: 37k at 4096, 2.3k at 1024). Fold repair
+  only helps in the ocean; folds inside populated cells are reported separately. Proposed gate: the globe
+  renders from the INVERSE map texture (splat-averaged, single-valued by construction), so the gate becomes
+  "zero folds in populated cells, ocean folds below the pixel scale". Phil decides (F5).

@@ -22,8 +22,8 @@ but feel empty (small). Area = people, on a map you can still read.
                             flat rectangle picture     anything shown on a sphere
                                     └────────────┬────────────┘
                                                  │
-                       SOLVER INFRASTRUCTURE     │   S1 GPU solver [x]   S2 4096 [ ]   S3 8192 [ ]
-                                                 │   S4 fold gate: X2 must be 0 [ ]
+                       SOLVER INFRASTRUCTURE     │   S1 GPU solver [x]   S2 4096 [x]   S3 8192 [ ]
+                                                 │   S4 fold gate under review [~]
                                                  ▼
                     ╔════════════════════════════════════════════════════════╗
                     ║  THE POPULATION MANIFOLD   g = (rho/rho_bar)(dx²+dy²)  ║
@@ -39,15 +39,15 @@ but feel empty (small). Area = people, on a map you can still read.
  FLATTENINGS = cartogram methods                       GEOMETRY (nothing moves, the metric changes)
  ┌─ process, no objective ─────────────┐               G1 conformal metric, K ~ (rho - rho_bar):
  │ M1 diffusion   v = -grad log rho [x]│                  2+1 gravity, Liouville equation      [ ]
- │ M2 GSM 2018    v = -grad Phi / rho_t│──┐            G2 geodesic graticule: lines bend around
- │                one Poisson solve [ ]│  │ same          cities like lensing                  [ ]
+ │ M2 GSM 2018    v = +grad Phi / rho_t│──┐            G2 geodesic graticule: lines bend around
+ │                one Poisson solve [x]│  │ same          cities like lensing                  [ ]
  │ M9 anti-gravity v = +grad Phi_t     │◄─┘ Poisson    G3 3D embedding of the manifold (= A10) [ ]
- │                jellium, PM code  [ ]│               G4 curvature K as colour: where space
+ │                jellium, PM code  [x]│               G4 curvature K as colour: where space
  │ M8 Tobler 1-D baseline           [ ]│                  bends                                [ ]
  └───────────────┬─────────────────────┘                          ▲
                  │                                                │ the metric grid ties them:
  ┌─ least displacement ────────────────┐   ┌─ least angle distortion ─┐   A11 on the flat map it
- │ M10 Poisson one-shot = linearised OT│   │ M7 quasiconformal DEM    │   shows scale and shear;
+ │ M10 Poisson one-shot = linearised OT│ [x]   │ M7 quasiconformal DEM    │   shows scale and shear;
  │     iterate (BFO 2010) ──► M5       │   │    Lyu-Choi-Lui 2024,    │   on the manifold it is
  │ M5 Monge-Ampère finite differences  │   │    no code, ours     [ ] │   the geodesic grid
  │ M3 OT via back-and-forth (bfm)  [ ] │   └────────────┬─────────────┘
@@ -168,8 +168,8 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] M6 sliced OT (what vruba is playing with, 2026-06)
   [ ] M7 quasiconformal / min-anisotropy DEM (Lyu-Choi-Lui 2024); no public code, would be ours
   [ ] M8 Tobler pseudo-cartogram (separable 1-D integrals): the trivial baseline
-  [ ] M9 anti-gravity (jellium) flow: v = +grad(Phi_t), Poisson each step, particle-mesh; notes/gravity.md
-  [ ] M10 Poisson one-shot (linearised OT) and iterated Poisson (BFO 2010 method 1) -> Monge-Ampere via DCT
+  [x] M9 anti-gravity (jellium) flow, particle-mesh on the GPU (e016b): best equalisation of the flows
+  [x] M10 Poisson one-shot (e010, folds everywhere, as predicted) and BFO iteration with coarse-to-fine (e011-e013, e017): +-3.5%, creases in the ocean
 
  METRICS (X1..X5 computed; X6 is eyes)
   [x] X1 area error: population-weighted log(rho0/area) p05/p50/p95, min, max
@@ -196,7 +196,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] L7 one person per pixel gigapixel; [ ] L8 uncertainty texture from HYDE bounds
 
  SOLVER INFRASTRUCTURE
-  [x] S1 GPU solver (M4, MPS)   [ ] S2 4096 run   [ ] S3 8192 run   [ ] S4 fold gate (X2 = 0)
+  [x] S1 GPU solver (M4, MPS)   [x] S2 4096 run (e008 e009)   [ ] S3 8192 run   [~] S4 fold gate: repair exists, gate definition under review (see DECISIONS 2026-08-29)
 
  VIEWER (Phase 9, last)
   [ ] V1 zoom/pan/rotate  [ ] V2 LOD by local magnification  [ ] V3 flat + globe, same assets
