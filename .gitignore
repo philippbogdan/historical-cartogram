@@ -1,0 +1,6 @@
+data/raw/
+data/derived/
+experiments/*/mesh.npz
+__pycache__/
+*.pyc
+.DS_Store
