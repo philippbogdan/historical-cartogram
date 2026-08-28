@@ -1,6 +1,6 @@
 # Exploration map
 
-As of 2026-08-28. Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
+As of 2026-08-28 (evening). Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
 
 ```
@@ -13,11 +13,11 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
 
  PREP
   [x] P1 counts -> Mercator rectangle by exact re-binning (no density reprojection)
-  [ ] P2 floor and smoothing policy: floor as fraction of mean, sigma in px
+  [~] P2 floor and smoothing policy: floor as fraction of mean, sigma in px (first sweep in experiments/INDEX.md)
   [ ] P3 sphere-native variant (skip Mercator; Choi spherical DEM style)
 
  METHODS (each one: same input, same metrics, same render)
-  [~] M1 diffusion, Gastner-Newman 2004: DCT heat flow, Neumann box, RK4 particles   <- start
+  [x] M1 diffusion, Gastner-Newman 2004: DCT heat flow, Neumann box, RK4 particles   (v0 works, e001-e005)
   [ ] M2 flow-based, Gastner-Seguy-More 2018, via cartogram-cpp (reference implementation)
   [ ] M3 OT / W2 Brenier map via back-and-forth method (Jacobs-Leger 2020, bfm)      <- the new picture
   [ ] M4 OT via entropic Sinkhorn on the grid (separable kernel), barycentric map
@@ -39,7 +39,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   width in {512, 1024, 2048, 4096} | ocean floor vs ocean removed
 
  RENDER
-  [~] R1 warped mesh (pcolormesh) + warped coastlines, borders, graticule
+  [x] R1 warped mesh (pcolormesh) + warped coastlines, borders, graticule, error map
   [ ] R2 rasters through the same field: population, night lights, terrain
   [ ] R3 morph geography -> cartogram (interpolate displacement; OT gives the geodesic)
   [ ] R4 WebGL mesh for the site (scrub in the browser)

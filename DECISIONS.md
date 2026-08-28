@@ -12,3 +12,9 @@
 - 2026-08-28  Diffusion (Gastner-Newman) is the first method, own implementation in numpy/scipy,
   not cartogram-cpp, so every later method shares prep, metrics and render.
 - 2026-08-28  Same metrics for every method, computed on the warped corner mesh.
+- 2026-08-28  The diffusion solver starts at t = 0.5 px^2 (heat kernel one pixel wide) because
+  raw 1 km spikes on a coarse grid make v = -grad(rho)/rho meaningless below a pixel; the first
+  run without this stalled at dt ~ 1e-5. Extra smoothing sigma is a separate knob.
+- 2026-08-28  At 512 px the honest defaults are sigma 3 px, floor 1-5%: about +-10% density error,
+  few folds, 65 s. Resolution and accuracy trade directly; the OT methods must beat this bar.
+- 2026-08-28  experiments/INDEX.md is the running comparison table; regenerate it, do not hand-edit.

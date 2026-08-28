@@ -1,0 +1,51 @@
+reading GHS-POP block-summed by 20
+grid 512x512, total 8.1920 bn people, dropped beyond +-85.0511: 36
+  step 50 t=10.4 dt=0.435 maxdisp=0.271 dev=93.5952 2s
+  step 100 t=45.6 dt=1.01 maxdisp=0.272 dev=52.0206 4s
+  step 150 t=114 dt=1.76 maxdisp=0.271 dev=31.6661 6s
+  step 200 t=219 dt=2.33 maxdisp=0.257 dev=21.2500 9s
+  step 250 t=353 dt=3.08 maxdisp=0.279 dev=16.3421 11s
+  step 300 t=515 dt=3.54 maxdisp=0.272 dev=13.1214 13s
+  step 350 t=703 dt=4.07 maxdisp=0.270 dev=10.7159 15s
+  step 400 t=919 dt=4.68 maxdisp=0.272 dev=8.8931 17s
+  step 450 t=1.16e+03 dt=5.39 maxdisp=0.278 dev=7.4993 19s
+  step 500 t=1.43e+03 dt=6.2 maxdisp=0.286 dev=6.4107 21s
+  step 550 t=1.74e+03 dt=6.2 maxdisp=0.252 dev=5.5078 24s
+  step 600 t=2.1e+03 dt=7.13 maxdisp=0.261 dev=4.7467 26s
+  step 650 t=2.48e+03 dt=8.19 maxdisp=0.275 dev=4.1222 28s
+  step 700 t=2.89e+03 dt=8.19 maxdisp=0.252 dev=3.6008 30s
+  step 750 t=3.35e+03 dt=9.42 maxdisp=0.261 dev=3.1387 32s
+  step 800 t=3.87e+03 dt=10.8 maxdisp=0.266 dev=2.7383 35s
+  step 850 t=4.45e+03 dt=12.5 maxdisp=0.267 dev=2.3822 37s
+  step 900 t=5.12e+03 dt=14.3 maxdisp=0.264 dev=2.0614 39s
+  step 950 t=5.91e+03 dt=16.5 maxdisp=0.258 dev=1.7737 41s
+  step 1000 t=6.84e+03 dt=21.8 maxdisp=0.284 dev=1.5165 44s
+  step 1050 t=7.99e+03 dt=25.1 maxdisp=0.265 dev=1.2835 47s
+  step 1100 t=9.4e+03 dt=33.1 maxdisp=0.277 dev=1.0845 49s
+  step 1150 t=1.12e+04 dt=43.8 maxdisp=0.278 dev=0.9203 51s
+  step 1200 t=1.37e+04 dt=58 maxdisp=0.261 dev=0.7645 54s
+  step 1250 t=1.73e+04 dt=88.2 maxdisp=0.280 dev=0.6119 56s
+  step 1300 t=2.22e+04 dt=117 maxdisp=0.279 dev=0.4963 58s
+  step 1350 t=2.87e+04 dt=154 maxdisp=0.269 dev=0.4046 60s
+  step 1400 t=3.8e+04 dt=235 maxdisp=0.278 dev=0.2951 63s
+  step 1450 t=5.28e+04 dt=410 maxdisp=0.273 dev=0.1689 65s
+  step 1500 t=8.95e+04 dt=1.66e+03 maxdisp=0.243 dev=0.0431 67s
+  done: 1520 steps (0 rejected), t=1.902e+05, dev=9.09e-04, 67s
+{
+ "folds": 82,
+ "log_ratio_popweighted_p05": -0.18468703587991966,
+ "log_ratio_popweighted_p50": 0.018097312843862845,
+ "log_ratio_popweighted_p95": 0.15988511933751545,
+ "log_ratio_min": -1.504350156898378,
+ "log_ratio_max": 6.106608987508164,
+ "anisotropy_popweighted_p50": 4.305194863079886,
+ "anisotropy_popweighted_p95": 33.19762130479814,
+ "displacement_mean_px": 137.05682629881602,
+ "displacement_max_px": 277.573996906905,
+ "steps": 1520,
+ "rejected": 0,
+ "t_end": 190222.4175333405,
+ "final_dev": 0.0009090610617124018,
+ "seconds": 67.3448588848114
+}
+wrote /Users/phil/historical-cartogram/experiments/e003_s2_f01

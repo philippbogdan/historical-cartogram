@@ -1,0 +1,47 @@
+reading GHS-POP block-summed by 20
+grid 512x512, total 8.1920 bn people, dropped beyond +-85.0511: 36
+  step 50 t=12.8 dt=0.576 maxdisp=0.272 dev=83.0461 2s
+  step 100 t=60.7 dt=1.33 maxdisp=0.257 dev=43.6369 4s
+  step 150 t=157 dt=2.33 maxdisp=0.255 dev=24.9562 6s
+  step 200 t=298 dt=3.08 maxdisp=0.256 dev=17.2199 9s
+  step 250 t=481 dt=4.07 maxdisp=0.271 dev=13.1750 11s
+  step 300 t=702 dt=4.68 maxdisp=0.259 dev=10.3306 13s
+  step 350 t=963 dt=5.39 maxdisp=0.253 dev=8.2760 15s
+  step 400 t=1.27e+03 dt=6.2 maxdisp=0.250 dev=6.7584 17s
+  step 450 t=1.63e+03 dt=7.13 maxdisp=0.250 dev=5.6008 19s
+  step 500 t=2.03e+03 dt=8.19 maxdisp=0.250 dev=4.6841 22s
+  step 550 t=2.5e+03 dt=9.42 maxdisp=0.253 dev=3.9326 24s
+  step 600 t=3.04e+03 dt=10.8 maxdisp=0.261 dev=3.3118 26s
+  step 650 t=3.63e+03 dt=12.5 maxdisp=0.269 dev=2.8050 28s
+  step 700 t=4.28e+03 dt=14.3 maxdisp=0.275 dev=2.3845 30s
+  step 750 t=5.02e+03 dt=16.5 maxdisp=0.276 dev=2.0247 32s
+  step 800 t=5.89e+03 dt=19 maxdisp=0.271 dev=1.7127 35s
+  step 850 t=6.91e+03 dt=21.8 maxdisp=0.260 dev=1.4424 37s
+  step 900 t=8.15e+03 dt=28.8 maxdisp=0.280 dev=1.2096 39s
+  step 950 t=9.7e+03 dt=33.1 maxdisp=0.253 dev=1.0119 42s
+  step 1000 t=1.17e+04 dt=50.4 maxdisp=0.250 dev=0.8525 44s
+  step 1050 t=1.45e+04 dt=66.7 maxdisp=0.261 dev=0.6954 47s
+  step 1100 t=1.87e+04 dt=101 maxdisp=0.284 dev=0.5552 49s
+  step 1150 t=2.42e+04 dt=134 maxdisp=0.278 dev=0.4407 52s
+  step 1200 t=3.19e+04 dt=177 maxdisp=0.260 dev=0.3513 54s
+  step 1250 t=4.33e+04 dt=310 maxdisp=0.250 dev=0.2330 56s
+  step 1300 t=6.43e+04 dt=624 maxdisp=0.258 dev=0.1051 58s
+  done: 1345 steps (0 rejected), t=1.892e+05, dev=9.09e-04, 60s
+{
+ "folds": 1,
+ "log_ratio_popweighted_p05": -0.18086623462735113,
+ "log_ratio_popweighted_p50": 0.014227870283761762,
+ "log_ratio_popweighted_p95": 0.15788909294823172,
+ "log_ratio_min": -1.2496178913959932,
+ "log_ratio_max": 4.844490640394354,
+ "anisotropy_popweighted_p50": 4.336396598306849,
+ "anisotropy_popweighted_p95": 34.43590502286015,
+ "displacement_mean_px": 128.21735619517742,
+ "displacement_max_px": 263.6790068399927,
+ "steps": 1345,
+ "rejected": 0,
+ "t_end": 189198.55720658673,
+ "final_dev": 0.0009088040625306881,
+ "seconds": 60.430591106414795
+}
+wrote /Users/phil/historical-cartogram/experiments/e005_s2_f05

@@ -70,6 +70,7 @@ def main():
     render.draw(X, Y, mask, os.path.join(out, "cartogram.png"), coast, borders, grat, title=title)
     render.draw(X, Y, mask, os.path.join(out, "cartogram_density.png"), coast, [], [],
                 raster=np.log10(dc.rho0), title=title + " (log10 source density through the warp)")
+    render.draw_error(X, Y, dc.rho0, os.path.join(out, "error.png"))
     log(f"wrote {out}")
 
 

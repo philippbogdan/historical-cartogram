@@ -97,7 +97,7 @@ def graticule(H, W, lat_cut, step=15):
 def draw(X, Y, mask, out_png, coast_lines=(), border_lines=(), grat_lines=(),
          raster=None, cmap="magma", title=None, px_per_cell=2.0):
     H, W = mask.shape
-    fig = plt.figure(figsize=(W * px_per_cell / 100, H * px_per_cell / 100), dpi=100)
+    fig = plt.figure(figsize=(W * px_per_cell / 100, H * px_per_cell / 100), dpi=100, facecolor=OCEAN)
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_facecolor(OCEAN)
     if raster is not None:
@@ -117,5 +117,24 @@ def draw(X, Y, mask, out_png, coast_lines=(), border_lines=(), grat_lines=(),
     ax.axis("off")
     if title:
         ax.text(0.01, 0.01, title, transform=ax.transAxes, fontsize=9, color="#222", va="bottom")
+    fig.savefig(out_png, dpi=100, facecolor=fig.get_facecolor())
+    plt.close(fig)
+
+
+def draw_error(X, Y, rho0, out_png, px_per_cell=2.0, vmax=1.0):
+    """log(rho0 / warped area): 0 everywhere is a perfect cartogram; red = too small, blue = too big."""
+    from .diffusion import quad_areas
+    A = quad_areas(X, Y)
+    lr = np.log(rho0 / np.maximum(A, 1e-12))
+    lr[A <= 0] = np.nan
+    H, W = rho0.shape
+    fig = plt.figure(figsize=(W * px_per_cell / 100, H * px_per_cell / 100), dpi=100, facecolor="white")
+    ax = fig.add_axes([0, 0, 1, 1])
+    ax.pcolormesh(X, Y, np.ma.masked_invalid(lr), cmap="RdBu_r", vmin=-vmax, vmax=vmax, shading="flat", rasterized=True, antialiased=False)
+    ax.set_xlim(0, W); ax.set_ylim(H, 0); ax.set_aspect("equal"); ax.axis("off")
+    ax.text(0.01, 0.01, f"log(rho0/area), range +-{vmax}; folds black", transform=ax.transAxes, fontsize=9)
+    if (A <= 0).any():
+        fy, fx = np.nonzero(A <= 0)
+        ax.plot(X[fy, fx], Y[fy, fx], "k.", ms=2)
     fig.savefig(out_png, dpi=100)
     plt.close(fig)
