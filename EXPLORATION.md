@@ -1,4 +1,98 @@
-# Exploration map
+# Exploration graph
+
+Thesis to visualise: places with many people feel full (big); places with few people seem vast
+but feel empty (small). Area = people, on a map you can still read.
+
+```
+                    "dense places feel full and big; empty places seem vast but small"
+                                              │
+ DATA                                         ▼                                    PREP
+ D1 GHS-POP 2025 30" [x] ──┐                                          ┌── P1 exact count re-binning [x]
+ D2 GHS-POP 3"       [ ] ──┼── population raster (people per cell) ───┼── P2 floor + smoothing   [~]
+ D3 HYDE 3.4 (time)  [ ] ──┘                     │                    └── P3 sphere-native        [ ]
+ D4 Natural Earth    [x] ── borders, coasts (drawing only)
+ D5 night lights, roads, shipping, flights [ ] ── overlays (see A5)
+                                                 │
+                                       grid choice (a parameter)
+                                    ┌────────────┴────────────┐
+                            Mercator pixels            equal-area cylinder, periodic lon (A1/A2)
+                            flat rectangle picture     anything shown on a sphere
+                                    └────────────┬────────────┘
+                                                 ▼
+                    ╔════════════════════════════════════════════════════════╗
+                    ║  THE POPULATION MANIFOLD   g = (rho/rho_bar)(dx²+dy²)  ║
+                    ║  areas are people, angles are geographic, and it is    ║
+                    ║  CURVED:  K = -(rho_bar/2rho) lap log(rho/rho_bar)     ║
+                    ║  curvature is the obstruction; every method pays it    ║
+                    ╚═════════════╤═══════════════════════════╤══════════════╝
+                                  │ flatten it                │ keep it curved
+                                  ▼                           ▼
+ FLATTENINGS = cartogram methods                       GEOMETRY (nothing moves, the metric changes)
+ ┌─ process, no objective ─────────────┐               G1 conformal metric, K ~ (rho - rho_bar):
+ │ M1 diffusion   v = -grad log rho [x]│                  2+1 gravity, Liouville equation      [ ]
+ │ M2 GSM 2018    v = -grad Phi / rho_t│──┐            G2 geodesic graticule: lines bend around
+ │                one Poisson solve [ ]│  │ same          cities like lensing                  [ ]
+ │ M9 anti-gravity v = +grad Phi_t     │◄─┘ Poisson    G3 3D embedding of the manifold (= A10) [ ]
+ │                jellium, PM code  [ ]│               G4 curvature K as colour: where space
+ │ M8 Tobler 1-D baseline           [ ]│                  bends                                [ ]
+ └───────────────┬─────────────────────┘                          ▲
+                 │                                                │ the metric grid ties them:
+ ┌─ least displacement ────────────────┐   ┌─ least angle distortion ─┐   A11 on the flat map it
+ │ M10 Poisson one-shot = linearised OT│   │ M7 quasiconformal DEM    │   shows scale and shear;
+ │     iterate (BFO 2010) ──► M5       │   │    Lyu-Choi-Lui 2024,    │   on the manifold it is
+ │ M5 Monge-Ampère finite differences  │   │    no code, ours     [ ] │   the geodesic grid
+ │ M3 OT via back-and-forth (bfm)  [ ] │   └────────────┬─────────────┘
+ │ M4 OT entropic Sinkhorn         [ ] │                │
+ │ M6 sliced OT (vruba 2026-06)    [ ] │                │
+ └───────────────┬─────────────────────┘                │
+                 │                                      │
+     R5 the G-slider:  attractive (+G) ◄── Earth (0) ──► repulsive (-G) = M9 at t -> inf
+         cities collapse to points          geography          the cartogram
+                 │                                      │
+                 └──────────────┬───────────────────────┘
+                                ▼
+ METRICS, identical for every method
+ X1 area error [x]   X2 folds [x] (must be 0 before any globe)   X3 anisotropy [x]
+ X4 displacement [x] X5 seams [ ]   X6 eyes: side-by-side gallery [ ]
+                                │
+                                ▼
+ RENDER
+ R1 warped mesh + coasts + borders + graticule + error map [x]
+ R2 any raster through the warp: population, night lights, terrain [ ]
+ R3 morph geography -> cartogram (OT gives the geodesic) [ ]
+ R4 WebGL mesh [ ]
+ A11 METRIC GRID: 100 km ground squares pushed through the warp. Big cell = feels full,
+     tiny cell = feels empty. The most literal picture of the thesis. Plus Tissot ellipses
+     (circles -> ellipses) so X3 is visible, not just a number. [ ]
+        ┌───────────────────────┼───────────────────────────┐
+        ▼                       ▼                           ▼
+ FLAT RECTANGLE          GLOBE (Act 3)                 LUMPY EARTH (A10)
+ the original ask        A4 sphere mesh, vertices      3D embedding of the population
+ Mercator pixels            slide, UVs pinned          manifold: India a lobe, oceans
+ fills the frame         A5 overlays = PER-CAPITA maps creases; spring relaxation of a
+                            (light per person, roads   sphere mesh with population rest
+                            per person)                lengths. The sculpture. <-> G1-G3
+                         A6 labels (~300 cities),
+                            ghost graticule, dark base
+                         A7 time: per-epoch textures,
+                            growing radius ~ sqrt(pop)
+                         A8 one control cluster; time is the hero
+                         A9 static site, no server, no cost
+                                │
+                                ▼
+ TIMELINE (Act 2)
+ T1 HYDE ~80 epochs through the same prep and method [ ]
+ T2 growth vs redistribution: fixed frame / caption / growing frame / growing globe [ ] (Phil's call)
+ T3 log-time scrubbing; OT displacement interpolation between epochs [ ]
+ T4 honesty: pre-1700 is HYDE's model, not observation [ ]
+```
+
+Edges worth remembering: M2 and M9 share the Poisson potential (GSM 2018 is gravity in disguise);
+M10 iterated becomes M5 (the gravity picture is an OT solver); R5 joins M9 to the anti-cartogram;
+A11 joins the flattenings to the geometry branch; X2 gates the globe; T2 is a design fork.
+
+
+# Status checklist
 
 As of 2026-08-28 (evening). Legend: `[ ]` todo, `[~]` in progress, `[x]` done, `[!]` blocked.
 Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
@@ -46,6 +140,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] R3 morph geography -> cartogram (interpolate displacement; OT gives the geodesic)
   [ ] R4 WebGL mesh for the site (scrub in the browser)
   [ ] R5 the human-gravity slider G in [-1, +1]: attractive flow (anti-cartogram) | Earth | repulsive flow (cartogram)
+  [ ] A11 metric grid (100 km ground squares through the warp) + Tissot ellipses
 
  ARTEFACT (the globe, Act 3)
   [ ] A1 compute on a cylinder: periodic in longitude (FFT in x, DCT in y); the dateline must not tear
@@ -77,6 +172,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] G1 conformal metric with curvature K ~ (rho - rho_bar) (2+1 gravity, Liouville equation)
   [ ] G2 geodesic graticule: lat/long lines bent around cities like lensing
   [ ] G3 3D embedding of the population manifold (rho/rho_bar)(dx^2+dy^2), a surface whose area is people
+  [ ] G4 curvature field K rendered as colour on the map
 
 ## Open questions
 
