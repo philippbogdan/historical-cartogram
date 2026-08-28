@@ -1,0 +1,22 @@
+{
+ "name": "e010_M10_oneshot_512",
+ "method": "ot_poisson_oneshot",
+ "iters": 300,
+ "damping": 0.5,
+ "grid": "mercator",
+ "lat_cut": 85.0511,
+ "width": 512,
+ "x_boundary": "periodic",
+ "backend": "torch",
+ "floor": 0.01,
+ "sigma_km": 235.0,
+ "tol": 0.001,
+ "max_disp": 1.5028663281130785,
+ "cap_frac": 0.1,
+ "out_width": null,
+ "vectors": "50m",
+ "H": 512,
+ "W": 512,
+ "sigma_px": 3.005732656226157,
+ "factor": 40
+}

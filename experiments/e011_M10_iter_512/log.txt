@@ -1,0 +1,54 @@
+grid mercator 512x512 lat_cut 85.0511; GHS-POP block-summed by 40
+total 8.1920 bn people; dropped beyond +-85.0511: 28; sigma 3.01 px; max_disp 1.5028663281130785
+  iter 0 residual 257.3555 folds 235119 0s
+  iter 10 residual 24.6277 folds 214305 0s
+  iter 20 residual 4.6209 folds 169633 0s
+  iter 30 residual 1.0196 folds 66232 0s
+  iter 40 residual 0.3013 folds 43497 0s
+  iter 50 residual 0.2168 folds 31710 0s
+  iter 60 residual 0.2327 folds 26702 1s
+  iter 70 residual 0.2409 folds 23605 1s
+  iter 80 residual 0.2439 folds 21446 1s
+  iter 90 residual 0.2446 folds 18847 1s
+  iter 100 residual 0.2447 folds 17684 1s
+  iter 110 residual 0.2446 folds 16719 1s
+  iter 120 residual 0.2445 folds 15827 1s
+  iter 130 residual 0.2444 folds 14994 1s
+  iter 140 residual 0.2444 folds 14190 1s
+  iter 150 residual 0.2444 folds 13439 1s
+  iter 160 residual 0.2445 folds 12608 1s
+  iter 170 residual 0.2445 folds 11776 1s
+  iter 180 residual 0.2446 folds 11004 1s
+  iter 190 residual 0.2447 folds 10041 2s
+  iter 200 residual 0.2448 folds 9176 2s
+  iter 210 residual 0.2448 folds 8537 2s
+  iter 220 residual 0.2449 folds 8024 2s
+  iter 230 residual 0.2450 folds 7590 2s
+  iter 240 residual 0.2450 folds 7333 2s
+  iter 250 residual 0.2451 folds 7031 2s
+  iter 260 residual 0.2452 folds 6814 2s
+  iter 270 residual 0.2452 folds 6589 2s
+  iter 280 residual 0.2453 folds 6351 2s
+  iter 290 residual 0.2453 folds 6193 2s
+  iter 299 residual 0.2454 folds 6036 2s
+{
+ "folds": 6213,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.0334560073920655,
+ "log_ratio_popweighted_p50": 0.004241986575494637,
+ "log_ratio_popweighted_p95": 0.028212296608995924,
+ "log_ratio_min": -2.8621050622551083,
+ "log_ratio_max": 7.973551508920724,
+ "anisotropy_popweighted_p50": 3.3717538085261616,
+ "anisotropy_popweighted_p95": 13.859723180151084,
+ "displacement_mean_px": 121.69562336819513,
+ "displacement_max_px": 255.53742467658628,
+ "iters": 300,
+ "residual": 0.24537772506578573,
+ "cell_folds": 6036,
+ "mode": "iterated",
+ "seconds_solve": 2.4059698581695557,
+ "seconds": 2.4516170024871826
+}
+renders in 1s
+gate S4 folds: FAIL (6213); wrote /Users/phil/historical-cartogram/experiments/e011_M10_iter_512

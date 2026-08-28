@@ -6,7 +6,7 @@ import argparse, json, os, sys, time
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(__file__))
-from hc import prep, diffusion, render
+from hc import prep, diffusion, render, ot_poisson
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, "data", "raw")
@@ -29,7 +29,9 @@ def get_lonlat(factor):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", required=True)
-    ap.add_argument("--method", default="diffusion", choices=["diffusion"])
+    ap.add_argument("--method", default="diffusion", choices=["diffusion", "ot_poisson_oneshot", "ot_poisson"])
+    ap.add_argument("--iters", type=int, default=300)
+    ap.add_argument("--damping", type=float, default=0.5)
     ap.add_argument("--grid", default="mercator", choices=["mercator", "equalarea"])
     ap.add_argument("--lat-cut", type=float, default=None)
     ap.add_argument("--width", type=int, default=512)
@@ -60,9 +62,13 @@ def main():
     log(f"total {P.sum()/1e9:.4f} bn people; dropped beyond +-{grid.lat_cut}: {dropped:.0f}; sigma {sigma_px:.2f} px; max_disp {max_disp}")
 
     t0 = time.time()
-    cls = diffusion.TorchDiffusionCartogram if args.backend == "torch" else diffusion.DiffusionCartogram
-    dc = cls(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
-    X, Y, info = dc.run(tol=args.tol, max_disp=max_disp, cap_frac=args.cap_frac, log=log)
+    if args.method == "diffusion":
+        cls = diffusion.TorchDiffusionCartogram if args.backend == "torch" else diffusion.DiffusionCartogram
+        dc = cls(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
+        X, Y, info = dc.run(tol=args.tol, max_disp=max_disp, cap_frac=args.cap_frac, log=log)
+    else:
+        dc = ot_poisson.PoissonOT(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
+        X, Y, info = dc.run(iters=args.iters, damping=args.damping, one_shot_only=(args.method == "ot_poisson_oneshot"), log=log)
     metrics = diffusion.equalisation_metrics(dc.rho0, X, Y)
     metrics.update(info)
     metrics["seconds"] = time.time() - t0

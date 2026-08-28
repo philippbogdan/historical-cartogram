@@ -1,0 +1,20 @@
+grid mercator 512x512 lat_cut 85.0511; GHS-POP block-summed by 40
+total 8.1920 bn people; dropped beyond +-85.0511: 28; sigma 3.01 px; max_disp 1.5028663281130785
+{
+ "folds": 178954,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -2.9995437672620557,
+ "log_ratio_popweighted_p50": -1.687709541408442,
+ "log_ratio_popweighted_p95": 0.7297770059023458,
+ "log_ratio_min": -3.3572526526429565,
+ "log_ratio_max": 9.016291965760221,
+ "anisotropy_popweighted_p50": 2.7846787136942273,
+ "anisotropy_popweighted_p95": 21.858384702477945,
+ "displacement_mean_px": 133.10951139163433,
+ "displacement_max_px": 596.3274175461709,
+ "mode": "one_shot",
+ "seconds_solve": 0.007507801055908203,
+ "seconds": 0.03097820281982422
+}
+renders in 2s
+gate S4 folds: FAIL (178954); wrote /Users/phil/historical-cartogram/experiments/e010_M10_oneshot_512
