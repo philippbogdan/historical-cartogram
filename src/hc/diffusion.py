@@ -290,3 +290,42 @@ def equalisation_metrics(rho0, X, Y):
         "anisotropy_popweighted_p50": float(np.exp(a50)), "anisotropy_popweighted_p95": float(np.exp(a95)),
         "displacement_mean_px": float(disp.mean()), "displacement_max_px": float(disp.max()),
     }
+
+
+def repair_folds(X, Y, periodic=True, max_iter=500, radius=2, log=print):
+    """S4: smooth the displacement field only where cells fold, until no cell has
+    negative area. Folds live where cells are compressed below the pixel scale
+    (ocean seams), so the population-weighted metrics should not move; the caller
+    checks that. Returns (X, Y, info)."""
+    from scipy import ndimage
+    H1, W1 = X.shape
+    W = W1 - 1
+    ys, xs = np.mgrid[0:H1, 0:W1].astype(np.float64)
+    U, V = X - xs, Y - ys
+    mode = ("reflect", "wrap") if periodic else "reflect"
+    n0 = int((quad_areas(X, Y) <= 0).sum())
+    touched = np.zeros((H1, W1), bool)
+    for it in range(max_iter):
+        A = quad_areas(xs + U, ys + V)
+        bad = A <= 0
+        if not bad.any():
+            break
+        cm = np.zeros((H1, W1), bool)
+        cm[:-1, :-1] |= bad; cm[:-1, 1:] |= bad; cm[1:, :-1] |= bad; cm[1:, 1:] |= bad
+        cm = ndimage.binary_dilation(cm, iterations=radius)
+        touched |= cm
+        Uw, Vw = U[:, :W], V[:, :W]  # drop the closing column, smooth periodically
+        Us = ndimage.uniform_filter(Uw, 3, mode=mode)
+        Vs = ndimage.uniform_filter(Vw, 3, mode=mode)
+        m = cm[:, :W]
+        Uw[m], Vw[m] = Us[m], Vs[m]
+        U[:, :W], V[:, :W] = Uw, Vw
+        if periodic:
+            U[:, W], V[:, W] = U[:, 0], V[:, 0]
+        else:
+            U[:, 0], U[:, W] = 0.0, 0.0
+        V[0, :], V[-1, :] = 0.0, 0.0
+    n1 = int((quad_areas(xs + U, ys + V) <= 0).sum())
+    info = {"folds_before_repair": n0, "folds_after_repair": n1, "repair_iterations": it, "repaired_corners": int(touched.sum())}
+    log(f"  fold repair: {n0} -> {n1} folds in {it} iterations, {int(touched.sum())} corners touched")
+    return xs + U, ys + V, info

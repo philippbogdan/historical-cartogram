@@ -42,6 +42,7 @@ def main():
     ap.add_argument("--tol", type=float, default=1e-3)
     ap.add_argument("--max-disp", type=float, default=None, help="px per step; default sigma_px/2 clipped to [0.5, 2]")
     ap.add_argument("--cap-frac", type=float, default=0.1, help="late-time displacement cap as a fraction of sqrt(2t)")
+    ap.add_argument("--no-repair", action="store_true", help="skip the fold repair post-process (S4)")
     ap.add_argument("--out-width", type=int, default=None, help="render width in px (default = grid width, max 4096)")
     ap.add_argument("--vectors", default="50m", choices=["110m", "50m"])
     args = ap.parse_args()
@@ -69,7 +70,14 @@ def main():
     else:
         dc = ot_poisson.PoissonOT(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
         X, Y, info = dc.run(iters=args.iters, damping=args.damping, one_shot_only=(args.method == "ot_poisson_oneshot"), log=log)
-    metrics = diffusion.equalisation_metrics(dc.rho0, X, Y)
+    metrics0 = diffusion.equalisation_metrics(dc.rho0, X, Y)
+    if metrics0["folds"] > 0 and not args.no_repair:
+        X, Y, rep = diffusion.repair_folds(X, Y, periodic=(args.x_boundary == "periodic"), log=log)
+        metrics = diffusion.equalisation_metrics(dc.rho0, X, Y)
+        metrics.update(rep)
+        metrics["p95_shift_by_repair"] = metrics["log_ratio_popweighted_p95"] - metrics0["log_ratio_popweighted_p95"]
+    else:
+        metrics = metrics0
     metrics.update(info)
     metrics["seconds"] = time.time() - t0
     log(json.dumps(metrics, indent=1))
