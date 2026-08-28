@@ -27,3 +27,15 @@
   cartogram becomes a per-capita map (light per person, roads per person). Night lights should come
   out almost uniform; where they do not is the story.
 - 2026-08-28  Folds (X2) must be exactly zero before anything goes on a sphere mesh.
+- 2026-08-28  Resolution policy: no cap. Three resolutions, kept distinct: the WARP grid (solver;
+  4096 now, 8192 once the solver runs on the GPU; smoothing in km shrinks with it, 230 km at 512 px,
+  15 km at 8k), the TEXTURE (native: GHS-POP 100 m, VIIRS 500 m, served as a warped tile pyramid),
+  and the DATA (HYDE is 5 arcmin and nothing finer exists before 1975). Compute stays on the M4
+  (free, hours to a day per full run); any rented GPU goes in front of Phil with numbers first.
+- 2026-08-28  The humeter: 1 hm = 1 km at the world-average population density (about 16 per km²),
+  i.e. the conformal factor is rho/rho_bar and the Earth has the same area in hm² as in km².
+- 2026-08-28  Lens grammar adopted: (mu -> area, nu -> colour, t). "Combining maps" is not convolution,
+  it is the density of one measure with respect to another; the warp makes the ratio visible.
+- 2026-08-28  Closest ancestor for multi-measure gridded cartograms is Hennig's "Rediscovering the
+  World" (2013, static). What is new here: the metric-space framing, OT, time, the globe, the
+  lens grammar as one pipeline.

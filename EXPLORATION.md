@@ -21,6 +21,9 @@ but feel empty (small). Area = people, on a map you can still read.
                                                  ▼
                     ╔════════════════════════════════════════════════════════╗
                     ║  THE POPULATION MANIFOLD   g = (rho/rho_bar)(dx²+dy²)  ║
+                    ║  unit of length: the HUMETER (1 hm = 1 km at the       ║
+                    ║  world-average density, ~16 people per km²)            ║
+                    ║  same construction for ANY measure mu: g_mu (see L)    ║
                     ║  areas are people, angles are geographic, and it is    ║
                     ║  CURVED:  K = -(rho_bar/2rho) lap log(rho/rho_bar)     ║
                     ║  curvature is the obstruction; every method pays it    ║
@@ -85,7 +88,32 @@ but feel empty (small). Area = people, on a map you can still read.
  T2 growth vs redistribution: fixed frame / caption / growing frame / growing globe [ ] (Phil's call)
  T3 log-time scrubbing; OT displacement interpolation between epochs [ ]
  T4 honesty: pre-1700 is HYDE's model, not observation [ ]
+                                │
+                                ▼
+ LENSES (Act 4): a lens = (mu: the measure that gets the AREA, nu: the measure shown as COLOUR, t)
+ L1 the grammar: a cartogram is a change of measure; every overlay nu on a mu-cartogram shows
+    d nu / d mu, the density of one measure with respect to another (GDP on people = GDP per
+    capita; lights on people = light per person; people on GDP = people per dollar)          [ ]
+ L2 measure catalogue, all gridded, all free: people (GHS, WorldPop age-sex), GDP (Kummu 5',
+    DOSE subnational, Chen 1 km), night lights (VIIRS), CO2 (EDGAR, ODIAC), cropland (HYDE, GAEZ),
+    travel time to cities (Weiss 2018), attention (GDELT), under-15s (WorldPop) = the next generation [ ]
+ L3 person-years: integrate HYDE over 12,000 years; area = human life lived there              [ ]
+ L4 measure-to-measure morph: OT from the people-world to the dollar-world; the motion IS
+    inequality (Africa and South Asia deflate); the transport plan is money moving to people    [ ]
+ L5 humeter ruler in the UI ("1 cm = 3 million people here"); humeter geodesics = the path
+    of fewest people (Fermat with index sqrt(rho/rho_bar)); distances London-Moscow in hm       [ ]
+ L6 the complement metric 1/rho: the loneliness lens, where empty places are vast; the thesis
+    has two halves and each metric renders one                                                [ ]
+ L7 one person per pixel: an 8.2-gigapixel zoomable image where every pixel is a person        [ ]
+ L8 uncertainty as texture: HYDE ships lower/upper bounds; blur or grain the ancient frames
+    by their uncertainty                                                                       [ ]
+ A12 zoomable warped tile pyramid (warp at 4-8k, textures at native 100 m / 500 m)             [ ]
+ A13 the lumpy Earth as a 3D print (STL from A10)                                              [ ]
 ```
+
+Rules for lenses: one measure per visual channel (area, colour, height, label size), never two on one
+channel, at most three channels at once. Height (extrinsic bulges) fights the area reading; use it
+only when area is not carrying a measure.
 
 Edges worth remembering: M2 and M9 share the Poisson potential (GSM 2018 is gravity in disguise);
 M10 iterated becomes M5 (the gravity picture is an OT solver); R5 joins M9 to the anti-cartogram;
@@ -141,6 +169,10 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] R4 WebGL mesh for the site (scrub in the browser)
   [ ] R5 the human-gravity slider G in [-1, +1]: attractive flow (anti-cartogram) | Earth | repulsive flow (cartogram)
   [ ] A11 metric grid (100 km ground squares through the warp) + Tissot ellipses
+  [ ] A12 zoomable warped tile pyramid; [ ] A13 3D print
+  [ ] L1 lens grammar (mu area, nu colour, t); [ ] L2 measure catalogue; [ ] L3 person-years cartogram
+  [ ] L4 measure-to-measure OT morph; [ ] L5 humeter ruler + geodesics; [ ] L6 loneliness metric 1/rho
+  [ ] L7 one person per pixel gigapixel; [ ] L8 uncertainty texture from HYDE bounds
 
  ARTEFACT (the globe, Act 3)
   [ ] A1 compute on a cylinder: periodic in longitude (FFT in x, DCT in y); the dateline must not tear
