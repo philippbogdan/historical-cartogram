@@ -1,0 +1,24 @@
+grid mercator 512x512 lat_cut 85.0511; GHS-POP block-summed by 40
+total 8.1920 bn people; dropped beyond +-85.0511: 28; sigma 3.01 px; max_disp 1.5028663281130785
+  step 100 t=458 dt=19 maxdisp=1.540 dev=14.3306 0s
+  done: 190 steps (0 rejected), t=1.614e+05, dev=9.13e-04, 1s
+{
+ "folds": 47,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.09845349993790242,
+ "log_ratio_popweighted_p50": 0.008610032801041022,
+ "log_ratio_popweighted_p95": 0.07274182990675064,
+ "log_ratio_min": -0.6238521479849006,
+ "log_ratio_max": 4.650067502758712,
+ "anisotropy_popweighted_p50": 4.037722779808423,
+ "anisotropy_popweighted_p95": 28.357676910096338,
+ "displacement_mean_px": 120.16526482406027,
+ "displacement_max_px": 254.6262241765584,
+ "steps": 190,
+ "rejected": 0,
+ "t_end": 161387.891139642,
+ "final_dev": 0.0009126663208007812,
+ "seconds": 1.203490972518921
+}
+renders in 1s
+gate S4 folds: FAIL (47); wrote /Users/phil/historical-cartogram/experiments/e006b_capfrac_512

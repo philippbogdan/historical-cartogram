@@ -104,11 +104,13 @@ class DiffusionCartogram(_Base):
         pts[:, 1] = np.clip(pts[:, 1], 0, self.H)
         return pts
 
-    def advect(self, pts, tol=1e-3, dt0=1e-2, max_disp=0.5, growth=1.15, t_max=None, t_start=0.5, log=print):
+    def advect(self, pts, tol=1e-3, dt0=1e-2, max_disp=0.5, growth=1.15, t_max=None, t_start=0.5, cap_frac=0.1, log=print):
         """RK4 in time with step control on the largest displacement per step.
 
         Starts at t_start (pixel^2): the heat kernel is then one pixel wide, so the
         solver never sees sub-pixel structure where v = -grad(rho)/rho is meaningless.
+        The displacement cap grows with the smoothing scale, max(max_disp, cap_frac *
+        sqrt(2t)), because at late times the field only varies over sqrt(2t) pixels.
         """
         pts = self.clamp(np.array(pts, np.float64))
         t, dt, n_acc, n_rej = t_start, dt0, 0, 0
@@ -128,7 +130,8 @@ class DiffusionCartogram(_Base):
             k4 = self.sample(V1, pts + dt * k3)
             step = dt / 6 * (k1 + 2 * k2 + 2 * k3 + k4)
             m = np.abs(step).max()
-            if m > max_disp:
+            cap = max(max_disp, cap_frac * np.sqrt(2 * t))
+            if m > cap:
                 dt *= 0.5
                 n_rej += 1
                 continue
@@ -136,7 +139,7 @@ class DiffusionCartogram(_Base):
             t += dt
             V0 = V1
             n_acc += 1
-            dt *= growth if m < 0.5 * max_disp else 1.0
+            dt *= growth if m < 0.5 * cap else 1.0
             if n_acc % 100 == 0:
                 log(f"  step {n_acc} t={t:.3g} dt={dt:.3g} maxdisp={m:.3f} dev={dev:.4f} {time.time()-t0:.0f}s")
         log(f"  done: {n_acc} steps ({n_rej} rejected), t={t:.4g}, dev={dev:.2e}, {time.time()-t0:.0f}s")
@@ -212,7 +215,7 @@ class TorchDiffusionCartogram(_Base):
         pts[:, 1] = pts[:, 1].clamp(0, self.H)
         return pts
 
-    def advect(self, pts, tol=1e-3, dt0=1e-2, max_disp=0.5, growth=1.15, t_max=None, t_start=0.5, log=print):
+    def advect(self, pts, tol=1e-3, dt0=1e-2, max_disp=0.5, growth=1.15, t_max=None, t_start=0.5, cap_frac=0.1, log=print):
         T = self.torch
         pts = self.clamp(T.tensor(np.asarray(pts), dtype=T.float32, device=self.dev))
         t, dt, n_acc, n_rej = t_start, dt0, 0, 0
@@ -232,7 +235,8 @@ class TorchDiffusionCartogram(_Base):
             k4 = self.sample(V1, pts + dt * k3)
             step = dt / 6 * (k1 + 2 * k2 + 2 * k3 + k4)
             m = step.abs().max().item()
-            if m > max_disp:
+            cap = max(max_disp, cap_frac * np.sqrt(2 * t))
+            if m > cap:
                 dt *= 0.5
                 n_rej += 1
                 continue
@@ -240,7 +244,7 @@ class TorchDiffusionCartogram(_Base):
             t += dt
             V0, rho = V1, rho1
             n_acc += 1
-            dt *= growth if m < 0.5 * max_disp else 1.0
+            dt *= growth if m < 0.5 * cap else 1.0
             if n_acc % 100 == 0:
                 log(f"  step {n_acc} t={t:.3g} dt={dt:.3g} maxdisp={m:.3f} dev={dev:.4f} {time.time()-t0:.0f}s")
         log(f"  done: {n_acc} steps ({n_rej} rejected), t={t:.4g}, dev={dev:.2e}, {time.time()-t0:.0f}s")

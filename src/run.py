@@ -39,6 +39,7 @@ def main():
     ap.add_argument("--sigma-km", type=float, default=30.0, help="gaussian pre-smoothing, km at the equator")
     ap.add_argument("--tol", type=float, default=1e-3)
     ap.add_argument("--max-disp", type=float, default=None, help="px per step; default sigma_px/2 clipped to [0.5, 2]")
+    ap.add_argument("--cap-frac", type=float, default=0.1, help="late-time displacement cap as a fraction of sqrt(2t)")
     ap.add_argument("--out-width", type=int, default=None, help="render width in px (default = grid width, max 4096)")
     ap.add_argument("--vectors", default="50m", choices=["110m", "50m"])
     args = ap.parse_args()
@@ -61,7 +62,7 @@ def main():
     t0 = time.time()
     cls = diffusion.TorchDiffusionCartogram if args.backend == "torch" else diffusion.DiffusionCartogram
     dc = cls(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
-    X, Y, info = dc.run(tol=args.tol, max_disp=max_disp, log=log)
+    X, Y, info = dc.run(tol=args.tol, max_disp=max_disp, cap_frac=args.cap_frac, log=log)
     metrics = diffusion.equalisation_metrics(dc.rho0, X, Y)
     metrics.update(info)
     metrics["seconds"] = time.time() - t0
