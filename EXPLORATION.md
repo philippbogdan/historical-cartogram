@@ -25,6 +25,8 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] M6 sliced OT (what vruba is playing with, 2026-06)
   [ ] M7 quasiconformal / min-anisotropy DEM (Lyu-Choi-Lui 2024); no public code, would be ours
   [ ] M8 Tobler pseudo-cartogram (separable 1-D integrals): the trivial baseline
+  [ ] M9 anti-gravity (jellium) flow: v = +grad(Phi_t), Poisson each step, particle-mesh; notes/gravity.md
+  [ ] M10 Poisson one-shot (linearised OT) and iterated Poisson (BFO 2010 method 1) -> Monge-Ampere via DCT
 
  METRICS (X1..X5 computed; X6 is eyes)
   [x] X1 area error: population-weighted log(rho0/area) p05/p50/p95, min, max
@@ -43,6 +45,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] R2 rasters through the same field: population, night lights, terrain
   [ ] R3 morph geography -> cartogram (interpolate displacement; OT gives the geodesic)
   [ ] R4 WebGL mesh for the site (scrub in the browser)
+  [ ] R5 the human-gravity slider G in [-1, +1]: attractive flow (anti-cartogram) | Earth | repulsive flow (cartogram)
 
  TIMELINE (Act 2)
   [ ] T1 HYDE ingestion, ~80 epochs through the same prep
@@ -50,6 +53,11 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] T3 time interpolation (log-time); OT displacement interpolation between epochs
   [ ] T4 honesty: pre-1700 HYDE is a model, not observation; say so on the artefact
 ```
+
+## Side branch: population geometry (not a warp)
+  [ ] G1 conformal metric with curvature K ~ (rho - rho_bar) (2+1 gravity, Liouville equation)
+  [ ] G2 geodesic graticule: lat/long lines bent around cities like lensing
+  [ ] G3 3D embedding of the population manifold (rho/rho_bar)(dx^2+dy^2), a surface whose area is people
 
 ## Open questions
 

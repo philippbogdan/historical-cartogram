@@ -18,3 +18,5 @@
 - 2026-08-28  At 512 px the honest defaults are sigma 3 px, floor 1-5%: about +-10% density error,
   few folds, 65 s. Resolution and accuracy trade directly; the OT methods must beat this bar.
 - 2026-08-28  experiments/INDEX.md is the running comparison table; regenerate it, do not hand-edit.
+- 2026-08-28  Population-as-mass ideas recorded in notes/gravity.md: M9 (jellium flow), M10 (Poisson
+  iteration) and the G-slider (R5) join the map; the curvature/GR version is a side branch, not a cartogram.

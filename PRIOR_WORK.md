@@ -6,6 +6,8 @@ Checked 2026-08-28 via Parallel Search plus direct fetches. UNVERIFIED items are
 
 - Gastner & Newman 2004, diffusion method. https://www.pnas.org/doi/full/10.1073/pnas.0400280101
 - Gastner, Seguy & More 2018, fast flow-based. https://www.pnas.org/doi/full/10.1073/pnas.1712674115
+  arXiv https://arxiv.org/abs/1802.07625 . Its flow is a Poisson potential of the density contrast, solved once,
+  with velocity -grad(Phi)/rho_t along a linear-in-time density (eq. 5); see notes/gravity.md.
   Code: https://github.com/mgastner/cartogram-cpp (C++20, AGPL-3.0). App: https://go-cart.io/
 - Worldmapper population cartograms (country-level; years 1, 1500, 1900, 2018):
   https://worldmapper.org/maps/population-year-2018/ (CC BY-NC-SA 4.0)
