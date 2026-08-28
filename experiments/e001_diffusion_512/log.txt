@@ -1,0 +1,55 @@
+reading GHS-POP block-summed by 20
+grid 512x512, total 8.1920 bn people, dropped beyond +-85.0511: 36
+  step 50 t=0.512 dt=0.000142 maxdisp=0.128 dev=304.1493 2s
+  step 100 t=0.522 dt=0.000171 maxdisp=0.038 dev=301.6436 4s
+  step 150 t=0.541 dt=0.000828 maxdisp=0.085 dev=297.3810 6s
+  step 200 t=0.666 dt=0.00917 maxdisp=0.049 dev=273.7757 8s
+  step 250 t=7.24 dt=0.302 maxdisp=0.262 dev=119.4206 10s
+  step 300 t=34.8 dt=0.803 maxdisp=0.259 dev=59.6607 12s
+  step 350 t=93.2 dt=1.61 maxdisp=0.279 dev=36.1722 14s
+  step 400 t=189 dt=2.46 maxdisp=0.249 dev=23.3419 16s
+  step 450 t=318 dt=2.82 maxdisp=0.269 dev=17.3656 17s
+  step 500 t=471 dt=3.25 maxdisp=0.260 dev=13.8885 19s
+  step 550 t=651 dt=3.73 maxdisp=0.257 dev=11.3022 21s
+  step 600 t=860 dt=4.29 maxdisp=0.258 dev=9.3369 23s
+  step 650 t=1.1e+03 dt=4.94 maxdisp=0.263 dev=7.8304 25s
+  step 700 t=1.36e+03 dt=5.68 maxdisp=0.270 dev=6.6599 26s
+  step 750 t=1.66e+03 dt=6.53 maxdisp=0.275 dev=5.7239 28s
+  step 800 t=2e+03 dt=7.51 maxdisp=0.282 dev=4.9398 30s
+  step 850 t=2.38e+03 dt=7.51 maxdisp=0.258 dev=4.2781 32s
+  step 900 t=2.78e+03 dt=8.64 maxdisp=0.272 dev=3.7241 34s
+  step 950 t=3.22e+03 dt=9.93 maxdisp=0.284 dev=3.2598 35s
+  step 1000 t=3.72e+03 dt=9.93 maxdisp=0.253 dev=2.8446 37s
+  step 1050 t=4.28e+03 dt=11.4 maxdisp=0.254 dev=2.4758 39s
+  step 1100 t=4.93e+03 dt=13.1 maxdisp=0.252 dev=2.1458 41s
+  step 1150 t=5.68e+03 dt=17.4 maxdisp=0.284 dev=1.8493 43s
+  step 1200 t=6.59e+03 dt=20 maxdisp=0.273 dev=1.5795 45s
+  step 1250 t=7.66e+03 dt=23 maxdisp=0.257 dev=1.3418 46s
+  step 1300 t=9e+03 dt=30.4 maxdisp=0.271 dev=1.1335 48s
+  step 1350 t=1.07e+04 dt=40.2 maxdisp=0.275 dev=0.9597 50s
+  step 1400 t=1.3e+04 dt=53.1 maxdisp=0.264 dev=0.8056 52s
+  step 1450 t=1.63e+04 dt=80.8 maxdisp=0.275 dev=0.6483 54s
+  step 1500 t=2.08e+04 dt=107 maxdisp=0.276 dev=0.5266 55s
+  step 1550 t=2.68e+04 dt=141 maxdisp=0.269 dev=0.4281 57s
+  step 1600 t=3.51e+04 dt=215 maxdisp=0.249 dev=0.3268 59s
+  step 1650 t=4.8e+04 dt=327 maxdisp=0.261 dev=0.2026 61s
+  step 1700 t=7.43e+04 dt=870 maxdisp=0.258 dev=0.0752 63s
+  done: 1734 steps (34 rejected), t=1.978e+05, dev=6.85e-04, 64s
+{
+ "folds": 413,
+ "log_ratio_popweighted_p05": -0.811106318508843,
+ "log_ratio_popweighted_p50": 0.30507037276672067,
+ "log_ratio_popweighted_p95": 1.7979664366995105,
+ "log_ratio_min": -9.061912644185098,
+ "log_ratio_max": 5.581535799199317,
+ "anisotropy_popweighted_p50": 4.728589982404493,
+ "anisotropy_popweighted_p95": 42.038952529078344,
+ "displacement_mean_px": 137.2127846319708,
+ "displacement_max_px": 282.56058209260374,
+ "steps": 1734,
+ "rejected": 34,
+ "t_end": 197752.22904089701,
+ "final_dev": 0.0006846691428215035,
+ "seconds": 64.03774309158325
+}
+wrote /Users/phil/historical-cartogram/experiments/e001_diffusion_512
