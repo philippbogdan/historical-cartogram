@@ -1,6 +1,6 @@
 # historical-cartogram
 
-Read `README.md`, `EXPLORATION.md`, `DECISIONS.md` before doing anything. They are the
+Read `README.md`, `PLAN.md`, `EXPLORATION.md`, `DECISIONS.md` before doing anything. They are the
 project's memory; update them in the same commit as the work they describe.
 
 - Raster in, raster out. Population density is per pixel from a gridded dataset;
@@ -14,5 +14,6 @@ project's memory; update them in the same commit as the work they describe.
   rasterio, tifffile.
 - Data lives in `data/raw` (downloads) and `data/derived` (caches); both gitignored,
   recreated by the scripts. Record every source in `DATA.md` with date and licence.
+- Node IDs (D1, M3, A11, V2 ...) come from `PLAN.md`; use them in commits, experiment names and chat.
 - Decisions go in `DECISIONS.md` with an as-of date. Exploration status lives in
   `EXPLORATION.md`; tick items there rather than in chat.

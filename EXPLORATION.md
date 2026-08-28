@@ -1,5 +1,7 @@
 # Exploration graph
 
+Phases and gates live in `PLAN.md`; this file is the graph plus the status checklist.
+
 Thesis to visualise: places with many people feel full (big); places with few people seem vast
 but feel empty (small). Area = people, on a map you can still read.
 
@@ -11,13 +13,17 @@ but feel empty (small). Area = people, on a map you can still read.
  D2 GHS-POP 3"       [ ] ──┼── population raster (people per cell) ───┼── P2 floor + smoothing   [~]
  D3 HYDE 3.4 (time)  [ ] ──┘                     │                    └── P3 sphere-native        [ ]
  D4 Natural Earth    [x] ── borders, coasts (drawing only)
- D5 night lights, roads, shipping, flights [ ] ── overlays (see A5)
+ D5 night lights, roads, terrain, shipping, flights [ ] ── overlays (A5)
+ L2 GDP, carbon, cropland, travel time, attention, under-15s [ ] ── lenses (Phase 7)
                                                  │
                                        grid choice (a parameter)
                                     ┌────────────┴────────────┐
                             Mercator pixels            equal-area cylinder, periodic lon (A1/A2)
                             flat rectangle picture     anything shown on a sphere
                                     └────────────┬────────────┘
+                                                 │
+                       SOLVER INFRASTRUCTURE     │   S1 GPU solver [ ]   S2 4096 [ ]   S3 8192 [ ]
+                                                 │   S4 fold gate: X2 must be 0 [ ]
                                                  ▼
                     ╔════════════════════════════════════════════════════════╗
                     ║  THE POPULATION MANIFOLD   g = (rho/rho_bar)(dx²+dy²)  ║
@@ -55,8 +61,8 @@ but feel empty (small). Area = people, on a map you can still read.
                  └──────────────┬───────────────────────┘
                                 ▼
  METRICS, identical for every method
- X1 area error [x]   X2 folds [x] (must be 0 before any globe)   X3 anisotropy [x]
- X4 displacement [x] X5 seams [ ]   X6 eyes: side-by-side gallery [ ]
+ X1 area error [x]   X2 folds [x] (gate S4)   X3 anisotropy [x]
+ X4 displacement [x] X5 seams [ ]   X6 eyes: side-by-side gallery [ ]  -> forks F2 F3 F4
                                 │
                                 ▼
  RENDER
@@ -69,12 +75,13 @@ but feel empty (small). Area = people, on a map you can still read.
      (circles -> ellipses) so X3 is visible, not just a number. [ ]
         ┌───────────────────────┼───────────────────────────┐
         ▼                       ▼                           ▼
- FLAT RECTANGLE          GLOBE (Act 3)                 LUMPY EARTH (A10)
- the original ask        A4 sphere mesh, vertices      3D embedding of the population
- Mercator pixels            slide, UVs pinned          manifold: India a lobe, oceans
- fills the frame         A5 overlays = PER-CAPITA maps creases; spring relaxation of a
-                            (light per person, roads   sphere mesh with population rest
-                            per person)                lengths. The sculpture. <-> G1-G3
+ FLAT RECTANGLE          GLOBE (Phase 6)               LUMPY EARTH (A10)
+ the original ask        A3 sphere-native if needed    3D embedding of the population
+ Mercator pixels         A4 sphere mesh, vertices      manifold: India a lobe, oceans
+ fills the frame            slide, UVs pinned          creases; spring relaxation of a
+                         A5 overlays = PER-CAPITA maps sphere mesh with population rest
+                            (light per person, roads   lengths. The sculpture. <-> G1-G3
+                            per person)                A13 as a 3D print
                          A6 labels (~300 cities),
                             ghost graticule, dark base
                          A7 time: per-epoch textures,
@@ -83,14 +90,14 @@ but feel empty (small). Area = people, on a map you can still read.
                          A9 static site, no server, no cost
                                 │
                                 ▼
- TIMELINE (Act 2)
+ TIMELINE (Phase 5)
  T1 HYDE ~80 epochs through the same prep and method [ ]
- T2 growth vs redistribution: fixed frame / caption / growing frame / growing globe [ ] (Phil's call)
+ T2 growth vs redistribution: fixed frame / caption / growing frame / growing globe [ ] (F1)
  T3 log-time scrubbing; OT displacement interpolation between epochs [ ]
  T4 honesty: pre-1700 is HYDE's model, not observation [ ]
                                 │
                                 ▼
- LENSES (Act 4): a lens = (mu: the measure that gets the AREA, nu: the measure shown as COLOUR, t)
+ LENSES (Phase 7): a lens = (mu: the measure that gets the AREA, nu: the measure shown as COLOUR, t)
  L1 the grammar: a cartogram is a change of measure; every overlay nu on a mu-cartogram shows
     d nu / d mu, the density of one measure with respect to another (GDP on people = GDP per
     capita; lights on people = light per person; people on GDP = people per dollar)          [ ]
@@ -107,8 +114,22 @@ but feel empty (small). Area = people, on a map you can still read.
  L7 one person per pixel: an 8.2-gigapixel zoomable image where every pixel is a person        [ ]
  L8 uncertainty as texture: HYDE ships lower/upper bounds; blur or grain the ancient frames
     by their uncertainty                                                                       [ ]
- A12 zoomable warped tile pyramid (warp at 4-8k, textures at native 100 m / 500 m)             [ ]
- A13 the lumpy Earth as a 3D print (STL from A10)                                              [ ]
+                                │
+                                ▼
+ THE VIEWER (Phase 9, last): Apple-Maps grade, flat and globe from the same assets
+ ┌──────────────────────────────────────────────────────────────────────────────────────┐
+ │ V1 zoom, pan, rotate; inertia; fluid fractional zoom                            [ ]  │
+ │ V2 continuous level of detail driven by local magnification: a magnified Dhaka        │
+ │    gets finer source data than a compressed Siberia at the same screen zoom     [ ]  │
+ │ V3 flat and globe from the same assets                                          [ ]  │
+ │ V4 time scrubber    V5 lens switch    V6 method switch + G-slider + morph      [ ]  │
+ │ V7 labels with collision handling     V8 metric grid + Tissot toggle           [ ]  │
+ │ V9 native-resolution textures, zoom to city scale anywhere                      [ ]  │
+ │ A12 the zoomable warped tile pyramid behind V9 (warp 4-8k, textures 100 m/500 m)[ ]  │
+ │ V10 static hosting inside free tiers                                            [ ]  │
+ │ V11 asset budget: warp fields per epoch + tiles sized and listed; anything that       │
+ │     would cost money goes to Phil with numbers first                            [ ]  │
+ └──────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 Rules for lenses: one measure per visual channel (area, colour, height, label size), never two on one
@@ -173,6 +194,15 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] L1 lens grammar (mu area, nu colour, t); [ ] L2 measure catalogue; [ ] L3 person-years cartogram
   [ ] L4 measure-to-measure OT morph; [ ] L5 humeter ruler + geodesics; [ ] L6 loneliness metric 1/rho
   [ ] L7 one person per pixel gigapixel; [ ] L8 uncertainty texture from HYDE bounds
+
+ SOLVER INFRASTRUCTURE
+  [ ] S1 GPU solver (M4, MPS)   [ ] S2 4096 run   [ ] S3 8192 run   [ ] S4 fold gate (X2 = 0)
+
+ VIEWER (Phase 9, last)
+  [ ] V1 zoom/pan/rotate  [ ] V2 LOD by local magnification  [ ] V3 flat + globe, same assets
+  [ ] V4 time scrubber  [ ] V5 lens switch  [ ] V6 method switch, G-slider, morph
+  [ ] V7 labels with collision  [ ] V8 metric grid toggle  [ ] V9 native textures, zoom to city
+  [ ] V10 static hosting in free tiers  [ ] V11 asset budget and cost gate
 
  ARTEFACT (the globe, Act 3)
   [ ] A1 compute on a cylinder: periodic in longitude (FFT in x, DCT in y); the dateline must not tear

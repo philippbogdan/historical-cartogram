@@ -13,6 +13,7 @@ Two acts:
 
 Persistent files (read these first, they are the state of the project):
 
+- `PLAN.md`          the megaplan: phases, node IDs, gates, forks (approved 2026-08-28)
 - `EXPLORATION.md`   the map of what we try, with status
 - `DECISIONS.md`     dated decision log
 - `PRIOR_WORK.md`    verified links to what exists already
