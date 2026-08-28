@@ -18,11 +18,11 @@ but feel empty (small). Area = people, on a map you can still read.
                                                  │
                                        grid choice (a parameter)
                                     ┌────────────┴────────────┐
-                            Mercator pixels            equal-area cylinder, periodic lon (A1/A2)
+                            Mercator pixels            equal-area cylinder, periodic lon (A1/A2) [x]
                             flat rectangle picture     anything shown on a sphere
                                     └────────────┬────────────┘
                                                  │
-                       SOLVER INFRASTRUCTURE     │   S1 GPU solver [ ]   S2 4096 [ ]   S3 8192 [ ]
+                       SOLVER INFRASTRUCTURE     │   S1 GPU solver [x]   S2 4096 [ ]   S3 8192 [ ]
                                                  │   S4 fold gate: X2 must be 0 [ ]
                                                  ▼
                     ╔════════════════════════════════════════════════════════╗
@@ -189,14 +189,14 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] R3 morph geography -> cartogram (interpolate displacement; OT gives the geodesic)
   [ ] R4 WebGL mesh for the site (scrub in the browser)
   [ ] R5 the human-gravity slider G in [-1, +1]: attractive flow (anti-cartogram) | Earth | repulsive flow (cartogram)
-  [ ] A11 metric grid (100 km ground squares through the warp) + Tissot ellipses
+  [x] A11 metric grid (100 km ground squares through the warp) + Tissot ellipses
   [ ] A12 zoomable warped tile pyramid; [ ] A13 3D print
   [ ] L1 lens grammar (mu area, nu colour, t); [ ] L2 measure catalogue; [ ] L3 person-years cartogram
   [ ] L4 measure-to-measure OT morph; [ ] L5 humeter ruler + geodesics; [ ] L6 loneliness metric 1/rho
   [ ] L7 one person per pixel gigapixel; [ ] L8 uncertainty texture from HYDE bounds
 
  SOLVER INFRASTRUCTURE
-  [ ] S1 GPU solver (M4, MPS)   [ ] S2 4096 run   [ ] S3 8192 run   [ ] S4 fold gate (X2 = 0)
+  [x] S1 GPU solver (M4, MPS)   [ ] S2 4096 run   [ ] S3 8192 run   [ ] S4 fold gate (X2 = 0)
 
  VIEWER (Phase 9, last)
   [ ] V1 zoom/pan/rotate  [ ] V2 LOD by local magnification  [ ] V3 flat + globe, same assets
@@ -205,8 +205,8 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] V10 static hosting in free tiers  [ ] V11 asset budget and cost gate
 
  ARTEFACT (the globe, Act 3)
-  [ ] A1 compute on a cylinder: periodic in longitude (FFT in x, DCT in y); the dateline must not tear
-  [ ] A2 equal-area cylindrical grid (x = lon, y = sin lat) for anything shown on a sphere:
+  [x] A1 compute on a cylinder: periodic in longitude (FFT in x, DCT in y); the dateline must not tear
+  [x] A2 equal-area cylindrical grid (x = lon, y = sin lat) for anything shown on a sphere:
          sphere area = people, exactly; Mercator pixels stay only for the flat rectangle picture
   [ ] A3 sphere-native solvers later (diffusion via spherical harmonics; OT on S^2 is research-grade,
          Hamfeldt-Turnquist 2021 has numerics, no public code)

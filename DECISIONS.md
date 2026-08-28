@@ -39,3 +39,13 @@
 - 2026-08-28  Closest ancestor for multi-measure gridded cartograms is Hennig's "Rediscovering the
   World" (2013, static). What is new here: the metric-space framing, OT, time, the globe, the
   lens grammar as one pipeline.
+- 2026-08-28  A1: x is periodic by default (a cylinder); `--x-boundary wall` keeps the old rectangle with
+  hard dateline edges. A2: `Grid('mercator'|'equalarea')`; equal-area is Lambert cylindrical (y = sin lat).
+- 2026-08-28  S1: torch backend on MPS (mirror-extended FFT for Neumann walls, grid_sample for particles);
+  512 px in 2 s instead of 65 s; numpy backend kept as the reference; both agree to 1e-3 on synthetic tests.
+- 2026-08-28  Rendering is forward splatting through the warp at any resolution (no pcolormesh); big cells are
+  supersampled, holes filled from the nearest hit. Vectors are warped point-wise and split at the seam.
+- 2026-08-28  A11: the metric grid is EQUAL-AREA cells (100 km x 100 km everywhere, square at the equator, taller
+  towards the poles); Tissot circles are 300 km geodesic circles on a 15-degree lattice.
+- 2026-08-28  Smoothing is specified in km (`--sigma-km`, default 30) so it shrinks with resolution; at 512 px
+  the honest value is ~235 km (3 px).

@@ -1,0 +1,27 @@
+grid mercator 512x512 lat_cut 85.0511; GHS-POP block-summed by 40
+total 8.1920 bn people; dropped beyond +-85.0511: 28; sigma 3.01 px; max_disp 1.5028663281130785
+  step 100 t=335 dt=8.19 maxdisp=0.760 dev=16.8855 1s
+  step 200 t=1.71e+03 dt=19 maxdisp=0.784 dev=5.6294 1s
+  step 300 t=4.35e+03 dt=38.1 maxdisp=0.836 dev=2.3967 1s
+  step 400 t=1.1e+04 dt=117 maxdisp=0.756 dev=0.6720 2s
+  done: 494 steps (0 rejected), t=1.602e+05, dev=9.54e-04, 2s
+{
+ "folds": 52,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.09846517414407557,
+ "log_ratio_popweighted_p50": 0.008567885718427117,
+ "log_ratio_popweighted_p95": 0.07279016606596239,
+ "log_ratio_min": -0.6558190409763627,
+ "log_ratio_max": 3.3914708622919436,
+ "anisotropy_popweighted_p50": 4.037411796191344,
+ "anisotropy_popweighted_p95": 28.357105418888306,
+ "displacement_mean_px": 120.16515956591934,
+ "displacement_max_px": 254.6255687305668,
+ "steps": 494,
+ "rejected": 0,
+ "t_end": 160201.35360476503,
+ "final_dev": 0.0009543895721435547,
+ "seconds": 3.3147499561309814
+}
+renders in 1s
+gate S4 folds: FAIL (52); wrote /Users/phil/historical-cartogram/experiments/e006_A1_merc_512

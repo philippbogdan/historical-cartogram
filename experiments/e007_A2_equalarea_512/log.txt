@@ -1,0 +1,25 @@
+grid equalarea 512x163 lat_cut 90.0; GHS-POP block-summed by 40
+total 8.1920 bn people; dropped beyond +-90.0: 28; sigma 3.01 px; max_disp 1.5028663281130785
+  step 100 t=416 dt=10.8 maxdisp=0.760 dev=4.3439 0s
+  step 200 t=3.88e+03 dt=76.7 maxdisp=0.782 dev=1.0892 1s
+  done: 278 steps (0 rejected), t=5.151e+04, dev=4.76e-04, 1s
+{
+ "folds": 23,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.1015831245863652,
+ "log_ratio_popweighted_p50": 0.008576861901108006,
+ "log_ratio_popweighted_p95": 0.07210190251491295,
+ "log_ratio_min": -1.2939125488724064,
+ "log_ratio_max": 4.058043520435628,
+ "anisotropy_popweighted_p50": 2.6806548444357627,
+ "anisotropy_popweighted_p95": 15.198400197772838,
+ "displacement_mean_px": 68.1290897556696,
+ "displacement_max_px": 154.28482818489127,
+ "steps": 278,
+ "rejected": 0,
+ "t_end": 51510.923790847344,
+ "final_dev": 0.0004763007164001465,
+ "seconds": 2.029924154281616
+}
+renders in 1s
+gate S4 folds: FAIL (23); wrote /Users/phil/historical-cartogram/experiments/e007_A2_equalarea_512

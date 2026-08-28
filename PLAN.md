@@ -46,14 +46,14 @@ animated timeline, Hennig 2013 the closest static ancestor, GSM 2018 is a Poisso
 
 ### Phase 1: foundations (Act 1a)
 
-- A1 `[ ]` longitude seam closed: the warp is periodic in x so the dateline never tears.
-- A2 `[ ]` equal-area cylindrical grid as an option next to Mercator pixels; the solver takes the
+- A1 `[x]` longitude seam closed: the warp is periodic in x so the dateline never tears.
+- A2 `[x]` equal-area cylindrical grid as an option next to Mercator pixels; the solver takes the
   grid as a parameter; Mercator stays for the flat picture, equal-area for anything on a sphere.
-- S1 `[ ]` the solver on the GPU (M4, free) so 4096 is hours and 8192 is feasible.
+- S1 `[x]` the solver on the GPU (M4, free) so 4096 is hours and 8192 is feasible.
 - S2 `[ ]` diffusion at 4096 with smoothing in km that shrinks with resolution (about 30 km).
 - S4 `[ ]` fold gate: folds must be exactly zero for a run to count; fix resolution or smoothing until they are.
-- A11 `[ ]` metric grid (100 km ground squares through the warp) and Tissot ellipses on every render.
-- R2 `[ ]` any raster through the warp: population itself as the first heatmap.
+- A11 `[x]` metric grid (100 km ground squares through the warp) and Tissot ellipses on every render.
+- R2 `[~]` any raster through the warp: population itself as the first heatmap.
 - Gate: a 4096 diffusion run, zero folds, population-weighted density error within ±10%, metric grid visible.
 
 ### Phase 2: optimal transport (Act 1b)
