@@ -210,22 +210,39 @@ class TorchPoissonOT:
         self.psi = self.solve_poisson(self.rho - 1)
         return self.psi
 
-    def iterate(self, iters=200, damping=0.5, log=print, tol=1e-3):
+    def residual(self, psi=None):
+        J = self.jacobian_det(self.psi if psi is None else psi)
+        return float(((J - self.rho).abs() * self.rho).sum() / self.rho.sum()), int((J <= 0).sum())
+
+    def iterate(self, iters=200, damping=0.5, log=print, tol=1e-3, keep_best=True, patience=5):
+        """Damped fixed-point iteration; with keep_best the best-residual iterate is kept and the
+        loop stops after `patience` checks without improvement (the iteration can diverge at
+        extreme contrasts, e.g. the pure limit at 4096)."""
         T = self.torch
         rho = self.rho
         t0 = time.time()
-        res, folds = float("nan"), -1
+        res, folds = self.residual()
+        best_res, best_psi, since = res, self.psi.clone(), 0
+        log(f"  iter start residual {res:.4f} folds {folds}")
+        n = -1
         for n in range(iters):
             xx, xy, yy = self.hessian(self.psi)
             rhs = T.sqrt(T.clamp((1 + xx) ** 2 + 2 * xy ** 2 + (1 + yy) ** 2 + 2 * rho, min=0.0)) - 2
             self.psi = (1 - damping) * self.psi + damping * self.solve_poisson(rhs)
             if n % 10 == 0 or n == iters - 1:
-                J = self.jacobian_det(self.psi)
-                res = float(((J - rho).abs() * rho).sum() / rho.sum())
-                folds = int((J <= 0).sum())
+                res, folds = self.residual()
                 log(f"  iter {n} residual {res:.4f} folds {folds} {time.time()-t0:.0f}s")
+                if res < best_res - 1e-4:
+                    best_res, best_psi, since = res, self.psi.clone(), 0
+                else:
+                    since += 1
+                    if keep_best and since >= patience:
+                        break
                 if res < tol:
                     break
+        if keep_best:
+            self.psi = best_psi
+            res, folds = self.residual()
         return {"iters": n + 1, "residual": res, "cell_folds": folds}
 
     def mesh(self):

@@ -41,7 +41,7 @@ but feel empty (small). Area = people, on a map you can still read.
  └───────────────┬─────────────────────┘                          │ A11 metric grid [x] ties them
  ┌─ least displacement (OT) ───────────┐   ┌─ least angle distortion ─┐
  │ M10 Poisson iteration [x] (not pure)│   │ M7 quasiconformal [ ]    │
- │ M3 back-and-forth     [ ]  <- next  │   └──────────────────────────┘
+ │ M3 back-and-forth     [~]  <- now   │   └──────────────────────────┘
  │ M11 semi-discrete     [ ]  NEW      │
  │ M5 monotone FD [ ]  M4 Sinkhorn [ ] │
  │ M6 sliced [ ]   M12 on sphere [ ]   │
@@ -187,11 +187,11 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
 
  NEW in v2 (see PLAN.md for the phase each belongs to)
   [ ] M11 semi-discrete OT   [ ] M12 OT on the sphere   [ ] S5 exact field evaluation
-  [ ] X7 recognisability     [ ] X8 twist map
-  [ ] R6 stretch map  [ ] R7 equipotentials  [ ] R8 flow lines  [ ] R9 ghost coastline  [ ] R10 gallery page
-  [ ] D6 GHS 1975-2030  [ ] D7 BUILT/SMOD  [ ] D8 SSP 2100  [ ] D9 Reba cities  [ ] D10 GHS-UCDB  [ ] D11 rivers  [ ] D12 lens measures
-  [ ] A14 city labels  [ ] A15 rivers  [ ] A16 pole cap
+  [x] X7 recognisability     [x] X8 twist map
+  [x] R6 stretch map  [ ] R7 equipotentials  [ ] R8 flow lines  [x] R9 ghost coastline  [x] R10 gallery page
+  [ ] D6 GHS 1975-2030  [ ] D7 BUILT/SMOD  [ ] D8 SSP 2100  [ ] D9 Reba cities  [ ] D10 GHS-UCDB  [x] D11 rivers  [ ] D12 lens measures
+  [x] A14 city labels  [x] A15 rivers  [ ] A16 pole cap
   [ ] T5 future  [ ] T6 peak time  [ ] T7 events  [ ] T8 handover
   [ ] L9 ratios  [ ] L10 age  [ ] L11 attention  [ ] L12 non-human world  [ ] L13 cumulative person-years
   [ ] V12 permalinks  [ ] V13 compare  [ ] V14 story mode  [ ] V15 print export
-  [ ] PR1 golden regression  [ ] PR2 honesty labels
+  [x] PR1 golden regression  [ ] PR2 honesty labels

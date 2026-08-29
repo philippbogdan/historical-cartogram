@@ -79,7 +79,7 @@ from Phase 5 on.
 ### Phase 2: optimal transport, pure and fold-free
 
 - M10 `[x]` Poisson one-shot and BFO iteration with coarse-to-fine; ±3.5% at share ≤ 0.95; fails at pure.
-- M3 `[ ]` back-and-forth method (Jacobs-Leger 2020): convexity-preserving, fold-free by construction.
+- M3 `[~]` back-and-forth method (Jacobs-Leger 2020): convexity-preserving, fold-free by construction.
   Own torch implementation (dual ascent with fast Legendre transforms on the grid); the public C code
   is the reference. Gate: share 0.999 at 4096, zero folds in populated cells, ±5%.
 - M11 `[ ]` NEW semi-discrete OT (Laguerre cells): one convex cell per N people, exact areas, no folds;
@@ -95,16 +95,16 @@ from Phase 5 on.
 
 ### Phase 4: legibility and the gallery
 
-- A14 `[ ]` NEW city labels: GHS-UCDB urban centres (free, with population), ~300 largest at warped
+- A14 `[x]` NEW city labels: GHS-UCDB urban centres (free, with population), ~300 largest at warped
   positions, unwarped text; sized by population.
-- A15 `[ ]` NEW rivers through the warp (Natural Earth rivers): Nile, Ganges, Yangtze as lines.
+- A15 `[x]` NEW rivers through the warp (Natural Earth rivers): Nile, Ganges, Yangtze as lines.
 - R7 `[ ]` NEW equipotentials: contour lines of the OT potential, the level sets of population gravity.
-- R6 `[ ]` NEW stretch map (log area scale as colour) and X8 `[ ]` NEW twist map (local rotation angle);
+- R6 `[x]` NEW stretch map (log area scale as colour) and X8 `[x]` NEW twist map (local rotation angle);
   OT is zero rotation everywhere, diffusion is not.
-- R8 `[ ]` NEW flow lines from geography to cartogram. R9 `[ ]` NEW ghost coastline under the warped one.
-- X7 `[ ]` NEW recognisability: per-country shape error after the best similarity transform, and label
+- R8 `[ ]` NEW flow lines from geography to cartogram. R9 `[x]` NEW ghost coastline under the warped one.
+- X7 `[x]` NEW recognisability: per-country shape error after the best similarity transform, and label
   legibility (share of countries whose warped area holds their name).
-- X5 `[ ]` seam statistics. R10 `[ ]` NEW generated gallery page from INDEX with thumbnails and metrics.
+- X5 `[ ]` seam statistics. R10 `[x]` NEW generated gallery page from INDEX with thumbnails and metrics.
 - X6 `[ ]` the gallery reviewed; F2-F4 confirmed or changed by Phil, asynchronously.
 - S3 `[ ]` the default method at 8192; the 100 m texture through it (A12 prototype: warped tiles in V0).
 - Gate: gallery page live in the repo; F2-F4 written to DECISIONS.md.
@@ -155,7 +155,7 @@ from Phase 5 on.
 
 ### Process, throughout
 
-- PR1 `[ ]` NEW golden regression: the world at 512 with fixed knobs, metrics within tolerance, run before commits
+- PR1 `[x]` NEW golden regression: the world at 512 with fixed knobs, metrics within tolerance, run before commits
   (synthetic tests exist in `tests/synthetic.py`).
 - PR2 `[ ]` NEW honesty labels per layer on every artefact: observed / modelled / projected, with the source.
 - Persistent files updated in the same commit as the work; `experiments/INDEX.md` regenerated; no attribution.

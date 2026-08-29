@@ -128,7 +128,7 @@ class BackForthOT:
         log(f"  bfm done: {it+1} iterations, misplaced mass {best:.4f}, {time.time()-t0:.0f}s")
         self.psi, self.phi, self.best, self.iters_done = best_psi, best_phi, best, it + 1
 
-    def run(self, iters=60, step_px=20.0, polish_iters=300, polish_damping=0.3, patience=6, coarse_to_fine=True, min_width=512, log=print, **_):
+    def run(self, iters=60, step_px=20.0, polish_iters=300, polish_damping=0.3, patience=6, coarse_to_fine=True, min_width=512, polish_smooth_px=2.0, log=print, **_):
         """Two stages. (1) Back-and-forth ascent on the discrete dual with a fixed H^1 step scaled so
         the first update moves points by step_px at most; every iterate is tightened (double
         c-transform), so the potential is c-concave and the transport structure is global and
@@ -165,9 +165,13 @@ class BackForthOT:
             log(f"  bfm level {W}x{H}")
         self._ascend(phi, iters, step_px, patience, log)
         phi, best_psi, best, it = self.phi, self.psi, self.best, self.iters_done
-        # stage 2: Monge-Ampere polish from the BFM potential (M10 convention: T = x + grad psi)
+        # stage 2: Monge-Ampere polish from the (lightly smoothed) BFM potential, M10 convention
+        # T = x + grad psi. The polish keeps its best iterate; if it cannot beat the smoothed BFM
+        # start, the start is what we use.
+        self.psi_bfm = best_psi
+        start = ndimage.gaussian_filter(-best_psi, polish_smooth_px, mode=("reflect", "wrap" if self.periodic else "reflect")) if polish_smooth_px > 0 else -best_psi
         po = TorchPoissonOT(None, x_boundary=self.x_boundary, rho=self.rho0)
-        po.psi = torch.tensor(-best_psi, dtype=torch.float32, device=po.dev)
+        po.psi = torch.tensor(start, dtype=torch.float32, device=po.dev)
         pinfo = po.iterate(iters=polish_iters, damping=polish_damping, log=log)
         X, Y = po.mesh()
         self.psi = po.psi  # M10 convention, for the equipotential render

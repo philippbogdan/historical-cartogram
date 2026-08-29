@@ -101,6 +101,8 @@ def main():
     psi = getattr(dc, "psi", None)
     if psi is not None:  # OT methods: the transport potential (T = x + grad psi in the M10 convention) for R7
         extra["psi"] = (psi.cpu().numpy() if hasattr(psi, "cpu") else np.asarray(psi)).astype(np.float32)
+    if getattr(dc, "psi_bfm", None) is not None:
+        extra["psi_bfm"] = np.asarray(dc.psi_bfm).astype(np.float32)
     np.savez_compressed(os.path.join(out, "mesh.npz"), X=X.astype(np.float32), Y=Y.astype(np.float32), rho0=dc.rho0.astype(np.float32), **extra)
     params = vars(args) | {"H": grid.H, "W": grid.W, "lat_cut": grid.lat_cut, "sigma_px": sigma_px, "max_disp": max_disp, "factor": factor}
     json.dump(params, open(os.path.join(out, "params.json"), "w"), indent=1)

@@ -85,3 +85,13 @@
   (M3). Share 0.95 (e013) is the honest OT picture today; diffusion reaches 0.99 (e008) with +-10%.
 - 2026-08-29  Naming: lambda is the HUMANITY share (1 = pure people, 0 = base map). Phil says "lambda = 0"
   meaning pure people; in the repo that is share 1.
+- 2026-08-29  M3 is a two-stage solver: the back-and-forth ascent on the discrete dual (exact c-transforms
+  in C, continuous pushforwards on the GPU, every iterate tightened so it is c-concave) gives the global
+  convex transport structure; its map is a staircase where the map compresses (the argmin is quantised),
+  so the Monge-Ampere iteration (M10) polishes it, started from the lightly smoothed BFM potential and
+  keeping its best iterate, because the unguarded iteration diverges at the pure limit at 4096.
+- 2026-08-29  X8 twist: OT's rotation is exactly zero by construction (gradient map, symmetric Jacobian);
+  diffusion rotates 9 degrees at the median and 34 at p95 (e009). X7 shape error (Procrustes per country,
+  population-weighted): OT 0.74, diffusion 0.86, OT at share 0.8 0.68.
+- 2026-08-29  City labels come from Natural Earth populated places (pop_max), top 300-400, biggest first
+  with a coarse occupancy grid for collisions; GHS-UCDB stays an option for Phase 6.
