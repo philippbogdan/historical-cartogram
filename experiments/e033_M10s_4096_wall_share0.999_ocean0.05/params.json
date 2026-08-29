@@ -1,0 +1,19 @@
+{
+ "name": "e033_M10s_4096_wall_share0.999_ocean0.05",
+ "method": "ot_spectral_homotopy",
+ "grid": "mercator",
+ "lat_cut": 85.0511,
+ "width": 4096,
+ "W": 4096,
+ "H": 4096,
+ "x_boundary": "wall",
+ "backend": "torch-spectral",
+ "floor": 0.0010010010010010019,
+ "share": 0.999,
+ "ocean_share": 0.05,
+ "lon0": -168.0,
+ "sigma_km": 30.0,
+ "sigma_px": 3.069684414869267,
+ "vectors": "50m",
+ "iters": 400
+}

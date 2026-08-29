@@ -26,10 +26,12 @@ def inv_merc_y(y):
 class Grid:
     """A cylindrical pixel grid: W columns over 360 degrees, H rows over +-lat_cut."""
 
-    def __init__(self, kind, width, lat_cut=None):
+    def __init__(self, kind, width, lat_cut=None, lon0=-180.0):
         assert kind in ("mercator", "equalarea"), kind
         self.kind = kind
         self.W = int(width)
+        # longitude at the left edge, snapped to a column edge so rasters and vectors agree exactly
+        self.lon0 = -180.0 + round((float(lon0) + 180.0) / 360.0 * self.W) * 360.0 / self.W
         if lat_cut is None:
             lat_cut = 85.0511 if kind == "mercator" else 90.0
         self.lat_cut = float(lat_cut)
@@ -51,12 +53,12 @@ class Grid:
         """lon/lat (deg) -> pixel coords, x right, y down, corners at integers."""
         lon = np.asarray(lon, np.float64)
         lat = np.clip(np.asarray(lat, np.float64), -self.lat_cut, self.lat_cut)
-        x = (lon + 180.0) / 360.0 * self.W
+        x = ((lon - self.lon0) % 360.0) / 360.0 * self.W
         y = (self.ymax - self._v(lat)) / (2 * self.ymax) * self.H
         return x, y
 
     def lonlat(self, x, y):
-        lon = np.asarray(x, np.float64) / self.W * 360.0 - 180.0
+        lon = (np.asarray(x, np.float64) / self.W * 360.0 + self.lon0 + 180.0) % 360.0 - 180.0
         v = self.ymax - np.asarray(y, np.float64) / self.H * 2 * self.ymax
         return lon, self._inv_v(v)
 
@@ -69,7 +71,7 @@ class Grid:
         return 2 * np.pi * R_EARTH_KM / self.W
 
     def describe(self):
-        return f"{self.kind} {self.W}x{self.H} lat_cut {self.lat_cut}"
+        return f"{self.kind} {self.W}x{self.H} lat_cut {self.lat_cut} lon0 {self.lon0}"
 
 
 def divisors(n):
@@ -131,6 +133,9 @@ def to_grid(counts, bounds, grid):
     lon_src = np.linspace(left, right, Ws + 1)
     lon_out = np.linspace(-180.0, 180.0, grid.W + 1)
     c = _rebin_axis(counts, lon_src, lon_out, axis=1)
+    k = int(round((grid.lon0 + 180.0) / 360.0 * grid.W))
+    if k:
+        c = np.roll(c, -k, axis=1)  # column 0 starts at lon0 (exact: lon0 is snapped to a column edge)
     lat_src = np.linspace(top, bottom, Hs + 1)
     lat_out = grid.row_edge_lats()
     out = _rebin_axis(c[::-1], lat_src[::-1], lat_out[::-1], axis=0)[::-1]

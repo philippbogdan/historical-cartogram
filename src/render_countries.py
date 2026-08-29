@@ -52,8 +52,7 @@ def main(name, out_w=None, label_min_share=0.0004):
     p = json.load(open(os.path.join(out, "params.json")))
     z = np.load(os.path.join(out, "mesh.npz"))
     X, Y, rho0 = z["X"].astype(np.float64), z["Y"].astype(np.float64), z["rho0"].astype(np.float64)
-    grid = prep.Grid(p.get("grid", "mercator"), p["W"], p["lat_cut"])
-    X = X - (p.get("lon0", -180.0) + 180.0) / 360.0 * grid.W  # frame cut (the warp lives on a cylinder)
+    grid = prep.Grid(p.get("grid", "mercator"), p["W"], p["lat_cut"], lon0=p.get("lon0", -180.0))
     H, W = grid.H, grid.W
     out_w = out_w or min(W, 4096)
     oh, ow = int(round(H * out_w / W)), out_w

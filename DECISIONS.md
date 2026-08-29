@@ -128,3 +128,10 @@
   are at the west border and the whole Pacific at the east; the warp is periodic so this is a render setting.
 - 2026-08-29  Reviewing at 1:1: judge renders on full-resolution crops, not on the downscaled whole; Phil caught
   the difference.
+- 2026-08-29  Frame, final: the flat picture is solved with WALLS at the Bering Strait (lon0 = -168, snapped to a
+  column edge and baked into the grid), not on the periodic cylinder. Phil caught the cylinder version: a wrapped
+  output seam cut through China and clipped the Philippines. With walls the Americas sit at the west border (a
+  22 px strip of eastern Pacific before the coast), Japan and the Pacific at the east, Alaska stays with Canada.
+  The periodic solve remains the one for the globe. A roll bug in to_grid (population 12 degrees east of the
+  countries) was caught by the per-country population check; that check is now the first thing to run on any
+  new frame. e033 is the current "today" frame.

@@ -45,7 +45,7 @@ from Phase 5 on.
 - F4 method: OT is the default for the artefact; diffusion and jellium stay as comparisons.
 - F2 ocean: pure (share 1) is the resting picture once M3 delivers it; the share slider exists for
   readers who want to see where the Atlantic went; 0.95 is the interim default until M3.
-- F3 frame: square Web-Mercator cut for the flat picture; the globe has no frame.
+- F3 frame: square Web-Mercator cut, walls at the Bering Strait (lon0 -168): Americas west, Pacific east; the globe has no frame.
 - F5 fold gate: the globe renders from the inverse map (single-valued by construction); the gate is
   "zero folds in populated cells, ocean folds below the pixel scale"; M3/M11 aim for zero anywhere.
 - F1 growth across time: flat playback keeps the frame full with a people-per-pixel caption; the

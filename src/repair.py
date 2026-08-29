@@ -16,6 +16,6 @@ for name in sys.argv[1:]:
     m.update(m1); m.update(rep); m["p95_shift_by_repair"] = m1["log_ratio_popweighted_p95"] - m0["log_ratio_popweighted_p95"]
     json.dump(m, open(os.path.join(out, "metrics.json"), "w"), indent=1)
     np.savez_compressed(os.path.join(out, "mesh.npz"), X=X.astype(np.float32), Y=Y.astype(np.float32), rho0=rho0.astype(np.float32))
-    grid = prep.Grid(p.get("grid", "mercator"), p["W"], p["lat_cut"])
+    grid = prep.Grid(p.get("grid", "mercator"), p["W"], p["lat_cut"], lon0=p.get("lon0", -180.0))
     render_all(out, grid, X, Y, rho0, p)
     print(name, rep, "gate", m["gate_folds"])

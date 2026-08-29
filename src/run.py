@@ -46,7 +46,7 @@ def main():
     ap.add_argument("--max-disp", type=float, default=None, help="px per step; default sigma_px/2 clipped to [0.5, 2]")
     ap.add_argument("--cap-frac", type=float, default=0.1, help="late-time displacement cap as a fraction of sqrt(2t)")
     ap.add_argument("--no-repair", action="store_true", help="skip the fold repair post-process (S4)")
-    ap.add_argument("--lon0", type=float, default=-128.0, help="longitude at the left edge of the frame (the warp lives on a cylinder); -128 puts the Americas at the west border and the whole Pacific at the east")
+    ap.add_argument("--lon0", type=float, default=-180.0, help="longitude at the left edge of the frame; with --x-boundary wall it is the frame's cut (-168 = Bering Strait: Americas west, the Pacific east)")
     ap.add_argument("--ocean-share", type=float, default=0.0, help="ocean-only buffer: the ocean gets this share of the frame, land stays pure")
     ap.add_argument("--out-width", type=int, default=None, help="render width in px (default = grid width, max 4096)")
     ap.add_argument("--vectors", default="50m", choices=["110m", "50m"])
@@ -60,7 +60,7 @@ def main():
 
     if args.share is not None:
         args.floor = (1 - args.share) / args.share
-    grid = prep.Grid(args.grid, args.width, args.lat_cut)
+    grid = prep.Grid(args.grid, args.width, args.lat_cut, lon0=args.lon0)
     factor = max(d for d in prep.divisors(NCOLS) if d <= max(1, NCOLS // (2 * args.width)))
     log(f"grid {grid.describe()}; GHS-POP block-summed by {factor}")
     counts, bounds = get_lonlat(factor)
@@ -126,9 +126,7 @@ def main():
 
 def render_all(out, grid, X, Y, rho0, p, log=print):
     v = p["vectors"]
-    lon0 = p.get("lon0", -180.0)  # longitude at the left edge of the frame; the warp lives on a cylinder
-    shift = (lon0 + 180.0) / 360.0 * grid.W
-    X = X - shift
+    shift = 0.0  # lon0 is baked into the grid
     out_w = p.get("out_width") or min(grid.W, 4096)
     wrap = p["x_boundary"] == "periodic"
     mask = render.land_mask(os.path.join(RAW, f"ne_{v}_land.geojson"), grid)
@@ -138,7 +136,6 @@ def render_all(out, grid, X, Y, rho0, p, log=print):
     mg = render.metric_grid(grid, 100.0)
     tis = render.tissot_circles(grid)
     ys, xs = np.mgrid[0:grid.H + 1, 0:grid.W + 1]
-    xs = xs - shift
     title = f"{os.path.basename(out)}: {p['method']}, {grid.describe()}, share {p.get('share') or round(1/(1+p['floor']), 3)}, ocean {p.get('ocean_share', 0)}, sigma {p['sigma_km']} km"
     t0 = time.time()
     render.draw(xs, ys, mask, os.path.join(out, "geography.png"), out_w, coast, borders, grat, title="geography", wrap=wrap)
