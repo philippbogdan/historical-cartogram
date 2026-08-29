@@ -1,0 +1,15 @@
+{
+ "folds": 0,
+ "gate_folds": "PASS",
+ "log_ratio_popweighted_p05": -0.8499603210964132,
+ "log_ratio_popweighted_p50": 0.9794253472251183,
+ "log_ratio_popweighted_p95": 2.4491832848410575,
+ "log_ratio_min": -6.286001549662035,
+ "log_ratio_max": 5.579316646775834,
+ "anisotropy_popweighted_p50": 2.1436407377346423,
+ "anisotropy_popweighted_p95": 13.601701351900788,
+ "displacement_mean_px": 283.01521625181147,
+ "displacement_max_px": 513.8458461604456,
+ "mode": "tobler",
+ "seconds": 0.23811125755310059
+}

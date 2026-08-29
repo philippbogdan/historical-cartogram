@@ -1,0 +1,21 @@
+grid mercator 1024x1024 lat_cut 85.0511; GHS-POP block-summed by 20
+total 8.1920 bn people; dropped beyond +-85.0511: 36; sigma 3.02 px; max_disp 1.5092615039773896
+  tobler: separable re-spacing, x range 0.0-1024.0
+pre-repair: {"folds": 0, "gate_folds": "PASS", "log_ratio_popweighted_p05": -0.85, "log_ratio_popweighted_p50": 0.9794, "log_ratio_popweighted_p95": 2.4492, "log_ratio_min": -6.286, "log_ratio_max": 5.5793, "anisotropy_popweighted_p50": 2.1436, "anisotropy_popweighted_p95": 13.6017, "displacement_mean_px": 283.0152, "displacement_max_px": 513.8458}
+{
+ "folds": 0,
+ "gate_folds": "PASS",
+ "log_ratio_popweighted_p05": -0.8499603210964132,
+ "log_ratio_popweighted_p50": 0.9794253472251183,
+ "log_ratio_popweighted_p95": 2.4491832848410575,
+ "log_ratio_min": -6.286001549662035,
+ "log_ratio_max": 5.579316646775834,
+ "anisotropy_popweighted_p50": 2.1436407377346423,
+ "anisotropy_popweighted_p95": 13.601701351900788,
+ "displacement_mean_px": 283.01521625181147,
+ "displacement_max_px": 513.8458461604456,
+ "mode": "tobler",
+ "seconds": 0.23811125755310059
+}
+renders in 3s
+gate S4 folds: PASS (0); wrote /Users/phil/historical-cartogram/experiments/e029_M8_tobler_1024

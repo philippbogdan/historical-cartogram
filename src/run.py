@@ -6,7 +6,7 @@ import argparse, json, os, sys, time
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(__file__))
-from hc import prep, diffusion, render, ot_poisson, flow, bfm
+from hc import prep, diffusion, render, ot_poisson, flow, bfm, tobler
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, "data", "raw")
@@ -29,7 +29,7 @@ def get_lonlat(factor):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", required=True)
-    ap.add_argument("--method", default="diffusion", choices=["diffusion", "ot_poisson_oneshot", "ot_poisson", "gsm", "jellium", "gravity", "bfm", "ot_homotopy"])
+    ap.add_argument("--method", default="diffusion", choices=["diffusion", "ot_poisson_oneshot", "ot_poisson", "gsm", "jellium", "gravity", "bfm", "ot_homotopy", "tobler"])
     ap.add_argument("--shares", default="0.95,0.98,0.99,0.995,0.999", help="ot_homotopy: share sequence")
     ap.add_argument("--t-max", type=float, default=None, help="jellium/gravity: stop time (gravity: the anti-cartogram time)")
     ap.add_argument("--iters", type=int, default=300)
@@ -78,6 +78,9 @@ def main():
         X, Y = dc.mesh()
         info = {"mode": "ot_homotopy", "stages": stages, "polish_residual": stages[-1]["residual"]}
         args.share = shares[-1]; args.floor = (1 - shares[-1]) / shares[-1]
+    elif args.method == "tobler":
+        dc = tobler.Tobler(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
+        X, Y, info = dc.run(log=log)
     elif args.method == "bfm":
         dc = bfm.BackForthOT(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
         X, Y, info = dc.run(iters=args.iters, polish_iters=args.iters, polish_damping=args.damping, log=log)
