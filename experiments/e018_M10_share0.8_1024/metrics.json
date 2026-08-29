@@ -27,5 +27,7 @@
  "cell_folds": 1507,
  "mode": "coarse_to_fine",
  "seconds_solve": 3.03255295753479,
- "seconds": 3.3632290363311768
+ "seconds": 3.3632290363311768,
+ "shape_error_popweighted": 0.6832278453784171,
+ "shape_error_median": 0.5377188754255429
 }

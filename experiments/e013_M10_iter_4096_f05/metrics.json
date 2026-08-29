@@ -20,5 +20,9 @@
  "cell_folds": 123288,
  "mode": "iterated",
  "seconds_solve": 179.35127305984497,
- "seconds": 482.9329311847687
+ "seconds": 482.9329311847687,
+ "twist_popweighted_p50_deg": 0.00016843723858089925,
+ "twist_popweighted_p95_deg": 0.0014425884546979395,
+ "shape_error_popweighted": 0.7410804120337693,
+ "shape_error_median": 0.5951620336321318
 }

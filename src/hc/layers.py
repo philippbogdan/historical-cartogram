@@ -88,3 +88,46 @@ def stretch_and_twist(X, Y):
     # J = R S with R rotation: angle = atan2(c - b, a + d)
     twist = np.degrees(np.arctan2(c - b, a + d))
     return stretch, twist
+
+
+def recognisability(geojson_path, grid, X, Y, rho0, min_pop=1e6):
+    """X7: per-country shape error. Warp each country's outline, align it to the original by the
+    best similarity transform (Procrustes: scale, rotation, translation) and take the RMS residual
+    over the outline, normalised by the original outline's RMS radius. Population-weighted mean
+    over countries with at least min_pop people. 0 = shape preserved exactly."""
+    from .prep import Grid  # noqa
+    with open(geojson_path) as f:
+        gj = json.load(f)
+    W = X.shape[1] - 1
+    errs, weights, names = [], [], []
+    for feat in gj["features"]:
+        pop = float(feat["properties"].get("POP_EST") or 0)
+        if pop < min_pop:
+            continue
+        g = feat["geometry"]
+        rings = g["coordinates"] if g["type"] == "Polygon" else [r for poly in g["coordinates"] for r in poly]
+        pts = np.vstack([np.asarray(r[0] if g["type"] == "MultiPolygon" and False else r, np.float64) for r in rings])
+        x, y = grid.xy(pts[:, 0], pts[:, 1])
+        P = np.stack([x, y], 1)
+        Q = warp_points(P, X, Y, W)
+        Qx = Q[:, 0]
+        if np.ptp(Qx) > W / 2:  # unwrap across the seam
+            Qx = np.where(Qx - Qx.min() > W / 2, Qx - W, Qx)
+        Q = np.stack([Qx, Q[:, 1]], 1)
+        P0, Q0 = P - P.mean(0), Q - Q.mean(0)
+        sP = np.sqrt((P0 ** 2).sum() / len(P0))
+        if sP < 1e-9:
+            continue
+        # optimal rotation + scale (Procrustes): align P0 to Q0
+        U, S, Vt = np.linalg.svd(Q0.T @ P0)
+        R = U @ Vt
+        if np.linalg.det(R) < 0:
+            Vt[-1] *= -1; R = U @ Vt
+        s = S.sum() / (P0 ** 2).sum()
+        resid = Q0 - s * P0 @ R.T
+        errs.append(np.sqrt((resid ** 2).sum() / len(resid)) / (s * sP))
+        weights.append(pop); names.append(feat["properties"].get("NAME"))
+    errs, weights = np.array(errs), np.array(weights)
+    order = np.argsort(-errs)
+    return {"shape_error_popweighted": float((errs * weights).sum() / weights.sum()), "shape_error_median": float(np.median(errs)),
+            "worst": [(names[i], round(float(errs[i]), 3)) for i in order[:5]]}

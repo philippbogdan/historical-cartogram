@@ -19,5 +19,9 @@
  "rejected": 0,
  "t_end": 10647294.610001564,
  "final_dev": 0.0007281303405761719,
- "seconds": 378.71681094169617
+ "seconds": 378.71681094169617,
+ "twist_popweighted_p50_deg": 8.790363687949354,
+ "twist_popweighted_p95_deg": 33.60822989713714,
+ "shape_error_popweighted": 0.8589248492075642,
+ "shape_error_median": 0.7211847642139206
 }
