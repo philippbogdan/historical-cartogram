@@ -1,0 +1,28 @@
+{
+ "diffusion": {
+  "folds": 0,
+  "gate_folds": "PASS",
+  "log_ratio_popweighted_p05": -0.09623887695821443,
+  "log_ratio_popweighted_p50": 0.0066512608985296335,
+  "log_ratio_popweighted_p95": 0.07196859924077083,
+  "log_ratio_min": -0.518396480020217,
+  "log_ratio_max": 0.45953751198050546,
+  "anisotropy_popweighted_p50": 4.04770320328883,
+  "anisotropy_popweighted_p95": 29.668987011132597,
+  "displacement_mean_px": 111.86374449606028,
+  "displacement_max_px": 244.4071364304712
+ },
+ "ot_poisson": {
+  "folds": 1501,
+  "gate_folds": "FAIL",
+  "log_ratio_popweighted_p05": -0.04307403124407108,
+  "log_ratio_popweighted_p50": 0.003967803081144877,
+  "log_ratio_popweighted_p95": 0.028313253566532137,
+  "log_ratio_min": -1.487236551338462,
+  "log_ratio_max": 5.855576543215615,
+  "anisotropy_popweighted_p50": 3.3742234491600973,
+  "anisotropy_popweighted_p95": 16.047380265556075,
+  "displacement_mean_px": 113.05555330723371,
+  "displacement_max_px": 247.15507189674517
+ }
+}

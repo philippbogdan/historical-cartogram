@@ -1,0 +1,68 @@
+grid mercator 512x512 lat_cut 85.0511; GHS-POP block-summed by 40
+total 8.1920 bn people; dropped beyond +-85.0511: 28; sigma 3.01 px; max_disp 1.5028663281130785
+  iter 0 residual 301.0906 folds 218508 0s
+  iter 10 residual 64.5031 folds 219531 0s
+  iter 20 residual 20.2695 folds 210071 0s
+  iter 30 residual 7.5455 folds 206280 0s
+  iter 40 residual 2.9824 folds 174957 0s
+  iter 50 residual 1.2329 folds 127751 0s
+  iter 60 residual 0.5529 folds 92813 0s
+  iter 70 residual 0.2929 folds 68833 0s
+  iter 80 residual 0.2223 folds 56360 0s
+  iter 90 residual 0.2250 folds 50591 0s
+  iter 100 residual 0.2353 folds 47449 0s
+  iter 110 residual 0.2425 folds 44889 0s
+  iter 120 residual 0.2466 folds 42663 0s
+  iter 130 residual 0.2488 folds 40832 0s
+  iter 140 residual 0.2498 folds 39137 0s
+  iter 150 residual 0.2505 folds 37470 0s
+  iter 160 residual 0.2508 folds 35984 0s
+  iter 170 residual 0.2508 folds 34650 0s
+  iter 180 residual 0.2508 folds 33292 0s
+  iter 190 residual 0.2506 folds 32086 0s
+  iter 200 residual 0.2502 folds 31008 0s
+  iter 210 residual 0.2505 folds 29944 0s
+  iter 220 residual 0.2504 folds 29088 0s
+  iter 230 residual 0.2507 folds 28302 0s
+  iter 240 residual 0.2508 folds 27720 0s
+  iter 250 residual 0.2508 folds 26993 0s
+  iter 260 residual 0.2509 folds 26244 0s
+  iter 270 residual 0.2510 folds 25813 0s
+  iter 280 residual 0.2506 folds 25117 0s
+  iter 290 residual 0.2509 folds 24795 0s
+  iter 299 residual 0.2507 folds 24242 0s
+pre-repair: {"folds": 23405, "gate_folds": "FAIL", "log_ratio_popweighted_p05": -0.032, "log_ratio_popweighted_p50": 0.0039, "log_ratio_popweighted_p95": 0.028, "log_ratio_min": -5.2226, "log_ratio_max": 7.0587, "anisotropy_popweighted_p50": 3.3566, "anisotropy_popweighted_p95": 13.3461, "displacement_mean_px": 124.7172, "displacement_max_px": 257.2177}
+  fold repair: 23405 -> 6374 folds (21 in populated cells) in 499 iterations, 49513 corners touched
+{
+ "folds": 6374,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.03197652665551765,
+ "log_ratio_popweighted_p50": 0.00393796396109174,
+ "log_ratio_popweighted_p95": 0.02800981860792117,
+ "log_ratio_min": -7.4340758667539815,
+ "log_ratio_max": 9.076510371141593,
+ "anisotropy_popweighted_p50": 3.35608676198075,
+ "anisotropy_popweighted_p95": 13.325740657162434,
+ "displacement_mean_px": 124.6385378856307,
+ "displacement_max_px": 257.2177149733629,
+ "folds_before_repair": 23405,
+ "folds_after_repair": 6374,
+ "repair_iterations": 499,
+ "repaired_corners": 49513,
+ "folds_in_populated_cells": 21,
+ "p95_shift_by_repair": 0.0,
+ "pre_repair": {
+  "log_ratio_popweighted_p05": -0.03198538391926755,
+  "log_ratio_popweighted_p95": 0.02800981860792117,
+  "anisotropy_popweighted_p50": 3.356570971134506,
+  "anisotropy_popweighted_p95": 13.346064493458996
+ },
+ "iters": 300,
+ "residual": 0.2507060766220093,
+ "cell_folds": 24242,
+ "mode": "iterated",
+ "seconds_solve": 0.5267601013183594,
+ "seconds": 3.911510944366455
+}
+renders in 1s
+gate S4 folds: FAIL (6374); wrote /Users/phil/historical-cartogram/experiments/e021_M10_512_pure
