@@ -10,7 +10,7 @@ but feel empty (small). Area = people, on a map you can still read.
                                               │
  DATA                                         ▼                                    PREP
  D1 GHS-POP 2025 30" [x] ──┐                                          ┌── P1 exact count re-binning [x]
- D2 GHS-POP 3"       [ ] ──┼── population raster (people per cell) ───┼── P2 floor + smoothing   [~]
+ D2 GHS-POP 3"       [x] ──┼── population raster (people per cell) ───┼── P2 floor + smoothing   [~]
  D3 HYDE 3.4 (time)  [ ] ──┘                     │                    └── P3 sphere-native        [ ]
  D4 Natural Earth    [x] ── borders, coasts (drawing only)
  D5 night lights, roads, terrain, shipping, flights [ ] ── overlays (A5)
@@ -199,6 +199,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [x] S1 GPU solver (M4, MPS)   [x] S2 4096 run (e008 e009)   [ ] S3 8192 run   [ ] S5 exact field evaluation (NUFFT) for the flows   [~] S4 fold gate: repair exists, gate definition under review (see DECISIONS 2026-08-29)
 
  VIEWER (Phase 9, last)
+  [x] V0 dev viewer (local tile server + Leaflet), serving the 100 m raster
   [ ] V1 zoom/pan/rotate  [ ] V2 LOD by local magnification  [ ] V3 flat + globe, same assets
   [ ] V4 time scrubber  [ ] V5 lens switch  [ ] V6 method switch, G-slider, morph
   [ ] V7 labels with collision  [ ] V8 metric grid toggle  [ ] V9 native textures, zoom to city

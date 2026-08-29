@@ -27,3 +27,4 @@ Pre-1700 alternatives: Reba-Reitsma-Seto historical urban populations (city poin
 
 - `data/raw/ghs3ss/GHS_POP_E2025_GLOBE_R2023A_4326_3ss_V1_0_R7_C27.tif` one 100 m tile (Bengal), 12000x12000, from
   .../GHS_POP_E2025_GLOBE_R2023A_4326_3ss/V1-0/tiles/ (348 tiles of 10 degrees, R = row from 90N, C = column from 180W); global zip is 12.9 GB. Downloaded 2026-08-29.
+- `data/raw/GHS_POP_E2025_GLOBE_R2023A_4326_3ss_V1_0.tif` GLOBAL 100 m (3 arcsec), 432002 x 213822, float64, 11.1 GB + 3.8 GB overviews (x2..x32), total 8.191 bn people. Downloaded 2026-08-29 (zip deleted). Same source directory as the 30" file, `.../GHS_POP_E2025_GLOBE_R2023A_4326_3ss/V1-0/`.

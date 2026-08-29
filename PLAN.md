@@ -83,7 +83,7 @@ animated timeline, Hennig 2013 the closest static ancestor, GSM 2018 is a Poisso
 - X6 `[ ]` the gallery: every method, side by side, with metric grid, judged by eye.
 - Knobs swept and rendered: humanity share 1.0 / 0.95 / 0.9 / 0.8 / 0.5 (the floor generalised), frame cut 80 / 85.05, smoothing.
 - S3 `[ ]` the chosen method at 8192.
-- D2 `[ ]` GHS-POP 3" (100 m) as the texture for the chosen method's renders.
+- D2 `[x]` GHS-POP 3" (100 m) on disk globally (11 GB + overviews); the texture for the chosen method's renders.
 - (F2) ocean: floor visible or pushed to seams. (F3) frame: square Web-Mercator or wall-map cut.
   (F4) the default method for the artefact. All three decided by Phil from the gallery.
 - Gate: F2, F3, F4 answered and written to `DECISIONS.md`.
@@ -135,6 +135,7 @@ animated timeline, Hennig 2013 the closest static ancestor, GSM 2018 is a Poisso
 
 ### Phase 9: the viewer, last (Act 5)
 
+- V0 `[x]` dev viewer: local tile server over any GeoTIFF, Leaflet front end (`src/serve_tiles.py`).
 - V1 `[ ]` zoom, pan, rotate with inertia and fluid fractional zoom.
 - V2 `[ ]` continuous level of detail driven by local magnification: a magnified Dhaka gets finer
   source data than a compressed Siberia at the same screen zoom.
@@ -303,7 +304,7 @@ F1-F4 are Phil's forks.
 | ID | what | source | status |
 |---|---|---|---|
 | D1 | people today, 30" | GHS-POP R2023A 2025 | `[x]` on disk |
-| D2 | people today, 3" (100 m) | GHS-POP R2023A | `[ ]` Phase 4 |
+| D2 | people today, 3" (100 m) | GHS-POP R2023A | `[x]` on disk |
 | D3 | people through time, 5', with bounds | HYDE 3.4 | `[ ]` Phase 5 |
 | D4 | coasts, borders, land | Natural Earth 50m/110m | `[x]` on disk |
 | D5 | night lights, roads, terrain, shipping, flights | VIIRS, GRIP4, SRTM/ETOPO, AIS density, OpenSky | `[ ]` Phase 6 |
