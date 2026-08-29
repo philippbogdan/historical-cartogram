@@ -135,3 +135,7 @@
   The periodic solve remains the one for the globe. A roll bug in to_grid (population 12 degrees east of the
   countries) was caught by the per-country population check; that check is now the first thing to run on any
   new frame. e033 is the current "today" frame.
+- 2026-08-29  Viewers are now tested in a real browser (Playwright Chromium, load + pan + wheel zoom + screenshot),
+  not by fetching tiles. The data viewer had a crash in /meta that left the page at "loading". The warped viewer
+  draws its settlement view from a max pyramid of the 1 km density chosen per pixel by footprint, so tiles with
+  1000x different footprints agree in brightness; under 2 km per pixel it reads the 1 km raster directly.

@@ -38,6 +38,7 @@ class Warped:
         self.H, self.W = int(z["src_hw"][0]), int(z["src_hw"][1])
         self.grid = prep.Grid(self.p.get("grid", "mercator"), self.W, self.p["lat_cut"])
         self.src = rasterio.open(GHS3 if os.path.exists(GHS3) else GHS30)
+        self.src30 = rasterio.open(GHS30)
         T = self.src.transform
         self.left, self.top, self.dx, self.dy = T.c, T.f, T.a, -T.e
         self.lock = threading.Lock()
@@ -54,8 +55,20 @@ class Warped:
         self.cols = (palette(int(self.cids.max()) + 1) * 255).astype(np.uint8)
         self.cols[0] = (168, 196, 216)
         self.maxz = int(np.ceil(np.log2(self.ow / TILE))) + 5
+        # max pyramid of the 1 km density for the settlement view (consistent at any footprint)
+        pyr = os.path.join(ROOT, "data", "derived", "ghs30ss_maxpyr.npz")
+        self.pyr = None
+        if os.path.exists(pyr):
+            z = np.load(pyr)
+            self.pyr = {int(k[1:]): z[k].astype(np.float32) for k in z.files if k.startswith("L")}
+            self.pyr_left, self.pyr_top, self.pyr_cell = (float(v) for v in z["meta"])
+        self.km_per_mesh_px = 2 * np.pi * 6371.0 / self.W
 
-    def tile(self, z, x, y, layer="pop", vmax=4.7, ss=2):
+    def tile(self, z, x, y, layer="pop", vmax=3.8, ss=2, mode="max"):
+        """Source density is read at a scale fixed by the ZOOM LEVEL, not by the tile's geographic
+        footprint (which varies 1000x across a cartogram), so neighbouring tiles agree in brightness."""
+        if layer == "pop" and mode == "max":
+            ss = 4
         span = self.ow / (2 ** z)                      # mesh px per tile
         n = TILE * ss
         u = x * span + (np.arange(n) + 0.5) * span / n  # output pixel coords of tile samples
@@ -71,11 +84,46 @@ class Warped:
         sxp = (np.arctan2(sx, cx) / (2 * np.pi)) % 1.0 * self.W
         syp = ndimage.map_coordinates(self.IY, coords, order=1, mode="nearest")
         lon, lat = self.grid.lonlat(sxp, syp)
+        # geographic footprint of one tile pixel (km): from the spread of source coordinates between samples
+        dsx = np.abs(np.diff(sxp, axis=1)); dsy = np.abs(np.diff(syp, axis=0))
+        foot_px = float(np.median(np.concatenate([dsx.ravel(), dsy.ravel()]))) * ss  # mesh px per tile pixel
+        lat_c = np.radians(float(np.median(lat)))
+        foot_km = foot_px * self.km_per_mesh_px * max(np.cos(lat_c), 0.1)
         if layer == "country":
             gx, gy = self.cid_grid.xy(lon, lat)
             ids = self.cids[np.clip(gy.astype(int), 0, self.cids.shape[0] - 1), np.clip(gx.astype(int), 0, self.cids.shape[1] - 1)]
             rgb = self.cols[ids]
             rgb = rgb.reshape(TILE, ss, TILE, ss, 3).mean(axis=(1, 3)).astype(np.uint8)
+        elif mode == "max" and self.pyr is not None:
+            # settlement view: the 1 km density's max within each pixel's own footprint (pyramid level per
+            # pixel); footprints under 2 km read the 1 km raster itself, so the definition never changes
+            gx = np.gradient(sxp, axis=1); gy = np.gradient(syp, axis=0)
+            fp = np.hypot(gx, gy) * ss * self.km_per_mesh_px * np.maximum(np.cos(np.radians(lat)), 0.1)  # km per tile px
+            kk = np.where(fp < 2.0, 0, np.clip(np.floor(np.log2(np.maximum(fp, 2.0))).astype(int), 1, max(self.pyr)))
+            d = np.zeros_like(lon)
+            for k in np.unique(kk):
+                m = kk == k
+                if k == 0:
+                    T30 = self.src30.transform
+                    c0 = int(np.floor((lon[m].min() - T30.c) / T30.a)); c1 = int(np.ceil((lon[m].max() - T30.c) / T30.a)) + 1
+                    r0 = int(np.floor((T30.f - lat[m].max()) / -T30.e)); r1 = int(np.ceil((T30.f - lat[m].min()) / -T30.e)) + 1
+                    c0, r0 = max(c0, 0), max(r0, 0); c1, r1 = min(c1, self.src30.width), min(r1, self.src30.height)
+                    with self.lock:
+                        a = self.src30.read(1, window=Window(c0, r0, max(c1 - c0, 1), max(r1 - r0, 1))).astype(np.float64)
+                    a[a < 0] = 0
+                    latc = np.radians(T30.f + (r0 + np.arange(a.shape[0]) + 0.5) * T30.e)
+                    a = a / ((T30.a * 111.32) ** 2 * np.maximum(np.cos(latc), 0.02))[:, None]
+                    ci = np.clip(((lon[m] - T30.c) / T30.a - c0).astype(int), 0, a.shape[1] - 1)
+                    ri = np.clip(((T30.f - lat[m]) / -T30.e - r0).astype(int), 0, a.shape[0] - 1)
+                    d[m] = a[ri, ci]
+                    continue
+                L = self.pyr[k]; cell = self.pyr_cell * 2 ** k
+                ci = np.clip(((lon[m] - self.pyr_left) / cell).astype(int), 0, L.shape[1] - 1)
+                ri = np.clip(((self.pyr_top - lat[m]) / cell).astype(int), 0, L.shape[0] - 1)
+                d[m] = L[ri, ci]
+            d = d.reshape(TILE, ss, TILE, ss).max(axis=(1, 3))
+            vv = np.clip(np.log10(d + 1) / 4.7, 0, 1)
+            rgb = (CMAP(vv)[..., :3] * 255).astype(np.uint8)
         else:
             # source raster window covering the sampled lon/lat box, read at a resolution matched to the tile
             lon0, lon1, lat0, lat1 = lon.min(), lon.max(), lat.min(), lat.max()
@@ -85,7 +133,7 @@ class Warped:
             if c1 <= c0 or r1 <= r0:
                 return None
             nc, nr = c1 - c0, r1 - r0
-            dec = max(1, int(min(nc, nr) / n))  # cells per sample
+            dec = max(1, int(min(nc, nr) / n))  # cells per sample, matched to the tile
             oc, orr = max(1, nc // dec), max(1, nr // dec)
             with self.lock:
                 a = self.src.read(1, window=Window(c0, r0, nc, nr), out_shape=(orr, oc), resampling=Resampling.average if dec > 1 else Resampling.nearest).astype(np.float64)
@@ -95,9 +143,10 @@ class Warped:
             fx = (lon - (self.left + c0 * self.dx)) / (self.dx * dec) - 0.5
             fy = ((self.top - r0 * self.dy) - lat) / (self.dy * dec) - 0.5
             d = ndimage.map_coordinates(dens, [fy, fx], order=1, mode="nearest")
-            vv = np.log10(d + 1) / vmax
-            rgb = (CMAP(np.clip(vv, 0, 1))[..., :3] * 255)
-            rgb = rgb.reshape(TILE, ss, TILE, ss, 3).mean(axis=(1, 3)).astype(np.uint8)
+            d = d.reshape(TILE, ss, TILE, ss)
+            d = d.max(axis=(1, 3)) if mode == "max" else d.mean(axis=(1, 3))
+            vv = np.clip(np.log10(d + 1) / vmax, 0, 1) ** 0.8
+            rgb = (CMAP(vv)[..., :3] * 255).astype(np.uint8)
         buf = io.BytesIO(); Image.fromarray(rgb).save(buf, format="PNG"); return buf.getvalue()
 
 
@@ -109,10 +158,11 @@ PAGE = """<!doctype html><html><head><meta charset="utf-8"><title>cartogram view
 <script>
 fetch('/meta').then(r=>r.json()).then(m=>{
   const map=L.map('map',{crs:L.CRS.Simple,minZoom:0,maxZoom:m.maxZoom,zoomSnap:0.25,wheelPxPerZoomLevel:90});
+  window.map=map;
   const opts={tileSize:256,minZoom:0,maxNativeZoom:m.maxZoom,maxZoom:m.maxZoom+2,noWrap:true,bounds:[[-256,0],[0,256]]};
-  const pop=L.tileLayer('/tiles/{z}/{x}/{y}.png?layer=pop',opts), cty=L.tileLayer('/tiles/{z}/{x}/{y}.png?layer=country',opts);
+  const pop=L.tileLayer('/tiles/{z}/{x}/{y}.png?layer=pop&mode=max',opts), popavg=L.tileLayer('/tiles/{z}/{x}/{y}.png?layer=pop&mode=avg',opts), cty=L.tileLayer('/tiles/{z}/{x}/{y}.png?layer=country',opts);
   pop.addTo(map); map.fitBounds([[-256,0],[0,256]]);
-  L.control.layers({'population (100 m, log density)':pop,'countries':cty},null,{collapsed:false}).addTo(map);
+  L.control.layers({'population, settlement (100 m)':pop,'population, density':popavg,'countries':cty},null,{collapsed:false}).addTo(map);
   document.getElementById('info').textContent=m.name+'  |  the cartogram frame, zoomable; population through the inverse map';
 });
 </script></body></html>"""
@@ -129,9 +179,10 @@ def main():
             if self.path.startswith("/tiles/"):
                 path, _, qs = self.path.partition("?")
                 layer = "country" if "layer=country" in qs else "pop"
+                mode = "avg" if "mode=avg" in qs else "max"
                 try:
                     z, x, y = (int(v) for v in path[7:].split(".")[0].split("/"))
-                    png = wp.tile(z, x, y, layer=layer)
+                    png = wp.tile(z, x, y, layer=layer, mode=mode)
                 except Exception as e:
                     self.send_response(500); self.end_headers(); self.wfile.write(str(e).encode()); return
                 if png is None:
