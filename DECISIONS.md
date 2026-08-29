@@ -118,3 +118,13 @@
 - 2026-08-29  Phase 4 forks, defaults applied (Phil may override on experiments/gallery.html): F2 ocean = pure
   (share 0.999) with the share slider; F3 frame = square Web-Mercator cut (85.05); F4 method = OT (M10 float64
   homotopy). F5 = inverse-map rendering, populated-cell folds reported (0.3% at 4096 and 8192).
+- 2026-08-29  Phil: the pure homotopy maps (e025, e030) "bleed" and look inhuman. Two causes, both fixed. (1) The
+  float64 fixed-point iteration was not converged (residual ~2): the spectral formulation (state = FFT of the
+  right-hand side, Hessian from bounded multipliers, no large numbers) converges to residual 0.004-0.01 on
+  the GPU in float32, +-2.5%, and is the solver from now on (SpectralPoissonOT, run_homotopy.py). (2) A global
+  floor inflates empty land as well as the ocean; the ocean-only buffer (`ocean_share`, default 0.05) gives the
+  ocean 5% of the frame and leaves land pure. e032 is the result: land = people, ocean 5%, no tendrils.
+- 2026-08-29  Frame cut (Phil): the left edge sits just off the American west coast (lon0 = -128), so the Americas
+  are at the west border and the whole Pacific at the east; the warp is periodic so this is a render setting.
+- 2026-08-29  Reviewing at 1:1: judge renders on full-resolution crops, not on the downscaled whole; Phil caught
+  the difference.

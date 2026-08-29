@@ -1,0 +1,17 @@
+{
+ "name": "e031_M10s_4096_share0.95",
+ "method": "ot_spectral_homotopy",
+ "grid": "mercator",
+ "lat_cut": 85.0511,
+ "width": 4096,
+ "W": 4096,
+ "H": 4096,
+ "x_boundary": "periodic",
+ "backend": "torch-spectral",
+ "floor": 0.052631578947368474,
+ "share": 0.95,
+ "sigma_km": 30.0,
+ "sigma_px": 3.069684414869267,
+ "vectors": "50m",
+ "iters": 400
+}

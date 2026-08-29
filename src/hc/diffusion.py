@@ -12,11 +12,19 @@ import os as _os
 _W = _os.cpu_count() or 1
 
 
-def prepare_density(counts, floor, sigma, x_boundary):
+def prepare_density(counts, floor, sigma, x_boundary, ocean=None, ocean_share=0.0):
+    """Density with mean 1. floor: a uniform addition as a fraction of the mean (the humanity share).
+    ocean + ocean_share: the OCEAN alone gets a uniform density that makes it ocean_share of the
+    frame, land stays pure (people only, plus the tiny floor for numerics)."""
     P = np.asarray(counts, np.float64)
     if sigma > 0:
         P = ndimage.gaussian_filter(P, sigma, mode=("reflect", "wrap" if x_boundary == "periodic" else "reflect"))
     rho = P + floor * P.mean()
+    if ocean is not None and ocean_share > 0:
+        oc = np.asarray(ocean, bool)
+        land_total = rho[~oc].sum()
+        rho = rho.copy()
+        rho[oc] = ocean_share / (1 - ocean_share) * land_total / max(oc.sum(), 1)
     return rho / rho.mean()
 
 

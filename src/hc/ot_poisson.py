@@ -348,3 +348,184 @@ def homotopy(counts, shares, sigma, x_boundary, iters=300, damping=0.3, log=prin
         psi = po.psi
         stages.append({"share": s, **info})
     return po, stages
+
+
+class SpectralPoissonOT(TorchPoissonOT):
+    """M10 on the GPU in float32 without the precision loss: the state is the spectral right-hand
+    side S = FFT(rhs), never the potential. The Hessian is D^2 psi = IFFT((k_i k_j / k^2) S), a
+    bounded multiplier applied to an O(1) field, so no large numbers are ever differenced; the
+    potential (values ~1e7 px^2 at 8192) is only formed for the mesh, where 1e-4 px is plenty."""
+
+    def __init__(self, *a, **k):
+        super().__init__(*a, **k)
+        T = self.torch
+        ky = 2 * np.pi * np.fft.fftfreq(self.ext_shape[0])
+        kx = 2 * np.pi * np.fft.rfftfreq(self.ext_shape[1])
+        k2 = ky[:, None] ** 2 + kx[None, :] ** 2
+        k2s = np.where(k2 > 0, k2, np.inf)
+        self.m_xx = T.tensor(kx[None, :] ** 2 / k2s, dtype=T.float32, device=self.dev)
+        self.m_yy = T.tensor(ky[:, None] ** 2 / k2s, dtype=T.float32, device=self.dev)
+        self.m_xy = T.tensor(kx[None, :] * ky[:, None] / k2s, dtype=T.float32, device=self.dev)
+        self.g_x = T.tensor(kx[None, :] / k2s, dtype=T.float32, device=self.dev)   # grad psi = IFFT(-i k S / k2)
+        self.g_y = T.tensor(ky[:, None] / k2s, dtype=T.float32, device=self.dev)
+        self.S = None
+
+    def _ifft(self, F):
+        return self.torch.fft.irfft2(F, s=self.ext_shape)[:self.H, :self.W]
+
+    def set_psi(self, psi):
+        """Adopt a potential (e.g. from a coarse level): S = -k2 FFT(ext(psi))."""
+        T = self.torch
+        P = T.fft.rfft2(self._ext(psi))
+        self.S = -P * T.tensor(np.where(np.isfinite(0), 0, 0), device=self.dev) if False else -P * self.k2
+        self.psi = psi
+
+    def hessian_S(self, S):
+        return self._ifft(S * self.m_xx), self._ifft(S * self.m_xy), self._ifft(S * self.m_yy)
+
+    def psi_from_S(self, S):
+        T = self.torch
+        return self._ifft(T.where(self.k2 > 0, -S / T.clamp(self.k2, min=1e-30), T.zeros_like(S)))
+
+    def residual(self, psi=None):
+        if psi is not None or self.S is None:
+            return super().residual(psi)
+        xx, xy, yy = self.hessian_S(self.S)
+        J = (1 + xx) * (1 + yy) - xy ** 2
+        return float(((J - self.rho).abs() * self.rho).sum() / self.rho.sum()), int((J <= 0).sum())
+
+    def one_shot(self):
+        T = self.torch
+        rhs = self.rho - 1
+        self.S = T.fft.rfft2(self._ext(rhs - rhs.mean()))
+        self.psi = self.psi_from_S(self.S)
+        return self.psi
+
+    def iterate(self, iters=200, damping=0.5, log=print, tol=1e-3, keep_best=True, patience=5):
+        T = self.torch
+        rho = self.rho
+        if self.S is None:
+            self.set_psi(self.psi)
+        t0 = time.time()
+        res, folds = self.residual()
+        best_res, best_S, since = res, self.S.clone(), 0
+        log(f"  iter start residual {res:.4f} folds {folds} (spectral)")
+        n = -1
+        for n in range(iters):
+            xx, xy, yy = self.hessian_S(self.S)
+            rhs = T.sqrt(T.clamp((1 + xx) ** 2 + 2 * xy ** 2 + (1 + yy) ** 2 + 2 * rho, min=0.0)) - 2
+            S_new = T.fft.rfft2(self._ext(rhs - rhs.mean()))
+            self.S = (1 - damping) * self.S + damping * S_new
+            if n % 10 == 0 or n == iters - 1:
+                res, folds = self.residual()
+                log(f"  iter {n} residual {res:.4f} folds {folds} {time.time()-t0:.0f}s")
+                if res < best_res - 1e-4:
+                    best_res, best_S, since = res, self.S.clone(), 0
+                else:
+                    since += 1
+                    if keep_best and since >= patience:
+                        break
+                if res < tol:
+                    break
+        if keep_best:
+            self.S = best_S
+            res, folds = self.residual()
+        self.psi = self.psi_from_S(self.S)
+        return {"iters": n + 1, "residual": res, "cell_folds": folds}
+
+    def mesh(self):
+        """Corner map from spectral gradients (float32 is fine for a displacement of ~1e3 px)."""
+        T = self.torch
+        gx = self._ifft(self.S * self.g_x * 1j) * -1  # d/dx of psi = IFFT(i kx psi_hat) = IFFT(-i kx S / k2)
+        gy = self._ifft(self.S * self.g_y * 1j) * -1
+        H, W = self.H, self.W
+        # cell-centre gradients -> corners by averaging the 4 neighbours, with the boundary rules
+        def to_corners(g):
+            p = T.cat([g[:1], g, g[-1:]], 0)
+            p = T.cat([p[:, -1:], p, p[:, :1]], 1) if self.x_boundary == "periodic" else T.cat([p[:, :1], p, p[:, -1:]], 1)
+            return (p[:-1, :-1] + p[:-1, 1:] + p[1:, :-1] + p[1:, 1:]) / 4
+        cx, cy = to_corners(gx), to_corners(gy)
+        ys, xs = np.mgrid[0:H + 1, 0:W + 1]
+        X = xs + cx.cpu().numpy().astype(np.float64)
+        Y = ys + cy.cpu().numpy().astype(np.float64)
+        if self.x_boundary == "periodic":
+            X[:, -1] = X[:, 0] + W
+            Y[:, -1] = Y[:, 0]
+        else:
+            X[:, 0], X[:, -1] = 0.0, W
+        Y[0, :], Y[-1, :] = 0.0, H
+        return X, Y
+
+
+def _spectral_run(self, iters=200, damping=0.5, one_shot_only=False, coarse_to_fine=True, min_width=512, log=print, **_):
+    """Coarse-to-fine for the spectral solver: what moves between levels is the O(1) right-hand
+    side field (IFFT of S), interpolated and re-transformed, never the potential."""
+    from scipy import ndimage
+    T = self.torch
+    t0 = time.time()
+    if not one_shot_only and coarse_to_fine and self.W > min_width:
+        levels, f = [], 1
+        while self.W // (2 * f) >= min_width and (self.H // (2 * f)) * (2 * f) == self.H and (self.W // (2 * f)) * (2 * f) == self.W:
+            f *= 2
+            levels.append(f)
+        rhs = None
+        for f in reversed(levels):
+            h, w = self.H // f, self.W // f
+            rho_c = self.rho0.reshape(h, f, w, f).mean(axis=(1, 3))
+            extra = float(np.sqrt(max(3.0 ** 2 - (getattr(self, "sigma_px", 3.0) / f) ** 2, 0.0)))
+            if extra > 0.3:
+                rho_c = ndimage.gaussian_filter(rho_c, extra, mode=("reflect", "wrap" if self.x_boundary == "periodic" else "reflect"))
+            sub = SpectralPoissonOT(None, x_boundary=self.x_boundary, device=str(self.dev), rho=rho_c / rho_c.mean())
+            if rhs is None:
+                sub.one_shot()
+            else:
+                r = T.tensor(rhs, dtype=T.float32, device=self.dev)
+                sub.S = T.fft.rfft2(sub._ext(r - r.mean()))
+            log(f"  level {w}x{h} (spectral)")
+            sub.iterate(iters=iters, damping=damping, log=log)
+            rhs_c = sub._ifft(sub.S).cpu().numpy().astype(np.float64)
+            rhs = ndimage.zoom(rhs_c, 2, order=1, mode="wrap" if self.x_boundary == "periodic" else "nearest")
+        r = T.tensor(rhs, dtype=T.float32, device=self.dev)
+        self.S = T.fft.rfft2(self._ext(r - r.mean()))
+        info = self.iterate(iters=iters, damping=damping, log=log)
+        info["mode"] = "coarse_to_fine_spectral"
+    elif not one_shot_only:
+        self.one_shot()
+        info = self.iterate(iters=iters, damping=damping, log=log)
+        info["mode"] = "iterated_spectral"
+    else:
+        self.one_shot()
+        info = {"mode": "one_shot"}
+    X, Y = self.mesh()
+    info["seconds_solve"] = time.time() - t0
+    return X, Y, info
+
+
+SpectralPoissonOT.run = _spectral_run
+
+
+def spectral_homotopy(counts, shares, sigma, x_boundary, iters=400, damping=0.5, log=print, on_stage=None, ocean=None, ocean_share=0.0):
+    """Continuation in the share with the spectral GPU solver: the O(1) right-hand side carries
+    over between shares (the density changes a little, the rhs field is the natural warm start).
+    on_stage(share, solver) is called after each stage so every stage can be kept as a run."""
+    from .diffusion import prepare_density
+    import torch
+    S, stages, po = None, [], None
+    for s in shares:
+        floor = (1 - s) / s
+        rho = prepare_density(counts, floor, sigma, x_boundary, ocean=ocean, ocean_share=ocean_share)
+        po = SpectralPoissonOT(None, x_boundary=x_boundary, rho=rho)
+        po.sigma_px = float(sigma)
+        if S is None:
+            po.run(iters=iters, damping=damping, coarse_to_fine=True, log=log)
+        else:
+            po.S = S
+            log(f"  homotopy share {s} (floor {floor:.4g})")
+            po.iterate(iters=iters, damping=damping, log=log)
+        S = po.S.clone()
+        r, f = po.residual()
+        stages.append({"share": s, "residual": r, "cell_folds": f})
+        log(f"  stage share {s}: residual {r:.4f} folds {f}")
+        if on_stage is not None:
+            on_stage(s, po)
+    return po, stages

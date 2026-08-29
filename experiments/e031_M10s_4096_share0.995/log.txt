@@ -1,0 +1,1 @@
+spectral homotopy stage share 0.995: residual 0.0065 folds 544424
