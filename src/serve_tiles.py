@@ -27,7 +27,10 @@ class Tiles:
         self.left, self.top, self.dx, self.dy = T.c, T.f, T.a, -T.e
         self.cell_km_eq = self.dx * 111.32  # km at the equator
 
-    def tile(self, z, x, y, vmax=4.7):
+    def tile(self, z, x, y, vmax=4.7, mode="avg", ss=None):
+        """mode 'avg': people per km^2 averaged over the display pixel (honest density).
+        mode 'max': the densest 100 m cell under the pixel (settlement structure at any zoom).
+        Tiles are read at ss x the tile size and reduced, so fine structure survives decimation."""
         deg = 180.0 / (2 ** z)
         lon0, lat1 = -180 + x * deg, 90 - y * deg
         lon1, lat0 = lon0 + deg, lat1 - deg
@@ -38,13 +41,17 @@ class Tiles:
         if c1 <= c0 or r1 <= r0:
             return None
         win = Window(c0, r0, c1 - c0, r1 - r0)
-        cells_per_px = max((c1 - c0) / TILE, 1.0)
+        ss = ss or (4 if mode == "max" else 2)  # max mode: max over 4x4 finer averages under each pixel
+        n = TILE * ss
+        cells_per_px = max((c1 - c0) / n, 1.0)
         with self.lock:
-            a = self.src.read(1, window=win, out_shape=(TILE, TILE), resampling=Resampling.average if cells_per_px > 1 else Resampling.nearest).astype(np.float64)
+            a = self.src.read(1, window=win, out_shape=(n, n), resampling=Resampling.average if cells_per_px > 1 else Resampling.nearest).astype(np.float64)
         a[a < 0] = 0
+        a = a.reshape(TILE, ss, TILE, ss)
+        a = a.max(axis=(1, 3)) if mode == "max" else a.mean(axis=(1, 3))
         lat_c = np.radians((lat0 + lat1) / 2)
         cell_area = (self.cell_km_eq ** 2) * max(np.cos(lat_c), 0.05)  # km^2 per source cell
-        dens = a / cell_area  # average people per km^2 (average resampling keeps per-cell counts)
+        dens = a / cell_area  # people per km^2 of the source cell (per-cell counts survive both resamplings)
         v = np.log10(dens + 1) / vmax
         rgb = (CMAP(np.clip(v, 0, 1))[..., :3] * 255).astype(np.uint8)
         rgb[a <= 0] = 0
@@ -66,8 +73,10 @@ def main():
         def do_GET(self):
             if self.path.startswith("/tiles/"):
                 try:
-                    z, x, y = (int(p) for p in self.path[7:].split(".")[0].split("/"))
-                    png = tiles.tile(z, x, y)
+                    path, _, qs = self.path.partition("?")
+                    mode = "max" if "mode=max" in qs else "avg"
+                    z, x, y = (int(p) for p in path[7:].split(".")[0].split("/"))
+                    png = tiles.tile(z, x, y, mode=mode)
                 except Exception as e:
                     self.send_response(500); self.end_headers(); self.wfile.write(str(e).encode()); return
                 if png is None:
