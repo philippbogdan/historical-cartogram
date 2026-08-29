@@ -34,15 +34,18 @@ def _fill_holes(img):
 
 
 def _splat_torch(values, X, Y, out_hw, wrap=True, ss_max=12, weights=None):
+    """values of shape (H, W) are per cell; values of shape (H+1, W+1) are per corner and are
+    interpolated bilinearly inside each cell (continuous fields such as the inverse map)."""
     import torch
     dev = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
-    H, W = values.shape
+    corner = values.shape == X.shape
+    H, W = (values.shape[0] - 1, values.shape[1] - 1) if corner else values.shape
     oh, ow = out_hw
     sx, sy = ow / W, oh / H
     Xt = torch.tensor(X, dtype=torch.float32, device=dev)
     Yt = torch.tensor(Y, dtype=torch.float32, device=dev)
     V = torch.tensor(np.asarray(values, np.float32), device=dev)
-    Wt = torch.ones_like(V) if weights is None else torch.tensor(np.asarray(weights, np.float32), device=dev)
+    Wt = torch.ones(H, W, device=dev) if weights is None else torch.tensor(np.asarray(weights, np.float32), device=dev)
     x0, x1, x2, x3 = Xt[:-1, :-1], Xt[:-1, 1:], Xt[1:, 1:], Xt[1:, :-1]
     y0, y1, y2, y3 = Yt[:-1, :-1], Yt[:-1, 1:], Yt[1:, 1:], Yt[1:, :-1]
     A = (0.5 * ((x0 * y1 - x1 * y0) + (x1 * y2 - x2 * y1) + (x2 * y3 - x3 * y2) + (x3 * y0 - x0 * y3))).abs() * sx * sy
@@ -53,13 +56,18 @@ def _splat_torch(values, X, Y, out_hw, wrap=True, ss_max=12, weights=None):
         ii, jj = torch.nonzero(k == kk, as_tuple=True)
         x00, x01, x10, x11 = Xt[ii, jj], Xt[ii, jj + 1], Xt[ii + 1, jj], Xt[ii + 1, jj + 1]
         y00, y01, y10, y11 = Yt[ii, jj], Yt[ii, jj + 1], Yt[ii + 1, jj], Yt[ii + 1, jj + 1]
-        v = V[ii, jj]
+        if corner:
+            v00, v01, v10, v11 = V[ii, jj], V[ii, jj + 1], V[ii + 1, jj], V[ii + 1, jj + 1]
+        else:
+            v = V[ii, jj]
         w = Wt[ii, jj] / (kk * kk)
         for a in range(kk):
             for b in range(kk):
                 u, t = (a + 0.5) / kk, (b + 0.5) / kk
                 x = (1 - u) * (1 - t) * x00 + u * (1 - t) * x01 + (1 - u) * t * x10 + u * t * x11
                 y = (1 - u) * (1 - t) * y00 + u * (1 - t) * y01 + (1 - u) * t * y10 + u * t * y11
+                if corner:
+                    v = (1 - u) * (1 - t) * v00 + u * (1 - t) * v01 + (1 - u) * t * v10 + u * t * v11
                 px = torch.floor(x * sx).to(torch.int64)
                 px = px % ow if wrap else px.clamp(0, ow - 1)
                 py = torch.floor(y * sy).to(torch.int64).clamp(0, oh - 1)

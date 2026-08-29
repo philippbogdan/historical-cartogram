@@ -16,9 +16,10 @@ def main(name, out_w=None):
     out_w = out_w or W
     oh, ow = int(round(H * out_w / W)), out_w
     wrap = p.get("x_boundary", "periodic") == "periodic"
-    ys, xs = np.mgrid[0:H, 0:W] + 0.5
-    # splat the source x as (cos, sin) on the cylinder so averaging across the seam stays sane
-    ang = xs / W * 2 * np.pi
+    # corner-valued splat: every sub-sample carries its own bilinear source coordinate, so the
+    # inverse map is continuous inside each warped cell (a per-cell value would be blocky)
+    ys, xs = np.mgrid[0:H + 1, 0:W + 1].astype(np.float64)
+    ang = xs / W * 2 * np.pi  # source x as an angle so averaging across the seam stays sane
     cx = render.splat(np.cos(ang), X, Y, (oh, ow), wrap=wrap)
     sx = render.splat(np.sin(ang), X, Y, (oh, ow), wrap=wrap)
     IX = (np.arctan2(sx, cx) / (2 * np.pi)) % 1.0 * W
