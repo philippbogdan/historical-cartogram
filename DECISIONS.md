@@ -100,3 +100,9 @@
   cells. The BFM route (M3) stalls at 4096 pure: 21% of the population misplaced after the ascent and the
   polish cannot recover (residual 4.3). M3 stays as a solver for moderate contrasts and as the reference
   for convexity; the artefact route to pure is the homotopy. M11 (semi-discrete) remains the other candidate.
+- 2026-08-29  The pure OT world exists: e025 (share 0.999, 4096, float64 homotopy 0.95 -> 0.999), +-3.5%
+  population-weighted density error, oceans 0.6% of the frame, 5.5k folds in populated cells (0.3%). float32
+  on the GPU cannot hold the Hessian of a px^2 potential above ~1024 (residual 3.4 vs 1.0 in float64), so
+  M10 runs in numpy float64 above 1024; the coarse levels are smoothed to 3 px at their own scale.
+- 2026-08-29  Phase 2 closed: OT is the artefact's method (F4 default confirmed by the pictures); M3 stays as
+  research code; M11 (semi-discrete) is the remaining route to zero folds anywhere.

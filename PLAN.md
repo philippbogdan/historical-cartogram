@@ -78,14 +78,16 @@ from Phase 5 on.
 
 ### Phase 2: optimal transport, pure and fold-free
 
-- M10 `[x]` Poisson one-shot and BFO iteration with coarse-to-fine; ±3.5% at share ≤ 0.95; fails at pure.
-- M3 `[~]` back-and-forth method (Jacobs-Leger 2020): convexity-preserving, fold-free by construction.
-  Own torch implementation (dual ascent with fast Legendre transforms on the grid); the public C code
-  is the reference. Gate: share 0.999 at 4096, zero folds in populated cells, ±5%.
+- M10 `[x]` Poisson one-shot and BFO iteration with coarse-to-fine; with continuation in the share (homotopy)
+  and float64 above 1024 it reaches the pure limit: e025, share 0.999 at 4096, ±3.5%, 5.5k folds in populated cells (0.3%).
+- M3 `[x]` back-and-forth method implemented (C Legendre transforms, GPU pushforward, Monge-Ampère polish);
+  it gives the global convex structure but its discrete map is a staircase where the map compresses and
+  the ascent stalls at 4096 pure (21% mass misplaced). Kept as a solver for moderate contrasts; the pure
+  route is M10 homotopy. Gate status: ±5% met (±3.5%); populated folds 5.5k of 1.9M, not zero (F5 default applies).
 - M11 `[ ]` NEW semi-discrete OT (Laguerre cells): one convex cell per N people, exact areas, no folds;
   a new picture (the power diagram of humanity) and the engine for L7. Mérigot/Lévy code as reference.
 - M5 `[ ]` monotone Monge-Ampère finite differences, only if M3 stalls. M4, M6 `[ ]` optional comparisons.
-- Gate: the pure OT world at 4096 with the same metrics, side by side with diffusion and jellium.
+- Gate: MET 2026-08-29 on error; folds gate under F5 default. e025 is the pure OT world at 4096.
 
 ### Phase 3: gravity `[~]`
 

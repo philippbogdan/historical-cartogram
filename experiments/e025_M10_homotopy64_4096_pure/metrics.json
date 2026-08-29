@@ -1,0 +1,69 @@
+{
+ "folds": 1192588,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.03382403100439108,
+ "log_ratio_popweighted_p50": 0.002869433877446917,
+ "log_ratio_popweighted_p95": 0.037076690131531136,
+ "log_ratio_min": -9.269899551605977,
+ "log_ratio_max": 14.579807318376169,
+ "anisotropy_popweighted_p50": 3.8656014192361208,
+ "anisotropy_popweighted_p95": 20.17316151088861,
+ "displacement_mean_px": 999.8531861255401,
+ "displacement_max_px": 2097.093256385326,
+ "folds_before_repair": 1631057,
+ "folds_after_repair": 1192588,
+ "repair_iterations": 499,
+ "repaired_corners": 2189440,
+ "folds_in_populated_cells": 5531,
+ "p95_shift_by_repair": -1.2863985936750755e-05,
+ "pre_repair": {
+  "log_ratio_popweighted_p05": -0.033829184486970566,
+  "log_ratio_popweighted_p95": 0.037089554117467886,
+  "anisotropy_popweighted_p50": 3.865659488445032,
+  "anisotropy_popweighted_p95": 20.18081408775838
+ },
+ "mode": "ot_homotopy",
+ "stages": [
+  {
+   "share": 0.95,
+   "iters": 400,
+   "residual": 0.8981711764578301,
+   "cell_folds": 76237
+  },
+  {
+   "share": 0.98,
+   "iters": 181,
+   "residual": 0.9548806013581359,
+   "cell_folds": 218275
+  },
+  {
+   "share": 0.99,
+   "iters": 141,
+   "residual": 0.9734588553109429,
+   "cell_folds": 538267
+  },
+  {
+   "share": 0.995,
+   "iters": 121,
+   "residual": 0.9821600988507594,
+   "cell_folds": 934268
+  },
+  {
+   "share": 0.999,
+   "iters": 111,
+   "residual": 0.9875786078118806,
+   "cell_folds": 1615387
+  }
+ ],
+ "polish_residual": 0.9875786078118806,
+ "seconds": 534.3732061386108,
+ "seam_empty_share_before": 0.8555627465248108,
+ "seam_empty_share_after": 0.005706097033450883,
+ "seam_empty_linear_compression_p50": 16.70946171890183,
+ "seam_empty_linear_compression_p95": 1000000.0,
+ "seam_empty_cells_below_1px": 0.750207973952277,
+ "shape_error_popweighted": 0.753780795209957,
+ "shape_error_median": 0.5979824439174563,
+ "twist_popweighted_p50_deg": 0.00015429204692734403,
+ "twist_popweighted_p95_deg": 0.0008708226994250403
+}

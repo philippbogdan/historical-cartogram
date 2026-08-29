@@ -71,8 +71,8 @@ def main(name, out_w=None):
     json.dump(m, open(os.path.join(out, "metrics.json"), "w"), indent=1)
     if "psi" in z.files:
         lines = layers.equipotential_lines(z["psi"].astype(np.float64), levels=48)
-        render.draw(X, Y, np.ones_like(rho0, dtype=np.uint8), os.path.join(out, "equipotentials.png"), out_w, coast, [], [], grat=(), mgrid=lines,
-                    raster=None, title="equipotentials of the transport potential (R7)", wrap=wrap)
+        render.draw(X, Y, np.ones_like(rho0, dtype=np.uint8), os.path.join(out, "equipotentials.png"), out_w, coast=coast, mgrid=lines,
+                    title="equipotentials of the transport potential (R7): level sets of psi, T = x + grad psi", wrap=wrap)
     print("seam:", {k: round(v, 3) for k, v in m.items() if k.startswith("seam_")})
     print("wrote map, stretch, twist, flow" + (", equipotentials" if "psi" in z.files else ""), "twist p50/p95", round(m["twist_popweighted_p50_deg"], 2), round(m["twist_popweighted_p95_deg"], 2))
 
