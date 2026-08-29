@@ -94,30 +94,24 @@ class BackForthOT:
     def _J(self, phi, psi):
         return float((torch.tensor(phi, device=self.dev, dtype=torch.float32) * self.nu).sum() + (torch.tensor(psi, device=self.dev, dtype=torch.float32) * self.mu).sum())
 
-    def run(self, iters=60, step_px=20.0, polish_iters=300, polish_damping=0.3, patience=6, log=print, **_):
-        """Two stages. (1) Back-and-forth ascent on the discrete dual with a fixed H^1 step scaled so
-        the first update moves points by step_px at most; every iterate is tightened (double
-        c-transform), so the potential is c-concave and the transport structure is global and
-        convex. The discrete map is a staircase where the map compresses (the argmin is
-        quantised to the grid), so (2) the Monge-Ampere Poisson iteration (M10) polishes it into
-        a smooth potential, starting from the BFM solution rather than from the linearisation,
-        which is what M10 alone cannot do at the pure limit."""
-        from .ot_poisson import TorchPoissonOT
+    def _ascend(self, phi0, iters, step_px, patience, log):
+        """Back-and-forth ascent from phi0 (None = zero). Leaves self.phi, self.psi, self.best, self.iters_done."""
         t0 = time.time()
-        H, W = self.H, self.W
-        phi = np.zeros((H, W))
+        phi = np.zeros((self.H, self.W)) if phi0 is None else np.asarray(phi0, np.float64)
         psi = c_transform(phi, self.periodic)
+        phi = c_transform(psi, self.periodic)
         Tmu = self._push(self.mu, psi)
         u = self.spec.inv_neg_laplacian(self.nu - Tmu)
         gu = torch.gradient(u)
         sigma = step_px / (float(torch.maximum(gu[0].abs().max(), gu[1].abs().max())) + 1e-12)
-        best, best_psi, since = 1e9, psi, 0
+        best, best_psi, best_phi, since = 1e9, psi, phi, 0
         err = None
+        it = -1
         for it in range(iters):
             Tmu = self._push(self.mu, psi)
             err = 0.5 * float((self.nu - Tmu).abs().mean())
             if err < best - 1e-4:
-                best, best_psi, since = err, psi, 0
+                best, best_psi, best_phi, since = err, psi, phi, 0
             else:
                 since += 1
                 if since >= patience:
@@ -132,12 +126,51 @@ class BackForthOT:
             if it % 5 == 0:
                 log(f"  bfm {it} misplaced {err:.4f} {time.time()-t0:.0f}s")
         log(f"  bfm done: {it+1} iterations, misplaced mass {best:.4f}, {time.time()-t0:.0f}s")
-        self.psi, self.phi = best_psi, phi
+        self.psi, self.phi, self.best, self.iters_done = best_psi, best_phi, best, it + 1
+
+    def run(self, iters=60, step_px=20.0, polish_iters=300, polish_damping=0.3, patience=6, coarse_to_fine=True, min_width=512, log=print, **_):
+        """Two stages. (1) Back-and-forth ascent on the discrete dual with a fixed H^1 step scaled so
+        the first update moves points by step_px at most; every iterate is tightened (double
+        c-transform), so the potential is c-concave and the transport structure is global and
+        convex. The discrete map is a staircase where the map compresses (the argmin is
+        quantised to the grid), so (2) the Monge-Ampere Poisson iteration (M10) polishes it into
+        a smooth potential, starting from the BFM solution rather than from the linearisation,
+        which is what M10 alone cannot do at the pure limit."""
+        from .ot_poisson import TorchPoissonOT
+        from scipy import ndimage
+        t0 = time.time()
+        H, W = self.H, self.W
+        phi = None
+        if coarse_to_fine and W > min_width:
+            # solve the discrete dual on block-averaged grids first; a potential in px^2 scales x4 per doubling
+            f = 1
+            levels = []
+            while W // (2 * f) >= min_width and (H // (2 * f)) * (2 * f) == H and (W // (2 * f)) * (2 * f) == W:
+                f *= 2
+                levels.append(f)
+            for f in reversed(levels):
+                h, w = H // f, W // f
+                rho_c = self.rho0.reshape(h, f, w, f).mean(axis=(1, 3))
+                sub = BackForthOT.__new__(BackForthOT)
+                sub.x_boundary, sub.periodic = self.x_boundary, self.periodic
+                sub.rho0 = rho_c / rho_c.mean()
+                sub.H, sub.W = h, w
+                sub.dev = self.dev
+                sub.mu = torch.tensor(sub.rho0, dtype=torch.float32, device=self.dev)
+                sub.nu = torch.ones_like(sub.mu)
+                sub.spec = Spectral(h, w, self.x_boundary, self.dev)
+                log(f"  bfm level {w}x{h}")
+                sub._ascend(None if phi is None or phi.shape != (h, w) else phi, iters, step_px, patience, log)
+                phi = ndimage.zoom(sub.phi, 2, order=1, mode="wrap" if self.periodic else "nearest") * 4
+            log(f"  bfm level {W}x{H}")
+        self._ascend(phi, iters, step_px, patience, log)
+        phi, best_psi, best, it = self.phi, self.psi, self.best, self.iters_done
         # stage 2: Monge-Ampere polish from the BFM potential (M10 convention: T = x + grad psi)
         po = TorchPoissonOT(None, x_boundary=self.x_boundary, rho=self.rho0)
         po.psi = torch.tensor(-best_psi, dtype=torch.float32, device=po.dev)
         pinfo = po.iterate(iters=polish_iters, damping=polish_damping, log=log)
         X, Y = po.mesh()
-        info = {"mode": "bfm+polish", "bfm_iters": it + 1, "bfm_misplaced_mass": best, "polish_residual": pinfo["residual"],
+        self.psi = po.psi  # M10 convention, for the equipotential render
+        info = {"mode": "bfm+polish", "bfm_iters": it, "bfm_misplaced_mass": best, "polish_residual": pinfo["residual"],
                 "polish_cell_folds": pinfo["cell_folds"], "seconds_solve": time.time() - t0}
         return X, Y, info

@@ -97,7 +97,11 @@ def main():
     metrics.update(info)
     metrics["seconds"] = time.time() - t0
     log(json.dumps(metrics, indent=1))
-    np.savez_compressed(os.path.join(out, "mesh.npz"), X=X.astype(np.float32), Y=Y.astype(np.float32), rho0=dc.rho0.astype(np.float32))
+    extra = {}
+    psi = getattr(dc, "psi", None)
+    if psi is not None:  # OT methods: the transport potential (T = x + grad psi in the M10 convention) for R7
+        extra["psi"] = (psi.cpu().numpy() if hasattr(psi, "cpu") else np.asarray(psi)).astype(np.float32)
+    np.savez_compressed(os.path.join(out, "mesh.npz"), X=X.astype(np.float32), Y=Y.astype(np.float32), rho0=dc.rho0.astype(np.float32), **extra)
     params = vars(args) | {"H": grid.H, "W": grid.W, "lat_cut": grid.lat_cut, "sigma_px": sigma_px, "max_disp": max_disp, "factor": factor}
     json.dump(params, open(os.path.join(out, "params.json"), "w"), indent=1)
     json.dump(metrics, open(os.path.join(out, "metrics.json"), "w"), indent=1)
