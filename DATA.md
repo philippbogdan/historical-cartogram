@@ -24,3 +24,6 @@ All entries verified 2026-08-28 unless stated. Nothing here cost money.
 | HYDE 3.4 | 5' (~9 km) | 10000 BC to 2025 | timeline source; steps: millennial to 1 AD, then finer (3.4 schedule unverified); CC BY 4.0; portal https://hyde-portal.geo.uu.nl/ ; paper Klein Goldewijk et al. ESSD 2017 doi:10.5194/essd-9-927-2017 |
 
 Pre-1700 alternatives: Reba-Reitsma-Seto historical urban populations (city points, 3700 BC to 2000, doi:10.7927/H4ZG6QBX). No other pre-1700 grid found.
+
+- `data/raw/ghs3ss/GHS_POP_E2025_GLOBE_R2023A_4326_3ss_V1_0_R7_C27.tif` one 100 m tile (Bengal), 12000x12000, from
+  .../GHS_POP_E2025_GLOBE_R2023A_4326_3ss/V1-0/tiles/ (348 tiles of 10 degrees, R = row from 90N, C = column from 180W); global zip is 12.9 GB. Downloaded 2026-08-29.

@@ -180,7 +180,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] X6 recognisability: side-by-side gallery, judged by eye
 
  KNOBS (sweep per method)
-  floor in {0.1, 1, 5, 10}% of mean | sigma in {0, 1, 2} px | lat cut in {80, 85.05}
+  humanity share lambda in {1.0, 0.95, 0.9, 0.8, 0.5} (floor = (1-lambda)/lambda) | sigma in km | lat cut in {80, 85.05}
   width in {512, 1024, 2048, 4096} | ocean floor vs ocean removed
 
  RENDER
@@ -196,7 +196,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [ ] L7 one person per pixel gigapixel; [ ] L8 uncertainty texture from HYDE bounds
 
  SOLVER INFRASTRUCTURE
-  [x] S1 GPU solver (M4, MPS)   [x] S2 4096 run (e008 e009)   [ ] S3 8192 run   [~] S4 fold gate: repair exists, gate definition under review (see DECISIONS 2026-08-29)
+  [x] S1 GPU solver (M4, MPS)   [x] S2 4096 run (e008 e009)   [ ] S3 8192 run   [ ] S5 exact field evaluation (NUFFT) for the flows   [~] S4 fold gate: repair exists, gate definition under review (see DECISIONS 2026-08-29)
 
  VIEWER (Phase 9, last)
   [ ] V1 zoom/pan/rotate  [ ] V2 LOD by local magnification  [ ] V3 flat + globe, same assets

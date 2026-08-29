@@ -38,7 +38,8 @@ def main():
     ap.add_argument("--width", type=int, default=512)
     ap.add_argument("--x-boundary", default="periodic", choices=["periodic", "wall"])
     ap.add_argument("--backend", default="torch", choices=["torch", "numpy"])
-    ap.add_argument("--floor", type=float, default=0.01, help="empty-cell floor as a fraction of mean density")
+    ap.add_argument("--floor", type=float, default=0.01, help="empty-cell floor as a fraction of mean density (= (1-share)/share)")
+    ap.add_argument("--share", type=float, default=None, help="humanity share lambda: area = lambda*people + (1-lambda)*frame area; overrides --floor")
     ap.add_argument("--sigma-km", type=float, default=30.0, help="gaussian pre-smoothing, km at the equator")
     ap.add_argument("--tol", type=float, default=1e-3)
     ap.add_argument("--max-disp", type=float, default=None, help="px per step; default sigma_px/2 clipped to [0.5, 2]")
@@ -54,6 +55,8 @@ def main():
     def log(s):
         print(s, flush=True); log_f.write(s + "\n"); log_f.flush()
 
+    if args.share is not None:
+        args.floor = (1 - args.share) / args.share
     grid = prep.Grid(args.grid, args.width, args.lat_cut)
     factor = max(d for d in prep.divisors(NCOLS) if d <= max(1, NCOLS // (2 * args.width)))
     log(f"grid {grid.describe()}; GHS-POP block-summed by {factor}")

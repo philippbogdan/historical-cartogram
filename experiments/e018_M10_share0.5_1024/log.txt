@@ -1,0 +1,65 @@
+grid mercator 1024x1024 lat_cut 85.0511; GHS-POP block-summed by 20
+total 8.1920 bn people; dropped beyond +-85.0511: 36; sigma 3.02 px; max_disp 1.5092615039773896
+  level 512x512
+  iter 0 residual 67.4361 folds 87435 0s
+  iter 10 residual 7.1837 folds 1244 0s
+  iter 20 residual 1.4647 folds 0 0s
+  iter 30 residual 0.4367 folds 0 0s
+  iter 40 residual 0.2615 folds 0 0s
+  iter 50 residual 0.2972 folds 1 0s
+  iter 60 residual 0.3139 folds 1 0s
+  iter 70 residual 0.3193 folds 3 0s
+  iter 80 residual 0.3210 folds 3 0s
+  iter 90 residual 0.3215 folds 3 0s
+  iter 100 residual 0.3216 folds 3 0s
+  iter 110 residual 0.3217 folds 3 1s
+  iter 120 residual 0.3217 folds 3 1s
+  iter 130 residual 0.3217 folds 3 1s
+  iter 140 residual 0.3217 folds 3 1s
+  iter 150 residual 0.3217 folds 3 1s
+  iter 160 residual 0.3217 folds 3 1s
+  iter 170 residual 0.3217 folds 3 1s
+  iter 180 residual 0.3217 folds 3 1s
+  iter 190 residual 0.3217 folds 3 1s
+  iter 200 residual 0.3217 folds 3 1s
+  iter 210 residual 0.3217 folds 3 1s
+  iter 220 residual 0.3217 folds 3 1s
+  iter 230 residual 0.3217 folds 3 1s
+  iter 240 residual 0.3217 folds 3 1s
+  iter 250 residual 0.3217 folds 3 1s
+  iter 260 residual 0.3217 folds 3 1s
+  iter 270 residual 0.3217 folds 3 1s
+  iter 280 residual 0.3217 folds 3 1s
+  iter 290 residual 0.3217 folds 3 1s
+  iter 299 residual 0.3217 folds 3 1s
+  iter 0 residual 2.8782 folds 33034 0s
+  iter 10 residual 0.3215 folds 153 0s
+  iter 20 residual 0.1724 folds 5 0s
+  iter 30 residual 0.1099 folds 0 1s
+  iter 40 residual 0.0924 folds 0 1s
+  iter 50 residual 0.0914 folds 0 1s
+  iter 60 residual 0.0920 folds 0 1s
+  iter 70 residual 0.0922 folds 0 2s
+  iter 74 residual 0.0922 folds 0 2s
+pre-repair: {"folds": 0, "gate_folds": "PASS", "log_ratio_popweighted_p05": -0.0171, "log_ratio_popweighted_p50": -0.0036, "log_ratio_popweighted_p95": 0.0233, "log_ratio_min": -0.2088, "log_ratio_max": 1.1525, "anisotropy_popweighted_p50": 2.6706, "anisotropy_popweighted_p95": 9.1541, "displacement_mean_px": 112.6226, "displacement_max_px": 301.0751}
+{
+ "folds": 0,
+ "gate_folds": "PASS",
+ "log_ratio_popweighted_p05": -0.017067458528703085,
+ "log_ratio_popweighted_p50": -0.0035854518602795042,
+ "log_ratio_popweighted_p95": 0.02330438531301675,
+ "log_ratio_min": -0.20877926142924985,
+ "log_ratio_max": 1.1524918517409817,
+ "anisotropy_popweighted_p50": 2.6706034472218447,
+ "anisotropy_popweighted_p95": 9.154127604806016,
+ "displacement_mean_px": 112.62260423694283,
+ "displacement_max_px": 301.07508747358713,
+ "iters": 75,
+ "residual": 0.09218627744792021,
+ "cell_folds": 0,
+ "mode": "coarse_to_fine",
+ "seconds_solve": 3.01332688331604,
+ "seconds": 3.169071912765503
+}
+renders in 3s
+gate S4 folds: PASS (0); wrote /Users/phil/historical-cartogram/experiments/e018_M10_share0.5_1024

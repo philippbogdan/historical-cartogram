@@ -52,6 +52,7 @@ animated timeline, Hennig 2013 the closest static ancestor, GSM 2018 is a Poisso
 - S1 `[x]` the solver on the GPU (M4, free) so 4096 is hours and 8192 is feasible.
 - S2 `[x]` diffusion at 4096 with smoothing in km that shrinks with resolution (about 30 km).
 - S4 `[~]` fold gate: folds must be exactly zero for a run to count; fix resolution or smoothing until they are.
+- S5 `[ ]` exact band-limited field evaluation (NUFFT) for the flows, so their folds vanish structurally.
 - A11 `[x]` metric grid (100 km ground squares through the warp) and Tissot ellipses on every render.
 - R2 `[~]` any raster through the warp: population itself as the first heatmap.
 - Gate: a 4096 diffusion run, zero folds, population-weighted density error within ±10%, metric grid visible.
@@ -61,7 +62,7 @@ animated timeline, Hennig 2013 the closest static ancestor, GSM 2018 is a Poisso
 - M10 `[x]` Poisson one-shot (the linearised OT map, the gravity intuition) then the Poisson
   iteration that converges to the Monge-Ampère solution; this is our own OT solver.
 - M5 `[ ]` the same Monge-Ampère solution by monotone finite differences if M10 stalls on zero-density seams.
-- M3 `[ ]` the back-and-forth method as the reference OT map on the same input.
+- M3 `[ ]` the back-and-forth method: convexity-preserving, so fold-free by construction; now the primary OT route.
 - M4 `[ ]` entropic Sinkhorn on the grid, optional, for the blurred-but-smooth comparison.
 - M6 `[ ]` sliced OT, optional, to see what vruba was playing with.
 - Gate: an OT cartogram at 4096 with the same metrics as diffusion; a side-by-side of the two;
@@ -80,7 +81,7 @@ animated timeline, Hennig 2013 the closest static ancestor, GSM 2018 is a Poisso
 
 - X5 `[ ]` seam statistics: how each method collapses the ocean.
 - X6 `[ ]` the gallery: every method, side by side, with metric grid, judged by eye.
-- Knobs swept and rendered: ocean floor 0.1 / 1 / 5 / 10 %, frame cut 80 / 85.05, smoothing.
+- Knobs swept and rendered: humanity share 1.0 / 0.95 / 0.9 / 0.8 / 0.5 (the floor generalised), frame cut 80 / 85.05, smoothing.
 - S3 `[ ]` the chosen method at 8192.
 - D2 `[ ]` GHS-POP 3" (100 m) as the texture for the chosen method's renders.
 - (F2) ocean: floor visible or pushed to seams. (F3) frame: square Web-Mercator or wall-map cut.

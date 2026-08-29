@@ -65,3 +65,14 @@
   only helps in the ocean; folds inside populated cells are reported separately. Proposed gate: the globe
   renders from the INVERSE map texture (splat-averaged, single-valued by construction), so the gate becomes
   "zero folds in populated cells, ocean folds below the pixel scale". Phil decides (F5).
+- 2026-08-29  The humanity share lambda (`--share`) replaces the floor as the first-class knob: the solver
+  equalises the blended measure lambda*people + (1-lambda)*frame area, so every lambda is a true cartogram of
+  a stated measure and lambda = 0 is the untouched base map. floor f == share 1/(1+f) (floor 5% = share 0.95).
+  At 1024 OT: share 0.95 -> 22.8k folds, 0.9 -> 9.8k, 0.8 -> 1.5k, 0.5 -> 0 folds, anisotropy p50 2.7.
+  This is also the semantic version of the geography -> cartogram morph (R3): sweep lambda, not the displacement.
+- 2026-08-29  Resolution ladder recorded in notes/resolution: data 100 m (GHS-POP 3", one tile on disk, 13 GB
+  global), ingested 1 km, solver 10 km at 4096, smoothing 30 km. The 100 m detail is census counts disaggregated
+  onto satellite-detected buildings (modelled below the census unit).
+- 2026-08-29  Folds are convexity failures of the discrete OT potential (and interpolation error for the flows),
+  not a property of the maps; M3 (back-and-forth) and M5 (monotone FD) preserve convexity by construction and
+  move up the order. S5 added: exact band-limited field evaluation (NUFFT) for the flows.
