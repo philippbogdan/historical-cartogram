@@ -107,9 +107,9 @@ from Phase 5 on.
 - X7 `[x]` NEW recognisability: per-country shape error after the best similarity transform, and label
   legibility (share of countries whose warped area holds their name).
 - X5 `[ ]` seam statistics. R10 `[x]` NEW generated gallery page from INDEX with thumbnails and metrics.
-- X6 `[ ]` the gallery reviewed; F2-F4 confirmed or changed by Phil, asynchronously.
+- X6 `[~]` gallery generated (experiments/gallery.html, 33 runs); F2-F4 defaults applied and written; Phil reviews asynchronously.
 - S3 `[x]` the default method at 8192: e030, pure (share 0.999), 15 km smoothing, float64 homotopy, ±3.6%, 25k populated folds of 7.6M (0.3%), 65 min; the 100 m texture through it: A12 prototype `[x]` (`src/serve_warped.py`, the cartogram zoomable at 100 m through the inverse map).
-- Gate: gallery page live in the repo; F2-F4 written to DECISIONS.md.
+- Gate: MET 2026-08-29 (defaults); reopened only if Phil changes an F.
 
 ### Phase 5: time, 10,000 BC to 2100
 

@@ -115,3 +115,6 @@
 - 2026-08-29  S3 done: the pure OT world at 8192 (e030), 15 km smoothing, +-3.6% density error, 4.0 anisotropy,
   25489 folds in populated cells, 65 min in float64 on the CPU. Accuracy did not change from
   4096 (it is set by the 3 px smoothing); sharpness doubled. 8192 is the ceiling worth having for the warp.
+- 2026-08-29  Phase 4 forks, defaults applied (Phil may override on experiments/gallery.html): F2 ocean = pure
+  (share 0.999) with the share slider; F3 frame = square Web-Mercator cut (85.05); F4 method = OT (M10 float64
+  homotopy). F5 = inverse-map rendering, populated-cell folds reported (0.3% at 4096 and 8192).
