@@ -106,3 +106,9 @@
   M10 runs in numpy float64 above 1024; the coarse levels are smoothed to 3 px at their own scale.
 - 2026-08-29  Phase 2 closed: OT is the artefact's method (F4 default confirmed by the pictures); M3 stays as
   research code; M11 (semi-discrete) is the remaining route to zero folds anywhere.
+- 2026-08-29  R5: the attractive flow (population as ordinary mass, stopped at t = 0.1) is the anti-cartogram
+  Phil imagined: India and eastern China pinch to points and drag the graticule in like wells (e027).
+  It is a picture with a free parameter (t), not a measurement; its equalisation metrics are meaningless.
+- 2026-08-29  Jellium at 4096 is too slow with a per-step pixel cap (0.5 px per step at 8x the 512 displacement,
+  ~2 h); stopped, run at 2048 instead (e026). A cap that grows with the smoothing scale, as in diffusion, is
+  the fix if 4096 is ever needed for M9.
