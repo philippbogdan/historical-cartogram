@@ -131,3 +131,30 @@ def recognisability(geojson_path, grid, X, Y, rho0, min_pop=1e6):
     order = np.argsort(-errs)
     return {"shape_error_popweighted": float((errs * weights).sum() / weights.sum()), "shape_error_median": float(np.median(errs)),
             "worst": [(names[i], round(float(errs[i]), 3)) for i in order[:5]]}
+
+
+def flow_lines(X, Y, step=64):
+    """R8: displacement segments from each lattice point's geographic position to its warped one."""
+    H1, W1 = X.shape
+    W = W1 - 1
+    segs = []
+    for r in range(0, H1, step):
+        for c in range(0, W, step):
+            x1, y1 = X[r, c], Y[r, c]
+            dx = ((x1 - c) + W / 2) % W - W / 2  # shortest displacement on the cylinder
+            segs.append(np.array([[c, r], [c + dx, y1]], np.float64))
+    return segs
+
+
+def seam_statistics(rho0, X, Y, floor_level):
+    """X5: how the empty regions (rho at the floor) collapsed: their area share before and after,
+    and the distribution of their linear compression sqrt(area ratio)."""
+    A = quad_areas(X, Y)
+    empty = rho0 <= floor_level * 1.5
+    if not empty.any():
+        return {}
+    ratio = np.maximum(A[empty], 1e-12)  # original cell area is 1
+    lin = np.sqrt(ratio)
+    return {"empty_share_before": float(empty.mean()), "empty_share_after": float(A[empty].sum() / A.sum()),
+            "empty_linear_compression_p50": float(np.median(1 / lin)), "empty_linear_compression_p95": float(np.percentile(1 / lin, 95)),
+            "empty_cells_below_1px": float((ratio < 1e-2).mean())}

@@ -24,5 +24,10 @@
  "twist_popweighted_p50_deg": 0.00016843723858089925,
  "twist_popweighted_p95_deg": 0.0014425884546979395,
  "shape_error_popweighted": 0.7410804120337693,
- "shape_error_median": 0.5951620336321318
+ "shape_error_median": 0.5951620336321318,
+ "seam_empty_share_before": 0.8940786719322205,
+ "seam_empty_share_after": 0.04846959900852314,
+ "seam_empty_linear_compression_p50": 4.4233454785694475,
+ "seam_empty_linear_compression_p95": 4.499052453389529,
+ "seam_empty_cells_below_1px": 0.0034908315256293085
 }

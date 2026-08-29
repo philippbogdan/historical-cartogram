@@ -50,7 +50,21 @@ def main(name, out_w=None):
     for arr, fname, cmap, vmin, vmax, title in [(stretch, "stretch.png", "RdBu_r", -4, 4, "log area scale (R6): red = enlarged, blue = shrunk"),
                                                 (twist, "twist.png", "PuOr", -60, 60, "local rotation in degrees (X8): white = none")]:
         render.draw(X, Y, np.ones_like(rho0, dtype=np.uint8), os.path.join(out, fname), out_w, coast, [], [], raster=arr, cmap=cmap, vmin=vmin, vmax=vmax, title=title, wrap=wrap)
+    # R8 flow lines on the geographic frame: where each lattice point went
+    fig, ax = render._figure(oh, ow, "white")
+    ax.imshow(np.full((oh, ow, 3), 1.0), extent=(0, ow, oh, 0))
+    layers.ghost_coast(ax, coast, scale, color="#00000050", lw=0.5)
+    segs = layers.flow_lines(X, Y, step=max(16, W // 96))
+    from matplotlib.collections import LineCollection
+    ax.add_collection(LineCollection([sg * scale for sg in segs], colors="#c0392b", linewidths=0.5))
+    ax.plot([sg[1, 0] * scale for sg in segs], [sg[1, 1] * scale for sg in segs], ".", ms=1.2, color="#c0392b")
+    ax.text(0.01, 0.01, "flow lines (R8): geographic position -> warped position", transform=ax.transAxes, fontsize=9)
+    fig.savefig(os.path.join(out, "flow.png"), dpi=100); plt.close(fig)
     m = json.load(open(os.path.join(out, "metrics.json")))
+    floor_level = (p["floor"] if p.get("share") is None else (1 - p["share"]) / p["share"]) / (1 + (p["floor"] if p.get("share") is None else (1 - p["share"]) / p["share"]))
+    m.update({("seam_" + k): v for k, v in layers.seam_statistics(rho0, X, Y, floor_level).items()})
+    rec = layers.recognisability(os.path.join(RAW, f"ne_{v}_admin_0_countries.geojson"), grid, X, Y, rho0)
+    m["shape_error_popweighted"], m["shape_error_median"] = rec["shape_error_popweighted"], rec["shape_error_median"]
     w = rho0 / rho0.sum()
     m["twist_popweighted_p50_deg"] = float(np.interp(0.5, np.cumsum(w.ravel()[np.argsort(np.abs(twist).ravel())]), np.sort(np.abs(twist).ravel())))
     m["twist_popweighted_p95_deg"] = float(np.interp(0.95, np.cumsum(w.ravel()[np.argsort(np.abs(twist).ravel())]), np.sort(np.abs(twist).ravel())))
@@ -59,7 +73,8 @@ def main(name, out_w=None):
         lines = layers.equipotential_lines(z["psi"].astype(np.float64), levels=48)
         render.draw(X, Y, np.ones_like(rho0, dtype=np.uint8), os.path.join(out, "equipotentials.png"), out_w, coast, [], [], grat=(), mgrid=lines,
                     raster=None, title="equipotentials of the transport potential (R7)", wrap=wrap)
-    print("wrote map, stretch, twist" + (", equipotentials" if "psi" in z.files else ""), "twist p50/p95", round(m["twist_popweighted_p50_deg"], 2), round(m["twist_popweighted_p95_deg"], 2))
+    print("seam:", {k: round(v, 3) for k, v in m.items() if k.startswith("seam_")})
+    print("wrote map, stretch, twist, flow" + (", equipotentials" if "psi" in z.files else ""), "twist p50/p95", round(m["twist_popweighted_p50_deg"], 2), round(m["twist_popweighted_p95_deg"], 2))
 
 
 if __name__ == "__main__":
