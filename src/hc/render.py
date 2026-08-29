@@ -17,6 +17,60 @@ OCEAN = np.array([0xa8, 0xc4, 0xd8]) / 255
 
 # ---------------------------------------------------------------- rasters
 def splat(values, X, Y, out_hw, wrap=True, ss_max=16, weights=None):
+    """Forward-warp `values` (H, W) through the corner mesh into an image of shape out_hw.
+    GPU (torch, MPS) when available, numpy otherwise. Weighted mean of what lands on each pixel."""
+    try:
+        import torch  # noqa: F401
+        return _splat_torch(values, X, Y, out_hw, wrap=wrap, ss_max=min(ss_max, 12), weights=weights)
+    except ImportError:
+        return _splat_numpy(values, X, Y, out_hw, wrap=wrap, ss_max=ss_max, weights=weights)
+
+
+def _fill_holes(img):
+    if np.isnan(img).any():
+        _, (iy, ix) = ndimage.distance_transform_edt(np.isnan(img), return_indices=True)
+        img = img[iy, ix]
+    return img
+
+
+def _splat_torch(values, X, Y, out_hw, wrap=True, ss_max=12, weights=None):
+    import torch
+    dev = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+    H, W = values.shape
+    oh, ow = out_hw
+    sx, sy = ow / W, oh / H
+    Xt = torch.tensor(X, dtype=torch.float32, device=dev)
+    Yt = torch.tensor(Y, dtype=torch.float32, device=dev)
+    V = torch.tensor(np.asarray(values, np.float32), device=dev)
+    Wt = torch.ones_like(V) if weights is None else torch.tensor(np.asarray(weights, np.float32), device=dev)
+    x0, x1, x2, x3 = Xt[:-1, :-1], Xt[:-1, 1:], Xt[1:, 1:], Xt[1:, :-1]
+    y0, y1, y2, y3 = Yt[:-1, :-1], Yt[:-1, 1:], Yt[1:, 1:], Yt[1:, :-1]
+    A = (0.5 * ((x0 * y1 - x1 * y0) + (x1 * y2 - x2 * y1) + (x2 * y3 - x3 * y2) + (x3 * y0 - x0 * y3))).abs() * sx * sy
+    k = torch.clamp(torch.ceil(torch.sqrt(A)), 1, ss_max).to(torch.int64)
+    acc = torch.zeros(oh * ow, device=dev)
+    wacc = torch.zeros(oh * ow, device=dev)
+    for kk in torch.unique(k).tolist():
+        ii, jj = torch.nonzero(k == kk, as_tuple=True)
+        x00, x01, x10, x11 = Xt[ii, jj], Xt[ii, jj + 1], Xt[ii + 1, jj], Xt[ii + 1, jj + 1]
+        y00, y01, y10, y11 = Yt[ii, jj], Yt[ii, jj + 1], Yt[ii + 1, jj], Yt[ii + 1, jj + 1]
+        v = V[ii, jj]
+        w = Wt[ii, jj] / (kk * kk)
+        for a in range(kk):
+            for b in range(kk):
+                u, t = (a + 0.5) / kk, (b + 0.5) / kk
+                x = (1 - u) * (1 - t) * x00 + u * (1 - t) * x01 + (1 - u) * t * x10 + u * t * x11
+                y = (1 - u) * (1 - t) * y00 + u * (1 - t) * y01 + (1 - u) * t * y10 + u * t * y11
+                px = torch.floor(x * sx).to(torch.int64)
+                px = px % ow if wrap else px.clamp(0, ow - 1)
+                py = torch.floor(y * sy).to(torch.int64).clamp(0, oh - 1)
+                idx = py * ow + px
+                acc.index_put_((idx,), v * w, accumulate=True)
+                wacc.index_put_((idx,), w, accumulate=True)
+    img = torch.where(wacc > 0, acc / torch.clamp(wacc, min=1e-30), torch.full_like(acc, float("nan")))
+    return _fill_holes(img.reshape(oh, ow).cpu().numpy().astype(np.float64))
+
+
+def _splat_numpy(values, X, Y, out_hw, wrap=True, ss_max=16, weights=None):
     """Forward-warp per-cell `values` (H, W) through the corner mesh X, Y ((H+1), (W+1))
     into an image of shape out_hw. Big cells are supersampled so they leave no holes;
     the result is the weighted mean of the values that land on each output pixel."""
@@ -48,11 +102,7 @@ def splat(values, X, Y, out_hw, wrap=True, ss_max=16, weights=None):
     img = np.full(oh * ow, np.nan)
     hit = wacc > 0
     img[hit] = acc[hit] / wacc[hit]
-    img = img.reshape(oh, ow)
-    if (~hit).any():  # fill holes from the nearest hit pixel
-        _, (iy, ix) = ndimage.distance_transform_edt(np.isnan(img), return_indices=True)
-        img = img[iy, ix]
-    return img
+    return _fill_holes(img.reshape(oh, ow))
 
 
 # ---------------------------------------------------------------- vectors

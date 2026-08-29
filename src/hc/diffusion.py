@@ -8,6 +8,8 @@ Two backends, one interface: numpy (reference, tests) and torch (S1, MPS GPU).
 import time
 import numpy as np
 from scipy import fft, ndimage
+import os as _os
+_W = _os.cpu_count() or 1
 
 
 def prepare_density(counts, floor, sigma, x_boundary):
@@ -54,18 +56,18 @@ class DiffusionCartogram(_Base):
         H, W = self.H, self.W
         ky = np.pi * np.arange(H) / H
         if x_boundary == "periodic":
-            self.coef = fft.rfft(fft.dct(self.rho0, type=2, norm="ortho", axis=0), axis=1)
+            self.coef = fft.rfft(fft.dct(self.rho0, type=2, norm="ortho", axis=0, workers=_W), axis=1)
             kx = 2 * np.pi * np.fft.rfftfreq(W)
         else:
-            self.coef = fft.dctn(self.rho0, type=2, norm="ortho")
+            self.coef = fft.dctn(self.rho0, type=2, norm="ortho", workers=_W)
             kx = np.pi * np.arange(W) / W
         self.k2 = ky[:, None] ** 2 + kx[None, :] ** 2
 
     def rho_at(self, t):
         c = self.coef * np.exp(-self.k2 * t)
         if self.x_boundary == "periodic":
-            return fft.idct(fft.irfft(c, n=self.W, axis=1), type=2, norm="ortho", axis=0)
-        return fft.idctn(c, type=2, norm="ortho")
+            return fft.idct(fft.irfft(c, n=self.W, axis=1, workers=_W), type=2, norm="ortho", axis=0)
+        return fft.idctn(c, type=2, norm="ortho", workers=_W)
 
     def velocity(self, t):
         """Padded fields (H+2, W+2); padded index j <-> x = j - 0.5. Returns (Vx, Vy, rho)."""

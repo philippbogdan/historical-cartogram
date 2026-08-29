@@ -78,7 +78,8 @@ def main():
         dc = flow.JelliumFlow(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary, sign=+1.0 if args.method == "jellium" else -1.0)
         X, Y, info = dc.run(max_disp=max_disp, tol=args.tol if args.method == "jellium" else 0.0, t_max=args.t_max or (30.0 if args.method == "jellium" else 0.5), log=log)
     else:
-        dc = ot_poisson.PoissonOT(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
+        cls = ot_poisson.TorchPoissonOT if args.backend == "torch" else ot_poisson.PoissonOT
+        dc = cls(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
         X, Y, info = dc.run(iters=args.iters, damping=args.damping, one_shot_only=(args.method == "ot_poisson_oneshot"), log=log)
     metrics0 = diffusion.equalisation_metrics(dc.rho0, X, Y)
     log("pre-repair: " + json.dumps({k: round(v, 4) if isinstance(v, float) else v for k, v in metrics0.items()}))

@@ -76,3 +76,6 @@
 - 2026-08-29  Folds are convexity failures of the discrete OT potential (and interpolation error for the flows),
   not a property of the maps; M3 (back-and-forth) and M5 (monotone FD) preserve convexity by construction and
   move up the order. S5 added: exact band-limited field evaluation (NUFFT) for the flows.
+- 2026-08-29  Compute policy (Phil): anything heavy runs on Metal (torch MPS), the rest on all cores. Done: the
+  OT solver (TorchPoissonOT, 1024 c2f in 19 s), the splat renderer (4096 renders in seconds), scipy FFTs with
+  workers = cpu_count. The numpy paths stay as references only.
