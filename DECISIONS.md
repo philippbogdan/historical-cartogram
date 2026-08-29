@@ -79,3 +79,9 @@
 - 2026-08-29  Compute policy (Phil): anything heavy runs on Metal (torch MPS), the rest on all cores. Done: the
   OT solver (TorchPoissonOT, 1024 c2f in 19 s), the splat renderer (4096 renders in seconds), scipy FFTs with
   workers = cpu_count. The numpy paths stay as references only.
+- 2026-08-29  Pure limit (share 0.995) at 4096: the Poisson iteration does NOT converge there (residual 3.8,
+  7.1M folds, +-15% density error) even with 600 iterations per level on the GPU; the picture still reads
+  because the splat averages folds, but it is not a measurement. Pure needs the convexity-preserving solver
+  (M3). Share 0.95 (e013) is the honest OT picture today; diffusion reaches 0.99 (e008) with +-10%.
+- 2026-08-29  Naming: lambda is the HUMANITY share (1 = pure people, 0 = base map). Phil says "lambda = 0"
+  meaning pure people; in the repo that is share 1.
