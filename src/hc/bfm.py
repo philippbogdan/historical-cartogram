@@ -94,22 +94,31 @@ class BackForthOT:
     def _J(self, phi, psi):
         return float((torch.tensor(phi, device=self.dev, dtype=torch.float32) * self.nu).sum() + (torch.tensor(psi, device=self.dev, dtype=torch.float32) * self.mu).sum())
 
-    def _ascend(self, phi0, iters, step_px, patience, log):
-        """Back-and-forth ascent from phi0 (None = zero). Leaves self.phi, self.psi, self.best, self.iters_done."""
+    def _ascend(self, phi0, iters, step_px, patience, log, sigma=None):
+        """Back-and-forth ascent from phi0 (None = zero). Leaves self.phi, self.psi, self.best,
+        self.iters_done, self.sigma. The step is scaled so the first update from zero moves points by
+        step_px at most; from a coarse-level start the coarse step is inherited (same units), and
+        the step halves whenever the misplaced mass rises."""
         t0 = time.time()
         phi = np.zeros((self.H, self.W)) if phi0 is None else np.asarray(phi0, np.float64)
         psi = c_transform(phi, self.periodic)
         phi = c_transform(psi, self.periodic)
         Tmu = self._push(self.mu, psi)
-        u = self.spec.inv_neg_laplacian(self.nu - Tmu)
-        gu = torch.gradient(u)
-        sigma = step_px / (float(torch.maximum(gu[0].abs().max(), gu[1].abs().max())) + 1e-12)
+        if sigma is None:
+            u = self.spec.inv_neg_laplacian(self.nu - Tmu)
+            gu = torch.gradient(u)
+            sigma = step_px / (float(torch.maximum(gu[0].abs().max(), gu[1].abs().max())) + 1e-12)
         best, best_psi, best_phi, since = 1e9, psi, phi, 0
-        err = None
+        err, prev = None, 1e9
         it = -1
         for it in range(iters):
             Tmu = self._push(self.mu, psi)
             err = 0.5 * float((self.nu - Tmu).abs().mean())
+            if err > prev:
+                sigma *= 0.5
+            elif err < prev - 1e-4:
+                sigma *= 1.05
+            prev = err
             if err < best - 1e-4:
                 best, best_psi, best_phi, since = err, psi, phi, 0
             else:
@@ -125,10 +134,10 @@ class BackForthOT:
             psi = c_transform(phi, self.periodic)
             if it % 5 == 0:
                 log(f"  bfm {it} misplaced {err:.4f} {time.time()-t0:.0f}s")
-        log(f"  bfm done: {it+1} iterations, misplaced mass {best:.4f}, {time.time()-t0:.0f}s")
-        self.psi, self.phi, self.best, self.iters_done = best_psi, best_phi, best, it + 1
+        log(f"  bfm done: {it+1} iterations, misplaced mass {best:.4f}, sigma {sigma:.3g}, {time.time()-t0:.0f}s")
+        self.psi, self.phi, self.best, self.iters_done, self.sigma = best_psi, best_phi, best, it + 1, sigma
 
-    def run(self, iters=60, step_px=20.0, polish_iters=300, polish_damping=0.3, patience=6, coarse_to_fine=True, min_width=512, polish_smooth_px=2.0, log=print, **_):
+    def run(self, iters=60, step_px=20.0, polish_iters=300, polish_damping=0.3, patience=12, coarse_to_fine=True, min_width=512, polish_smooth_px=2.0, log=print, **_):
         """Two stages. (1) Back-and-forth ascent on the discrete dual with a fixed H^1 step scaled so
         the first update moves points by step_px at most; every iterate is tightened (double
         c-transform), so the potential is c-concave and the transport structure is global and
@@ -141,6 +150,7 @@ class BackForthOT:
         t0 = time.time()
         H, W = self.H, self.W
         phi = None
+        sigma = None
         if coarse_to_fine and W > min_width:
             # solve the discrete dual on block-averaged grids first; a potential in px^2 scales x4 per doubling
             f = 1
@@ -160,10 +170,11 @@ class BackForthOT:
                 sub.nu = torch.ones_like(sub.mu)
                 sub.spec = Spectral(h, w, self.x_boundary, self.dev)
                 log(f"  bfm level {w}x{h}")
-                sub._ascend(None if phi is None or phi.shape != (h, w) else phi, iters, step_px, patience, log)
+                sub._ascend(None if phi is None or phi.shape != (h, w) else phi, iters, step_px, patience, log, sigma=sigma)
+                sigma = sub.sigma
                 phi = ndimage.zoom(sub.phi, 2, order=1, mode="wrap" if self.periodic else "nearest") * 4
             log(f"  bfm level {W}x{H}")
-        self._ascend(phi, iters, step_px, patience, log)
+        self._ascend(phi, iters, step_px, patience, log, sigma=sigma)
         phi, best_psi, best, it = self.phi, self.psi, self.best, self.iters_done
         # stage 2: Monge-Ampere polish from the (lightly smoothed) BFM potential, M10 convention
         # T = x + grad psi. The polish keeps its best iterate; if it cannot beat the smoothed BFM

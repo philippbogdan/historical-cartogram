@@ -95,3 +95,8 @@
   population-weighted): OT 0.74, diffusion 0.86, OT at share 0.8 0.68.
 - 2026-08-29  City labels come from Natural Earth populated places (pop_max), top 300-400, biggest first
   with a coarse occupancy grid for collisions; GHS-UCDB stays an option for Phase 6.
+- 2026-08-29  Pure limit, what works: continuation in the share (M10 homotopy 0.95 -> 0.98 -> 0.99 -> 0.995 ->
+  0.999, each stage warm-started, keep-best guard) reaches +-3.4% at 1024 pure with 222 folds in populated
+  cells. The BFM route (M3) stalls at 4096 pure: 21% of the population misplaced after the ascent and the
+  polish cannot recover (residual 4.3). M3 stays as a solver for moderate contrasts and as the reference
+  for convexity; the artefact route to pure is the homotopy. M11 (semi-discrete) remains the other candidate.

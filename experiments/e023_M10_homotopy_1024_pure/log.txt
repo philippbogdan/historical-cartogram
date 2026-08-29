@@ -1,0 +1,190 @@
+grid mercator 1024x1024 lat_cut 85.0511; GHS-POP block-summed by 20
+total 8.1920 bn people; dropped beyond +-85.0511: 36; sigma 3.02 px; max_disp 1.5092615039773896
+  level 512x512
+  iter start residual 609.6350 folds 174801
+  iter 0 residual 513.1269 folds 215667 0s
+  iter 10 residual 114.0912 folds 228465 0s
+  iter 20 residual 37.3759 folds 230128 0s
+  iter 30 residual 14.7945 folds 175274 0s
+  iter 40 residual 6.3424 folds 92418 0s
+  iter 50 residual 2.9944 folds 34185 0s
+  iter 60 residual 1.6256 folds 16896 0s
+  iter 70 residual 1.0836 folds 7850 0s
+  iter 80 residual 0.9887 folds 5838 0s
+  iter 90 residual 1.0515 folds 4853 0s
+  iter 100 residual 1.1013 folds 4205 0s
+  iter 110 residual 1.1288 folds 3782 0s
+  iter 120 residual 1.1441 folds 3480 0s
+  iter 130 residual 1.1521 folds 3248 0s
+  iter start residual 2.4199 folds 26249
+  iter 0 residual 2.6857 folds 212197 0s
+  iter 10 residual 2.4877 folds 567498 0s
+  iter 20 residual 1.8030 folds 545630 0s
+  iter 30 residual 1.2871 folds 481677 0s
+  iter 40 residual 0.9437 folds 400917 0s
+  iter 50 residual 0.7368 folds 301716 0s
+  iter 60 residual 0.6134 folds 212663 0s
+  iter 70 residual 0.5308 folds 151237 0s
+  iter 80 residual 0.4772 folds 111468 0s
+  iter 90 residual 0.4445 folds 87092 1s
+  iter 100 residual 0.4253 folds 72352 1s
+  iter 110 residual 0.4156 folds 63611 1s
+  iter 120 residual 0.4110 folds 55313 1s
+  iter 130 residual 0.4081 folds 47693 1s
+  iter 140 residual 0.4049 folds 44961 1s
+  iter 149 residual 0.4018 folds 42411 1s
+  homotopy share 0.95 (floor 0.05263)
+  iter start residual 0.4018 folds 42411
+  iter 0 residual 0.4017 folds 41779 0s
+  iter 10 residual 0.3978 folds 38343 0s
+  iter 20 residual 0.3940 folds 36003 0s
+  iter 30 residual 0.3909 folds 33019 0s
+  iter 40 residual 0.3884 folds 30014 0s
+  iter 50 residual 0.3838 folds 28606 0s
+  iter 60 residual 0.3820 folds 27454 0s
+  iter 70 residual 0.3785 folds 25944 0s
+  iter 80 residual 0.3757 folds 24631 0s
+  iter 90 residual 0.3756 folds 22740 1s
+  iter 100 residual 0.3728 folds 22433 1s
+  iter 110 residual 0.3724 folds 21369 1s
+  iter 120 residual 0.3705 folds 19962 1s
+  iter 130 residual 0.3694 folds 19485 1s
+  iter 140 residual 0.3700 folds 18773 1s
+  iter 150 residual 0.3680 folds 18325 1s
+  iter 160 residual 0.3693 folds 18116 1s
+  iter 170 residual 0.3678 folds 17824 1s
+  iter 180 residual 0.3659 folds 17322 1s
+  iter 190 residual 0.3671 folds 17339 1s
+  iter 200 residual 0.3678 folds 16233 1s
+  iter 210 residual 0.3672 folds 16001 1s
+  iter 220 residual 0.3667 folds 16645 1s
+  iter 230 residual 0.3663 folds 16494 1s
+  homotopy share 0.98 (floor 0.02041)
+  iter start residual 1.4927 folds 17322
+  iter 0 residual 1.3132 folds 22564 0s
+  iter 10 residual 0.5665 folds 67536 0s
+  iter 20 residual 0.4491 folds 79492 0s
+  iter 30 residual 0.4162 folds 78294 0s
+  iter 40 residual 0.4014 folds 74170 0s
+  iter 50 residual 0.3946 folds 71528 0s
+  iter 60 residual 0.3919 folds 68999 0s
+  iter 70 residual 0.3911 folds 66502 0s
+  iter 80 residual 0.3896 folds 64096 0s
+  iter 90 residual 0.3894 folds 63060 1s
+  iter 100 residual 0.3882 folds 60920 1s
+  iter 110 residual 0.3892 folds 58114 1s
+  iter 120 residual 0.3878 folds 58666 1s
+  iter 130 residual 0.3884 folds 58119 1s
+  iter 140 residual 0.3891 folds 57255 1s
+  iter 150 residual 0.3901 folds 56547 1s
+  iter 160 residual 0.3876 folds 53291 1s
+  iter 170 residual 0.3888 folds 55777 1s
+  iter 180 residual 0.3880 folds 53254 1s
+  iter 190 residual 0.3901 folds 51770 1s
+  iter 200 residual 0.3896 folds 53105 1s
+  iter 210 residual 0.3886 folds 53235 1s
+  homotopy share 0.99 (floor 0.0101)
+  iter start residual 0.6964 folds 53291
+  iter 0 residual 0.6397 folds 60769 0s
+  iter 10 residual 0.4418 folds 102396 0s
+  iter 20 residual 0.4122 folds 108299 0s
+  iter 30 residual 0.4052 folds 107999 0s
+  iter 40 residual 0.4036 folds 105193 0s
+  iter 50 residual 0.4004 folds 104400 0s
+  iter 60 residual 0.4017 folds 103324 0s
+  iter 70 residual 0.4013 folds 102238 0s
+  iter 80 residual 0.4028 folds 102789 0s
+  iter 90 residual 0.4029 folds 99165 1s
+  iter 100 residual 0.4020 folds 97269 1s
+  homotopy share 0.995 (floor 0.005025)
+  iter start residual 0.5291 folds 104400
+  iter 0 residual 0.5050 folds 109838 0s
+  iter 10 residual 0.4241 folds 143000 0s
+  iter 20 residual 0.4100 folds 144475 0s
+  iter 30 residual 0.4054 folds 145955 0s
+  iter 40 residual 0.4062 folds 142723 0s
+  iter 50 residual 0.4052 folds 140828 0s
+  iter 60 residual 0.4053 folds 140956 0s
+  iter 70 residual 0.4042 folds 137696 0s
+  iter 80 residual 0.4049 folds 138890 0s
+  iter 90 residual 0.4073 folds 137853 1s
+  iter 100 residual 0.4073 folds 137624 1s
+  iter 110 residual 0.4080 folds 137519 1s
+  iter 120 residual 0.4059 folds 134806 1s
+  homotopy share 0.999 (floor 0.001001)
+  iter start residual 0.5018 folds 137696
+  iter 0 residual 0.4833 folds 146219 0s
+  iter 10 residual 0.4191 folds 192701 0s
+  iter 20 residual 0.4111 folds 205120 0s
+  iter 30 residual 0.4091 folds 205106 0s
+  iter 40 residual 0.4100 folds 204064 0s
+  iter 50 residual 0.4083 folds 203327 0s
+  iter 60 residual 0.4100 folds 205600 0s
+  iter 70 residual 0.4094 folds 204400 0s
+  iter 80 residual 0.4104 folds 205532 1s
+  iter 90 residual 0.4092 folds 203162 1s
+  iter 100 residual 0.4087 folds 202365 1s
+pre-repair: {"folds": 169145, "gate_folds": "FAIL", "log_ratio_popweighted_p05": -0.0345, "log_ratio_popweighted_p50": 0.004, "log_ratio_popweighted_p95": 0.0331, "log_ratio_min": -6.2022, "log_ratio_max": 8.195, "anisotropy_popweighted_p50": 3.6004, "anisotropy_popweighted_p95": 15.3991, "displacement_mean_px": 249.7238, "displacement_max_px": 520.2434}
+  fold repair: 169145 -> 67607 folds (222 in populated cells) in 499 iterations, 540820 corners touched
+{
+ "folds": 67607,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.034461824466776585,
+ "log_ratio_popweighted_p50": 0.004006003285153482,
+ "log_ratio_popweighted_p95": 0.03309608247002613,
+ "log_ratio_min": -7.655571076699677,
+ "log_ratio_max": 11.543272088816211,
+ "anisotropy_popweighted_p50": 3.6002680470871318,
+ "anisotropy_popweighted_p95": 15.396460719714094,
+ "displacement_mean_px": 249.59554235989253,
+ "displacement_max_px": 520.2434364649058,
+ "folds_before_repair": 169145,
+ "folds_after_repair": 67607,
+ "repair_iterations": 499,
+ "repaired_corners": 540820,
+ "folds_in_populated_cells": 222,
+ "p95_shift_by_repair": -6.140112120064933e-07,
+ "pre_repair": {
+  "log_ratio_popweighted_p05": -0.034461824466776585,
+  "log_ratio_popweighted_p95": 0.033096696481238135,
+  "anisotropy_popweighted_p50": 3.600441056315799,
+  "anisotropy_popweighted_p95": 15.399074112925273
+ },
+ "mode": "ot_homotopy",
+ "stages": [
+  {
+   "share": 0.95,
+   "iters": 231,
+   "residual": 0.36593097448349,
+   "cell_folds": 17322
+  },
+  {
+   "share": 0.98,
+   "iters": 211,
+   "residual": 0.3876464068889618,
+   "cell_folds": 53291
+  },
+  {
+   "share": 0.99,
+   "iters": 101,
+   "residual": 0.40044599771499634,
+   "cell_folds": 104400
+  },
+  {
+   "share": 0.995,
+   "iters": 121,
+   "residual": 0.4042380452156067,
+   "cell_folds": 137696
+  },
+  {
+   "share": 0.999,
+   "iters": 101,
+   "residual": 0.40834593772888184,
+   "cell_folds": 203327
+  }
+ ],
+ "polish_residual": 0.40834593772888184,
+ "seconds": 19.25319814682007
+}
+renders in 2s
+gate S4 folds: FAIL (67607); wrote /Users/phil/historical-cartogram/experiments/e023_M10_homotopy_1024_pure

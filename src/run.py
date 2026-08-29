@@ -29,7 +29,8 @@ def get_lonlat(factor):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", required=True)
-    ap.add_argument("--method", default="diffusion", choices=["diffusion", "ot_poisson_oneshot", "ot_poisson", "gsm", "jellium", "gravity", "bfm"])
+    ap.add_argument("--method", default="diffusion", choices=["diffusion", "ot_poisson_oneshot", "ot_poisson", "gsm", "jellium", "gravity", "bfm", "ot_homotopy"])
+    ap.add_argument("--shares", default="0.95,0.98,0.99,0.995,0.999", help="ot_homotopy: share sequence")
     ap.add_argument("--t-max", type=float, default=None, help="jellium/gravity: stop time (gravity: the anti-cartogram time)")
     ap.add_argument("--iters", type=int, default=300)
     ap.add_argument("--damping", type=float, default=0.5)
@@ -71,6 +72,12 @@ def main():
         cls = diffusion.TorchDiffusionCartogram if args.backend == "torch" else diffusion.DiffusionCartogram
         dc = cls(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
         X, Y, info = dc.run(tol=args.tol, max_disp=max_disp, cap_frac=args.cap_frac, log=log)
+    elif args.method == "ot_homotopy":
+        shares = [float(x) for x in args.shares.split(",")]
+        dc, stages = ot_poisson.homotopy(P, shares, sigma_px, args.x_boundary, iters=args.iters, damping=args.damping, log=log)
+        X, Y = dc.mesh()
+        info = {"mode": "ot_homotopy", "stages": stages, "polish_residual": stages[-1]["residual"]}
+        args.share = shares[-1]; args.floor = (1 - shares[-1]) / shares[-1]
     elif args.method == "bfm":
         dc = bfm.BackForthOT(P, floor=args.floor, sigma=sigma_px, x_boundary=args.x_boundary)
         X, Y, info = dc.run(iters=args.iters, polish_iters=args.iters, polish_damping=args.damping, log=log)

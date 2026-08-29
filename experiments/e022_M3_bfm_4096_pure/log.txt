@@ -1,0 +1,120 @@
+grid mercator 4096x4096 lat_cut 85.0511; GHS-POP block-summed by 5
+total 8.1920 bn people; dropped beyond +-85.0511: 44; sigma 3.07 px; max_disp 1.5348422074346335
+  bfm level 512x512
+  bfm 0 misplaced 0.9250 0s
+  bfm 5 misplaced 0.7473 2s
+  bfm 10 misplaced 0.6389 3s
+  bfm 15 misplaced 0.5556 4s
+  bfm 20 misplaced 0.4918 5s
+  bfm 25 misplaced 0.4424 6s
+  bfm 30 misplaced 0.4034 7s
+  bfm 35 misplaced 0.3741 8s
+  bfm 40 misplaced 0.3507 10s
+  bfm 45 misplaced 0.3317 11s
+  bfm 50 misplaced 0.3147 12s
+  bfm 55 misplaced 0.3016 13s
+  bfm 60 misplaced 0.2906 14s
+  bfm 65 misplaced 0.2816 16s
+  bfm 70 misplaced 0.2739 17s
+  bfm 75 misplaced 0.2672 18s
+  bfm 80 misplaced 0.2611 19s
+  bfm 85 misplaced 0.2568 20s
+  bfm 90 misplaced 0.2521 21s
+  bfm 95 misplaced 0.2484 23s
+  bfm 100 misplaced 0.2451 24s
+  bfm 105 misplaced 0.2418 25s
+  bfm 110 misplaced 0.2391 26s
+  bfm 115 misplaced 0.2368 27s
+  bfm 120 misplaced 0.2345 28s
+  bfm 125 misplaced 0.2324 29s
+  bfm 130 misplaced 0.2306 31s
+  bfm 135 misplaced 0.2292 32s
+  bfm 140 misplaced 0.2274 33s
+  bfm 145 misplaced 0.2263 34s
+  bfm 150 misplaced 0.2252 35s
+  bfm 155 misplaced 0.2241 36s
+  bfm 160 misplaced 0.2235 37s
+  bfm 165 misplaced 0.2225 39s
+  bfm 170 misplaced 0.2216 40s
+  bfm 175 misplaced 0.2211 41s
+  bfm 180 misplaced 0.2203 42s
+  bfm 185 misplaced 0.2199 44s
+  bfm 190 misplaced 0.2193 45s
+  bfm 195 misplaced 0.2187 47s
+  bfm 200 misplaced 0.2182 49s
+  bfm 205 misplaced 0.2175 50s
+  bfm 210 misplaced 0.2175 52s
+  bfm done: 212 iterations, misplaced mass 0.2175, 52s
+  bfm level 1024x1024
+  bfm 0 misplaced 0.3745 2s
+  bfm 5 misplaced 0.2987 4s
+  bfm done: 11 iterations, misplaced mass 0.2937, 6s
+  bfm level 2048x2048
+  bfm 0 misplaced 0.4010 2s
+  bfm 5 misplaced 0.2183 9s
+  bfm 10 misplaced 0.2144 15s
+  bfm 15 misplaced 0.2141 20s
+  bfm 20 misplaced 0.2131 24s
+  bfm 25 misplaced 0.2135 29s
+  bfm 30 misplaced 0.2126 34s
+  bfm 35 misplaced 0.2131 38s
+  bfm done: 37 iterations, misplaced mass 0.2126, 39s
+  bfm level 4096x4096
+  bfm 0 misplaced 0.3285 8s
+  bfm 5 misplaced 0.2138 35s
+  bfm 10 misplaced 0.2103 58s
+  bfm 15 misplaced 0.2099 79s
+  bfm 20 misplaced 0.2093 104s
+  bfm 25 misplaced 0.2095 128s
+  bfm done: 31 iterations, misplaced mass 0.2092, 146s
+  iter start residual 10.4496 folds 11636795
+  iter 0 residual 9.2997 folds 8271476 0s
+  iter 10 residual 5.1540 folds 8235654 2s
+  iter 20 residual 4.4233 folds 8207199 3s
+  iter 30 residual 4.2653 folds 8318886 4s
+  iter 40 residual 4.2352 folds 8264574 6s
+  iter 50 residual 4.2183 folds 8237575 7s
+  iter 60 residual 4.2109 folds 8210700 8s
+  iter 70 residual 4.2444 folds 8162667 9s
+  iter 80 residual 4.1590 folds 8168762 11s
+  iter 90 residual 4.2095 folds 8178463 12s
+  iter 100 residual 4.2424 folds 8234930 13s
+  iter 110 residual 4.1634 folds 8137497 15s
+  iter 120 residual 4.1682 folds 8137011 16s
+  iter 130 residual 4.2146 folds 8128532 17s
+pre-repair: {"folds": 7493385, "gate_folds": "FAIL", "log_ratio_popweighted_p05": -0.1408, "log_ratio_popweighted_p50": 0.0126, "log_ratio_popweighted_p95": 0.1814, "log_ratio_min": -10.1769, "log_ratio_max": 8.5966, "anisotropy_popweighted_p50": 3.8426, "anisotropy_popweighted_p95": 20.0924, "displacement_mean_px": 963.389, "displacement_max_px": 2059.3209}
+  fold repair: 7493385 -> 3032585 folds (103049 in populated cells) in 499 iterations, 15235696 corners touched
+{
+ "folds": 3032585,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.14101612260755475,
+ "log_ratio_popweighted_p50": 0.012611782663330951,
+ "log_ratio_popweighted_p95": 0.18187049425044124,
+ "log_ratio_min": -9.127920439296068,
+ "log_ratio_max": 24.693211039593663,
+ "anisotropy_popweighted_p50": 3.8460705812642972,
+ "anisotropy_popweighted_p95": 20.20981912394609,
+ "displacement_mean_px": 963.1056285509084,
+ "displacement_max_px": 2059.320860441617,
+ "folds_before_repair": 7493385,
+ "folds_after_repair": 3032585,
+ "repair_iterations": 499,
+ "repaired_corners": 15235696,
+ "folds_in_populated_cells": 103049,
+ "p95_shift_by_repair": 0.0004307881531301905,
+ "pre_repair": {
+  "log_ratio_popweighted_p05": -0.14076662094921888,
+  "log_ratio_popweighted_p95": 0.18143970609731105,
+  "anisotropy_popweighted_p50": 3.842574155963615,
+  "anisotropy_popweighted_p95": 20.092434323785053
+ },
+ "mode": "bfm+polish",
+ "bfm_iters": 31,
+ "bfm_misplaced_mass": 0.2092205137014389,
+ "polish_residual": 4.158988952636719,
+ "polish_cell_folds": 8168762,
+ "seconds_solve": 261.7417469024658,
+ "seconds": 515.5575428009033
+}
+renders in 30s
+gate S4 folds: FAIL (3032585); wrote /Users/phil/historical-cartogram/experiments/e022_M3_bfm_4096_pure

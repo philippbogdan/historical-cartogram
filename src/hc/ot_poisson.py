@@ -299,3 +299,27 @@ class TorchPoissonOT:
         X, Y = self.mesh()
         info["seconds_solve"] = time.time() - t0
         return X, Y, info
+
+
+def homotopy(counts, shares, sigma, x_boundary, iters=300, damping=0.3, log=print):
+    """Continuation in the humanity share: solve M10 at an easy share, then use its potential as
+    the start for the next, harder share (smaller floor). Returns the final solver and per-stage info."""
+    from .diffusion import prepare_density
+    import torch
+    po, psi, stages = None, None, []
+    for s in shares:
+        floor = (1 - s) / s
+        rho = prepare_density(counts, floor, sigma, x_boundary)
+        po = TorchPoissonOT(None, x_boundary=x_boundary, rho=rho)
+        if psi is None:
+            po.one_shot()
+            if po.W > 512:
+                po.run(iters=iters, damping=damping, coarse_to_fine=True, log=log)  # coarse-to-fine at the first share
+                psi = po.psi
+        else:
+            po.psi = psi
+        log(f"  homotopy share {s} (floor {floor:.4g})")
+        info = po.iterate(iters=iters, damping=damping, log=log)
+        psi = po.psi
+        stages.append({"share": s, **info})
+    return po, stages
