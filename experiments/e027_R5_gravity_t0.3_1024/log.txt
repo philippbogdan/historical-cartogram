@@ -1,0 +1,57 @@
+grid mercator 1024x1024 lat_cut 85.0511; GHS-POP block-summed by 20
+total 8.1920 bn people; dropped beyond +-85.0511: 36; sigma 3.02 px; max_disp 1.5092615039773896
+  step 100 t=0.0268 dt=0.000154 maxdisp=1.255 dev=3.3735 8s
+  step 200 t=0.0422 dt=0.000154 maxdisp=1.312 dev=3.2729 17s
+  step 300 t=0.0576 dt=0.000154 maxdisp=1.392 dev=3.2936 26s
+  step 400 t=0.073 dt=0.000154 maxdisp=1.412 dev=3.3481 36s
+  step 500 t=0.0844 dt=7.69e-05 maxdisp=0.780 dev=3.3283 47s
+  step 600 t=0.0921 dt=7.69e-05 maxdisp=0.790 dev=3.3474 62s
+  step 700 t=0.0998 dt=7.69e-05 maxdisp=0.794 dev=3.3644 79s
+  step 800 t=0.107 dt=7.69e-05 maxdisp=0.798 dev=3.3741 95s
+  step 900 t=0.115 dt=7.69e-05 maxdisp=0.864 dev=3.4021 112s
+  step 1000 t=0.123 dt=7.69e-05 maxdisp=0.847 dev=3.4480 129s
+  step 1100 t=0.131 dt=7.69e-05 maxdisp=0.855 dev=3.4593 146s
+  step 1200 t=0.138 dt=7.69e-05 maxdisp=0.879 dev=3.4746 164s
+  step 1300 t=0.146 dt=7.69e-05 maxdisp=0.883 dev=3.4049 185s
+  step 1400 t=0.154 dt=7.69e-05 maxdisp=0.868 dev=3.3898 204s
+  step 1500 t=0.161 dt=7.69e-05 maxdisp=0.899 dev=3.3391 223s
+  step 1600 t=0.169 dt=7.69e-05 maxdisp=0.899 dev=3.2148 242s
+  step 1700 t=0.177 dt=7.69e-05 maxdisp=0.899 dev=3.1919 261s
+  step 1800 t=0.184 dt=7.69e-05 maxdisp=0.918 dev=3.1610 281s
+  step 1900 t=0.192 dt=7.69e-05 maxdisp=0.930 dev=3.1297 299s
+  step 2000 t=0.2 dt=7.69e-05 maxdisp=0.932 dev=3.1363 319s
+  step 2100 t=0.207 dt=7.69e-05 maxdisp=0.921 dev=3.1227 339s
+  step 2200 t=0.215 dt=7.69e-05 maxdisp=0.945 dev=3.0779 359s
+  step 2300 t=0.223 dt=7.69e-05 maxdisp=0.931 dev=3.0488 380s
+  step 2400 t=0.231 dt=7.69e-05 maxdisp=0.947 dev=3.0349 401s
+  step 2500 t=0.238 dt=7.69e-05 maxdisp=0.953 dev=3.0000 422s
+  step 2600 t=0.246 dt=7.69e-05 maxdisp=0.944 dev=2.9802 444s
+  step 2700 t=0.254 dt=7.69e-05 maxdisp=0.931 dev=2.9988 465s
+  step 2800 t=0.261 dt=7.69e-05 maxdisp=0.949 dev=2.9895 486s
+  step 2900 t=0.269 dt=7.69e-05 maxdisp=0.929 dev=3.0137 508s
+  step 3000 t=0.277 dt=7.69e-05 maxdisp=0.940 dev=3.0184 530s
+  step 3100 t=0.284 dt=7.69e-05 maxdisp=0.930 dev=3.0346 552s
+  step 3200 t=0.292 dt=7.69e-05 maxdisp=0.944 dev=3.0501 574s
+  step 3300 t=0.3 dt=7.69e-05 maxdisp=0.943 dev=3.0692 597s
+  done: 3304 steps (3 rejected), t=0.3001, dev=3.07e+00, 598s
+pre-repair: {"folds": 249382, "gate_folds": "FAIL", "log_ratio_popweighted_p05": -3.2857, "log_ratio_popweighted_p50": -3.2778, "log_ratio_popweighted_p95": 17.1941, "log_ratio_min": -8.3637, "log_ratio_max": 24.4761, "anisotropy_popweighted_p50": 2.6139, "anisotropy_popweighted_p95": 125.0035, "displacement_mean_px": 81.3898, "displacement_max_px": 254.1189}
+{
+ "folds": 249382,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -3.2857123443847573,
+ "log_ratio_popweighted_p50": -3.2778441893492074,
+ "log_ratio_popweighted_p95": 17.194100083403505,
+ "log_ratio_min": -8.36371181061004,
+ "log_ratio_max": 24.476099822987457,
+ "anisotropy_popweighted_p50": 2.613946660698428,
+ "anisotropy_popweighted_p95": 125.00350697566175,
+ "displacement_mean_px": 81.38978306098427,
+ "displacement_max_px": 254.1188791449085,
+ "steps": 3304,
+ "rejected": 3,
+ "t_end": 0.30007646493920614,
+ "final_dev": 3.069797992706299,
+ "seconds": 598.8298599720001
+}
+renders in 3s
+gate S4 folds: FAIL (249382); wrote /Users/phil/historical-cartogram/experiments/e027_R5_gravity_t0.3_1024
