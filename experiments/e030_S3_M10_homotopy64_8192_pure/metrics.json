@@ -1,0 +1,69 @@
+{
+ "folds": 4646049,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.034510700949148945,
+ "log_ratio_popweighted_p50": 0.0035668732033037683,
+ "log_ratio_popweighted_p95": 0.03777158890390878,
+ "log_ratio_min": -11.265057621051996,
+ "log_ratio_max": 13.886660137816223,
+ "anisotropy_popweighted_p50": 4.003046550280892,
+ "anisotropy_popweighted_p95": 22.636422243984594,
+ "displacement_mean_px": 1999.5154814696912,
+ "displacement_max_px": 4200.101062835324,
+ "folds_before_repair": 5851026,
+ "folds_after_repair": 4646049,
+ "repair_iterations": 499,
+ "repaired_corners": 7523239,
+ "folds_in_populated_cells": 25489,
+ "p95_shift_by_repair": -4.405196427421931e-06,
+ "pre_repair": {
+  "log_ratio_popweighted_p05": -0.03451372598897954,
+  "log_ratio_popweighted_p95": 0.037775994100336205,
+  "anisotropy_popweighted_p50": 4.003154886428166,
+  "anisotropy_popweighted_p95": 22.643405735223745
+ },
+ "mode": "ot_homotopy",
+ "stages": [
+  {
+   "share": 0.95,
+   "iters": 400,
+   "residual": 1.6349887292730476,
+   "cell_folds": 310952
+  },
+  {
+   "share": 0.98,
+   "iters": 241,
+   "residual": 1.7353599437477127,
+   "cell_folds": 666716
+  },
+  {
+   "share": 0.99,
+   "iters": 151,
+   "residual": 1.7698423086910144,
+   "cell_folds": 1581905
+  },
+  {
+   "share": 0.995,
+   "iters": 131,
+   "residual": 1.7862678750422887,
+   "cell_folds": 3010031
+  },
+  {
+   "share": 0.999,
+   "iters": 111,
+   "residual": 1.7976324918104316,
+   "cell_folds": 5774109
+  }
+ ],
+ "polish_residual": 1.7976324918104316,
+ "seconds": 4701.815749168396,
+ "seam_empty_share_before": 0.880035325884819,
+ "seam_empty_share_after": 0.006126201418783909,
+ "seam_empty_linear_compression_p50": 16.392920175523535,
+ "seam_empty_linear_compression_p95": 1000000.0,
+ "seam_empty_cells_below_1px": 0.7519131095339882,
+ "shape_error_popweighted": 0.7592262933141076,
+ "shape_error_median": 0.6042664642042999,
+ "twist_popweighted_p50_deg": 0.00024830993578450316,
+ "twist_popweighted_p95_deg": 0.0015473218153110645
+}

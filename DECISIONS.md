@@ -112,3 +112,6 @@
 - 2026-08-29  Jellium at 4096 is too slow with a per-step pixel cap (0.5 px per step at 8x the 512 displacement,
   ~2 h); stopped, run at 2048 instead (e026). A cap that grows with the smoothing scale, as in diffusion, is
   the fix if 4096 is ever needed for M9.
+- 2026-08-29  S3 done: the pure OT world at 8192 (e030), 15 km smoothing, +-3.6% density error, 4.0 anisotropy,
+  25489 folds in populated cells, 65 min in float64 on the CPU. Accuracy did not change from
+  4096 (it is set by the 3 px smoothing); sharpness doubled. 8192 is the ceiling worth having for the warp.
