@@ -1,0 +1,50 @@
+grid mercator 2048x2048 lat_cut 85.0511; GHS-POP block-summed by 10
+total 8.1920 bn people; dropped beyond +-85.0511: 37; sigma 3.07 px; max_disp 1.5348422074346335
+  step 100 t=0.0396 dt=0.000535 maxdisp=0.869 dev=2.5153 33s
+  step 200 t=0.0975 dt=0.000615 maxdisp=0.773 dev=2.0048 74s
+  step 300 t=0.171 dt=0.000814 maxdisp=0.836 dev=1.6421 116s
+  step 400 t=0.258 dt=0.000936 maxdisp=0.805 dev=1.3623 159s
+  step 500 t=0.362 dt=0.00108 maxdisp=0.780 dev=1.1338 202s
+  step 600 t=0.486 dt=0.00142 maxdisp=0.862 dev=0.9381 247s
+  step 700 t=0.637 dt=0.00164 maxdisp=0.814 dev=0.7664 288s
+  step 800 t=0.821 dt=0.00216 maxdisp=0.860 dev=0.6145 330s
+  step 900 t=1.06 dt=0.00286 maxdisp=0.864 dev=0.4751 375s
+  step 1000 t=1.38 dt=0.00379 maxdisp=0.794 dev=0.3441 423s
+  step 1100 t=1.88 dt=0.00662 maxdisp=0.865 dev=0.2204 476s
+  step 1200 t=2.79 dt=0.0133 maxdisp=0.816 dev=0.1072 527s
+  step 1300 t=16.5 dt=1.77 maxdisp=0.595 dev=0.0336 580s
+  done: 1310 steps (1 rejected), t=30.31, dev=3.65e-02, 584s
+pre-repair: {"folds": 22723, "gate_folds": "FAIL", "log_ratio_popweighted_p05": -0.0432, "log_ratio_popweighted_p50": 0.0004, "log_ratio_popweighted_p95": 0.0551, "log_ratio_min": -5.7037, "log_ratio_max": 9.1898, "anisotropy_popweighted_p50": 4.2942, "anisotropy_popweighted_p95": 25.1014, "displacement_mean_px": 435.6566, "displacement_max_px": 1016.8272}
+  fold repair: 22723 -> 4740 folds (1956 in populated cells) in 499 iterations, 217886 corners touched
+{
+ "folds": 4740,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.0432847203542186,
+ "log_ratio_popweighted_p50": 0.00039150683551258323,
+ "log_ratio_popweighted_p95": 0.05517634257126533,
+ "log_ratio_min": -5.983641714019009,
+ "log_ratio_max": 12.527367694305179,
+ "anisotropy_popweighted_p50": 4.295461712526557,
+ "anisotropy_popweighted_p95": 25.15432960569866,
+ "displacement_mean_px": 435.6563324948574,
+ "displacement_max_px": 1016.8272413002751,
+ "folds_before_repair": 22723,
+ "folds_after_repair": 4740,
+ "repair_iterations": 499,
+ "repaired_corners": 217886,
+ "folds_in_populated_cells": 1956,
+ "p95_shift_by_repair": 0.00010097911877128551,
+ "pre_repair": {
+  "log_ratio_popweighted_p05": -0.04322722831662815,
+  "log_ratio_popweighted_p95": 0.055075363452494044,
+  "anisotropy_popweighted_p50": 4.294223617548219,
+  "anisotropy_popweighted_p95": 25.101413828914794
+ },
+ "steps": 1310,
+ "rejected": 1,
+ "t_end": 30.30981183268478,
+ "final_dev": 0.036535024642944336,
+ "seconds": 654.054927110672
+}
+renders in 11s
+gate S4 folds: FAIL (4740); wrote /Users/phil/historical-cartogram/experiments/e026_M9_jellium_2048

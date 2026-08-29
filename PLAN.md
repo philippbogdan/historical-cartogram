@@ -91,8 +91,8 @@ from Phase 5 on.
 
 ### Phase 3: gravity `[~]`
 
-- M2 `[x]` GSM flow (own torch; sign fixed). M9 `[x]` jellium flow at 512 (beats diffusion); run at 4096.
-- R5 `[ ]` the G-slider as stills and a short animation: attractive | Earth | repulsive.
+- M2 `[x]` GSM flow (own torch; sign fixed). M9 `[x]` jellium flow at 512, 1024 (e028: -3.5%/+5.7%, 40 folds) and 2048 (e026: -4.3%/+5.5%); 4096 needs a scale-aware step cap.
+- R5 `[~]` the G-slider as stills: attractive at t = 0.1 and 0.3 (e027, the anti-cartogram: India and China pinch to points) | Earth | repulsive = M9; the animation waits for the viewer.
 - M8 `[x]` Tobler baseline (e029: density error -0.85/+2.45, the trivial answer is in the table).
 
 ### Phase 4: legibility and the gallery
