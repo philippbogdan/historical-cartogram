@@ -93,7 +93,7 @@ from Phase 5 on.
 
 - M2 `[x]` GSM flow (own torch; sign fixed). M9 `[x]` jellium flow at 512 (beats diffusion); run at 4096.
 - R5 `[ ]` the G-slider as stills and a short animation: attractive | Earth | repulsive.
-- M8 `[ ]` Tobler baseline, so the trivial answer is in the table.
+- M8 `[x]` Tobler baseline (e029: density error -0.85/+2.45, the trivial answer is in the table).
 
 ### Phase 4: legibility and the gallery
 
@@ -108,7 +108,7 @@ from Phase 5 on.
   legibility (share of countries whose warped area holds their name).
 - X5 `[ ]` seam statistics. R10 `[x]` NEW generated gallery page from INDEX with thumbnails and metrics.
 - X6 `[ ]` the gallery reviewed; F2-F4 confirmed or changed by Phil, asynchronously.
-- S3 `[ ]` the default method at 8192; the 100 m texture through it (A12 prototype: warped tiles in V0).
+- S3 `[~]` the default method at 8192 (e030 running); the 100 m texture through it: A12 prototype `[x]` (`src/serve_warped.py`, the cartogram zoomable at 100 m through the inverse map).
 - Gate: gallery page live in the repo; F2-F4 written to DECISIONS.md.
 
 ### Phase 5: time, 10,000 BC to 2100
@@ -150,7 +150,7 @@ from Phase 5 on.
 
 ### Phase 9: the viewer, last
 
-- A12 `[ ]` warped tile pyramid or on-the-fly warped tiles (V0 extended with the inverse map).
+- A12 `[~]` on-the-fly warped tiles exist (prototype); the pyramid / static form is Phase 9.
 - V1-V11 `[ ]` as in v1 (zoom/pan/rotate, LOD by local magnification, flat + globe, time, lens, method,
   labels with collision, metric grid toggle, native textures, static hosting, asset budget).
 - V12 `[ ]` NEW permalinks. V13 `[ ]` NEW compare/swipe. V14 `[ ]` NEW story mode. V15 `[ ]` NEW print export.
