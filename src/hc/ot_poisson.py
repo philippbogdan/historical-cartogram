@@ -17,10 +17,11 @@ from .diffusion import prepare_density, quad_areas
 
 
 class PoissonOT:
-    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic"):
+    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic", rho=None):
         assert x_boundary in ("periodic", "wall")
         self.x_boundary = x_boundary
-        self.rho0 = prepare_density(counts, floor, sigma, x_boundary)
+        self.sigma_px = float(sigma)
+        self.rho0 = prepare_density(counts, floor, sigma, x_boundary) if rho is None else np.asarray(rho, np.float64)
         self.H, self.W = self.rho0.shape
         H, W = self.H, self.W
         ky = np.pi * np.arange(H) / H
@@ -67,23 +68,34 @@ class PoissonOT:
         self.psi = self.solve_poisson(self.rho0 - 1)
         return self.psi
 
-    def iterate(self, iters=200, damping=0.5, log=print, tol=1e-3):
+    def residual(self, psi=None):
+        J = self.jacobian_det(self.psi if psi is None else psi)
+        return float((np.abs(J - self.rho0) * self.rho0).sum() / self.rho0.sum()), int((J <= 0).sum())
+
+    def iterate(self, iters=200, damping=0.5, log=print, tol=1e-3, keep_best=True, patience=8):
         rho = self.rho0
         t0 = time.time()
-        hist = []
+        res, folds = self.residual()
+        best_res, best_psi, since = res, self.psi.copy(), 0
+        n = -1
         for n in range(iters):
             xx, xy, yy = self.hessian(self.psi)
             rhs = np.sqrt(np.maximum((1 + xx) ** 2 + 2 * xy ** 2 + (1 + yy) ** 2 + 2 * rho, 0.0)) - 2
-            psi_new = self.solve_poisson(rhs)
-            self.psi = (1 - damping) * self.psi + damping * psi_new
-            J = self.jacobian_det(self.psi)
-            res = float((np.abs(J - rho) * rho).sum() / rho.sum())  # population-weighted |det - rho|
-            folds = int((J <= 0).sum())
-            hist.append(res)
+            self.psi = (1 - damping) * self.psi + damping * self.solve_poisson(rhs)
             if n % 10 == 0 or n == iters - 1:
+                res, folds = self.residual()
                 log(f"  iter {n} residual {res:.4f} folds {folds} {time.time()-t0:.0f}s")
-            if res < tol:
-                break
+                if res < best_res - 1e-4:
+                    best_res, best_psi, since = res, self.psi.copy(), 0
+                else:
+                    since += 1
+                    if keep_best and since >= patience:
+                        break
+                if res < tol:
+                    break
+        if keep_best:
+            self.psi = best_psi
+            res, folds = self.residual()
         return {"iters": n + 1, "residual": res, "cell_folds": folds}
 
     def mesh(self):
@@ -126,6 +138,9 @@ class PoissonOT:
             for f in reversed(levels):
                 h, w = self.H // f, self.W // f
                 rho_c = self.rho0.reshape(h, f, w, f).mean(axis=(1, 3))
+                extra = float(np.sqrt(max(3.0 ** 2 - (self.sigma_px / f) ** 2, 0.0)))  # >= 3 px at this level
+                if extra > 0.3:
+                    rho_c = ndimage.gaussian_filter(rho_c, extra, mode=("reflect", "wrap" if self.x_boundary == "periodic" else "reflect"))
                 sub = PoissonOT.__new__(PoissonOT)
                 sub.x_boundary = self.x_boundary
                 sub.rho0 = rho_c / rho_c.mean()
@@ -166,6 +181,7 @@ class TorchPoissonOT:
             device = "mps" if torch.backends.mps.is_available() else "cpu"
         self.dev = torch.device(device)
         self.rho0 = prepare_density(counts, floor, sigma, x_boundary) if rho is None else rho
+        self.sigma_px = float(sigma)
         self.H, self.W = self.rho0.shape
         self.rho = torch.tensor(self.rho0, dtype=torch.float32, device=self.dev)
         self.ext_shape = (2 * self.H, self.W if x_boundary == "periodic" else 2 * self.W)
@@ -276,9 +292,13 @@ class TorchPoissonOT:
                 f *= 2
                 levels.append(f)
             psi = None
+            from scipy import ndimage
             for f in reversed(levels):
                 h, w = self.H // f, self.W // f
                 rho_c = self.rho0.reshape(h, f, w, f).mean(axis=(1, 3))
+                extra = float(np.sqrt(max(3.0 ** 2 - (getattr(self, "sigma_px", 3.0) / f) ** 2, 0.0)))
+                if extra > 0.3:
+                    rho_c = ndimage.gaussian_filter(rho_c, extra, mode=("reflect", "wrap" if self.x_boundary == "periodic" else "reflect"))
                 sub = TorchPoissonOT(None, x_boundary=self.x_boundary, device=str(self.dev), rho=rho_c / rho_c.mean())
                 if psi is None:
                     sub.one_shot()
@@ -301,16 +321,21 @@ class TorchPoissonOT:
         return X, Y, info
 
 
-def homotopy(counts, shares, sigma, x_boundary, iters=300, damping=0.3, log=print):
+def homotopy(counts, shares, sigma, x_boundary, iters=300, damping=0.3, log=print, backend="auto"):
     """Continuation in the humanity share: solve M10 at an easy share, then use its potential as
     the start for the next, harder share (smaller floor). Returns the final solver and per-stage info."""
     from .diffusion import prepare_density
-    import torch
     po, psi, stages = None, None, []
+    W = np.asarray(counts).shape[1]
+    if backend == "auto":  # float32 on the GPU loses the Hessian of a px^2 potential above ~1024
+        backend = "torch" if W <= 1024 else "numpy"
+    cls = TorchPoissonOT if backend == "torch" else PoissonOT
+    log(f"  homotopy backend {backend} (float{'32' if backend == 'torch' else '64'})")
     for s in shares:
         floor = (1 - s) / s
         rho = prepare_density(counts, floor, sigma, x_boundary)
-        po = TorchPoissonOT(None, x_boundary=x_boundary, rho=rho)
+        po = cls(None, x_boundary=x_boundary, rho=rho)
+        po.sigma_px = float(sigma)
         if psi is None:
             po.one_shot()
             if po.W > 512:
