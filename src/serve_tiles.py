@@ -83,7 +83,7 @@ def main():
                     self.send_response(404); self.end_headers(); return
                 self.send_response(200); self.send_header("Content-Type", "image/png"); self.send_header("Cache-Control", "max-age=3600"); self.end_headers(); self.wfile.write(png)
             elif self.path.startswith("/meta"):
-                body = f'{{"maxZoom": {maxz}, "cell_deg": {tiles.dx}, "file": "{os.path.basename(path)}"}}'.encode()
+                body = f'{{"maxZoom": {maxz}, "cell_deg": {tiles.dx}, "file": "{os.path.basename(tiles.path)}"}}'.encode()
                 self.send_response(200); self.send_header("Content-Type", "application/json"); self.end_headers(); self.wfile.write(body)
             else:
                 self.send_response(200); self.send_header("Content-Type", "text/html"); self.end_headers(); self.wfile.write(open(VIEWER, "rb").read())
