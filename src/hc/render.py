@@ -255,10 +255,13 @@ def draw(X, Y, mask, out_png, out_w=None, coast=(), borders=(), grat=(), mgrid=(
         cov = splat(mask.astype(np.float64), X, Y, (oh, ow), wrap=wrap)
         img = OCEAN[None, None, :] * (1 - cov[..., None]) + LAND[None, None, :] * cov[..., None]
     else:
-        v = splat(raster.astype(np.float64), X, Y, (oh, ow), wrap=wrap)
-        vmin = np.nanmin(v) if vmin is None else vmin
-        vmax = np.nanmax(v) if vmax is None else vmax
+        r = np.asarray(raster, np.float64); valid = np.isfinite(r)
+        v = splat(np.where(valid, r, 0.0), X, Y, (oh, ow), wrap=wrap, weights=valid.astype(np.float64))
+        cov = splat(valid.astype(np.float64), X, Y, (oh, ow), wrap=wrap)
+        vmin = np.nanmin(v[cov > 0.5]) if vmin is None else vmin
+        vmax = np.nanmax(v[cov > 0.5]) if vmax is None else vmax
         img = matplotlib.colormaps[cmap]((v - vmin) / (vmax - vmin + 1e-12))[..., :3]
+        img[cov < 0.5] = OCEAN
     fig, ax = _figure(oh, ow, "white")
     ax.imshow(img, extent=(0, ow, oh, 0), interpolation="nearest")
     if mgrid:

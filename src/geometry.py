@@ -22,7 +22,7 @@ factor = max(d for d in prep.divisors(NCOLS) if d <= max(1, NCOLS // (2 * width)
 counts, bounds = get_lonlat(factor); P, _ = prep.to_grid(counts, bounds, grid)
 sigma_px = 60.0 / grid.km_per_px_equator()
 ocean = render.land_mask(os.path.join(RAW, "ne_50m_land.geojson"), grid) == 0
-rho = prepare_density(P, 0.001, max(sigma_px, 2.0), "wall", ocean=ocean, ocean_share=0.05)
+rho = prepare_density(P, 0.001, max(sigma_px, 2.0), "wall")   # no ocean buffer: empty land and sea alike
 u = 0.5 * np.log(rho)                          # the pure humeter metric, for the curvature
 u_g = 0.5 * np.log(0.2 + 0.8 * rho)            # a tempered metric for the geodesic pictures: empty regions
                                                # at the floor have wild log-gradients that only add noise
@@ -41,7 +41,7 @@ Ks = ndimage.gaussian_filter(K, 1.0)
 lim = np.percentile(np.abs(Ks[~ocean]), 98)
 img = matplotlib.colormaps["RdBu_r"](np.clip(Ks / lim, -1, 1) / 2 + 0.5)[..., :3]
 fig, ax = fig_geo("curvature"); ax.imshow(img, extent=(0, W, H, 0), interpolation="nearest")
-ax.add_collection(LineCollection([l for l in coast], colors="#000", linewidths=0.4))
+ax.add_collection(LineCollection([sg for l in coast for sg in render.split_seam(l, W)], colors="#000", linewidths=0.4))
 ax.text(0.01, 0.01, f"Gaussian curvature of the population manifold (G4), +-{lim:.2g} per px^2; red positive (hilltops), blue negative (saddles between cities)", transform=ax.transAxes, fontsize=9)
 fig.savefig(os.path.join(out, "curvature.png"), dpi=100); plt.close(fig)
 
@@ -63,11 +63,13 @@ def shoot(p0, v0, steps, h=1.0):
         v = v / np.linalg.norm(v, axis=1, keepdims=True)  # unit speed in the flat parameter; direction is what matters
         path.append(p.copy())
     return np.stack(path, 1)  # (n, steps+1, 2)
-n_lines = 24
-starts_v = np.stack([np.full(n_lines, 0.5), np.linspace(0, W, n_lines + 2)[1:-1]], 1)[:, ::-1]  # top edge, heading down
-paths_v = shoot(starts_v, np.tile([[0.0, 1.0]], (n_lines, 1)), int(H * 1.1))
-starts_h = np.stack([np.full(n_lines, 0.5), np.linspace(0, H, n_lines + 2)[1:-1]], 1)  # left edge, heading right
-paths_h = shoot(starts_h, np.tile([[1.0, 0.0]], (n_lines, 1)), int(W * 1.1))
+# fans of geodesics from three cities: the straight lines of the humeter world
+fan_cities = {"London": (-0.13, 51.5), "Delhi": (77.2, 28.6), "Sao Paulo": (-46.6, -23.5)}
+fan_paths, fan_cols = [], []
+for nm, colr in zip(fan_cities, ("#8b0000", "#00468b", "#8b008b")):
+    cx, cy = grid.xy(*fan_cities[nm]); n_dir = 48; th = np.linspace(0, 2 * np.pi, n_dir, endpoint=False)
+    p0 = np.tile([[float(cx), float(cy)]], (n_dir, 1)); v0 = np.stack([np.cos(th), np.sin(th)], 1)
+    fan_paths.append(shoot(p0, v0, int(W * 0.6), h=1.0)); fan_cols.append(colr)
 def clip_paths(paths):
     segs = []
     for pth in paths:
@@ -78,9 +80,12 @@ def clip_paths(paths):
 fig, ax = fig_geo("geodesics")
 land = render.land_mask(os.path.join(RAW, "ne_50m_land.geojson"), grid)
 ax.imshow(np.where(land[..., None] > 0, render.LAND, render.OCEAN), extent=(0, W, H, 0), interpolation="nearest")
-ax.add_collection(LineCollection(clip_paths(paths_v) + clip_paths(paths_h), colors="#8b0000", linewidths=0.7, alpha=0.8))
-ax.add_collection(LineCollection([l for l in coast], colors="#000", linewidths=0.35))
-ax.text(0.01, 0.01, "geodesic graticule of the population metric (G2): straight lines of the humeter world, bending around cities like lensing", transform=ax.transAxes, fontsize=9)
+for pths, colr in zip(fan_paths, fan_cols):
+    ax.add_collection(LineCollection(clip_paths(pths), colors=colr, linewidths=0.6, alpha=0.75))
+for nm, colr in zip(fan_cities, fan_cols):
+    cx, cy = grid.xy(*fan_cities[nm]); ax.plot(cx, cy, "o", color=colr, ms=4); ax.text(cx + 6, cy, nm, color=colr, fontsize=10)
+ax.add_collection(LineCollection([sg for l in coast for sg in render.split_seam(l, W)], colors="#000", linewidths=0.35))
+ax.text(0.01, 0.01, "geodesics of the population metric (G2) fanning out from three cities: the straight lines of the humeter world, bending away from dense regions like lensing", transform=ax.transAxes, fontsize=9)
 fig.savefig(os.path.join(out, "geodesics.png"), dpi=100); plt.close(fig)
 # G2b / L5: humeter distance from a city, by Dijkstra on the grid graph with the tempered metric
 from scipy.sparse import coo_matrix
@@ -110,7 +115,7 @@ for nm, colr in zip(cities_ll, ("#8b0000", "#00468b", "#006400", "#8b008b")):
     segs = [np.asarray(sg) for lv in levels for sg in gen.lines(lv) if len(sg) > 3]
     ax.add_collection(LineCollection(segs, colors=colr, linewidths=0.5, alpha=0.8))
     cx, cy = grid.xy(*cities_ll[nm]); ax.plot(cx, cy, "o", color=colr, ms=4); ax.text(cx + 5, cy, nm, color=colr, fontsize=10)
-ax.add_collection(LineCollection([l for l in coast], colors="#000", linewidths=0.35))
+ax.add_collection(LineCollection([sg for l in coast for sg in render.split_seam(l, W)], colors="#000", linewidths=0.35))
 ax.text(0.01, 0.01, "humeter distance from four cities (L5/G2): contours every 2000 hm-km; a humeter-kilometre crosses the world-average number of people per km", transform=ax.transAxes, fontsize=9)
 fig.savefig(os.path.join(out, "distance.png"), dpi=100); plt.close(fig)
 table = {}
