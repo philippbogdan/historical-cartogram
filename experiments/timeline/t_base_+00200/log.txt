@@ -1,0 +1,1 @@
+year 200 population 240.76 M; residual 0.0060; 55s

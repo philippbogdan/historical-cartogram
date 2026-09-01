@@ -1,0 +1,1 @@
+year 900 population 311.14 M; residual 0.0057; 52s

@@ -1,0 +1,1 @@
+year -1000 population 110.53 M; residual 0.0058; 51s

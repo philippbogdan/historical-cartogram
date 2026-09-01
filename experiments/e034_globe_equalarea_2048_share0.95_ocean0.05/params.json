@@ -1,0 +1,19 @@
+{
+ "name": "e034_globe_equalarea_2048_share0.95_ocean0.05",
+ "method": "ot_spectral_homotopy",
+ "grid": "equalarea",
+ "lat_cut": 90.0,
+ "width": 2048,
+ "W": 2048,
+ "H": 652,
+ "x_boundary": "periodic",
+ "backend": "torch-spectral",
+ "floor": 0.052631578947368474,
+ "share": 0.95,
+ "ocean_share": 0.05,
+ "lon0": -180.0,
+ "sigma_km": 60.0,
+ "sigma_px": 3.069684414869267,
+ "vectors": "50m",
+ "iters": 400
+}

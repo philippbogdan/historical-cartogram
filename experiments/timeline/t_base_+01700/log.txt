@@ -1,0 +1,1 @@
+year 1700 population 595.46 M; residual 0.0050; 48s

@@ -1,0 +1,1 @@
+year 1500 population 503.05 M; residual 0.0043; 48s

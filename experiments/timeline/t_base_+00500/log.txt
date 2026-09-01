@@ -1,0 +1,1 @@
+year 500 population 253.40 M; residual 0.0061; 109s

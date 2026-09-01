@@ -1,0 +1,1 @@
+year -2000 population 72.69 M; residual 0.0047; 48s

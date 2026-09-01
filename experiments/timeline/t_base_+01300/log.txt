@@ -1,0 +1,1 @@
+year 1300 population 456.25 M; residual 0.0038; 48s

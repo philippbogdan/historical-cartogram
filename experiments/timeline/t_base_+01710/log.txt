@@ -1,0 +1,1 @@
+year 1710 population 617.98 M; residual 0.0053; 48s

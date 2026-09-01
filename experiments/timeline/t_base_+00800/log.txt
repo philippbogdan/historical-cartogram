@@ -1,0 +1,1 @@
+year 800 population 285.87 M; residual 0.0058; 52s

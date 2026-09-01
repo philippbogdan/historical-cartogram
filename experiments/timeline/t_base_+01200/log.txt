@@ -1,0 +1,1 @@
+year 1200 population 444.65 M; residual 0.0039; 48s

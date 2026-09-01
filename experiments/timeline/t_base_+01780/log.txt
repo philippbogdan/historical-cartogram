@@ -1,0 +1,1 @@
+year 1780 population 900.95 M; residual 0.0037; 47s

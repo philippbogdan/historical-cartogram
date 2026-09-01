@@ -1,0 +1,1 @@
+year 1000 population 323.46 M; residual 0.0054; 48s

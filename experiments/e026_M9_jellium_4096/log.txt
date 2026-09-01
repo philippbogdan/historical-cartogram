@@ -1,0 +1,11 @@
+grid mercator 4096x4096 lat_cut 85.0511; GHS-POP block-summed by 5
+total 8.1920 bn people; dropped beyond +-85.0511: 44; sigma 3.07 px; max_disp 1.5348422074346335
+  step 100 t=0.017 dt=0.000201 maxdisp=0.806 dev=3.0316 97s
+  step 200 t=0.0398 dt=0.000266 maxdisp=0.870 dev=2.6145 200s
+  step 300 t=0.0669 dt=0.000306 maxdisp=0.868 dev=2.3082 306s
+  step 400 t=0.0975 dt=0.000306 maxdisp=0.772 dev=2.0652 416s
+  step 500 t=0.132 dt=0.000352 maxdisp=0.798 dev=1.8584 531s
+  step 600 t=0.171 dt=0.000405 maxdisp=0.834 dev=1.6826 683s
+  step 700 t=0.211 dt=0.000465 maxdisp=0.877 dev=1.5318 1212s
+  step 800 t=0.258 dt=0.000465 maxdisp=0.802 dev=1.3912 1668s
+  step 900 t=0.308 dt=0.000535 maxdisp=0.846 dev=1.2671 1924s

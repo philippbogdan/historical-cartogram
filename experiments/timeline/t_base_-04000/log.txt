@@ -1,0 +1,1 @@
+year -4000 population 28.86 M; residual 0.0043; 60s
