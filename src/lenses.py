@@ -10,7 +10,7 @@ import rasterio
 from rasterio.enums import Resampling
 sys.path.insert(0, os.path.dirname(__file__))
 from hc import prep, diffusion, ot_poisson, render
-from run import ROOT, RAW, render_all
+from run import load_mesh, ROOT, RAW, render_all
 from render_countries import country_ids, palette
 
 lon0, xb = -168.0, "wall"
@@ -69,7 +69,7 @@ def lonely(width):
 
 def ratio(exp):
     out = os.path.join(ROOT, "experiments", exp); p = json.load(open(os.path.join(out, "params.json")))
-    z = np.load(os.path.join(out, "mesh.npz")); X, Y = z["X"].astype(np.float64), z["Y"].astype(np.float64)
+    X, Y, _ = load_mesh(out); X, Y = X.astype(np.float64), Y.astype(np.float64)
     grid = prep.Grid(p["grid"], p["W"], p["lat_cut"], lon0=p.get("lon0", -180.0)); wrap = p.get("x_boundary") == "periodic"
     coast = render.lines_from_geojson(os.path.join(RAW, "ne_50m_coastline.geojson"), grid)
     # night lights: radiance-like value per cell (mean over the cell), through the warp -> light per person
@@ -105,12 +105,12 @@ def ratio(exp):
 
 def peak(exp):
     out = os.path.join(ROOT, "experiments", exp); p = json.load(open(os.path.join(out, "params.json")))
-    z = np.load(os.path.join(out, "mesh.npz")); X, Y = z["X"].astype(np.float64), z["Y"].astype(np.float64)
+    X, Y, _ = load_mesh(out); X, Y = X.astype(np.float64), Y.astype(np.float64)
     grid = prep.Grid(p["grid"], p["W"], p["lat_cut"], lon0=p.get("lon0", -180.0))
     pk = np.load(os.path.join(ROOT, "experiments", "timeline", f"T6_peak_year_{grid.W}.npy")).astype(np.float64)
     coast = render.lines_from_geojson(os.path.join(RAW, "ne_50m_coastline.geojson"), grid)
     v = np.where(np.isnan(pk), 1700, pk)
-    render.draw(X, Y, np.ones(v.shape, np.uint8), os.path.join(out, "lens_peak_year.png"), min(grid.W, 4096), coast=coast, raster=v, cmap="viridis", vmin=1700, vmax=2023, title="epoch of maximum population per cell, HYDE 3.3 (T6): yellow = still growing, dark = peaked long ago", wrap=p.get("x_boundary") == "periodic")
+    render.draw(X, Y, np.ones(v.shape, np.uint8), os.path.join(out, "lens_peak_year.png"), min(grid.W, 4096), coast=coast, raster=v, cmap="viridis", vmin=1900, vmax=2023, title="epoch of maximum population per cell, HYDE 3.3 (T6): yellow = still growing in 2023, dark = peaked before 1900", wrap=p.get("x_boundary") == "periodic")
     print("wrote lens_peak_year.png")
 
 

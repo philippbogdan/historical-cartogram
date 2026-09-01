@@ -47,7 +47,7 @@ const lbls = cities.slice(0, 120).map(c => { const d = document.createElement('d
 const v = new THREE.Vector3();
 function placeLabels() { const w = +warp.value; for (const { c, d } of lbls) { const lon = c.lon0 * (1 - w) + c.lon * w, lat = c.lat0 * (1 - w) + c.lat * w; const la = lat * Math.PI / 180, lo = lon * Math.PI / 180;
   v.set(Math.cos(la) * Math.cos(lo), Math.sin(la), -Math.cos(la) * Math.sin(lo)); const front = v.clone().normalize().dot(cam.position.clone().normalize()) > 0.25; v.project(cam);
-  const vis = show.checked && front && Math.abs(v.x) < 1 && Math.abs(v.y) < 1; d.style.display = vis ? 'block' : 'none'; if (vis) { d.style.left = ((v.x + 1) / 2 * innerWidth) + 'px'; d.style.top = ((1 - v.y) / 2 * innerHeight) + 'px'; } } }
+  const vis = show.checked && window.labelsToday !== false && front && Math.abs(v.x) < 1 && Math.abs(v.y) < 1; d.style.display = vis ? 'block' : 'none'; if (vis) { d.style.left = ((v.x + 1) / 2 * innerWidth) + 'px'; d.style.top = ((1 - v.y) / 2 * innerHeight) + 'px'; } } }
 addEventListener('resize', () => { cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
 window.globe = { scene, cam, setWarp: w => { warp.value = w; setWarp(w); } };
 // A7: the globe through time. Each epoch is its own warped mesh on the same lattice; the radius follows sqrt(population).
@@ -70,7 +70,7 @@ if (epochs.length) {
       const rows2 = Math.round(Math.sqrt(b2.length / 4 / (cols / rows))), cols2 = Math.round(b2.length / 4 / rows2);
       for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) { const r2 = Math.min(rows2 - 1, Math.round(r * (rows2 - 1) / (rows - 1))), c2 = Math.min(cols2 - 1, Math.round(c * (cols2 - 1) / (cols - 1))); const k2 = r2 * cols2 + c2, k = r * cols + c; toXYZ(b2[4*k2+2], b2[4*k2+3], warped, k); } }
     setWarp(+warp.value);
-    const s = grow.checked ? Math.sqrt(pop / popToday) : 1; mesh.scale.setScalar(s); ev.textContent = label;
+    const s = grow.checked ? Math.sqrt(pop / popToday) : 1; mesh.scale.setScalar(s); ev.textContent = label; window.labelsToday = (i >= epochs.length);   // today's cities only on today's globe
   }
   sl.oninput = () => showEpoch(+sl.value); grow.onchange = () => showEpoch(+sl.value); showEpoch(epochs.length);
   window.globe.showEpoch = showEpoch;

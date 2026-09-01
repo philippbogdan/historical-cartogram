@@ -94,21 +94,33 @@ def cities(frame):
     ax.scatter((wp[:, 0] % W) * sc, wp[:, 1] * sc, s=s ** 2, c="#c0392b", alpha=0.6, edgecolors="#600", linewidths=0.5)
     for c, (x1, y1), pp in sorted(zip(rows, wp, pops), key=lambda t: -t[2])[:40]:
         ax.text((x1 % W) * sc + 4, y1 * sc, c[0], fontsize=7 * ow / 4096 + 3, color="#300")
-    ax.text(0.01, 0.01, f"{frame}: {len(rows)} cities with a Chandler/Modelski population record within 200 years before {year} (T7)", transform=ax.transAxes, fontsize=9)
+    ax.text(0.01, 0.99, f"{frame}: {len(rows)} cities with a Chandler/Modelski population record within 200 years before {year} (T7); dot area = city population", transform=ax.transAxes, fontsize=9, va="top", bbox=dict(facecolor="white", alpha=0.8, edgecolor="none", pad=2))
     fig.savefig(os.path.join(out, "cities.png"), dpi=100); plt.close(fig); print("wrote", os.path.join(out, "cities.png"), len(rows), "cities")
 
 
 def uncertainty(frame):
+    """L8: how much the map's SHAPE depends on the HYDE bounds: coastlines of the lower (blue) and upper (red)
+    bound frames over the base frame's countries. Needs t_lower_/t_upper_ frames for the same year."""
     out = os.path.join(TL, frame); p = json.load(open(os.path.join(out, "params.json"))); year = p["year"]
+    grid = prep.Grid(p["grid"], p["W"], p["lat_cut"], lon0=p.get("lon0", -180.0)); W = grid.W
+    lo, up = os.path.join(TL, f"t_lower_{year:+06d}"), os.path.join(TL, f"t_upper_{year:+06d}")
+    if not (os.path.exists(os.path.join(lo, "metrics.json")) and os.path.exists(os.path.join(up, "metrics.json"))):
+        print("no bound frames for", year); return
     Hl = hyde.Hyde(os.path.join(RAW, "hyde33", "population_lower.nc")); Hu = hyde.Hyde(os.path.join(RAW, "hyde33", "population_upper.nc"))
-    i = list(Hl.years).index(year); lo, up = Hl.counts(i), Hu.counts(i)
-    grid = prep.Grid(p["grid"], p["W"], p["lat_cut"], lon0=p.get("lon0", -180.0))
-    L, _ = prep.to_grid(lo, Hl.bounds, grid); U, _ = prep.to_grid(up, Hu.bounds, grid)
-    ratio = np.log(np.maximum(U, 1) / np.maximum(L, 1))
-    X, Y, _ = load_mesh(out)
-    mask = np.ones(ratio.shape, np.uint8)
-    render.draw(X, Y, mask, os.path.join(out, "uncertainty.png"), min(grid.W, 4096), raster=ratio, cmap="Greys", vmin=0, vmax=2.0, title=f"{frame}: log(upper/lower) HYDE bounds (L8); white = certain, dark = the estimate could be 7x off", wrap=False)
-    print("wrote uncertainty for", frame, "median log ratio where people live:", float(np.median(ratio[U > 100])))
+    i = list(Hl.years).index(year); tl, tu = Hl.total(i), Hu.total(i)
+    import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
+    from PIL import Image
+    base = Image.open(os.path.join(out, "countries.png")); ow, oh = base.size; sc = ow / W
+    coast = render.lines_from_geojson(os.path.join(RAW, f"ne_{p['vectors']}_coastline.geojson"), grid)
+    fig = plt.figure(figsize=(ow / 100, oh / 100), dpi=100); ax = fig.add_axes([0, 0, 1, 1]); ax.axis("off"); ax.imshow(base, extent=(0, ow, oh, 0))
+    disp = {}
+    for d, col, tag in ((lo, "#1f5fbf", "lower"), (up, "#c0392b", "upper")):
+        X, Y, _ = load_mesh(d); render._add_lines(ax, coast, X, Y, W, sc, col, 0.7)
+        Xb, Yb, rb = load_mesh(out); dd = np.hypot(X - Xb, Y - Yb); w = np.zeros_like(dd); w[:-1, :-1] = np.asarray(rb, np.float64); disp[tag] = float((dd * w).sum() / w.sum())
+    ax.text(0.01, 0.99, f"{frame}: coastlines of the HYDE lower bound (blue, {tl/1e6:.0f} M) and upper bound (red, {tu/1e6:.0f} M) over the base frame (L8); population-weighted shift {disp['lower']:.0f} / {disp['upper']:.0f} px of {W}", transform=ax.transAxes, fontsize=9, va="top", bbox=dict(facecolor="white", alpha=0.8, edgecolor="none", pad=2))
+    fig.savefig(os.path.join(out, "uncertainty.png"), dpi=100); plt.close(fig)
+    json.dump({"year": year, "lower_total": tl, "upper_total": tu, "shift_px": disp}, open(os.path.join(out, "uncertainty.json"), "w"), indent=1)
+    print("wrote uncertainty for", frame, disp)
 
 
 def blend(width, ya, yb, s):

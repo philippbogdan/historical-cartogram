@@ -277,7 +277,7 @@ def draw(X, Y, mask, out_png, out_w=None, coast=(), borders=(), grat=(), mgrid=(
     if coast:
         _add_lines(ax, coast, X, Y, W, scale, "#000000", 0.5)
     if title:
-        ax.text(0.01, 0.01, title, transform=ax.transAxes, fontsize=9, color="#222", va="bottom")
+        ax.text(0.01, 0.01, title, transform=ax.transAxes, fontsize=9, color="#222", va="bottom", bbox=dict(facecolor="white", alpha=0.75, edgecolor="none", pad=2))
     fig.savefig(out_png, dpi=100)
     plt.close(fig)
 
