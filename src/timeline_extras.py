@@ -108,6 +108,9 @@ def uncertainty(frame):
         print("no bound frames for", year); return
     Hl = hyde.Hyde(os.path.join(RAW, "hyde33", "population_lower.nc")); Hu = hyde.Hyde(os.path.join(RAW, "hyde33", "population_upper.nc"))
     i = list(Hl.years).index(year); tl, tu = Hl.total(i), Hu.total(i)
+    lo_c, up_c = Hl.counts(i), Hu.counts(i); Lg, _ = prep.to_grid(lo_c, Hl.bounds, grid); Ug, _ = prep.to_grid(up_c, Hu.bounds, grid)
+    m = Ug > 100; lr = np.log(Ug[m] / np.maximum(Lg[m], 1)); w = Ug[m] / Ug[m].sum(); o = np.argsort(lr); cw = np.cumsum(w[o])
+    q = [float(lr[o][np.searchsorted(cw, k)]) for k in (0.05, 0.5, 0.95)]      # population-weighted quantiles of log(upper/lower)
     import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
     from PIL import Image
     base = Image.open(os.path.join(out, "countries.png")); ow, oh = base.size; sc = ow / W
@@ -117,10 +120,11 @@ def uncertainty(frame):
     for d, col, tag in ((lo, "#1f5fbf", "lower"), (up, "#c0392b", "upper")):
         X, Y, _ = load_mesh(d); render._add_lines(ax, coast, X, Y, W, sc, col, 0.7)
         Xb, Yb, rb = load_mesh(out); dd = np.hypot(X - Xb, Y - Yb); w = np.zeros_like(dd); w[:-1, :-1] = np.asarray(rb, np.float64); disp[tag] = float((dd * w).sum() / w.sum())
-    ax.text(0.01, 0.99, f"{frame}: coastlines of the HYDE lower bound (blue, {tl/1e6:.0f} M) and upper bound (red, {tu/1e6:.0f} M) over the base frame (L8); population-weighted shift {disp['lower']:.0f} / {disp['upper']:.0f} px of {W}", transform=ax.transAxes, fontsize=9, va="top", bbox=dict(facecolor="white", alpha=0.8, edgecolor="none", pad=2))
+    ax.text(0.01, 0.99, f"{frame}: coastlines of the HYDE lower bound (blue, {tl/1e6:.0f} M) and upper bound (red, {tu/1e6:.0f} M) over the base frame (L8). Population-weighted shift {disp['lower']:.2f} / {disp['upper']:.2f} px of {W}: "
+            f"upper/lower is a factor {np.exp(q[1]):.1f} (p05-p95 {np.exp(q[0]):.1f}-{np.exp(q[2]):.1f}) nearly everywhere, so the bounds rescale the world and barely move the map; the uncertainty sits in people-per-pixel, not in the shape", transform=ax.transAxes, fontsize=9, va="top", bbox=dict(facecolor="white", alpha=0.8, edgecolor="none", pad=2))
     fig.savefig(os.path.join(out, "uncertainty.png"), dpi=100); plt.close(fig)
-    json.dump({"year": year, "lower_total": tl, "upper_total": tu, "shift_px": disp}, open(os.path.join(out, "uncertainty.json"), "w"), indent=1)
-    print("wrote uncertainty for", frame, disp)
+    json.dump({"year": year, "lower_total": tl, "upper_total": tu, "shift_px": disp, "log_ratio_p05_p50_p95": q}, open(os.path.join(out, "uncertainty.json"), "w"), indent=1)
+    print("wrote uncertainty for", frame, "shift px", {k: round(v, 3) for k, v in disp.items()}, "upper/lower factor p05/p50/p95", [round(float(np.exp(x)), 2) for x in q])
 
 
 def blend(width, ya, yb, s):

@@ -1,0 +1,9 @@
+{
+ "scenario": "lower",
+ "width": 2048,
+ "frames": [
+  "t_lower_-03000",
+  "t_lower_+00000",
+  "t_lower_+01500"
+ ]
+}

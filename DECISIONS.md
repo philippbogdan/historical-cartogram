@@ -186,3 +186,12 @@
 - 2026-09-01  Browser checks now DRIVE the controls (select an option, move a slider, step an epoch) and listen
   for page errors, not just load the page: the compare page had loaded cleanly for days while its script died
   on the first line (a `const top` clashing with window.top).
+- 2026-09-01  Seams measured (experiments/timeline/seams.json, population-weighted displacement difference between
+  same-year frames from two sources, px of 2048): HYDE vs GHS-POP 1975 mean 12.8, p95 44.7; 2000 mean 7.0; 2020
+  mean 10.3. GHS-POP vs SSP2 2020 mean 6.5, p95 16.6; 2030 mean 13.6. For scale, three years of real change
+  (HYDE 2020 vs 2023) is mean 8.5 px. The handover series is therefore HYDE to 1970, GHS-POP 1975-2025, SSP2
+  2030-2100 (103 frames on the site), and the time page says where the sources change and by how much.
+- 2026-09-01  HYDE 3.3's lower and upper bound files are the base pattern times ONE constant per epoch (upper/lower
+  = 10.43 at 3000 BC, 7.0 at year 0, 1.89 at 1500, with p05 = p50 = p95): they carry no spatial uncertainty, so
+  the bound frames coincide with the base frame to 0.01 px. L8 records this on the picture; the uncertainty is in
+  people-per-pixel, not in the shape. A spatial uncertainty would need a different source.

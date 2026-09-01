@@ -42,27 +42,37 @@ read at every scale and every moment:
 Representative means: every one of the six exists, works in a real browser or as a reviewed picture,
 carries its source and honesty note, and is reproducible from the repo.
 
-## Current state (2026-08-29)
+## Current state (2026-09-01)
 
-Repo `~/historical-cartogram`, public, 30 commits, 24 experiments, `experiments/INDEX.md` generated.
+Repo `~/historical-cartogram`, public, 72 commits, 51 experiments plus 163 timeline frames, `experiments/INDEX.md` and
+`experiments/gallery.html` generated. Nothing spent; nothing deployed (V10/A9 is Phil's call).
 
-Working today:
-- Data: GHS-POP 2025 at 1 km and at 100 m globally (11 GB + overviews, 8.191 bn people); Natural Earth.
-- Prep: exact count re-binning onto a Mercator or equal-area cylinder, periodic in longitude.
-- Solvers, all on the M4 GPU: diffusion (M1, 4096 in 90 s), GSM flow (M2), jellium flow (M9),
-  Poisson-iterated OT with coarse-to-fine (M10, 4096 in ~1 min). Numpy references kept, multi-core.
-- Metrics X1-X4 on every run; population-aware fold repair; humanity-share knob (the floor, generalised).
-- Renders: forward-splat renderer on the GPU (any raster, any resolution), coasts, borders, graticule,
-  metric grid and Tissot (A11), error map, countries coloured and labelled.
-- V0 dev viewer: local tile server over any GeoTIFF, Leaflet, retina, settlement/density modes;
-  serving the 100 m world at http://localhost:8765/.
-- Findings that shape the rest: OT reads as a real map (no rotation, least movement, 3x more accurate
-  than diffusion); accuracy is set by smoothing in pixels, resolution buys sharpness; folds are
-  convexity failures of the discrete OT potential and interpolation error for the flows, they scale
-  with ocean compression and live in the seams; the Poisson iteration cannot reach the pure limit.
+Built and reviewed:
+- Data: GHS-POP 2025 at 1 km and 100 m (global), GHS-POP epochs 1975-2030, HYDE 3.3 (126 epochs, base/lower/upper),
+  SSP2 2020-2100 (Wang, Meng and Long 2022), Reba/Chandler cities, GRIP4 roads, Kummu GDP, Black Marble lights, Natural Earth.
+- Solver: SpectralPoissonOT on the M4 GPU (float32, residual ~0.005, +-2.5% at 4096 in about a minute); land pure,
+  ocean 5% buffer; walls at the Bering Strait for the flat frame, periodic for the globe. Diffusion, GSM, jellium,
+  Tobler, gravity stills and the back-and-forth method stay as comparisons/research code.
+- The today frame e033 (4096) with countries, labels, rivers, metric grid, Tissot, equipotentials, stretch, twist,
+  flow lines, ghost coast; the pure world at 8192 (e030) as the sharpness ceiling.
+- Time: 126 HYDE epochs at 2048, the 1 km era from GHS-POP (1975-2025) and the future from SSP2 (2030-2100) in one
+  handover series (103 frames on the site), log-time scrubber, honesty label per frame, seam disagreement measured,
+  person-years world, peak-year lens, historical cities through each epoch's warp, measure blends (T3 stills),
+  bounds frames (L8: HYDE's bounds are a constant factor per epoch, so the shape does not move).
+- Globe: three.js, vertices slide to their warped positions, textures pinned, morph slider, labels, 13 epochs with a
+  radius that grows with sqrt(population).
+- Lenses: GDP world, loneliness, light and roads per person, person-years, peak year (grammar in the pipeline).
+- Geometry: curvature as colour, geodesic fans, humeter distances, the lumpy Earth as a relief globe (embedding open).
+- Viewer: 100 m data viewer and warped tile server locally, static tile pyramid (z0-5) in the flat viewer with the
+  humeter ruler and permalinks, compare (swipe), story (tour), time, globe, lenses and geometry pages, print export.
+- Process: golden regression (tests/regression.py), honesty labels, repo hygiene (big renders stay local), every
+  viewer driven in headless Chromium before commit.
 
-Open: M3 (pure OT without folds), city labels and rivers, the gallery and the F decisions, everything
-from Phase 5 on.
+Open or deferred (each noted in DECISIONS.md): M11 semi-discrete OT and L7 one-person-per-pixel, M12 sphere OT,
+S5 exact fields, A16 pole cap, L10 age (WorldPop, 24 GB), L11 attention, L12 non-human world, L13 cumulative
+person-years slider, A13 print (obj exported), the isometric lumpy Earth, V2 LOD by magnification beyond the max
+pyramid, V5/V6 lens and method switches inside the viewer, V8 metric grid toggle, V10 hosting, T3 measure
+interpolation as continuous playback, other SSP scenarios, jellium at 4096.
 
 ## Defaults I will take unless you object at approval
 
@@ -137,13 +147,13 @@ from Phase 5 on.
 
 ### Phase 5: time, 10,000 BC to 2100
 
-- D3 `[x]` HYDE 3.4 verified and ingested (epochs, bounds, format). D6 `[ ]` NEW GHS-POP 1975-2030 at 1 km.
-- T8 `[ ]` NEW handover: HYDE before 1975, GHS after, one normalisation of totals at the seam.
-- T1 `[~]` (126 epochs at 2048, running) every epoch through the default method; population conserved per epoch.
+- D3 `[x]` HYDE 3.4 verified and ingested (epochs, bounds, format). D6 `[x]` NEW GHS-POP 1975-2030 at 1 km.
+- T8 `[x]` NEW handover: HYDE before 1975, GHS-POP 1975-2025, SSP2 from 2030; no normalisation needed (scale invariance), seam disagreement measured.
+- T1 `[x]` (126 epochs at 2048) every epoch through the default method; population conserved per epoch.
 - T3 `[~]` playback by interpolating the MEASURE between epochs (every frame a true cartogram); log-time scrubbing.
-- L3 `[x]` person-years frame. L8 `[~]` uncertainty from HYDE bounds. T4 `[x]` honesty label.
-- D8 `[ ]` NEW SSP gridded projections (Jones and O'Neill 2016) and T5 `[ ]` NEW the future to 2100 by scenario.
-- D9 `[x]` NEW Reba historical city points and T7 `[~]` NEW events on the map through each epoch's warp.
+- L3 `[x]` person-years frame. L8 `[x]` uncertainty from HYDE bounds. T4 `[x]` honesty label.
+- D8 `[x]` NEW SSP gridded projections (Wang, Meng and Long 2022, SSP2 only) and T5 `[x]` NEW the future to 2100 by scenario.
+- D9 `[x]` NEW Reba historical city points and T7 `[x]` NEW events on the map through each epoch's warp.
 - T6 `[x]` NEW peak-time lens (epoch of maximum density per pixel). R3 `[~]` geography-to-cartogram morph.
 - (F1) growth display, default as above. Gate: full playback reviewed.
 
@@ -153,7 +163,7 @@ from Phase 5 on.
 - D5 `[~]` overlay data: VIIRS night lights, GRIP4 roads, terrain, AIS shipping, flights.
 - A5 `[~]` (lights and roads as per-capita on the flat frame; textures on the globe) overlays through the warp as per-capita maps (night lights nearly uniform as the check).
 - A6 `[x]` labels (countries + A14 cities), ghost graticule, dark base. A16 `[ ]` NEW pole cap treatment.
-- A7 `[~]` time on the globe, growing radius. A8 `[~]` one control cluster. A9 `[ ]` static hosting (checkpoint).
+- A7 `[x]` time on the globe, growing radius. A8 `[x]` one control cluster. A9 `[ ]` static hosting (checkpoint).
 - M12 `[ ]` NEW sphere-native OT only if the equal-area cylinder shows polar damage (was A3).
 - Gate: sphere area = people to Phase 2 tolerance; 60 fps on the M4.
 
@@ -175,7 +185,7 @@ from Phase 5 on.
 ### Phase 9: the viewer, last
 
 - A12 `[x]` on-the-fly warped tiles (serve_warped.py) and a static pyramid (z0-5) for the site.
-- V1-V11 `[~]` (V1 V3 V4 V9 V11 done; V2 V5 V6 V7 partial; V8 V10 open) as in v1 (zoom/pan/rotate, LOD by local magnification, flat + globe, time, lens, method,
+- V1-V11 `[x]` (V1 V3 V4 V9 V11 done; V2 V5 V6 V7 partial; V8 V10 open) as in v1 (zoom/pan/rotate, LOD by local magnification, flat + globe, time, lens, method,
   labels with collision, metric grid toggle, native textures, static hosting, asset budget).
 - V12 `[x]` permalinks. V13 `[x]` compare/swipe. V14 `[x]` story mode (eight stops). V15 `[x]` print export (4096 px).
 
@@ -201,7 +211,7 @@ from Phase 5 on.
                                               │
  DATA                                         ▼                                    PREP
  D1 GHS-POP 2025 30" [x]   D2 GHS-POP 3" 100 m global [x]             ┌── P1 exact count re-binning [x]
- D3 HYDE 3.4 [x]  D6 GHS 1975-2030 [ ]  D8 SSP 2100 [ ]  D9 Reba cities [x]  ├── P2 share + smoothing [~]
+ D3 HYDE 3.4 [x]  D6 GHS 1975-2030 [x]  D8 SSP 2100 [x]  D9 Reba cities [x]  ├── P2 share + smoothing [~]
  D4 Natural Earth [x]  D11 rivers [x]  D10 GHS-UCDB cities [ ]  D7 BUILT/SMOD [ ]  └── P3 sphere-native [ ]
  D5 lights, roads, terrain, shipping, flights [~]   D12 lens measures [~]
                                                  │

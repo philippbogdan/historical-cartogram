@@ -1,0 +1,1 @@
+year 2080 population 9482.31 M; residual 0.0030; 47s

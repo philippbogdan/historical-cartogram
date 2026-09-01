@@ -1,0 +1,21 @@
+{
+ "name": "t_ssp2_+02020",
+ "method": "ot_spectral_homotopy",
+ "grid": "mercator",
+ "lat_cut": 85.0511,
+ "lon0": -168.0,
+ "width": 2048,
+ "W": 2048,
+ "H": 2048,
+ "people_per_px": 1826.0262364928726,
+ "x_boundary": "wall",
+ "floor": 0.001001,
+ "share": 0.999,
+ "ocean_share": 0.05,
+ "sigma_km": 60.0,
+ "sigma_px": 3.069684414869267,
+ "vectors": "50m",
+ "source": "SSP2 1 km (Wang, Meng and Long 2022, figshare 19608594)",
+ "year": 2020,
+ "honesty": "projected (SSP2, random-forest allocation of SSP national totals)"
+}

@@ -3,7 +3,7 @@
 #ctl{padding:10px 16px;background:#0b0e14}#ctl input[type=range]{width:100%}#year{font-size:28px;font-weight:600}#meta{color:#9ab;font-size:13px}button{background:#234;color:#fff;border:0;padding:6px 12px;border-radius:4px;margin-right:8px}a{color:#7cc}</style></head>
 <body><div id="wrap"><div id="img"><img id="frame" src=""></div>
 <div id="ctl"><div><span id="year"></span> <span id="meta"></span></div><input id="s" type="range" min="0" max="1000" step="1" value="0">
-<div><button id="play">play</button> <span class="note">log-time scrubber: millennia fly, the last century crawls. The frame is always full; the caption says how many people one pixel holds. Modern borders are drawn for orientation only. <a href="../index.html">about</a> | <a href="../flat/">today, zoomable</a> | <a href="../globe/">globe</a></span></div></div></div>
+<div><button id="play">play</button> <span class="note">log-time scrubber: millennia fly, the last century crawls. The frame is always full; the caption says how many people one pixel holds. Modern borders are drawn for orientation only. Sources hand over at 1975 (HYDE to GHS-POP) and 2030 (to SSP2, projected); at 1975 the two sources disagree by 13 px mean, 45 px at the 95th percentile, of 2048: about three years' worth of change. <a href="../index.html">about</a> | <a href="../flat/">today, zoomable</a> | <a href="../globe/">globe</a></span></div></div></div>
 <script>
 fetch('frames.json').then(r=>r.json()).then(F=>{
   // slider: log time from the first epoch to 2024 on the first 85%, then the projected decades linearly to the last epoch

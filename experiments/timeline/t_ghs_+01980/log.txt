@@ -1,0 +1,1 @@
+year 1980 population 4444.01 M; residual 0.0050; 48s
