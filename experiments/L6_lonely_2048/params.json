@@ -1,0 +1,20 @@
+{
+ "name": "L6_lonely_2048",
+ "method": "ot_spectral_homotopy",
+ "grid": "mercator",
+ "lat_cut": 85.0511,
+ "lon0": -168.0,
+ "width": 2048,
+ "W": 2048,
+ "H": 2048,
+ "x_boundary": "wall",
+ "floor": 0.01010101010101011,
+ "share": 0.99,
+ "ocean_share": 0.05,
+ "sigma_km": 0.0,
+ "sigma_px": 0.0,
+ "vectors": "50m",
+ "source": "1 / population density (GHS-POP 2025, 60 km smoothing), land only",
+ "honesty": "the complement metric",
+ "measure": "1/rho"
+}
