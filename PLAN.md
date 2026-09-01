@@ -137,53 +137,53 @@ from Phase 5 on.
 
 ### Phase 5: time, 10,000 BC to 2100
 
-- D3 `[ ]` HYDE 3.4 verified and ingested (epochs, bounds, format). D6 `[ ]` NEW GHS-POP 1975-2030 at 1 km.
+- D3 `[x]` HYDE 3.4 verified and ingested (epochs, bounds, format). D6 `[ ]` NEW GHS-POP 1975-2030 at 1 km.
 - T8 `[ ]` NEW handover: HYDE before 1975, GHS after, one normalisation of totals at the seam.
-- T1 `[ ]` every epoch through the default method; population conserved per epoch.
+- T1 `[~]` (126 epochs at 2048, running) every epoch through the default method; population conserved per epoch.
 - T3 `[ ]` playback by interpolating the MEASURE between epochs (every frame a true cartogram); log-time scrubbing.
-- L3 `[ ]` person-years frame. L8 `[ ]` uncertainty from HYDE bounds. T4 `[ ]` honesty label.
+- L3 `[x]` person-years frame. L8 `[ ]` uncertainty from HYDE bounds. T4 `[ ]` honesty label.
 - D8 `[ ]` NEW SSP gridded projections (Jones and O'Neill 2016) and T5 `[ ]` NEW the future to 2100 by scenario.
-- D9 `[ ]` NEW Reba historical city points and T7 `[ ]` NEW events on the map through each epoch's warp.
-- T6 `[ ]` NEW peak-time lens (epoch of maximum density per pixel). R3 `[ ]` geography-to-cartogram morph.
+- D9 `[x]` NEW Reba historical city points and T7 `[ ]` NEW events on the map through each epoch's warp.
+- T6 `[x]` NEW peak-time lens (epoch of maximum density per pixel). R3 `[ ]` geography-to-cartogram morph.
 - (F1) growth display, default as above. Gate: full playback reviewed.
 
 ### Phase 6: the globe
 
-- A4 `[ ]` globe renderer: sphere mesh, vertices slide, textures pinned to geography, inverse-map textures.
+- A4 `[x]` globe renderer: sphere mesh, vertices slide, textures pinned to geography, inverse-map textures.
 - D5 `[ ]` overlay data: VIIRS night lights, GRIP4 roads, terrain, AIS shipping, flights.
-- A5 `[ ]` overlays through the warp as per-capita maps (night lights nearly uniform as the check).
-- A6 `[ ]` labels (countries + A14 cities), ghost graticule, dark base. A16 `[ ]` NEW pole cap treatment.
-- A7 `[ ]` time on the globe, growing radius. A8 `[ ]` one control cluster. A9 `[ ]` static hosting (checkpoint).
+- A5 `[~]` (lights and roads as per-capita on the flat frame; textures on the globe) overlays through the warp as per-capita maps (night lights nearly uniform as the check).
+- A6 `[x]` labels (countries + A14 cities), ghost graticule, dark base. A16 `[ ]` NEW pole cap treatment.
+- A7 `[~]` time on the globe, growing radius. A8 `[ ]` one control cluster. A9 `[ ]` static hosting (checkpoint).
 - M12 `[ ]` NEW sphere-native OT only if the equal-area cylinder shows polar damage (was A3).
 - Gate: sphere area = people to Phase 2 tolerance; 60 fps on the M4.
 
 ### Phase 7: lenses
 
-- L1 `[ ]` the grammar in the pipeline. D12 `[ ]` NEW measure catalogue ingested (GDP: Kummu/DOSE; lights;
+- L1 `[x]` the grammar in the pipeline. D12 `[ ]` NEW measure catalogue ingested (GDP: Kummu/DOSE; lights;
   carbon: EDGAR/ODIAC; cropland: HYDE/GAEZ; travel time: Weiss 2018; attention; age: WorldPop; biomass).
-- L9 `[ ]` NEW ratio family (people/lights, people/cropland, people/CO2, people/roads).
+- L9 `[x]` NEW ratio family (people/lights, people/cropland, people/CO2, people/roads).
 - L10 `[ ]` NEW age lens (median age; under-15s as the next generation). L11 `[ ]` NEW attention lens.
 - L12 `[ ]` NEW the non-human world (Earth by trees, cropland, protected land) as the complement.
-- L4 `[ ]` measure-to-measure OT morph. L5 `[ ]` humeter ruler and geodesics. L6 `[ ]` loneliness metric.
+- L4 `[x]` measure-to-measure OT morph. L5 `[ ]` humeter ruler and geodesics. L6 `[ ]` loneliness metric.
 - L7 `[ ]` one person per pixel (via M11). L13 `[ ]` NEW cumulative person-years as a slider.
 - Gate: at least three lenses live with sources and honesty notes.
 
 ### Phase 8: geometry (side)
 
-- G1 curvature metric, G4 curvature as colour, G2 geodesic graticule, G3/A10 lumpy Earth, A13 3D print. All `[ ]`.
+- G1 `[x]` curvature metric, G4 `[x]` curvature as colour, G2 `[x]` geodesic fans and humeter distances; G3/A10 lumpy Earth `[ ]`, A13 3D print `[ ]`.
 
 ### Phase 9: the viewer, last
 
-- A12 `[~]` on-the-fly warped tiles exist (prototype); the pyramid / static form is Phase 9.
+- A12 `[x]` on-the-fly warped tiles (serve_warped.py) and a static pyramid (z0-5) for the site.
 - V1-V11 `[ ]` as in v1 (zoom/pan/rotate, LOD by local magnification, flat + globe, time, lens, method,
   labels with collision, metric grid toggle, native textures, static hosting, asset budget).
-- V12 `[ ]` NEW permalinks. V13 `[ ]` NEW compare/swipe. V14 `[ ]` NEW story mode. V15 `[ ]` NEW print export.
+- V12 `[x]` permalinks. V13 `[x]` compare/swipe. V14 `[x]` story mode (eight stops). V15 `[x]` print export (4096 px).
 
 ### Process, throughout
 
 - PR1 `[x]` NEW golden regression: the world at 512 with fixed knobs, metrics within tolerance, run before commits
   (synthetic tests exist in `tests/synthetic.py`).
-- PR2 `[ ]` NEW honesty labels per layer on every artefact: observed / modelled / projected, with the source.
+- PR2 `[x]` NEW honesty labels per layer on every artefact: observed / modelled / projected, with the source.
 - Persistent files updated in the same commit as the work; `experiments/INDEX.md` regenerated; no attribution.
 
 ## Autonomous work order from approval

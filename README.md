@@ -1,23 +1,49 @@
-# historical-cartogram
+# The humeter world
 
-Density-equalising warps of the Mercator rectangle: every pixel of the output holds
-the same number of people, the frame stays the same rectangle, and the map is built
-from a population raster (coordinate-granular), never from country totals.
+A map of the Earth in which **area is people**: every square centimetre of the picture holds the
+same number of human beings. Built from the finest complete population raster (GHS-POP, 100 m) by
+optimal transport, so nothing rotates and everything moves as little as it can. Land is pure; the
+ocean keeps 5% of the frame. The unit of length is the *humeter*: 1 hm is 1 km at the world-average
+density, about 16 people per km².
 
-Two acts:
+Dense places feel full and big; empty places seem vast but feel empty and small. This is that feeling, drawn.
 
-1. Pin time at today (GHS-POP 2025) and compare methods: diffusion (Gastner-Newman),
-   optimal transport (the picture nobody has published), and the rest.
-2. Run the winning method over HYDE's 10,000 BC to 2025 population grids and play
-   the result back as a morph.
+```
+ today      experiments/e033_M10s_4096_wall_share0.999_ocean0.05/map.png     (4096 px, +-2.7%)
+ zoomable   site/flat/           static tiles + labels + humeter ruler (Leaflet)
+ globe      site/globe/          three.js, sphere area = people, geography <-> cartogram slider
+ time       site/time/           HYDE 3.3, 10,000 BC to 2023, log-time scrubber
+ lenses     site/lenses.html     GDP world, loneliness, light and roads per person, peak year, person-years
+ geometry   site/geometry.html   curvature, geodesics, humeter distances
+ tour       site/story.html      eight stops; site/compare.html swipes any two worlds
+```
 
-Persistent files (read these first, they are the state of the project):
+Serve the site locally: `cd site && python -m http.server 8768` then open http://localhost:8768/.
+The 100 m zoomable cartogram with the full inverse map runs from `src/serve_warped.py <experiment>`;
+the 100 m data viewer from `src/serve_tiles.py data/raw/GHS_POP_E2025_GLOBE_R2023A_4326_3ss_V1_0.tif`.
 
-- `PLAN.md`          the megaplan: phases, node IDs, gates, forks (approved 2026-08-28)
-- `EXPLORATION.md`   the map of what we try, with status
-- `DECISIONS.md`     dated decision log
-- `PRIOR_WORK.md`    verified links to what exists already
-- `DATA.md`          data sources, resolutions, licences, what is on disk
-- `experiments/`     one folder per run: params.json, metrics.json, log.txt, PNGs
+## How it is made
 
-Run: `~/.venv/default/bin/python src/run_diffusion.py --name e001 --width 512`
+```
+ population raster (counts per cell) -> exact re-binning onto a Mercator or equal-area cylinder
+   -> Gaussian smoothing in km -> land pure + ocean buffer -> spectral optimal-transport solver
+   (Monge-Ampere fixed point on the GPU, continuation in the humanity share) -> corner mesh
+   -> metrics (area error, folds, anisotropy, twist, shape error) -> renders through the warp
+```
+
+Persistent files, read in this order: `PLAN.md` (the goal, phases, node IDs, status), `DECISIONS.md`
+(dated decisions and findings), `EXPLORATION.md` (the graph), `PRIOR_WORK.md`, `DATA.md`
+(every source, licence, date), `notes/` (the maths), `experiments/INDEX.md` and `experiments/gallery.html`.
+
+One experiment: `python src/run.py --name e0NN --method ot_homotopy --width 2048 --share 0.999 --ocean-share 0.05`
+(methods: diffusion, gsm, jellium, gravity, ot_poisson, ot_homotopy, bfm, tobler). The spectral solver
+with every share stage saved: `python src/run_homotopy.py <prefix> <width> <sigma_km> 0.95,0.999 400 0.05 -168 wall`.
+Timeline: `python src/run_timeline.py 2048 60 0.05 all base`. Tests: `python tests/synthetic.py`, `python tests/regression.py`.
+
+## Honesty
+
+Population: GHS-POP R2023A (JRC), 2025 epoch, census counts disaggregated onto satellite-detected
+buildings. History: HYDE 3.3 (Utrecht University), modelled before 1950. Lights: NASA Black Marble
+2016. Roads: GRIP4 (CC0). GDP: Kummu et al. 2018 (CC0). Historical cities: Reba, Reitsma and Seto 2016.
+Borders, coasts, rivers, places: Natural Earth. Every picture states its source and whether it is
+observed, modelled or interpolated.
