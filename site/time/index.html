@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><title>the humeter world through time</title>
+<style>html,body{margin:0;background:#05070c;color:#ddd;font:14px/1.4 -apple-system,sans-serif}#wrap{display:flex;flex-direction:column;height:100vh}#img{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}#img img{max-height:100%;max-width:100%}
+#ctl{padding:10px 16px;background:#0b0e14}#ctl input[type=range]{width:100%}#year{font-size:28px;font-weight:600}#meta{color:#9ab;font-size:13px}button{background:#234;color:#fff;border:0;padding:6px 12px;border-radius:4px;margin-right:8px}a{color:#7cc}</style></head>
+<body><div id="wrap"><div id="img"><img id="frame" src=""></div>
+<div id="ctl"><div><span id="year"></span> <span id="meta"></span></div><input id="s" type="range" min="0" max="1000" step="1" value="0">
+<div><button id="play">play</button> <span class="note">log-time scrubber: millennia fly, the last century crawls. The frame is always full; the caption says how many people one pixel holds. Modern borders are drawn for orientation only. <a href="../index.html">about</a> | <a href="../flat/">today, zoomable</a> | <a href="../globe/">globe</a></span></div></div></div>
+<script>
+fetch('frames.json').then(r=>r.json()).then(F=>{
+  const t=y=>Math.log(2024-y); const t0=t(F[0].year), t1=t(F[F.length-1].year);   // log time before 2024
+  const s=document.getElementById('s'), im=document.getElementById('frame'), yl=document.getElementById('year'), me=document.getElementById('meta');
+  F.forEach(f=>{const i=new Image(); i.src='frames/'+f.file;});
+  let cur=-1; function show(v){ const tt=t0+(t1-t0)*v/1000; let k=0; for(let i=0;i<F.length;i++){ if(t(F[i].year)>=tt) k=i; }
+    if(k!==cur){cur=k; const f=F[k]; im.src='frames/'+f.file; yl.textContent=(f.year<0?(-f.year)+' BC':f.year+' AD'); const ppp=f.population/(2048*2048);
+      me.textContent=` ${(f.population/1e6).toFixed(1)} million people, 1 px = ${ppp.toFixed(0)} people | ${f.honesty} | density error ${(100*f.error_p05).toFixed(1)}% / +${(100*f.error_p95).toFixed(1)}%`;} }
+  s.oninput=()=>show(+s.value); show(0);
+  let timer=null; document.getElementById('play').onclick=()=>{ if(timer){clearInterval(timer);timer=null;return;} timer=setInterval(()=>{ s.value=(+s.value+2)%1001; show(+s.value); }, 80); };
+});
+</script></body></html>

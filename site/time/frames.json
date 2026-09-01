@@ -1,0 +1,138 @@
+[
+ {
+  "year": -10000,
+  "file": "-10000.jpg",
+  "population": 4501152.564395532,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.017220122451355537,
+  "error_p95": 0.018712225750922684
+ },
+ {
+  "year": -9000,
+  "file": "-09000.jpg",
+  "population": 5687125.043977983,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.016868136223089473,
+  "error_p95": 0.01859576526940312
+ },
+ {
+  "year": -8000,
+  "file": "-08000.jpg",
+  "population": 7314623.361198815,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.016437168424437217,
+  "error_p95": 0.0182675855857645
+ },
+ {
+  "year": -7000,
+  "file": "-07000.jpg",
+  "population": 9651703.305182906,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.01604624181583728,
+  "error_p95": 0.018025194273777256
+ },
+ {
+  "year": -6000,
+  "file": "-06000.jpg",
+  "population": 13278308.720488984,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015644433917423713,
+  "error_p95": 0.017813839389263404
+ },
+ {
+  "year": -5000,
+  "file": "-05000.jpg",
+  "population": 19155697.824155714,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015389850799327325,
+  "error_p95": 0.01768070637247385
+ },
+ {
+  "year": -4000,
+  "file": "-04000.jpg",
+  "population": 28859173.78666639,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015032917876526346,
+  "error_p95": 0.017233203251394307
+ },
+ {
+  "year": -3000,
+  "file": "-03000.jpg",
+  "population": 44577880.90901054,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014946133113977862,
+  "error_p95": 0.016947930165559927
+ },
+ {
+  "year": -2000,
+  "file": "-02000.jpg",
+  "population": 72685063.40768655,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014791291976079632,
+  "error_p95": 0.017434016413487907
+ },
+ {
+  "year": 0,
+  "file": "+00000.jpg",
+  "population": 232268839.62865528,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014453098679705486,
+  "error_p95": 0.017975634819522208
+ },
+ {
+  "year": 1000,
+  "file": "+01000.jpg",
+  "population": 323462634.459818,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014991997787560935,
+  "error_p95": 0.018807082010332002
+ },
+ {
+  "year": 1500,
+  "file": "+01500.jpg",
+  "population": 503051110.5266103,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014610397990912892,
+  "error_p95": 0.01985603999635982
+ },
+ {
+  "year": 1800,
+  "file": "+01800.jpg",
+  "population": 954892369.5699266,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.01499499730587906,
+  "error_p95": 0.025713494179805778
+ },
+ {
+  "year": 1900,
+  "file": "+01900.jpg",
+  "population": 1670635634.4662685,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.017859609185373413,
+  "error_p95": 0.039977896977119357
+ },
+ {
+  "year": 1950,
+  "file": "+01950.jpg",
+  "population": 2529568054.1730547,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.021209396235544863,
+  "error_p95": 0.11353517347180066
+ },
+ {
+  "year": 2000,
+  "file": "+02000.jpg",
+  "population": 6117941194.445893,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024662355339929828,
+  "error_p95": 0.13068011416753367
+ },
+ {
+  "year": 2023,
+  "file": "+02023.jpg",
+  "population": 7858534128.266539,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02523882727425865,
+  "error_p95": 0.1255104952675932
+ }
+]

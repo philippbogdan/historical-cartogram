@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>the humeter world, today</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>html,body,#map{height:100%;margin:0;background:#000}#info{position:absolute;top:8px;left:50px;z-index:1000;color:#ddd;font:12px/1.4 -apple-system,sans-serif;background:#0008;padding:6px 8px;border-radius:4px;max-width:520px}#info a{color:#7cc}
+.city{color:#fff;text-shadow:0 0 3px #000,0 0 3px #000;font:11px -apple-system,sans-serif;white-space:nowrap}</style></head>
+<body><div id="map"></div><div id="info">loading</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+Promise.all([fetch('meta.json').then(r=>r.json()), fetch('cities.json').then(r=>r.json())]).then(([m, cities])=>{
+  const map=L.map('map',{crs:L.CRS.Simple,minZoom:0,maxZoom:m.maxz+2,zoomSnap:0.25,wheelPxPerZoomLevel:90});
+  const opts={tileSize:256,minZoom:0,maxNativeZoom:m.maxz,maxZoom:m.maxz+2,noWrap:true,bounds:[[-256,0],[0,256]]};
+  const pop=L.tileLayer('tiles/pop/{z}/{x}/{y}.png',opts), cty=L.tileLayer('tiles/country/{z}/{x}/{y}.png',opts);
+  const h=location.hash.slice(1).split('/'); const layer=(h[0]==='pop')?pop:cty; layer.addTo(map);
+  if(h.length>=4){ map.setView([-(+h[2])*256, (+h[1])*256], +h[3]); } else { map.fitBounds([[-256,0],[0,256]]); }
+  L.control.layers({'countries':cty,'population, settlement (100 m)':pop},null,{collapsed:false}).addTo(map);
+  const labels=L.layerGroup().addTo(map);
+  function draw(){ labels.clearLayers(); const z=map.getZoom(); const n=Math.min(cities.length, Math.round(20*Math.pow(2, z))); 
+    cities.slice(0,n).forEach(c=>{ L.marker([-c.y*256, c.x*256],{icon:L.divIcon({className:'city',html:'·&nbsp;'+c.name,iconSize:null})}).addTo(labels); }); }
+  const permalink=()=>{ const c=map.getCenter(); const lay=map.hasLayer(pop)?'pop':'country'; location.hash=`${lay}/${(c.lng/256).toFixed(4)}/${(-c.lat/256).toFixed(4)}/${map.getZoom().toFixed(2)}`;
+    document.getElementById('info').innerHTML=`<b>the humeter world, today</b> (${m.experiment})<br>${m.note}; zoom ${map.getZoom().toFixed(2)} | <a href="../index.html">about</a> | <a href="../globe/">globe</a> | <a href="../time/">time</a> | <a href="../img/today_map.jpg">print (4096 px)</a>`; };
+  map.on('moveend zoomend baselayerchange',()=>{draw();permalink();}); draw(); permalink();
+});
+</script></body></html>
