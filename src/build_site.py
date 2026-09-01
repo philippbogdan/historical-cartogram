@@ -67,7 +67,7 @@ def pages():
         "today_metric": cp(os.path.join(ex, today, "metric_grid.png"), "today_metric.jpg"), "today_tissot": cp(os.path.join(ex, today, "tissot.png"), "today_tissot.jpg"),
         "today_equi": cp(os.path.join(ex, today, "equipotentials.png"), "today_equipotentials.jpg"), "today_twist": cp(os.path.join(ex, today, "twist.png"), "today_twist.jpg"),
         "lights": cp(os.path.join(ex, today, "lens_lights.png"), "lens_lights.jpg"), "roads": cp(os.path.join(ex, today, "lens_roads.png"), "lens_roads.jpg"),
-        "gdp": cp(os.path.join(ex, "L4_gdp_2048", "countries.png"), "lens_gdp.jpg"), "lonely": cp(os.path.join(ex, "L6_lonely_2048", "countries.png"), "lens_lonely.jpg"),
+        "gdp": cp(os.path.join(ex, "L4_gdp_2048", "countries.png"), "lens_gdp.jpg"), "personyears": cp(os.path.join(ex, "timeline", "L3_personyears_2048", "cartogram.png"), "lens_personyears.jpg"), "lonely": cp(os.path.join(ex, "L6_lonely_2048", "countries.png"), "lens_lonely.jpg"),
         "peak": cp(os.path.join(ex, today, "lens_peak_year.png"), "lens_peak.jpg"), "personyears": cp(os.path.join(ex, "timeline", "L3_personyears_2048", "countries.png"), "lens_personyears.jpg"),
         "curvature": cp(os.path.join(ex, "geometry_1024", "curvature.png"), "geo_curvature.jpg"), "geodesics": cp(os.path.join(ex, "geometry_1024", "geodesics.png"), "geo_geodesics.jpg"),
         "distance": cp(os.path.join(ex, "geometry_1024", "distance.png"), "geo_distance.jpg"), "lumpy": cp(os.path.join(ex, "geometry_1024", "lumpy_earth.png"), "geo_lumpy.jpg"), "diffusion": cp(os.path.join(ex, "e009_S2_merc_4096_f05", "cartogram.png"), "method_diffusion.jpg"),

@@ -5,8 +5,8 @@
 <script>
 const opts={"today, people":"img/today_countries.jpg","GDP world":"img/lens_gdp.jpg","loneliness (1/density)":"img/lens_lonely.jpg","light per person":"img/lens_lights.jpg","roads per person":"img/lens_roads.jpg","person-years since 10,000 BC":"img/lens_personyears.jpg","diffusion method":"img/method_diffusion.jpg","anti-cartogram":"img/method_antigravity.jpg","peak year":"img/lens_peak.jpg"};
 const A=document.getElementById('a'),B=document.getElementById('b'); for(const k in opts){A.add(new Option(k,opts[k]));B.add(new Option(k,opts[k]));} A.selectedIndex=0;B.selectedIndex=1;
-const ia=document.getElementById('ia'),ib=document.getElementById('ib'),top=document.getElementById('top'),wrap=document.getElementById('wrap');
+const ia=document.getElementById('ia'),ib=document.getElementById('ib'),topEl=document.getElementById('top'),wrap=document.getElementById('wrap');
 function upd(){ia.src=A.value;ib.src=B.value;} A.onchange=B.onchange=upd; upd();
 const fit=()=>{ia.style.width=wrap.clientWidth+'px';}; addEventListener('resize',fit); setTimeout(fit,100);
-document.getElementById('r').oninput=e=>{top.style.width=e.target.value+'%';};
+document.getElementById('r').oninput=e=>{topEl.style.width=e.target.value+'%';};
 </script></body></html>
