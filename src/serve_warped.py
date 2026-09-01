@@ -152,7 +152,7 @@ class Warped:
 
 PAGE = """<!doctype html><html><head><meta charset="utf-8"><title>cartogram viewer</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<style>html,body,#map{height:100%;margin:0;background:#000}#info{position:absolute;top:8px;left:50px;z-index:1000;color:#ddd;font:12px/1.4 -apple-system,sans-serif;background:#0008;padding:6px 8px;border-radius:4px}</style>
+<style>html,body,#map{height:100%;margin:0;background:#000}#info{position:absolute;top:8px;left:50px;z-index:1000;color:#ddd;font:12px/1.4 -apple-system,sans-serif;background:#0008;padding:6px 8px;border-radius:4px}.leaflet-tile-container img{width:256.5px!important;height:256.5px!important}</style>
 </head><body><div id="map"></div><div id="info">loading</div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>

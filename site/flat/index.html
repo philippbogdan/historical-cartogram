@@ -1,7 +1,8 @@
 <!doctype html><html><head><meta charset="utf-8"><title>the humeter world, today</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>html,body,#map{height:100%;margin:0;background:#000}#info{position:absolute;top:8px;left:50px;z-index:1000;color:#ddd;font:12px/1.4 -apple-system,sans-serif;background:#0008;padding:6px 8px;border-radius:4px;max-width:520px}#info a{color:#7cc}
-.city{color:#fff;text-shadow:0 0 3px #000,0 0 3px #000;font:11px -apple-system,sans-serif;white-space:nowrap}</style></head>
+.city{color:#fff;text-shadow:0 0 3px #000,0 0 3px #000;font:11px -apple-system,sans-serif;white-space:nowrap}
+.leaflet-tile-container img{width:256.5px!important;height:256.5px!important}</style></head>
 <body><div id="map"></div><div id="info">loading</div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -18,6 +19,7 @@ Promise.all([fetch('meta.json').then(r=>r.json()), fetch('cities.json').then(r=>
   const permalink=()=>{ const c=map.getCenter(); const lay=map.hasLayer(pop)?'pop':'country'; location.hash=`${lay}/${(c.lng/256).toFixed(4)}/${(-c.lat/256).toFixed(4)}/${map.getZoom().toFixed(2)}`;
     document.getElementById('info').innerHTML=`<b>the humeter world, today</b> (${m.experiment})<br>${m.note}; zoom ${map.getZoom().toFixed(2)} | <a href="../index.html">about</a> | <a href="../globe/">globe</a> | <a href="../time/">time</a> | <a href="../img/today_map.jpg">print (4096 px)</a>`; };
   map.on('moveend zoomend baselayerchange',()=>{draw();permalink();}); draw(); permalink();
+  addEventListener('hashchange',()=>{ const h=location.hash.slice(1).split('/'); if(h.length<4) return; const want=(h[0]==='pop')?pop:cty; if(!map.hasLayer(want)){ map.removeLayer(map.hasLayer(pop)?pop:cty); want.addTo(map);} map.setView([-(+h[2])*256, (+h[1])*256], +h[3]); });
   // L5 the humeter ruler: at the cursor, how much ground and how many people one screen centimetre holds
   const ruler=document.createElement('div'); ruler.id='ruler'; ruler.style.cssText='position:absolute;bottom:10px;left:10px;z-index:1000;color:#ddd;font:12px -apple-system,sans-serif;background:#0008;padding:6px 8px;border-radius:4px'; document.body.appendChild(ruler);
   map.on('mousemove',e=>{ const u=e.latlng.lng/256, v=-e.latlng.lat/256; if(u<0||u>1||v<0||v>1) return; const i=Math.min(sc.n-1,Math.floor(v*sc.n)), j=Math.min(sc.n-1,Math.floor(u*sc.n));
