@@ -1,0 +1,52 @@
+<!doctype html><html><head><meta charset="utf-8"><title>humeter globe</title>
+<style>html,body{margin:0;height:100%;background:#05070c;color:#ddd;font:13px/1.4 -apple-system,sans-serif;overflow:hidden}
+#ui{position:absolute;top:10px;left:10px;background:#0009;padding:8px 10px;border-radius:6px;z-index:5}
+#ui label{display:block;margin:3px 0}#ui input[type=range]{width:180px;vertical-align:middle}
+#labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;color:#fff;text-shadow:0 0 3px #000,0 0 3px #000;white-space:nowrap;transform:translate(-50%,-50%);font-size:11px}</style>
+</head><body>
+<div id="ui"><b>humeter globe</b> <span id="meta"></span>
+<label>warp <input id="warp" type="range" min="0" max="1" step="0.01" value="1"> <span id="warpv">1.00</span></label>
+<label>texture <select id="tex"></select></label>
+<label><input id="showlabels" type="checkbox" checked> city labels</label>
+<div id="note" style="color:#9ab;max-width:320px">area = people (land pure, ocean 5%); drag to rotate, wheel to zoom; slider morphs geography (0) to cartogram (1)</div></div>
+<div id="labels"></div>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+const params = new URLSearchParams(location.search);
+const exp = params.get('exp') || (await (await fetch('data/default.txt')).text()).trim();
+const base = `data/${exp}/`;
+const meta = await (await fetch(base + 'meta.json')).json();
+document.getElementById('meta').textContent = exp;
+const buf = new Float32Array(await (await fetch(base + 'mesh.bin')).arrayBuffer());
+const rows = meta.rows, cols = meta.cols, n = rows * cols;
+const toXYZ = (lon, lat, out, i) => { const la = lat * Math.PI / 180, lo = lon * Math.PI / 180; out[3*i] = Math.cos(la) * Math.cos(lo); out[3*i+1] = Math.sin(la); out[3*i+2] = -Math.cos(la) * Math.sin(lo); };
+const geo = new Float32Array(3 * n), warped = new Float32Array(3 * n), uv = new Float32Array(2 * n);
+for (let i = 0; i < n; i++) { const lo = buf[4*i], la = buf[4*i+1], lw = buf[4*i+2], lat_w = buf[4*i+3]; toXYZ(lo, la, geo, i); toXYZ(lw, lat_w, warped, i); uv[2*i] = (lo + 180) / 360; uv[2*i+1] = (la + 90) / 180; }
+const idx = []; for (let r = 0; r < rows - 1; r++) for (let c = 0; c < cols - 1; c++) { const a = r * cols + c, b = a + 1, d = a + cols, e = d + 1; idx.push(a, d, b, b, d, e); }
+const g = new THREE.BufferGeometry(); const pos = new Float32Array(warped); g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('uv', new THREE.BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals();
+const renderer = new THREE.WebGLRenderer({ antialias: true }); renderer.setPixelRatio(devicePixelRatio); renderer.setSize(innerWidth, innerHeight); document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene(); const cam = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.01, 100); cam.position.set(0, 0.6, 2.6);
+const ctl = new OrbitControls(cam, renderer.domElement); ctl.enableDamping = true; ctl.minDistance = 1.15; ctl.maxDistance = 6;
+const loader = new THREE.TextureLoader(); const textures = {}; for (const t of meta.textures) { textures[t] = loader.load(base + t); textures[t].colorSpace = THREE.SRGBColorSpace; }
+const mat = new THREE.MeshBasicMaterial({ map: textures[meta.textures[0]], side: THREE.DoubleSide });
+scene.add(new THREE.Mesh(g, mat));
+const sel = document.getElementById('tex'); for (const t of meta.textures) { const o = document.createElement('option'); o.value = t; o.textContent = t.replace('.png', ''); sel.appendChild(o); }
+sel.onchange = () => { mat.map = textures[sel.value]; mat.needsUpdate = true; };
+const warp = document.getElementById('warp'), warpv = document.getElementById('warpv');
+const setWarp = w => { for (let i = 0; i < 3 * n; i++) pos[i] = geo[i] * (1 - w) + warped[i] * w; // slerp-ish: renormalise to the sphere
+  for (let i = 0; i < n; i++) { const x = pos[3*i], y = pos[3*i+1], z = pos[3*i+2]; const L = Math.hypot(x, y, z) || 1; pos[3*i] = x / L; pos[3*i+1] = y / L; pos[3*i+2] = z / L; }
+  g.attributes.position.needsUpdate = true; g.computeVertexNormals(); warpv.textContent = (+w).toFixed(2); };
+warp.oninput = () => setWarp(+warp.value); setWarp(1);
+const cities = await (await fetch(base + 'cities.json')).json(); const box = document.getElementById('labels'); const show = document.getElementById('showlabels');
+const lbls = cities.slice(0, 120).map(c => { const d = document.createElement('div'); d.className = 'lbl'; d.textContent = c.name; box.appendChild(d); return { c, d }; });
+const v = new THREE.Vector3();
+function placeLabels() { const w = +warp.value; for (const { c, d } of lbls) { const lon = c.lon0 * (1 - w) + c.lon * w, lat = c.lat0 * (1 - w) + c.lat * w; const la = lat * Math.PI / 180, lo = lon * Math.PI / 180;
+  v.set(Math.cos(la) * Math.cos(lo), Math.sin(la), -Math.cos(la) * Math.sin(lo)); const front = v.clone().normalize().dot(cam.position.clone().normalize()) > 0.25; v.project(cam);
+  const vis = show.checked && front && Math.abs(v.x) < 1 && Math.abs(v.y) < 1; d.style.display = vis ? 'block' : 'none'; if (vis) { d.style.left = ((v.x + 1) / 2 * innerWidth) + 'px'; d.style.top = ((1 - v.y) / 2 * innerHeight) + 'px'; } } }
+addEventListener('resize', () => { cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+window.globe = { scene, cam, setWarp: w => { warp.value = w; setWarp(w); } };
+(function loop() { requestAnimationFrame(loop); ctl.update(); renderer.render(scene, cam); placeLabels(); })();
+</script></body></html>

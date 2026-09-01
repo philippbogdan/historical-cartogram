@@ -1,0 +1,13 @@
+{
+ "rows": 164,
+ "cols": 513,
+ "experiment": "e034_globe_equalarea_2048_share0.999_ocean0.05",
+ "textures": [
+  "countries.png",
+  "population.png",
+  "lights.png"
+ ],
+ "population": 8190000000.0,
+ "share": 0.999,
+ "ocean_share": 0.05
+}

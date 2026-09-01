@@ -27,7 +27,7 @@ class Grid:
     """A cylindrical pixel grid: W columns over 360 degrees, H rows over +-lat_cut."""
 
     def __init__(self, kind, width, lat_cut=None, lon0=-180.0):
-        assert kind in ("mercator", "equalarea"), kind
+        assert kind in ("mercator", "equalarea", "platecarree"), kind
         self.kind = kind
         self.W = int(width)
         # longitude at the left edge, snapped to a column edge so rasters and vectors agree exactly
@@ -42,11 +42,15 @@ class Grid:
     def _v(self, lat_deg):
         if self.kind == "mercator":
             return merc_y(lat_deg)
+        if self.kind == "platecarree":
+            return np.radians(lat_deg)
         return np.sin(np.radians(lat_deg))
 
     def _inv_v(self, v):
         if self.kind == "mercator":
             return inv_merc_y(v)
+        if self.kind == "platecarree":
+            return np.degrees(v)
         return np.degrees(np.arcsin(np.clip(v, -1, 1)))
 
     def xy(self, lon, lat):
