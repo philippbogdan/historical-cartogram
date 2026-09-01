@@ -1,0 +1,9 @@
+{
+ "experiment": "e033_M10s_4096_wall_share0.999_ocean0.05",
+ "maxz": 5,
+ "W": 4096,
+ "H": 4096,
+ "share": 0.999,
+ "ocean_share": 0.05,
+ "note": "land = people, ocean 5% of the frame, walls at the Bering Strait"
+}
