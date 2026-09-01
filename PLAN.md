@@ -18,6 +18,30 @@ Unit: the humeter, 1 hm = 1 km at world-average density (~16 per km²). Grammar:
 (the measure that gets the AREA, the measure painted as COLOUR, the moment). Combining maps is a
 change of measure: painting nu on a mu-cartogram shows d nu / d mu (GDP on people = GDP per capita).
 
+
+## The goal, stated once (2026-08-29, Phil: "execute fully until the full plan is complete")
+
+The humeter world: a public repository and a static web artefact in which the Earth is drawn with
+area = people, made from population rasters at the finest available resolution, and which can be
+read at every scale and every moment:
+
+1. TODAY: the pure-land OT cartogram (ocean 5% buffer, walls at the Bering Strait) at 8192 with
+   100 m textures, countries, cities and rivers; the same warp on a globe.
+2. TIME: the same cartogram for every HYDE epoch 10,000 BC to 2023, the GHS epochs 1975 to 2030
+   and a projection to 2100, played back with measure interpolation, person-years, uncertainty
+   bands and honesty labels, with historical cities appearing through the warps.
+3. GLOBE: a rotatable WebGL globe, sphere area = people, overlays as per-capita maps (night lights,
+   roads), labels, radius growing with population through time.
+4. LENSES: other measures as area or colour (GDP, cropland, roads, lights, age), the ratio lens,
+   the complement metric, the humeter ruler and geodesics.
+5. GEOMETRY: curvature as colour, geodesic graticule, the lumpy Earth.
+6. VIEWER: zoom, pan, rotate, continuous detail, time scrubber, lens and method switches, labels,
+   metric grid, permalinks, story mode, print export; a static build ready to host (deploy is a
+   checkpoint for Phil).
+
+Representative means: every one of the six exists, works in a real browser or as a reviewed picture,
+carries its source and honesty note, and is reproducible from the repo.
+
 ## Current state (2026-08-29)
 
 Repo `~/historical-cartogram`, public, 30 commits, 24 experiments, `experiments/INDEX.md` generated.
