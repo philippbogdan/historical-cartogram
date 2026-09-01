@@ -107,6 +107,7 @@ def load_lonlat_counts(path, factor):
             n = min(rows_per, nrows - r0)
             a = src.read(1, window=Window(col0, r0, ncols, n)).astype(np.float64)
             a = np.nan_to_num(a)
+            if src.nodata is not None: a[a == src.nodata] = 0.0   # SSP rasters store nodata as 255
             a[a < 0] = 0.0  # GHS-POP nodata is -200
             out[r0 // factor:(r0 + n) // factor] = block_sum(a, factor)
         left = T.c + col0 * dx

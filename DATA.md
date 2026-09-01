@@ -41,6 +41,7 @@ GHS-POP epochs 1975-2030 (5-year, 30 arcsec) from the same JRC directory pattern
 - `data/raw/grip4/grip4_total_dens_m_km2.asc` GRIP4 road density, 5 arcmin, CC0 (globio.info).
 - `data/raw/lenses/GDP_PPP_1990_2015_5arcmin_v2.nc` Kummu, Taka & Guillaume 2018 GDP PPP, zenodo 4972425, CC0.
 - `data/raw/lenses/BlackMarble_2016_3km_geo.tif` NASA Earth at Night 2016 (Black Marble), 13500 x 6750, public domain (NASA).
-- SSP projections: Wang et al. 2022 global 1 km (figshare 19608594) is 2.5 GB per scenario; NOT downloaded (disk). T5 uses GHS-POP 2030 for now.
+- SSP projections: Wang, Meng and Long 2022, global 30 arcsec 2020-2100 every 5 years (figshare 19608594, CC BY 4.0). 2026-09-01: SSP2 downloaded (2.49 GB zip, 17 GeoTIFFs in `data/raw/ssp/SPP2/`, zip deleted); nodata is stored as 255 and is masked in the loader (a handful of real 255-person cells go with it); 2020 total 7.66 bn. Other scenarios not downloaded.
 - Deleted 2026-08-29 to free disk: the three 100 m tiles (the global file covers them), the 30" zip, superseded experiment meshes.
+- 2026-09-01  D6 GHS-POP epochs 1975-2030 re-downloaded to `data/raw/ghs_epochs/` (Phil freed the disk); they feed the 1 km era of the timeline (T8).
 - 2026-08-29  D6 GHS-POP epochs (3.8 GB) deleted to free disk; HYDE covers 1950-2023 yearly at 5 arcmin, which is what the timeline uses. Re-download from the JRC pattern if a 1 km modern era is wanted.

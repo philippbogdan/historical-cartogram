@@ -41,19 +41,37 @@ def tiles(exp, maxz=5):
 
 
 def time_frames(width=2048):
+    """T8 handover series: HYDE before 1975, GHS-POP 1975-2025, SSP2 2030-2100; HYDE fills any era whose
+    frames are not there yet. Every frame carries its source and honesty label."""
     src = os.path.join(ROOT, "experiments", "timeline"); dst = os.path.join(SITE, "time", "frames"); os.makedirs(dst, exist_ok=True)
+    def load(prefix):
+        out = {}
+        for d in sorted(glob.glob(os.path.join(src, prefix + "*"))):
+            if os.path.exists(os.path.join(d, "metrics.json")): out[json.load(open(os.path.join(d, "params.json")))["year"]] = d
+        return out
+    base, ghs, ssp = load("t_base_"), load("t_ghs_"), load("t_ssp2_")
+    chosen = {}
+    for y, d in base.items(): chosen[y] = (d, "hyde")
+    if ghs:
+        for y in list(chosen):
+            if y >= 1975: del chosen[y]
+        for y, d in ghs.items():
+            if y <= 2025: chosen[y] = (d, "ghs")
+    for y, d in ssp.items():
+        if y >= 2030: chosen[y] = (d, "ssp2")
     frames = []
-    for d in sorted(glob.glob(os.path.join(src, "t_base_*"))):
-        if not os.path.exists(os.path.join(d, "metrics.json")): continue
+    for y in sorted(chosen):
+        d, tag = chosen[y]
         p = json.load(open(os.path.join(d, "params.json"))); m = json.load(open(os.path.join(d, "metrics.json")))
         pic = os.path.join(d, "countries.png") if os.path.exists(os.path.join(d, "countries.png")) else os.path.join(d, "cartogram.png")
-        name = f"{p['year']:+06d}.jpg"; out = os.path.join(dst, name)
+        name = f"{p['year']:+06d}_{tag}.jpg"; out = os.path.join(dst, name)
         if not os.path.exists(out) or os.path.getmtime(out) < os.path.getmtime(pic):
             im = Image.open(pic).convert("RGB"); im.thumbnail((1024, 1024)); im.save(out, quality=85)
-        frames.append({"year": p["year"], "file": name, "population": m.get("population", m.get("total")), "honesty": p.get("honesty", ""), "error_p05": m["log_ratio_popweighted_p05"], "error_p95": m["log_ratio_popweighted_p95"]})
-    frames.sort(key=lambda f: f["year"])
+        frames.append({"year": p["year"], "file": name, "source": tag, "population": m.get("population", m.get("total")), "honesty": p.get("honesty", ""), "error_p05": m["log_ratio_popweighted_p05"], "error_p95": m["log_ratio_popweighted_p95"]})
+    for f in glob.glob(os.path.join(dst, "*.jpg")):          # drop frames no longer in the series
+        if os.path.basename(f) not in {fr["file"] for fr in frames}: os.remove(f)
     json.dump(frames, open(os.path.join(SITE, "time", "frames.json"), "w"), indent=1)
-    print("frames:", len(frames))
+    print("frames:", len(frames), {t: sum(1 for f in frames if f["source"] == t) for t in ("hyde", "ghs", "ssp2")})
 
 
 def pages():
