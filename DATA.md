@@ -43,3 +43,4 @@ GHS-POP epochs 1975-2030 (5-year, 30 arcsec) from the same JRC directory pattern
 - `data/raw/lenses/BlackMarble_2016_3km_geo.tif` NASA Earth at Night 2016 (Black Marble), 13500 x 6750, public domain (NASA).
 - SSP projections: Wang et al. 2022 global 1 km (figshare 19608594) is 2.5 GB per scenario; NOT downloaded (disk). T5 uses GHS-POP 2030 for now.
 - Deleted 2026-08-29 to free disk: the three 100 m tiles (the global file covers them), the 30" zip, superseded experiment meshes.
+- 2026-08-29  D6 GHS-POP epochs (3.8 GB) deleted to free disk; HYDE covers 1950-2023 yearly at 5 arcmin, which is what the timeline uses. Re-download from the JRC pattern if a 1 km modern era is wanted.

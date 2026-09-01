@@ -9,7 +9,7 @@ import csv, json, os, sys, time
 import numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 from hc import prep, diffusion, ot_poisson, render, hyde, layers
-from run import ROOT, RAW, render_all
+from run import ROOT, RAW, render_all, load_mesh
 
 lon0, xb = -168.0, "wall"
 TL = os.path.join(ROOT, "experiments", "timeline")
@@ -58,7 +58,7 @@ def peak(width):
 
 def cities(frame):
     out = os.path.join(TL, frame); p = json.load(open(os.path.join(out, "params.json"))); year = p["year"]
-    z = np.load(os.path.join(out, "mesh.npz")); X, Y = z["X"].astype(np.float64), z["Y"].astype(np.float64)
+    X, Y, _ = load_mesh(out)
     grid = prep.Grid(p["grid"], p["W"], p["lat_cut"], lon0=p.get("lon0", -180.0)); W = grid.W
     rows = []
     for fn in ("chandlerV2.csv", "modelskiAncientV2.csv", "modelskiModernV2.csv"):
@@ -105,7 +105,7 @@ def uncertainty(frame):
     grid = prep.Grid(p["grid"], p["W"], p["lat_cut"], lon0=p.get("lon0", -180.0))
     L, _ = prep.to_grid(lo, Hl.bounds, grid); U, _ = prep.to_grid(up, Hu.bounds, grid)
     ratio = np.log(np.maximum(U, 1) / np.maximum(L, 1))
-    z = np.load(os.path.join(out, "mesh.npz")); X, Y = z["X"].astype(np.float64), z["Y"].astype(np.float64)
+    X, Y, _ = load_mesh(out)
     mask = np.ones(ratio.shape, np.uint8)
     render.draw(X, Y, mask, os.path.join(out, "uncertainty.png"), min(grid.W, 4096), raster=ratio, cmap="Greys", vmin=0, vmax=2.0, title=f"{frame}: log(upper/lower) HYDE bounds (L8); white = certain, dark = the estimate could be 7x off", wrap=False)
     print("wrote uncertainty for", frame, "median log ratio where people live:", float(np.median(ratio[U > 100])))

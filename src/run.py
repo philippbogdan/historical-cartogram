@@ -15,6 +15,16 @@ GHS = os.path.join(RAW, "GHS_POP_E2025_GLOBE_R2023A_4326_30ss_V1_0.tif")
 NCOLS = 43200
 
 
+def load_mesh(out):
+    """X, Y, rho0 from mesh.npz (float32) or mesh16.npz (int16 displacement in 1/16 px)."""
+    f = os.path.join(out, "mesh.npz")
+    if os.path.exists(f):
+        z = np.load(f); return z["X"].astype(np.float64), z["Y"].astype(np.float64), z["rho0"].astype(np.float64)
+    z = np.load(os.path.join(out, "mesh16.npz")); dx, dy = z["dx"], z["dy"]
+    ys, xs = np.mgrid[0:dx.shape[0], 0:dx.shape[1]].astype(np.float64)
+    return xs + dx / 16.0, ys + dy / 16.0, z["rho0"].astype(np.float64)
+
+
 def get_lonlat(factor):
     os.makedirs(DER, exist_ok=True)
     path = os.path.join(DER, f"ghs2025_lonlat_f{factor}.npz")

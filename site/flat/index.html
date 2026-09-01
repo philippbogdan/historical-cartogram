@@ -5,7 +5,7 @@
 <body><div id="map"></div><div id="info">loading</div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-Promise.all([fetch('meta.json').then(r=>r.json()), fetch('cities.json').then(r=>r.json())]).then(([m, cities])=>{
+Promise.all([fetch('meta.json').then(r=>r.json()), fetch('cities.json').then(r=>r.json()), fetch('scale.json').then(r=>r.json())]).then(([m, cities, sc])=>{
   const map=L.map('map',{crs:L.CRS.Simple,minZoom:0,maxZoom:m.maxz+2,zoomSnap:0.25,wheelPxPerZoomLevel:90});
   const opts={tileSize:256,minZoom:0,maxNativeZoom:m.maxz,maxZoom:m.maxz+2,noWrap:true,bounds:[[-256,0],[0,256]]};
   const pop=L.tileLayer('tiles/pop/{z}/{x}/{y}.png',opts), cty=L.tileLayer('tiles/country/{z}/{x}/{y}.png',opts);
@@ -18,5 +18,10 @@ Promise.all([fetch('meta.json').then(r=>r.json()), fetch('cities.json').then(r=>
   const permalink=()=>{ const c=map.getCenter(); const lay=map.hasLayer(pop)?'pop':'country'; location.hash=`${lay}/${(c.lng/256).toFixed(4)}/${(-c.lat/256).toFixed(4)}/${map.getZoom().toFixed(2)}`;
     document.getElementById('info').innerHTML=`<b>the humeter world, today</b> (${m.experiment})<br>${m.note}; zoom ${map.getZoom().toFixed(2)} | <a href="../index.html">about</a> | <a href="../globe/">globe</a> | <a href="../time/">time</a> | <a href="../img/today_map.jpg">print (4096 px)</a>`; };
   map.on('moveend zoomend baselayerchange',()=>{draw();permalink();}); draw(); permalink();
+  // L5 the humeter ruler: at the cursor, how much ground and how many people one screen centimetre holds
+  const ruler=document.createElement('div'); ruler.id='ruler'; ruler.style.cssText='position:absolute;bottom:10px;left:10px;z-index:1000;color:#ddd;font:12px -apple-system,sans-serif;background:#0008;padding:6px 8px;border-radius:4px'; document.body.appendChild(ruler);
+  map.on('mousemove',e=>{ const u=e.latlng.lng/256, v=-e.latlng.lat/256; if(u<0||u>1||v<0||v>1) return; const i=Math.min(sc.n-1,Math.floor(v*sc.n)), j=Math.min(sc.n-1,Math.floor(u*sc.n));
+    const meshPxPerScreenPx = sc.W/256/Math.pow(2,map.getZoom()); const cmPx=38; const kmPerCm=sc.km_per_px[i][j]*meshPxPerScreenPx*cmPx; const peoplePerCm=sc.people_per_px*Math.pow(meshPxPerScreenPx*cmPx,2);
+    ruler.textContent=`here: 1 cm on screen = ${kmPerCm<10?kmPerCm.toFixed(1):kmPerCm.toFixed(0)} km of ground = ${(peoplePerCm/1e6).toFixed(2)} million people (${(kmPerCm/ (Math.sqrt(peoplePerCm)/16)).toFixed(2)} km per humeter)`; });
 });
 </script></body></html>
