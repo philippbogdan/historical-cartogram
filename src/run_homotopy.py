@@ -11,7 +11,8 @@ iters = int(sys.argv[5]) if len(sys.argv) > 5 else 400
 ocean_share = float(sys.argv[6]) if len(sys.argv) > 6 else 0.0
 lon0 = float(sys.argv[7]) if len(sys.argv) > 7 else -168.0
 xb = sys.argv[8] if len(sys.argv) > 8 else "wall"
-grid = prep.Grid("mercator", width, lon0=lon0)
+gkind = sys.argv[9] if len(sys.argv) > 9 else "mercator"
+grid = prep.Grid(gkind, width, lon0=lon0)
 factor = max(d for d in prep.divisors(NCOLS) if d <= max(1, NCOLS // (2 * width)))
 counts, bounds = get_lonlat(factor)
 P, _ = prep.to_grid(counts, bounds, grid)
@@ -31,7 +32,7 @@ def on_stage(share, po):
     m = diffusion.equalisation_metrics(po.rho0, X, Y)
     r, f = po.residual()
     m.update({"residual": r, "cell_folds": f, "mode": "spectral_homotopy", "seconds": time.time() - t0})
-    params = {"name": name, "method": "ot_spectral_homotopy", "grid": "mercator", "lat_cut": grid.lat_cut, "width": width, "W": grid.W, "H": grid.H,
+    params = {"name": name, "method": "ot_spectral_homotopy", "grid": gkind, "lat_cut": grid.lat_cut, "width": width, "W": grid.W, "H": grid.H,
               "x_boundary": xb, "backend": "torch-spectral", "floor": (1 - share) / share, "share": share, "ocean_share": ocean_share, "lon0": lon0, "sigma_km": sigma_km, "sigma_px": sigma_px, "vectors": "50m", "iters": iters}
     json.dump(params, open(os.path.join(out, "params.json"), "w"), indent=1)
     json.dump(m, open(os.path.join(out, "metrics.json"), "w"), indent=1)
