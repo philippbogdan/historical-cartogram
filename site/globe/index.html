@@ -9,6 +9,8 @@
 <label>warp <input id="warp" type="range" min="0" max="1" step="0.01" value="1"> <span id="warpv">1.00</span></label>
 <label>texture <select id="tex"></select></label>
 <label><input id="showlabels" type="checkbox" checked> city labels</label>
+<label id="timebox" style="display:none">time <input id="epoch" type="range" min="0" max="0" step="1" value="0"> <span id="epochv"></span></label>
+<label id="growbox" style="display:none"><input id="grow" type="checkbox" checked> radius grows with population (6000 BC is a marble)</label>
 <div id="note" style="color:#9ab;max-width:320px">area = people (land pure, ocean 5%); drag to rotate, wheel to zoom; slider morphs geography (0) to cartogram (1)</div></div>
 <div id="labels"></div>
 <script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
@@ -48,5 +50,30 @@ function placeLabels() { const w = +warp.value; for (const { c, d } of lbls) { c
   const vis = show.checked && front && Math.abs(v.x) < 1 && Math.abs(v.y) < 1; d.style.display = vis ? 'block' : 'none'; if (vis) { d.style.left = ((v.x + 1) / 2 * innerWidth) + 'px'; d.style.top = ((1 - v.y) / 2 * innerHeight) + 'px'; } } }
 addEventListener('resize', () => { cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
 window.globe = { scene, cam, setWarp: w => { warp.value = w; setWarp(w); } };
+// A7: the globe through time. Each epoch is its own warped mesh on the same lattice; the radius follows sqrt(population).
+const mesh = scene.children.find(o => o.isMesh);
+let epochs = []; try { epochs = await (await fetch('data/timeline.json')).json(); } catch (e) {}
+if (epochs.length) {
+  const box = document.getElementById('timebox'), sl = document.getElementById('epoch'), ev = document.getElementById('epochv'), grow = document.getElementById('grow');
+  box.style.display = 'block'; document.getElementById('growbox').style.display = 'block'; sl.max = epochs.length; // last position = today (the base package)
+  sl.value = epochs.length; const cache = {};
+  const popToday = meta.population || 8.19e9;
+  async function loadEpoch(i) {
+    if (i >= epochs.length) return { buf, pop: popToday, label: 'today (GHS-POP 2025)' };
+    const e = epochs[i]; if (!cache[i]) cache[i] = new Float32Array(await (await fetch(`data/${e.experiment}/mesh.bin`)).arrayBuffer());
+    return { buf: cache[i], pop: e.population, label: (e.year < 0 ? (-e.year) + ' BC' : e.year + ' AD') + ` · ${(e.population / 1e6).toFixed(0)} M people · ${e.honesty}` };
+  }
+  async function showEpoch(i) {
+    const { buf: b2, pop, label } = await loadEpoch(i);
+    if (b2.length === buf.length) { for (let k = 0; k < n; k++) { toXYZ(b2[4*k+2], b2[4*k+3], warped, k); } }
+    else { // a coarser lattice: resample by nearest lattice point
+      const rows2 = Math.round(Math.sqrt(b2.length / 4 / (cols / rows))), cols2 = Math.round(b2.length / 4 / rows2);
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) { const r2 = Math.min(rows2 - 1, Math.round(r * (rows2 - 1) / (rows - 1))), c2 = Math.min(cols2 - 1, Math.round(c * (cols2 - 1) / (cols - 1))); const k2 = r2 * cols2 + c2, k = r * cols + c; toXYZ(b2[4*k2+2], b2[4*k2+3], warped, k); } }
+    setWarp(+warp.value);
+    const s = grow.checked ? Math.sqrt(pop / popToday) : 1; mesh.scale.setScalar(s); ev.textContent = label;
+  }
+  sl.oninput = () => showEpoch(+sl.value); grow.onchange = () => showEpoch(+sl.value); showEpoch(epochs.length);
+  window.globe.showEpoch = showEpoch;
+}
 (function loop() { requestAnimationFrame(loop); ctl.update(); renderer.render(scene, cam); placeLabels(); })();
 </script></body></html>
