@@ -70,7 +70,7 @@ def pages():
         "gdp": cp(os.path.join(ex, "L4_gdp_2048", "countries.png"), "lens_gdp.jpg"), "lonely": cp(os.path.join(ex, "L6_lonely_2048", "countries.png"), "lens_lonely.jpg"),
         "peak": cp(os.path.join(ex, today, "lens_peak_year.png"), "lens_peak.jpg"), "personyears": cp(os.path.join(ex, "timeline", "L3_personyears_2048", "countries.png"), "lens_personyears.jpg"),
         "curvature": cp(os.path.join(ex, "geometry_1024", "curvature.png"), "geo_curvature.jpg"), "geodesics": cp(os.path.join(ex, "geometry_1024", "geodesics.png"), "geo_geodesics.jpg"),
-        "distance": cp(os.path.join(ex, "geometry_1024", "distance.png"), "geo_distance.jpg"), "diffusion": cp(os.path.join(ex, "e009_S2_merc_4096_f05", "cartogram.png"), "method_diffusion.jpg"),
+        "distance": cp(os.path.join(ex, "geometry_1024", "distance.png"), "geo_distance.jpg"), "lumpy": cp(os.path.join(ex, "geometry_1024", "lumpy_earth.png"), "geo_lumpy.jpg"), "diffusion": cp(os.path.join(ex, "e009_S2_merc_4096_f05", "cartogram.png"), "method_diffusion.jpg"),
         "antigravity": cp(os.path.join(ex, "e027_R5_gravity_t0.1_1024", "cartogram.png"), "method_antigravity.jpg"), "jellium": cp(os.path.join(ex, "e026_M9_jellium_2048", "cartogram.png"), "method_jellium.jpg"),
     }
     def fig(key, cap):
@@ -105,6 +105,7 @@ def pages():
 {fig("curvature", "Gaussian curvature as colour: red on the tops of population hills, blue in the saddles between cities.")}
 {fig("geodesics", "Geodesics fanning out from London, Delhi and São Paulo: the straight lines of the humeter world bend away from dense regions like light around a lens.")}
 {fig("distance", "Humeter distance from four cities, contours every 2000 hm-km. Crossing India costs more than crossing the Atlantic.")}
+{fig("lumpy", "The lumpy Earth, first version: a relief globe whose radius follows the humeter scale, so the Ganges plain and eastern China stand out as lobes. The true embedding, a closed surface whose area is people, is still open (A10).")}
 </body></html>""")
     print("pages written", {k: v for k, v in pics.items() if v})
 

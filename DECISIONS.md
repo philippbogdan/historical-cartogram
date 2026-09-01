@@ -142,3 +142,24 @@
 - 2026-08-29  Disk is the binding constraint (1.3 GB free at one point). Timeline frames store a compact mesh
   (displacement quantised to 1/16 px as int16, ~8 MB per frame) and two renders; superseded meshes are deleted,
   PNGs and metrics stay. Any download over 1 GB checks free space first.
+- 2026-09-01  A10/G3 lumpy Earth, first version: a free spring relaxation of the sphere lattice with humeter rest
+  lengths buckles and self-intersects (no bending energy), so the shipped picture is a relief globe whose radius
+  follows the humeter scale sqrt(rho/rho_bar), smoothed over ~4 degrees, Lambert-shaded, three views, plus a
+  printable lumpy_earth.obj (A13 partial). The true embedding (a closed surface whose area is people) needs a
+  bending-regularised or conformal-flow solver and stays open.
+- 2026-09-01  Repo hygiene: the public repo keeps every params/metrics/log, thumbnails and renders up to 2 MB
+  (15 MB for the key experiments e033, e034, L4, L6, L3, geometry); bigger renders, all meshes (.npz/.npy)
+  and the per-epoch timeline PNGs stay local. `src/repo_hygiene.py` writes experiments/.gitignore; the
+  site/ JPGs are the public pictures. Nothing is spent and nothing is deployed.
+- 2026-09-01  Phases 5 to 9 findings, recorded together. HYDE 3.3 population.nc: time axis is "days since
+  1-5-1" on a 365_day calendar, so year = round(days/365) + 1 (a naive decode was off by years); fetched
+  through the Anubis bot wall with headless-Chromium cookies. Timeline frames: T1 runs every epoch through
+  the spectral OT solver at 2048 with 60 km smoothing and the 5% ocean buffer, population conserved per epoch;
+  T3 playback interpolates the measure only between the 126 true epochs. Lenses: a per-capita lens is the
+  ratio measure per SOURCE cell relative to the world average, painted through the population warp with a
+  diverging scale (a global ratio of two rasters saturates). Geometry: geodesic fans use a tempered metric
+  u = 0.5 log(0.2 + 0.8 rho) with no ocean buffer so the fans stay readable; humeter distances use Dijkstra on
+  the pixel graph. Globe: vertices slide to their warped lon/lat, textures stay pinned to geography; time mode
+  loads one mesh per epoch and grows the radius with sqrt(population). Site: static pages (flat viewer with
+  z0-5 tiles, time scrubber, globe, lenses, geometry, story, compare); every viewer is checked in headless
+  Chromium before commit.

@@ -35,7 +35,7 @@ but feel empty (small). Area = people, on a map you can still read.
  FLATTENINGS                                           GEOMETRY (Phase 8)
  ┌─ process, no objective ─────────────┐               G1 curvature metric (2+1 gravity)  [ ]
  │ M1 diffusion  [x]                   │               G2 geodesic graticule (lensing)     [ ]
- │ M2 GSM flow   [x]  ──┐ same Poisson │               G3 3D embedding = A10 lumpy Earth   [ ]
+ │ M2 GSM flow   [x]  ──┐ same Poisson │               G3 3D embedding = A10 lumpy Earth   [~]
  │ M9 jellium    [x]  ◄─┘              │               G4 curvature as colour              [ ]
  │ M8 Tobler     [ ]                   │                          ▲
  └───────────────┬─────────────────────┘                          │ A11 metric grid [x] ties them
@@ -162,7 +162,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
          blended in the vertex shader; log-time scrubber; growth shown by globe radius ~ sqrt(population)
   [ ] A8 controls kept small: time is the hero; method, G-slider, morph and overlay behind one cluster
   [ ] A9 static hosting on the existing site (no server, no cost); WebGL2 or WebGPU
-  [ ] A10 lumpy Earth: isometric-ish 3D embedding of the population manifold on the sphere (spring
+  [~] A10 lumpy Earth (first version is a relief globe, radius = humeter scale; free spring relaxation buckles): isometric-ish 3D embedding of the population manifold on the sphere (spring
          relaxation of a sphere mesh with population rest lengths); the sculpture, ties to G1-G3
 
  TIMELINE (Act 2)
@@ -176,7 +176,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
 ## Side branch: population geometry (not a warp)
   [ ] G1 conformal metric with curvature K ~ (rho - rho_bar) (2+1 gravity, Liouville equation)
   [ ] G2 geodesic graticule: lat/long lines bent around cities like lensing
-  [ ] G3 3D embedding of the population manifold (rho/rho_bar)(dx^2+dy^2), a surface whose area is people
+  [~] G3 3D embedding of the population manifold (relief globe only, see A10) (rho/rho_bar)(dx^2+dy^2), a surface whose area is people
   [ ] G4 curvature field K rendered as colour on the map
 
 ## Open questions

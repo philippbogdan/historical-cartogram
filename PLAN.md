@@ -170,7 +170,7 @@ from Phase 5 on.
 
 ### Phase 8: geometry (side)
 
-- G1 `[x]` curvature metric, G4 `[x]` curvature as colour, G2 `[x]` geodesic fans and humeter distances; G3/A10 lumpy Earth `[ ]`, A13 3D print `[ ]`.
+- G1 `[x]` curvature metric, G4 `[x]` curvature as colour, G2 `[x]` geodesic fans and humeter distances; G3/A10 lumpy Earth `[~]` (relief globe, humeter radius; the isometric embedding is open), A13 3D print `[~]` (lumpy_earth.obj exported, not printed).
 
 ### Phase 9: the viewer, last
 
@@ -224,7 +224,7 @@ from Phase 5 on.
  FLATTENINGS                                           GEOMETRY (Phase 8)
  ┌─ process, no objective ─────────────┐               G1 curvature metric (2+1 gravity)  [ ]
  │ M1 diffusion  [x]                   │               G2 geodesic graticule (lensing)     [ ]
- │ M2 GSM flow   [x]  ──┐ same Poisson │               G3 3D embedding = A10 lumpy Earth   [ ]
+ │ M2 GSM flow   [x]  ──┐ same Poisson │               G3 3D embedding = A10 lumpy Earth   [~]
  │ M9 jellium    [x]  ◄─┘              │               G4 curvature as colour              [ ]
  │ M8 Tobler     [ ]                   │                          ▲
  └───────────────┬─────────────────────┘                          │ A11 metric grid [x] ties them
