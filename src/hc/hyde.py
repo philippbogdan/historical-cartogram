@@ -21,15 +21,19 @@ class Hyde:
 
     @staticmethod
     def _years(t):
+        """HYDE 3.3: 'days since 1-5-1' on a 365_day calendar; year = round(days / 365) + 1."""
         units = getattr(t, "units", "")
         vals = np.array(t[:], dtype=np.float64)
-        if "since" in units:  # e.g. "years since 0000-01-01" or "days since ..."
+        if units.startswith("days"):
             import re
             m = re.search(r"since\s*(-?\d+)", units)
             base = int(m.group(1)) if m else 0
-            if units.startswith("days"):
-                vals = vals / 365.25
-            return (vals + base).astype(int)
+            per_year = 365.0 if "365" in str(getattr(t, "calendar", "")) else 365.25
+            return np.round(vals / per_year).astype(int) + base
+        if "since" in units:
+            import re
+            m = re.search(r"since\s*(-?\d+)", units)
+            return vals.astype(int) + (int(m.group(1)) if m else 0)
         return vals.astype(int)
 
     def counts(self, i):
