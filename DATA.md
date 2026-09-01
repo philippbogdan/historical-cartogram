@@ -34,3 +34,12 @@ The HYDE 3.3/3.4 files on Utrecht's Yoda server (geo.public.data.uu.nl/vault-hyd
 
 ## D6 (2026-08-29)
 GHS-POP epochs 1975-2030 (5-year, 30 arcsec) from the same JRC directory pattern, `GHS_POP_E{year}_GLOBE_R2023A_4326_30ss/V1-0/`; downloading to `data/raw/ghs_epochs/`.
+
+## Phase 5-7 data (2026-08-29)
+- `data/raw/hyde33/population_{base,lower,upper}.nc` HYDE 3.3 (March 2023 release, vault HYDE 3.3[1710493486]), 5 arcmin, 126 epochs 10,000 BC to 2023 (millennial to 0, centennial to 1700, decadal to 1950, yearly after). Licence per readme CC BY 3.0 (the landing page says CC BY-NC-SA 4.0; cite Klein Goldewijk et al. 2017). Fetched through the Anubis bot wall with headless Chromium cookies. Totals verified (4.5 M at 10,000 BC, 7.86 bn 2023).
+- `data/raw/reba/` Reba, Reitsma & Seto 2016 historical urban populations (Chandler 2250 BC to 1975, Modelski ancient and modern), figshare 2059494/2059497/2059500, CC BY.
+- `data/raw/grip4/grip4_total_dens_m_km2.asc` GRIP4 road density, 5 arcmin, CC0 (globio.info).
+- `data/raw/lenses/GDP_PPP_1990_2015_5arcmin_v2.nc` Kummu, Taka & Guillaume 2018 GDP PPP, zenodo 4972425, CC0.
+- `data/raw/lenses/BlackMarble_2016_3km_geo.tif` NASA Earth at Night 2016 (Black Marble), 13500 x 6750, public domain (NASA).
+- SSP projections: Wang et al. 2022 global 1 km (figshare 19608594) is 2.5 GB per scenario; NOT downloaded (disk). T5 uses GHS-POP 2030 for now.
+- Deleted 2026-08-29 to free disk: the three 100 m tiles (the global file covers them), the 30" zip, superseded experiment meshes.

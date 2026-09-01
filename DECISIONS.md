@@ -139,3 +139,6 @@
   not by fetching tiles. The data viewer had a crash in /meta that left the page at "loading". The warped viewer
   draws its settlement view from a max pyramid of the 1 km density chosen per pixel by footprint, so tiles with
   1000x different footprints agree in brightness; under 2 km per pixel it reads the 1 km raster directly.
+- 2026-08-29  Disk is the binding constraint (1.3 GB free at one point). Timeline frames store a compact mesh
+  (displacement quantised to 1/16 px as int16, ~8 MB per frame) and two renders; superseded meshes are deleted,
+  PNGs and metrics stay. Any download over 1 GB checks free space first.
