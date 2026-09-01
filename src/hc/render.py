@@ -211,13 +211,14 @@ def warp_points(pts, X, Y, W):
     return np.stack([wx, wy], axis=1)
 
 
-def split_seam(line, W):
-    """Break a polyline where it jumps across the periodic seam; draw both copies."""
+def split_seam(line, W, jump=None):
+    """Break a polyline where it jumps across the seam or the frame cut. Lines are densified to
+    <= 1 px segments before warping, so any jump over `jump` px (default W/8) is a cut crossing."""
     out = []
     x = line[:, 0] % W
     y = line[:, 1]
     pts = np.stack([x, y], 1)
-    cut = np.nonzero(np.abs(np.diff(x)) > W / 2)[0] + 1
+    cut = np.nonzero(np.abs(np.diff(x)) > (W / 8 if jump is None else jump))[0] + 1
     for seg in np.split(pts, cut):
         if len(seg) > 1:
             out.append(seg)
