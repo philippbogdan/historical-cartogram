@@ -104,7 +104,7 @@ from Phase 5 on.
 
 - M10 `[x]` Poisson one-shot and BFO iteration with coarse-to-fine; with continuation in the share (homotopy)
   and float64 above 1024 it reaches the pure limit: e025, share 0.999 at 4096, ±3.5%, 5.5k folds in populated cells (0.3%).
-- M3 `[x]` back-and-forth method implemented (C Legendre transforms, GPU pushforward, Monge-Ampère polish);
+- M3 `[~]` back-and-forth method implemented (C Legendre transforms, GPU pushforward, Monge-Ampère polish);
   it gives the global convex structure but its discrete map is a staircase where the map compresses and
   the ascent stalls at 4096 pure (21% mass misplaced). Kept as a solver for moderate contrasts; the pure
   route is M10 homotopy. Gate status: ±5% met (±3.5%); populated folds 5.5k of 1.9M, not zero (F5 default applies).
@@ -116,7 +116,7 @@ from Phase 5 on.
 ### Phase 3: gravity `[~]`
 
 - M2 `[x]` GSM flow (own torch; sign fixed). M9 `[x]` jellium flow at 512, 1024 (e028: -3.5%/+5.7%, 40 folds) and 2048 (e026: -4.3%/+5.5%); 4096 needs a scale-aware step cap.
-- R5 `[~]` the G-slider as stills: attractive at t = 0.1 and 0.3 (e027, the anti-cartogram: India and China pinch to points) | Earth | repulsive = M9; the animation waits for the viewer.
+- R5 `[x]` the G-slider as stills: attractive at t = 0.1 and 0.3 (e027, the anti-cartogram: India and China pinch to points) | Earth | repulsive = M9; the animation waits for the viewer.
 - M8 `[x]` Tobler baseline (e029: density error -0.85/+2.45, the trivial answer is in the table).
 
 ### Phase 4: legibility and the gallery
@@ -124,14 +124,14 @@ from Phase 5 on.
 - A14 `[x]` NEW city labels: GHS-UCDB urban centres (free, with population), ~300 largest at warped
   positions, unwarped text; sized by population.
 - A15 `[x]` NEW rivers through the warp (Natural Earth rivers): Nile, Ganges, Yangtze as lines.
-- R7 `[ ]` NEW equipotentials: contour lines of the OT potential, the level sets of population gravity.
+- R7 `[x]` NEW equipotentials: contour lines of the OT potential, the level sets of population gravity.
 - R6 `[x]` NEW stretch map (log area scale as colour) and X8 `[x]` NEW twist map (local rotation angle);
   OT is zero rotation everywhere, diffusion is not.
-- R8 `[ ]` NEW flow lines from geography to cartogram. R9 `[x]` NEW ghost coastline under the warped one.
+- R8 `[x]` NEW flow lines from geography to cartogram. R9 `[x]` NEW ghost coastline under the warped one.
 - X7 `[x]` NEW recognisability: per-country shape error after the best similarity transform, and label
   legibility (share of countries whose warped area holds their name).
-- X5 `[ ]` seam statistics. R10 `[x]` NEW generated gallery page from INDEX with thumbnails and metrics.
-- X6 `[~]` gallery generated (experiments/gallery.html, 33 runs); F2-F4 defaults applied and written; Phil reviews asynchronously.
+- X5 `[x]` seam statistics. R10 `[x]` NEW generated gallery page from INDEX with thumbnails and metrics.
+- X6 `[x]` gallery generated (experiments/gallery.html, 33 runs); F2-F4 defaults applied and written; Phil reviews asynchronously.
 - S3 `[x]` the default method at 8192: e030, pure (share 0.999), 15 km smoothing, float64 homotopy, ±3.6%, 25k populated folds of 7.6M (0.3%), 65 min; the 100 m texture through it: A12 prototype `[x]` (`src/serve_warped.py`, the cartogram zoomable at 100 m through the inverse map).
 - Gate: MET 2026-08-29 (defaults); reopened only if Phil changes an F.
 
@@ -140,31 +140,31 @@ from Phase 5 on.
 - D3 `[x]` HYDE 3.4 verified and ingested (epochs, bounds, format). D6 `[ ]` NEW GHS-POP 1975-2030 at 1 km.
 - T8 `[ ]` NEW handover: HYDE before 1975, GHS after, one normalisation of totals at the seam.
 - T1 `[~]` (126 epochs at 2048, running) every epoch through the default method; population conserved per epoch.
-- T3 `[ ]` playback by interpolating the MEASURE between epochs (every frame a true cartogram); log-time scrubbing.
-- L3 `[x]` person-years frame. L8 `[ ]` uncertainty from HYDE bounds. T4 `[ ]` honesty label.
+- T3 `[~]` playback by interpolating the MEASURE between epochs (every frame a true cartogram); log-time scrubbing.
+- L3 `[x]` person-years frame. L8 `[~]` uncertainty from HYDE bounds. T4 `[x]` honesty label.
 - D8 `[ ]` NEW SSP gridded projections (Jones and O'Neill 2016) and T5 `[ ]` NEW the future to 2100 by scenario.
-- D9 `[x]` NEW Reba historical city points and T7 `[ ]` NEW events on the map through each epoch's warp.
-- T6 `[x]` NEW peak-time lens (epoch of maximum density per pixel). R3 `[ ]` geography-to-cartogram morph.
+- D9 `[x]` NEW Reba historical city points and T7 `[~]` NEW events on the map through each epoch's warp.
+- T6 `[x]` NEW peak-time lens (epoch of maximum density per pixel). R3 `[~]` geography-to-cartogram morph.
 - (F1) growth display, default as above. Gate: full playback reviewed.
 
 ### Phase 6: the globe
 
 - A4 `[x]` globe renderer: sphere mesh, vertices slide, textures pinned to geography, inverse-map textures.
-- D5 `[ ]` overlay data: VIIRS night lights, GRIP4 roads, terrain, AIS shipping, flights.
+- D5 `[~]` overlay data: VIIRS night lights, GRIP4 roads, terrain, AIS shipping, flights.
 - A5 `[~]` (lights and roads as per-capita on the flat frame; textures on the globe) overlays through the warp as per-capita maps (night lights nearly uniform as the check).
 - A6 `[x]` labels (countries + A14 cities), ghost graticule, dark base. A16 `[ ]` NEW pole cap treatment.
-- A7 `[~]` time on the globe, growing radius. A8 `[ ]` one control cluster. A9 `[ ]` static hosting (checkpoint).
+- A7 `[~]` time on the globe, growing radius. A8 `[~]` one control cluster. A9 `[ ]` static hosting (checkpoint).
 - M12 `[ ]` NEW sphere-native OT only if the equal-area cylinder shows polar damage (was A3).
 - Gate: sphere area = people to Phase 2 tolerance; 60 fps on the M4.
 
 ### Phase 7: lenses
 
-- L1 `[x]` the grammar in the pipeline. D12 `[ ]` NEW measure catalogue ingested (GDP: Kummu/DOSE; lights;
+- L1 `[x]` the grammar in the pipeline. D12 `[~]` NEW measure catalogue ingested (GDP: Kummu/DOSE; lights;
   carbon: EDGAR/ODIAC; cropland: HYDE/GAEZ; travel time: Weiss 2018; attention; age: WorldPop; biomass).
 - L9 `[x]` NEW ratio family (people/lights, people/cropland, people/CO2, people/roads).
 - L10 `[ ]` NEW age lens (median age; under-15s as the next generation). L11 `[ ]` NEW attention lens.
 - L12 `[ ]` NEW the non-human world (Earth by trees, cropland, protected land) as the complement.
-- L4 `[x]` measure-to-measure OT morph. L5 `[ ]` humeter ruler and geodesics. L6 `[ ]` loneliness metric.
+- L4 `[x]` measure-to-measure OT morph. L5 `[x]` humeter ruler and geodesics. L6 `[x]` loneliness metric.
 - L7 `[ ]` one person per pixel (via M11). L13 `[ ]` NEW cumulative person-years as a slider.
 - Gate: at least three lenses live with sources and honesty notes.
 
@@ -175,7 +175,7 @@ from Phase 5 on.
 ### Phase 9: the viewer, last
 
 - A12 `[x]` on-the-fly warped tiles (serve_warped.py) and a static pyramid (z0-5) for the site.
-- V1-V11 `[ ]` as in v1 (zoom/pan/rotate, LOD by local magnification, flat + globe, time, lens, method,
+- V1-V11 `[~]` (V1 V3 V4 V9 V11 done; V2 V5 V6 V7 partial; V8 V10 open) as in v1 (zoom/pan/rotate, LOD by local magnification, flat + globe, time, lens, method,
   labels with collision, metric grid toggle, native textures, static hosting, asset budget).
 - V12 `[x]` permalinks. V13 `[x]` compare/swipe. V14 `[x]` story mode (eight stops). V15 `[x]` print export (4096 px).
 
@@ -201,16 +201,16 @@ from Phase 5 on.
                                               │
  DATA                                         ▼                                    PREP
  D1 GHS-POP 2025 30" [x]   D2 GHS-POP 3" 100 m global [x]             ┌── P1 exact count re-binning [x]
- D3 HYDE 3.4 [ ]  D6 GHS 1975-2030 [ ]  D8 SSP 2100 [ ]  D9 Reba cities [ ]  ├── P2 share + smoothing [~]
- D4 Natural Earth [x]  D11 rivers [ ]  D10 GHS-UCDB cities [ ]  D7 BUILT/SMOD [ ]  └── P3 sphere-native [ ]
- D5 lights, roads, terrain, shipping, flights [ ]   D12 lens measures [ ]
+ D3 HYDE 3.4 [x]  D6 GHS 1975-2030 [ ]  D8 SSP 2100 [ ]  D9 Reba cities [x]  ├── P2 share + smoothing [~]
+ D4 Natural Earth [x]  D11 rivers [x]  D10 GHS-UCDB cities [ ]  D7 BUILT/SMOD [ ]  └── P3 sphere-native [ ]
+ D5 lights, roads, terrain, shipping, flights [~]   D12 lens measures [~]
                                                  │
                                        grid choice (a parameter) [x]
                                     ┌────────────┴────────────┐
                             Mercator pixels            equal-area cylinder, periodic lon
                             flat rectangle picture     anything shown on a sphere
                                     └────────────┬────────────┘
-                       SOLVER INFRASTRUCTURE     │   S1 GPU [x]  S2 4096 [x]  S3 8192 [ ]
+                       SOLVER INFRASTRUCTURE     │   S1 GPU [x]  S2 4096 [x]  S3 8192 [x]
                                                  │   S4 fold gate (F5) [~]  S5 exact fields [ ]
                                                  ▼
                     ╔════════════════════════════════════════════════════════╗
@@ -222,27 +222,27 @@ from Phase 5 on.
                                   │ flatten it                │ keep it curved
                                   ▼                           ▼
  FLATTENINGS                                           GEOMETRY (Phase 8)
- ┌─ process, no objective ─────────────┐               G1 curvature metric (2+1 gravity)  [ ]
- │ M1 diffusion  [x]                   │               G2 geodesic graticule (lensing)     [ ]
+ ┌─ process, no objective ─────────────┐               G1 curvature metric (2+1 gravity)  [x]
+ │ M1 diffusion  [x]                   │               G2 geodesic graticule (lensing)     [x]
  │ M2 GSM flow   [x]  ──┐ same Poisson │               G3 3D embedding = A10 lumpy Earth   [~]
- │ M9 jellium    [x]  ◄─┘              │               G4 curvature as colour              [ ]
- │ M8 Tobler     [ ]                   │                          ▲
+ │ M9 jellium    [x]  ◄─┘              │               G4 curvature as colour              [x]
+ │ M8 Tobler     [x]                   │                          ▲
  └───────────────┬─────────────────────┘                          │ A11 metric grid [x] ties them
  ┌─ least displacement (OT) ───────────┐   ┌─ least angle distortion ─┐
  │ M10 Poisson iteration [x] (not pure)│   │ M7 quasiconformal [ ]    │
- │ M3 back-and-forth     [ ]  <- next  │   └──────────────────────────┘
+ │ M3 back-and-forth     [~]  <- next  │   └──────────────────────────┘
  │ M11 semi-discrete     [ ]  NEW      │
  │ M5 monotone FD [ ]  M4 Sinkhorn [ ] │
  │ M6 sliced [ ]   M12 on sphere [ ]   │
  └───────────────┬─────────────────────┘
-     R5 G-slider: attractive (+G) ◄── Earth ──► repulsive (-G) = M9   [ ]
+     R5 G-slider: attractive (+G) ◄── Earth ──► repulsive (-G) = M9   [x]
                                 ▼
- METRICS  X1 area [x]  X2 folds [x]  X3 anisotropy [x]  X4 displacement [x]  X5 seams [ ]
-          X6 gallery [ ]  X7 recognisability NEW [ ]  X8 twist NEW [ ]      -> F2 F3 F4 (defaults set)
+ METRICS  X1 area [x]  X2 folds [x]  X3 anisotropy [x]  X4 displacement [x]  X5 seams [x]
+          X6 gallery [x]  X7 recognisability NEW [x]  X8 twist NEW [x]      -> F2 F3 F4 (defaults set)
                                 ▼
- RENDER   R1 mesh+coasts+borders+graticule+error [x]  R2 rasters through the warp [x]  R3 morph [ ]
-          R4 WebGL mesh [ ]  R6 stretch map NEW [ ]  R7 equipotentials NEW [ ]  R8 flow lines NEW [ ]
-          R9 ghost coastline NEW [ ]  R10 gallery page NEW [ ]  countries coloured+labelled [x]
+ RENDER   R1 mesh+coasts+borders+graticule+error [x]  R2 rasters through the warp [x]  R3 morph [~]
+          R4 WebGL mesh [x]  R6 stretch map NEW [x]  R7 equipotentials NEW [x]  R8 flow lines NEW [x]
+          R9 ghost coastline NEW [x]  R10 gallery page NEW [x]  countries coloured+labelled [x]
         ┌───────────────────────┼───────────────────────────┐
         ▼                       ▼                           ▼
  FLAT RECTANGLE [x]      GLOBE (Phase 6)                 LUMPY EARTH (A10, A13)

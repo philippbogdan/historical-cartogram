@@ -14,7 +14,7 @@ Dense places feel full and big; empty places seem vast but feel empty and small.
  globe      site/globe/          three.js, sphere area = people, geography <-> cartogram slider
  time       site/time/           HYDE 3.3, 10,000 BC to 2023, log-time scrubber
  lenses     site/lenses.html     GDP world, loneliness, light and roads per person, peak year, person-years
- geometry   site/geometry.html   curvature, geodesics, humeter distances
+ geometry   site/geometry.html   curvature, geodesics, humeter distances, the lumpy Earth
  tour       site/story.html      eight stops; site/compare.html swipes any two worlds
 ```
 
