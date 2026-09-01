@@ -1,7 +1,8 @@
 [
  {
   "year": -10000,
-  "file": "-10000.jpg",
+  "file": "-10000_hyde.jpg",
+  "source": "hyde",
   "population": 4501152.564395532,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.017220122451355537,
@@ -9,7 +10,8 @@
  },
  {
   "year": -9000,
-  "file": "-09000.jpg",
+  "file": "-09000_hyde.jpg",
+  "source": "hyde",
   "population": 5687125.043977983,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.016868136223089473,
@@ -17,7 +19,8 @@
  },
  {
   "year": -8000,
-  "file": "-08000.jpg",
+  "file": "-08000_hyde.jpg",
+  "source": "hyde",
   "population": 7314623.361198815,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.016437168424437217,
@@ -25,7 +28,8 @@
  },
  {
   "year": -7000,
-  "file": "-07000.jpg",
+  "file": "-07000_hyde.jpg",
+  "source": "hyde",
   "population": 9651703.305182906,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.01604624181583728,
@@ -33,7 +37,8 @@
  },
  {
   "year": -6000,
-  "file": "-06000.jpg",
+  "file": "-06000_hyde.jpg",
+  "source": "hyde",
   "population": 13278308.720488984,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.015644433917423713,
@@ -41,7 +46,8 @@
  },
  {
   "year": -5000,
-  "file": "-05000.jpg",
+  "file": "-05000_hyde.jpg",
+  "source": "hyde",
   "population": 19155697.824155714,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.015389850799327325,
@@ -49,7 +55,8 @@
  },
  {
   "year": -4000,
-  "file": "-04000.jpg",
+  "file": "-04000_hyde.jpg",
+  "source": "hyde",
   "population": 28859173.78666639,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.015032917876526346,
@@ -57,7 +64,8 @@
  },
  {
   "year": -3000,
-  "file": "-03000.jpg",
+  "file": "-03000_hyde.jpg",
+  "source": "hyde",
   "population": 44577880.90901054,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.014946133113977862,
@@ -65,71 +73,1061 @@
  },
  {
   "year": -2000,
-  "file": "-02000.jpg",
+  "file": "-02000_hyde.jpg",
+  "source": "hyde",
   "population": 72685063.40768655,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.014791291976079632,
   "error_p95": 0.017434016413487907
  },
  {
+  "year": -1000,
+  "file": "-01000_hyde.jpg",
+  "source": "hyde",
+  "population": 110530464.80420643,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014784057467304691,
+  "error_p95": 0.018278961408668044
+ },
+ {
   "year": 0,
-  "file": "+00000.jpg",
+  "file": "+00000_hyde.jpg",
+  "source": "hyde",
   "population": 232268839.62865528,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.014453098679705486,
   "error_p95": 0.017975634819522208
  },
  {
+  "year": 100,
+  "file": "+00100_hyde.jpg",
+  "source": "hyde",
+  "population": 237052185.42985633,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014575394938949215,
+  "error_p95": 0.018174219599744773
+ },
+ {
+  "year": 200,
+  "file": "+00200_hyde.jpg",
+  "source": "hyde",
+  "population": 240762156.37595633,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014713437048354072,
+  "error_p95": 0.018347301256378568
+ },
+ {
+  "year": 300,
+  "file": "+00300_hyde.jpg",
+  "source": "hyde",
+  "population": 227702851.27007478,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014996273512334499,
+  "error_p95": 0.018882936082233657
+ },
+ {
+  "year": 400,
+  "file": "+00400_hyde.jpg",
+  "source": "hyde",
+  "population": 241697006.73796302,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014786026614563859,
+  "error_p95": 0.018279428856101176
+ },
+ {
+  "year": 500,
+  "file": "+00500_hyde.jpg",
+  "source": "hyde",
+  "population": 253395812.726193,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014572110897864324,
+  "error_p95": 0.01764243839358453
+ },
+ {
+  "year": 600,
+  "file": "+00600_hyde.jpg",
+  "source": "hyde",
+  "population": 271638947.1936617,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014331749336683812,
+  "error_p95": 0.01695543738978481
+ },
+ {
+  "year": 700,
+  "file": "+00700_hyde.jpg",
+  "source": "hyde",
+  "population": 278346068.34705687,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014578313595835592,
+  "error_p95": 0.01767759525091418
+ },
+ {
+  "year": 800,
+  "file": "+00800_hyde.jpg",
+  "source": "hyde",
+  "population": 285870180.6582752,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014843362281781885,
+  "error_p95": 0.01846862121024159
+ },
+ {
+  "year": 900,
+  "file": "+00900_hyde.jpg",
+  "source": "hyde",
+  "population": 311142695.8614354,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014909870093003257,
+  "error_p95": 0.01869701147987135
+ },
+ {
   "year": 1000,
-  "file": "+01000.jpg",
+  "file": "+01000_hyde.jpg",
+  "source": "hyde",
   "population": 323462634.459818,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.014991997787560935,
   "error_p95": 0.018807082010332002
  },
  {
+  "year": 1100,
+  "file": "+01100_hyde.jpg",
+  "source": "hyde",
+  "population": 397889878.0317956,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014478700961921089,
+  "error_p95": 0.017926675333550496
+ },
+ {
+  "year": 1200,
+  "file": "+01200_hyde.jpg",
+  "source": "hyde",
+  "population": 444653998.25871927,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014371594598676157,
+  "error_p95": 0.018192310795429448
+ },
+ {
+  "year": 1300,
+  "file": "+01300_hyde.jpg",
+  "source": "hyde",
+  "population": 456248092.0465971,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014608607454664432,
+  "error_p95": 0.01938269270791864
+ },
+ {
+  "year": 1400,
+  "file": "+01400_hyde.jpg",
+  "source": "hyde",
+  "population": 442309221.7260694,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014677946159043982,
+  "error_p95": 0.019018938263335235
+ },
+ {
   "year": 1500,
-  "file": "+01500.jpg",
+  "file": "+01500_hyde.jpg",
+  "source": "hyde",
   "population": 503051110.5266103,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.014610397990912892,
   "error_p95": 0.01985603999635982
  },
  {
+  "year": 1600,
+  "file": "+01600_hyde.jpg",
+  "source": "hyde",
+  "population": 516147605.32069904,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.01491836276687044,
+  "error_p95": 0.023657637352985917
+ },
+ {
+  "year": 1700,
+  "file": "+01700_hyde.jpg",
+  "source": "hyde",
+  "population": 595456868.9337928,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015342854027189979,
+  "error_p95": 0.02775190605709035
+ },
+ {
+  "year": 1710,
+  "file": "+01710_hyde.jpg",
+  "source": "hyde",
+  "population": 617975871.7779667,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015436514955633715,
+  "error_p95": 0.029421230703033513
+ },
+ {
+  "year": 1720,
+  "file": "+01720_hyde.jpg",
+  "source": "hyde",
+  "population": 648184791.2272078,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015273399956045873,
+  "error_p95": 0.028106967772098288
+ },
+ {
+  "year": 1730,
+  "file": "+01730_hyde.jpg",
+  "source": "hyde",
+  "population": 670899972.9713151,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015198250942831568,
+  "error_p95": 0.0276271695798452
+ },
+ {
+  "year": 1740,
+  "file": "+01740_hyde.jpg",
+  "source": "hyde",
+  "population": 702227784.7081318,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015090538565877692,
+  "error_p95": 0.02734651770838402
+ },
+ {
+  "year": 1750,
+  "file": "+01750_hyde.jpg",
+  "source": "hyde",
+  "population": 753279295.6853851,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014984032209579017,
+  "error_p95": 0.02623870649744037
+ },
+ {
+  "year": 1760,
+  "file": "+01760_hyde.jpg",
+  "source": "hyde",
+  "population": 788254952.1248657,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014967647661665449,
+  "error_p95": 0.025959634785471926
+ },
+ {
+  "year": 1770,
+  "file": "+01770_hyde.jpg",
+  "source": "hyde",
+  "population": 827951477.5527211,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014915689265434358,
+  "error_p95": 0.025358700786193407
+ },
+ {
+  "year": 1780,
+  "file": "+01780_hyde.jpg",
+  "source": "hyde",
+  "population": 900945173.9867077,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014863166357391303,
+  "error_p95": 0.024877313065428865
+ },
+ {
+  "year": 1790,
+  "file": "+01790_hyde.jpg",
+  "source": "hyde",
+  "population": 942261665.7549572,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.014855152189244745,
+  "error_p95": 0.024966560968388344
+ },
+ {
   "year": 1800,
-  "file": "+01800.jpg",
+  "file": "+01800_hyde.jpg",
+  "source": "hyde",
   "population": 954892369.5699266,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.01499499730587906,
   "error_p95": 0.025713494179805778
  },
  {
+  "year": 1810,
+  "file": "+01810_hyde.jpg",
+  "source": "hyde",
+  "population": 1028932341.196658,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015039279120005388,
+  "error_p95": 0.025381693247748225
+ },
+ {
+  "year": 1820,
+  "file": "+01820_hyde.jpg",
+  "source": "hyde",
+  "population": 1065623599.9474561,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015188478791111727,
+  "error_p95": 0.026510962840965546
+ },
+ {
+  "year": 1830,
+  "file": "+01830_hyde.jpg",
+  "source": "hyde",
+  "population": 1148205430.807717,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015302753263321124,
+  "error_p95": 0.026635514534779064
+ },
+ {
+  "year": 1840,
+  "file": "+01840_hyde.jpg",
+  "source": "hyde",
+  "population": 1209754493.443219,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015483876402779623,
+  "error_p95": 0.027238100096493294
+ },
+ {
+  "year": 1850,
+  "file": "+01850_hyde.jpg",
+  "source": "hyde",
+  "population": 1287033875.4867957,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.01560408938663073,
+  "error_p95": 0.02742982823911129
+ },
+ {
+  "year": 1860,
+  "file": "+01860_hyde.jpg",
+  "source": "hyde",
+  "population": 1346093954.7751052,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.015868842843625185,
+  "error_p95": 0.02895507115196358
+ },
+ {
+  "year": 1870,
+  "file": "+01870_hyde.jpg",
+  "source": "hyde",
+  "population": 1346763124.5147538,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.016390377418676647,
+  "error_p95": 0.03290581633071037
+ },
+ {
+  "year": 1880,
+  "file": "+01880_hyde.jpg",
+  "source": "hyde",
+  "population": 1427718966.9703593,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.016883752970675597,
+  "error_p95": 0.035166202456431504
+ },
+ {
+  "year": 1890,
+  "file": "+01890_hyde.jpg",
+  "source": "hyde",
+  "population": 1548405722.3010976,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.017339636258264342,
+  "error_p95": 0.03636110774245328
+ },
+ {
   "year": 1900,
-  "file": "+01900.jpg",
+  "file": "+01900_hyde.jpg",
+  "source": "hyde",
   "population": 1670635634.4662685,
   "honesty": "modelled (HYDE allocation of regional estimates)",
   "error_p05": -0.017859609185373413,
   "error_p95": 0.039977896977119357
  },
  {
+  "year": 1910,
+  "file": "+01910_hyde.jpg",
+  "source": "hyde",
+  "population": 1800219417.4297044,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.018529011854866082,
+  "error_p95": 0.04599474252799778
+ },
+ {
+  "year": 1920,
+  "file": "+01920_hyde.jpg",
+  "source": "hyde",
+  "population": 1927857192.2901227,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.019314679792839008,
+  "error_p95": 0.05809823516815409
+ },
+ {
+  "year": 1930,
+  "file": "+01930_hyde.jpg",
+  "source": "hyde",
+  "population": 2106406145.0467749,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.020018487444017366,
+  "error_p95": 0.06940289413771919
+ },
+ {
+  "year": 1940,
+  "file": "+01940_hyde.jpg",
+  "source": "hyde",
+  "population": 2328459964.6157866,
+  "honesty": "modelled (HYDE allocation of regional estimates)",
+  "error_p05": -0.020671415639164328,
+  "error_p95": 0.0797936917778881
+ },
+ {
   "year": 1950,
-  "file": "+01950.jpg",
+  "file": "+01950_hyde.jpg",
+  "source": "hyde",
   "population": 2529568054.1730547,
   "honesty": "census-based (HYDE, national statistics)",
   "error_p05": -0.021209396235544863,
   "error_p95": 0.11353517347180066
  },
  {
+  "year": 1951,
+  "file": "+01951_hyde.jpg",
+  "source": "hyde",
+  "population": 2571632294.483492,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02125342100402117,
+  "error_p95": 0.11540996480760844
+ },
+ {
+  "year": 1952,
+  "file": "+01952_hyde.jpg",
+  "source": "hyde",
+  "population": 2618653389.746141,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.021345186838916883,
+  "error_p95": 0.11629796106099953
+ },
+ {
+  "year": 1953,
+  "file": "+01953_hyde.jpg",
+  "source": "hyde",
+  "population": 2665323756.209601,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.021418631555133308,
+  "error_p95": 0.11738989469139388
+ },
+ {
+  "year": 1954,
+  "file": "+01954_hyde.jpg",
+  "source": "hyde",
+  "population": 2712252556.1169662,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.021520944834169883,
+  "error_p95": 0.11843496222741756
+ },
+ {
+  "year": 1955,
+  "file": "+01955_hyde.jpg",
+  "source": "hyde",
+  "population": 2759935372.529149,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.021616933991764033,
+  "error_p95": 0.11988154354776565
+ },
+ {
+  "year": 1956,
+  "file": "+01956_hyde.jpg",
+  "source": "hyde",
+  "population": 2808751198.121352,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.021717846490589488,
+  "error_p95": 0.12098368947268323
+ },
+ {
+  "year": 1957,
+  "file": "+01957_hyde.jpg",
+  "source": "hyde",
+  "population": 2858965620.6659193,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02182237050793247,
+  "error_p95": 0.12209722780365195
+ },
+ {
+  "year": 1958,
+  "file": "+01958_hyde.jpg",
+  "source": "hyde",
+  "population": 2910741963.919882,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.021905049726817203,
+  "error_p95": 0.12329662169117894
+ },
+ {
+  "year": 1959,
+  "file": "+01959_hyde.jpg",
+  "source": "hyde",
+  "population": 2964159220.6498857,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.022019291556536064,
+  "error_p95": 0.12408124281689716
+ },
+ {
+  "year": 1960,
+  "file": "+01960_hyde.jpg",
+  "source": "hyde",
+  "population": 3019267069.2790785,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.022111078200596223,
+  "error_p95": 0.12468691961858364
+ },
+ {
+  "year": 1961,
+  "file": "+01961_hyde.jpg",
+  "source": "hyde",
+  "population": 3075836223.674992,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02218656082310562,
+  "error_p95": 0.1257572151833055
+ },
+ {
+  "year": 1962,
+  "file": "+01962_hyde.jpg",
+  "source": "hyde",
+  "population": 3134330643.101896,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02223967178333131,
+  "error_p95": 0.12625790396104777
+ },
+ {
+  "year": 1963,
+  "file": "+01963_hyde.jpg",
+  "source": "hyde",
+  "population": 3195010261.4600616,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.022339778884178693,
+  "error_p95": 0.12772417457730612
+ },
+ {
+  "year": 1964,
+  "file": "+01964_hyde.jpg",
+  "source": "hyde",
+  "population": 3258175166.860166,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.022436628901935075,
+  "error_p95": 0.12889094503647358
+ },
+ {
+  "year": 1965,
+  "file": "+01965_hyde.jpg",
+  "source": "hyde",
+  "population": 3323982648.8704996,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.022512111147427023,
+  "error_p95": 0.1301151180527571
+ },
+ {
+  "year": 1966,
+  "file": "+01966_hyde.jpg",
+  "source": "hyde",
+  "population": 3392530766.7223444,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.022573935670236786,
+  "error_p95": 0.13078329115576343
+ },
+ {
+  "year": 1967,
+  "file": "+01967_hyde.jpg",
+  "source": "hyde",
+  "population": 3463604852.874739,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02265323008685099,
+  "error_p95": 0.13159397153210656
+ },
+ {
+  "year": 1968,
+  "file": "+01968_hyde.jpg",
+  "source": "hyde",
+  "population": 3536642810.022884,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02270697075213605,
+  "error_p95": 0.1319825547686524
+ },
+ {
+  "year": 1969,
+  "file": "+01969_hyde.jpg",
+  "source": "hyde",
+  "population": 3610875195.593769,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02278855051399417,
+  "error_p95": 0.13275680227623146
+ },
+ {
+  "year": 1970,
+  "file": "+01970_hyde.jpg",
+  "source": "hyde",
+  "population": 3685696055.5000315,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.022841177362531075,
+  "error_p95": 0.1328691792479641
+ },
+ {
+  "year": 1971,
+  "file": "+01971_hyde.jpg",
+  "source": "hyde",
+  "population": 3760244579.8649254,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.022883067028581436,
+  "error_p95": 0.13332649468067043
+ },
+ {
+  "year": 1972,
+  "file": "+01972_hyde.jpg",
+  "source": "hyde",
+  "population": 3835145059.6271405,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.022953796647695587,
+  "error_p95": 0.13316321615577315
+ },
+ {
+  "year": 1973,
+  "file": "+01973_hyde.jpg",
+  "source": "hyde",
+  "population": 3910454201.0871143,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.023003404806313278,
+  "error_p95": 0.13309913237269969
+ },
+ {
+  "year": 1974,
+  "file": "+01974_hyde.jpg",
+  "source": "hyde",
+  "population": 3986236548.5103936,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.023093844268546285,
+  "error_p95": 0.13317781337440462
+ },
+ {
+  "year": 1975,
+  "file": "+01975_hyde.jpg",
+  "source": "hyde",
+  "population": 4062536250.3204994,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.0231656179349234,
+  "error_p95": 0.13339697806951814
+ },
+ {
+  "year": 1976,
+  "file": "+01976_hyde.jpg",
+  "source": "hyde",
+  "population": 4136812781.6756873,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.023257183934512093,
+  "error_p95": 0.13339911908398622
+ },
+ {
+  "year": 1977,
+  "file": "+01977_hyde.jpg",
+  "source": "hyde",
+  "population": 4211630433.566961,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.0233349149723694,
+  "error_p95": 0.1333234658261791
+ },
+ {
+  "year": 1978,
+  "file": "+01978_hyde.jpg",
+  "source": "hyde",
+  "population": 4286926411.627044,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.023418006591838028,
+  "error_p95": 0.13326420536553588
+ },
+ {
+  "year": 1979,
+  "file": "+01979_hyde.jpg",
+  "source": "hyde",
+  "population": 4362632174.067987,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.023520776596891432,
+  "error_p95": 0.13335377989571343
+ },
+ {
+  "year": 1980,
+  "file": "+01980_hyde.jpg",
+  "source": "hyde",
+  "population": 4438437379.053962,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.023579368471381923,
+  "error_p95": 0.13325478799818616
+ },
+ {
+  "year": 1981,
+  "file": "+01981_hyde.jpg",
+  "source": "hyde",
+  "population": 4519619550.613877,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02365626173552668,
+  "error_p95": 0.1333748837107797
+ },
+ {
+  "year": 1982,
+  "file": "+01982_hyde.jpg",
+  "source": "hyde",
+  "population": 4601135330.96117,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.023725325955812702,
+  "error_p95": 0.13331502358318134
+ },
+ {
+  "year": 1983,
+  "file": "+01983_hyde.jpg",
+  "source": "hyde",
+  "population": 4683022803.201232,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02378740541816937,
+  "error_p95": 0.13330895442385862
+ },
+ {
+  "year": 1984,
+  "file": "+01984_hyde.jpg",
+  "source": "hyde",
+  "population": 4765328318.20696,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.023834040719775195,
+  "error_p95": 0.13351217147073421
+ },
+ {
+  "year": 1985,
+  "file": "+01985_hyde.jpg",
+  "source": "hyde",
+  "population": 4848077852.876034,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.023894911141564758,
+  "error_p95": 0.13392741624754892
+ },
+ {
+  "year": 1986,
+  "file": "+01986_hyde.jpg",
+  "source": "hyde",
+  "population": 4936071036.209555,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02394318431818329,
+  "error_p95": 0.13330830515201225
+ },
+ {
+  "year": 1987,
+  "file": "+01987_hyde.jpg",
+  "source": "hyde",
+  "population": 5024482662.200997,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02399322636942493,
+  "error_p95": 0.132743161129603
+ },
+ {
+  "year": 1988,
+  "file": "+01988_hyde.jpg",
+  "source": "hyde",
+  "population": 5113235802.006516,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024063207901313367,
+  "error_p95": 0.13227356970520734
+ },
+ {
+  "year": 1989,
+  "file": "+01989_hyde.jpg",
+  "source": "hyde",
+  "population": 5202229067.812018,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024117498159142096,
+  "error_p95": 0.13214290343445095
+ },
+ {
+  "year": 1990,
+  "file": "+01990_hyde.jpg",
+  "source": "hyde",
+  "population": 5291256828.811864,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024197032649376907,
+  "error_p95": 0.13175320130188015
+ },
+ {
+  "year": 1991,
+  "file": "+01991_hyde.jpg",
+  "source": "hyde",
+  "population": 5375924329.316858,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02426166648868414,
+  "error_p95": 0.1315824497330834
+ },
+ {
+  "year": 1992,
+  "file": "+01992_hyde.jpg",
+  "source": "hyde",
+  "population": 5460895223.221307,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024317828551875323,
+  "error_p95": 0.13131078640921173
+ },
+ {
+  "year": 1993,
+  "file": "+01993_hyde.jpg",
+  "source": "hyde",
+  "population": 5546031667.073713,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024326379162204603,
+  "error_p95": 0.13098135833826224
+ },
+ {
+  "year": 1994,
+  "file": "+01994_hyde.jpg",
+  "source": "hyde",
+  "population": 5631345944.539935,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02437721215593492,
+  "error_p95": 0.13103471591232682
+ },
+ {
+  "year": 1995,
+  "file": "+01995_hyde.jpg",
+  "source": "hyde",
+  "population": 5716798109.760714,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024443079917817072,
+  "error_p95": 0.13097254983083742
+ },
+ {
+  "year": 1996,
+  "file": "+01996_hyde.jpg",
+  "source": "hyde",
+  "population": 5797091858.968515,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024495745334419203,
+  "error_p95": 0.13102167014222726
+ },
+ {
+  "year": 1997,
+  "file": "+01997_hyde.jpg",
+  "source": "hyde",
+  "population": 5876280930.428972,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02453464930263247,
+  "error_p95": 0.1306191054979593
+ },
+ {
+  "year": 1998,
+  "file": "+01998_hyde.jpg",
+  "source": "hyde",
+  "population": 5956382021.98569,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024591714758206745,
+  "error_p95": 0.1310137860628956
+ },
+ {
+  "year": 1999,
+  "file": "+01999_hyde.jpg",
+  "source": "hyde",
+  "population": 6036800095.924596,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024635793362761286,
+  "error_p95": 0.13084124598915245
+ },
+ {
   "year": 2000,
-  "file": "+02000.jpg",
+  "file": "+02000_hyde.jpg",
+  "source": "hyde",
   "population": 6117941194.445893,
   "honesty": "census-based (HYDE, national statistics)",
   "error_p05": -0.024662355339929828,
   "error_p95": 0.13068011416753367
  },
  {
+  "year": 2001,
+  "file": "+02001_hyde.jpg",
+  "source": "hyde",
+  "population": 6194470686.6742525,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024704123763458867,
+  "error_p95": 0.13072226402071935
+ },
+ {
+  "year": 2002,
+  "file": "+02002_hyde.jpg",
+  "source": "hyde",
+  "population": 6272904655.449373,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.0247454950489888,
+  "error_p95": 0.1307424995102328
+ },
+ {
+  "year": 2003,
+  "file": "+02003_hyde.jpg",
+  "source": "hyde",
+  "population": 6351850843.936509,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024788024954230607,
+  "error_p95": 0.13081987900909287
+ },
+ {
+  "year": 2004,
+  "file": "+02004_hyde.jpg",
+  "source": "hyde",
+  "population": 6431333386.492625,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024839851481025917,
+  "error_p95": 0.1310284492133177
+ },
+ {
+  "year": 2005,
+  "file": "+02005_hyde.jpg",
+  "source": "hyde",
+  "population": 6511374987.373621,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024894351735566235,
+  "error_p95": 0.1311322007761576
+ },
+ {
+  "year": 2006,
+  "file": "+02006_hyde.jpg",
+  "source": "hyde",
+  "population": 6590775004.716522,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024930019149261545,
+  "error_p95": 0.13136014151310488
+ },
+ {
+  "year": 2007,
+  "file": "+02007_hyde.jpg",
+  "source": "hyde",
+  "population": 6670750254.851602,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.024992601749181793,
+  "error_p95": 0.1313275435344092
+ },
+ {
+  "year": 2008,
+  "file": "+02008_hyde.jpg",
+  "source": "hyde",
+  "population": 6751348502.721085,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.0250472488536546,
+  "error_p95": 0.1313391240975614
+ },
+ {
+  "year": 2009,
+  "file": "+02009_hyde.jpg",
+  "source": "hyde",
+  "population": 6832617436.86266,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025093442535954785,
+  "error_p95": 0.13142912462563341
+ },
+ {
+  "year": 2010,
+  "file": "+02010_hyde.jpg",
+  "source": "hyde",
+  "population": 6900999468.846306,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02513252743466192,
+  "error_p95": 0.13150511667467724
+ },
+ {
+  "year": 2011,
+  "file": "+02011_hyde.jpg",
+  "source": "hyde",
+  "population": 6977348842.78281,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025188145358499767,
+  "error_p95": 0.13090307559990913
+ },
+ {
+  "year": 2012,
+  "file": "+02012_hyde.jpg",
+  "source": "hyde",
+  "population": 7052728618.939271,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025210239016294118,
+  "error_p95": 0.13040557525525814
+ },
+ {
+  "year": 2013,
+  "file": "+02013_hyde.jpg",
+  "source": "hyde",
+  "population": 7129160815.430525,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02528194399737602,
+  "error_p95": 0.13164938797299197
+ },
+ {
+  "year": 2014,
+  "file": "+02014_hyde.jpg",
+  "source": "hyde",
+  "population": 7205128743.029591,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025274965392948427,
+  "error_p95": 0.1307299362774512
+ },
+ {
+  "year": 2015,
+  "file": "+02015_hyde.jpg",
+  "source": "hyde",
+  "population": 7281125654.286526,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025264623913552324,
+  "error_p95": 0.1303343618927813
+ },
+ {
+  "year": 2016,
+  "file": "+02016_hyde.jpg",
+  "source": "hyde",
+  "population": 7357138271.82002,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025268942704194455,
+  "error_p95": 0.12967513080417872
+ },
+ {
+  "year": 2017,
+  "file": "+02017_hyde.jpg",
+  "source": "hyde",
+  "population": 7433094904.34702,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025258429482758867,
+  "error_p95": 0.12899525510204415
+ },
+ {
+  "year": 2018,
+  "file": "+02018_hyde.jpg",
+  "source": "hyde",
+  "population": 7509075676.127258,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025253541540466665,
+  "error_p95": 0.12798899216157836
+ },
+ {
+  "year": 2019,
+  "file": "+02019_hyde.jpg",
+  "source": "hyde",
+  "population": 7585081326.647376,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025245710424094188,
+  "error_p95": 0.12794733468224606
+ },
+ {
+  "year": 2020,
+  "file": "+02020_hyde.jpg",
+  "source": "hyde",
+  "population": 7659076326.288926,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025218105778352626,
+  "error_p95": 0.12749815797697037
+ },
+ {
+  "year": 2021,
+  "file": "+02021_hyde.jpg",
+  "source": "hyde",
+  "population": 7727261116.980143,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.025217598486256942,
+  "error_p95": 0.12690327162509987
+ },
+ {
+  "year": 2022,
+  "file": "+02022_hyde.jpg",
+  "source": "hyde",
+  "population": 7792902538.154348,
+  "honesty": "census-based (HYDE, national statistics)",
+  "error_p05": -0.02523704781348264,
+  "error_p95": 0.12634325489390763
+ },
+ {
   "year": 2023,
-  "file": "+02023.jpg",
+  "file": "+02023_hyde.jpg",
+  "source": "hyde",
   "population": 7858534128.266539,
   "honesty": "census-based (HYDE, national statistics)",
   "error_p05": -0.02523882727425865,

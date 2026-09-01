@@ -1,0 +1,1 @@
+year 1965 population 3323.98 M; residual 0.0048; 47s

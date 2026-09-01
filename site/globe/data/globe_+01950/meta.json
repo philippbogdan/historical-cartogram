@@ -1,0 +1,11 @@
+{
+ "rows": 164,
+ "cols": 513,
+ "experiment": "globe_+01950",
+ "year": 1950,
+ "population": 2529568054.1730547,
+ "textures": [],
+ "error_p05": -0.058665897632391495,
+ "error_p95": 0.2560832408652202,
+ "honesty": "census-based (HYDE)"
+}

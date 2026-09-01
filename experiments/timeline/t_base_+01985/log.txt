@@ -1,0 +1,1 @@
+year 1985 population 4848.08 M; residual 0.0045; 47s

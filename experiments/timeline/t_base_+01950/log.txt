@@ -1,0 +1,1 @@
+year 1950 population 2529.57 M; residual 0.0042; 47s

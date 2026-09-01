@@ -1,0 +1,1 @@
+year 1999 population 6036.80 M; residual 0.0041; 47s

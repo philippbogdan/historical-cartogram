@@ -1,0 +1,19 @@
+{
+ "folds": 66124,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.025253541540466665,
+ "log_ratio_popweighted_p50": 0.00011763584117516345,
+ "log_ratio_popweighted_p95": 0.12798899216157836,
+ "log_ratio_min": -7.9233248112291115,
+ "log_ratio_max": 10.552988119932612,
+ "anisotropy_popweighted_p50": 3.925334918217481,
+ "anisotropy_popweighted_p95": 21.617552379075708,
+ "displacement_mean_px": 496.12233553128743,
+ "displacement_max_px": 1045.6807554187674,
+ "residual": 0.003490772098302841,
+ "cell_folds": 60399,
+ "year": 2018,
+ "population": 7509075676.127258,
+ "people_per_px": 1790.3031530683656,
+ "seconds": 46.34875178337097
+}

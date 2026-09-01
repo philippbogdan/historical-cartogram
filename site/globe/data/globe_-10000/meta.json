@@ -1,0 +1,11 @@
+{
+ "rows": 164,
+ "cols": 513,
+ "experiment": "globe_-10000",
+ "year": -10000,
+ "population": 4501152.564395532,
+ "textures": [],
+ "error_p05": -0.05179152064350441,
+ "error_p95": 0.17677264722070424,
+ "honesty": "modelled (HYDE)"
+}

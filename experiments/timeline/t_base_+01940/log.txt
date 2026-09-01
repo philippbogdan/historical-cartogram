@@ -1,0 +1,1 @@
+year 1940 population 2328.46 M; residual 0.0044; 48s

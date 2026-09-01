@@ -1,0 +1,1 @@
+year 1987 population 5024.48 M; residual 0.0044; 47s

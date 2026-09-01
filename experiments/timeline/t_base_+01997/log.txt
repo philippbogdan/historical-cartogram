@@ -1,0 +1,1 @@
+year 1997 population 5876.28 M; residual 0.0041; 47s

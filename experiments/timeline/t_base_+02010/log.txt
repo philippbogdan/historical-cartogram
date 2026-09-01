@@ -1,0 +1,1 @@
+year 2010 population 6901.00 M; residual 0.0037; 47s

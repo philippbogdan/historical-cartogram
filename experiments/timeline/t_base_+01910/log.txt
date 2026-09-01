@@ -1,0 +1,1 @@
+year 1910 population 1800.22 M; residual 0.0032; 48s

@@ -1,0 +1,1 @@
+year 2025 population 8191.99 M; residual 0.0034; 47s

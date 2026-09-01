@@ -1,0 +1,11 @@
+{
+ "rows": 164,
+ "cols": 513,
+ "experiment": "globe_+02023",
+ "year": 2023,
+ "population": 7858534128.266539,
+ "textures": [],
+ "error_p05": -0.07288845381467045,
+ "error_p95": 0.2585193445459373,
+ "honesty": "census-based (HYDE)"
+}

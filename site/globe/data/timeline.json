@@ -1,0 +1,145 @@
+[
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_-10000",
+  "year": -10000,
+  "population": 4501152.564395532,
+  "textures": [],
+  "error_p05": -0.05179152064350441,
+  "error_p95": 0.17677264722070424,
+  "honesty": "modelled (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_-03000",
+  "year": -3000,
+  "population": 44577880.90901054,
+  "textures": [],
+  "error_p05": -0.044317452001437066,
+  "error_p95": 0.17199615085735737,
+  "honesty": "modelled (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_-01000",
+  "year": -1000,
+  "population": 110530464.80420643,
+  "textures": [],
+  "error_p05": -0.043192078474875974,
+  "error_p95": 0.18769621861108923,
+  "honesty": "modelled (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_+00000",
+  "year": 0,
+  "population": 232268839.62865528,
+  "textures": [],
+  "error_p05": -0.0410303318106923,
+  "error_p95": 0.1884759715594858,
+  "honesty": "modelled (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_+00500",
+  "year": 500,
+  "population": 253395812.726193,
+  "textures": [],
+  "error_p05": -0.04233192397307819,
+  "error_p95": 0.1830857729588517,
+  "honesty": "modelled (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_+01000",
+  "year": 1000,
+  "population": 323462634.459818,
+  "textures": [],
+  "error_p05": -0.04346589396092162,
+  "error_p95": 0.19080061939240897,
+  "honesty": "modelled (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_+01500",
+  "year": 1500,
+  "population": 503051110.5266103,
+  "textures": [],
+  "error_p05": -0.041929987109822035,
+  "error_p95": 0.19911305856420233,
+  "honesty": "modelled (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_+01700",
+  "year": 1700,
+  "population": 595456868.9337928,
+  "textures": [],
+  "error_p05": -0.04222072964542763,
+  "error_p95": 0.21862335457892842,
+  "honesty": "modelled (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_+01800",
+  "year": 1800,
+  "population": 954892369.5699266,
+  "textures": [],
+  "error_p05": -0.041919106623605464,
+  "error_p95": 0.21233948005518802,
+  "honesty": "modelled (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_+01900",
+  "year": 1900,
+  "population": 1670635634.4662685,
+  "textures": [],
+  "error_p05": -0.04960944044210491,
+  "error_p95": 0.22788699310422023,
+  "honesty": "modelled (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_+01950",
+  "year": 1950,
+  "population": 2529568054.1730547,
+  "textures": [],
+  "error_p05": -0.058665897632391495,
+  "error_p95": 0.2560832408652202,
+  "honesty": "census-based (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_+02000",
+  "year": 2000,
+  "population": 6117941194.445893,
+  "textures": [],
+  "error_p05": -0.0706975512039813,
+  "error_p95": 0.25920178703088353,
+  "honesty": "census-based (HYDE)"
+ },
+ {
+  "rows": 164,
+  "cols": 513,
+  "experiment": "globe_+02023",
+  "year": 2023,
+  "population": 7858534128.266539,
+  "textures": [],
+  "error_p05": -0.07288845381467045,
+  "error_p95": 0.2585193445459373,
+  "honesty": "census-based (HYDE)"
+ }
+]

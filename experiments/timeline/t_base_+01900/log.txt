@@ -1,0 +1,1 @@
+year 1900 population 1670.64 M; residual 0.0030; 48s
