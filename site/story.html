@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><title>the humeter world, a tour</title>
+<style>body{font:15px/1.5 -apple-system,sans-serif;background:#0b0d12;color:#ddd;margin:0}#stage{display:flex;height:100vh}#text{width:360px;padding:24px;overflow:auto;background:#0e1118}#view{flex:1;border:0}h1{font-size:20px}a{color:#7cc}.step{cursor:pointer;padding:8px 10px;border-radius:6px;margin:4px 0}.step.on{background:#1b2330}.k{color:#9ab;font-size:12px}</style></head>
+<body><div id="stage"><div id="text"><h1>A tour of the humeter world</h1><p class="k">Click a stop. The map on the right is the zoomable today frame (land = people).</p><div id="steps"></div><p class="k"><a href="index.html">about</a> | <a href="globe/">globe</a> | <a href="time/">time</a></p></div>
+<iframe id="view" src="flat/index.html"></iframe></div>
+<script>
+const stops=[
+ ["The whole frame","country/0.5/0.5/1.75","Every square centimetre holds the same number of people. Land is pure; the ocean keeps five percent of the frame so the Atlantic is still a channel and the Pacific a wall."],
+ ["India and China","country/0.72/0.5/2.5","A third of humanity in two lobes. Bangladesh, at the crease between them, out-areas Russia."],
+ ["The Nile","pop/0.43/0.42/3.5","Egypt is a thick worm along one river: switch to the settlement texture and the desert is a hairline around it."],
+ ["Java","pop/0.86/0.83/3.5","An island larger than Australia, which is the sliver below it."],
+ ["Europe","country/0.34/0.18/3","The Netherlands and Belgium as large as Sweden, Norway and Finland together."],
+ ["The Americas at the wall","country/0.08/0.45/2.5","The frame is cut at the Bering Strait so the Americas sit against the west border. Canada is a thin band; the US coasts pull the interior out into two lobes."],
+ ["Siberia","country/0.55/0.06/2.5","Twelve million square kilometres, one thin strip along the top edge: vast, and empty."],
+ ["Zoom to the ground","pop/0.72/0.55/6","Anywhere you zoom, the texture is the 100 m population data itself pushed through the warp: villages, rivers, roads."]
+];
+const box=document.getElementById('steps'); const fr=document.getElementById('view');
+stops.forEach((s,i)=>{const d=document.createElement('div'); d.className='step'; d.innerHTML=`<b>${i+1}. ${s[0]}</b><br><span class="k">${s[2]}</span>`; d.onclick=()=>{document.querySelectorAll('.step').forEach(e=>e.classList.remove('on')); d.classList.add('on'); fr.src='flat/index.html#'+s[1];}; box.appendChild(d);});
+</script></body></html>
