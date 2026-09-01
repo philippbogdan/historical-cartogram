@@ -163,3 +163,26 @@
   loads one mesh per epoch and grows the radius with sqrt(population). Site: static pages (flat viewer with
   z0-5 tiles, time scrubber, globe, lenses, geometry, story, compare); every viewer is checked in headless
   Chromium before commit.
+- 2026-09-01  T1 done: all 126 HYDE 3.3 epochs (10,000 BC to 2023) at 2048 through the spectral OT homotopy, 60 km
+  smoothing, land pure, ocean 5%; about 49 s per frame on the M4 GPU; population-weighted density error within
+  about -2.5% / +13% for the modern frames (the upper tail is the 5-arcmin HYDE cells that fall below the
+  smoothing scale). The compact mesh (int16 sixteenths of a pixel) and the countries render are the frame's
+  artefacts; the site takes 1024 px JPEGs.
+- 2026-09-01  L8 uncertainty is a SHAPE picture, not a ratio texture: log(upper/lower) of the HYDE bounds is
+  above 2 (a factor 7) almost everywhere people lived before 1500, so a ratio map is uniformly dark and says
+  nothing. The replacement solves the lower- and upper-bound populations as their own frames and draws
+  their coastlines (blue, red) over the base frame, with the population-weighted shift in pixels; that shows
+  where the map's shape actually depends on the bounds.
+- 2026-09-01  T6 peak year: coloured from 1900 to 2023; most cells peak in 2023 (still growing), the greens and
+  blues over Europe, Russia and Japan are the 20th-century peaks. HYDE's regional allocation makes this noisy
+  at 5 arcmin; the caption says so.
+- 2026-09-01  Globe through time: modern city labels are shown only on today's globe. On an earlier epoch they
+  would sit at today's warped positions on a differently warped, smaller sphere, which is wrong twice over.
+- 2026-09-01  T8 handover needs no normalisation of totals: the cartogram is invariant to a global scale of the
+  measure, so the seam between HYDE and GHS-POP (1975) and between GHS-POP and SSP2 (2030) is only a change in
+  spatial pattern. That disagreement is measured (src/timeline_seams.py, population-weighted displacement
+  difference between same-year frames from two sources) and recorded below once the frames exist. SSP2 is the
+  only scenario downloaded (T5); its rasters store nodata as 255 and the loader masks that value.
+- 2026-09-01  Browser checks now DRIVE the controls (select an option, move a slider, step an epoch) and listen
+  for page errors, not just load the page: the compare page had loaded cleanly for days while its script died
+  on the first line (a `const top` clashing with window.top).
