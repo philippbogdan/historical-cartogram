@@ -286,15 +286,33 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
 `DATA.md`, `notes/` (maths, ideas, resolution looks), `experiments/` (runs, INDEX), `src/hc/` (code),
 `src/run.py` (one experiment), `src/serve_tiles.py` + `viewer/` (V0), `tests/synthetic.py`.
 
-## v3 addendum, 2026-09-02: the hero programme (Phil: "do all, filter later")
+## v3, 2026-09-02: the product (Phil: "do all, filter later")
 
-Four hero pieces in one visual language (notes/design-2026-09-02.md): H1 the today world (8192 deformation,
-20% ocean, 30 km smoothing, 1:10M vectors); H2 the morph loop geography to cartogram (R3, McCann interpolation
-of the OT map); H3 eight epochs as small multiples (T3 for the in-betweens on the time page); H4 the GDP pair
-with GDP per person-year painted as the ratio. Then, in this order: V7 label collision; A5 per-capita overlays
-on the globe; A16 pole cap; V2 nested 100 m solves (residual OT inside city windows composed with the global
-map, so the zoomed tiles are true); L12 the non-human world (cropland, trees); L10 age lens (WorldPop);
-V5 V6 V8 viewer switches (lens, method and morph, metric grid); M11 + L7 semi-discrete OT (one cell per
-million people); the paper's prior-art search; the site cut to map, time and story with the gallery behind.
+Two products and four hero stills, one visual language (notes/design-2026-09-02.md).
+
+The interactive 2D map (V16-V18, the main deliverable):
+- V16 progressive disclosure by zoom, all through the same continuous warp: world = countries (admin-0);
+  zoom = provinces (Natural Earth 10m admin-1) and urban centres with their boundaries (GHS-UCDB); zoom
+  further = districts inside cities (geoBoundaries ADM2/ADM3, open licence). Click a country to fly into it;
+  hover highlights; smooth fades between levels; labels with real collision handling.
+- V17 base styles switchable: simple colour (regional palette), topographic (terrain and hillshade through
+  the warp), night lights, population density, the 100 m settlement texture at the deepest zoom.
+- V18 one engine for 2D and 3D: warped geometries as vector tiles (PMTiles) plus warped raster tiles, drawn
+  by MapLibre GL, which has both Mercator and globe projections with a built-in transition. The 2D map uses
+  the wall-frame warp (walls at the Bering Strait); the globe uses the periodic equal-area warp. The three.js
+  globe and the Leaflet viewer are retired once this is live.
+- V2 nested 100 m solves make the district level true rather than painted (residual OT inside city windows
+  composed with the global map). D13 boundary data: NE admin-1, GHS-UCDB, geoBoundaries.
+
+The hero stills: H1 the today world (4096 now; 8192 only via the float64 path, the GPU solver runs out of
+memory at 8192); H2 the morph loop geography to cartogram (R3, McCann interpolation of the OT map); H3 eight
+epochs as small multiples (T3 in-betweens on the time page); H4 the GDP pair with GDP per person-year as the
+ratio. Then: V7 label collision, A5 per-capita overlays on the globe, A16 pole cap, L12 the non-human world
+(Copernicus 100 m tree and crop cover, downloading), L10 age lens (WorldPop 1 km age bands, reducing to
+5 arcmin one file at a time), M11 + L7 semi-discrete OT (one cell per million people), the paper's prior-art
+search, the site cut to map, time and story with the gallery behind.
 Dropped on purpose: S5, M3 completion, M12, P2, L11. Hosting (A9/V10) and the print (A13) stay Phil's.
 Checkpoints at each piece; nothing spent; nothing deployed.
+
+Order of work: H1 (done at 4096, e036) -> V18 engine skeleton with V16 country level -> H2 -> V16 city and
+district levels -> V17 styles -> H3, H4 -> V2 -> the rest.
