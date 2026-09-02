@@ -195,3 +195,22 @@
   = 10.43 at 3000 BC, 7.0 at year 0, 1.89 at 1500, with p05 = p50 = p95): they carry no spatial uncertainty, so
   the bound frames coincide with the base frame to 0.01 px. L8 records this on the picture; the uncertainty is in
   people-per-pixel, not in the shape. A spatial uncertainty would need a different source.
+- 2026-09-02  The hero language (notes/design-2026-09-02.md): 20% ocean so the continents keep their gaps (land
+  stays pure; the ocean share only changes the white space), UN-subregion colours with lightness steps,
+  the ordinary graticule stretched, borders and coasts from warped vectors rasterised at output resolution
+  (a source-pixel splat gives staircases where land is magnified), fold repair before drawing, a people
+  square instead of a scale bar, a reading rule as caption, a reference inset in the same colours.
+- 2026-09-02  Polygons must be cut at the frame's walls before warping: grid.xy wraps longitude, so Alaska (across
+  lon0 = -168) came out as a band across the world. `warp_vectors.frame_clip` unwraps and intersects with
+  the frame and its shifted copy.
+- 2026-09-02  The interactive map is MapLibre over warped PMTiles. The warped square is treated as its own
+  Web-Mercator world: pixel x maps to longitude -180..180 across the frame (never wrapped, whatever the
+  geographic lon0), pixel y to latitude by the inverse Mercator, so MapLibre draws it linearly. Countries
+  that span most of the frame (India is 14% of the picture and nearly its full height) make "fly to" a
+  no-op by design. PMTiles need HTTP range requests (python -m RangeHTTPServer locally). A label font the
+  glyph server lacks (Open Sans Regular) fails silently and empties every tile of that source, which looked
+  like a tiling bug for an hour; Noto Sans Regular is served. Built tiles (0.65 GB) stay out of git.
+- 2026-09-02  GHS-UCDB city outlines are 1 km raster staircases; under an anisotropic warp they become spikes,
+  so they are rounded (buffer out and in, ~1 km) and simplified before warping.
+- 2026-09-02  H4: the GDP world and the person-years world look alike because both follow today's population;
+  the ratio picture (GDP per person-year, log2, RdBu) is the honest third panel and shows the 64-fold spread.
