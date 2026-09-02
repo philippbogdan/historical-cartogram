@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from hc import prep, render
 from hc.diffusion import quad_areas
 from run import ROOT, RAW
-from warp_vectors import frame_mesh, warp_ring, to_pseudo_lonlat
+from warp_vectors import frame_mesh, warp_ring, warp_ring_xy, frame_clip, to_pseudo_lonlat
 from render_countries import country_ids
 from render_hero import region_palette
 
@@ -28,8 +28,9 @@ def warp_polys(g, grid, X, Y):
     polys = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
     out = []
     for poly in polys:
-        rings = [warp_ring(r, grid, X, Y) for r in poly]; rings = [r for r in rings if r and len(r) >= 4]
-        if rings: out.append(rings)
+        for part in frame_clip(poly, grid):                       # cut at the frame's walls before warping
+            rings = [warp_ring_xy(r, X, Y, grid) for r in part]; rings = [r for r in rings if r and len(r) >= 4]
+            if rings: out.append(rings)
     if not out: return None
     return {"type": "MultiPolygon", "coordinates": out} if len(out) > 1 else {"type": "Polygon", "coordinates": out[0]}
 

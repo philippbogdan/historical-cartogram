@@ -35,6 +35,44 @@ def to_pseudo_lonlat(pts, grid):
     return np.stack([lon, lat], 1)
 
 
+def frame_clip(poly_rings_lonlat, grid):
+    """A polygon (list of lon/lat rings) -> list of polygons in pixel coords, cut at the frame's walls.
+    grid.xy wraps longitude into [0, W), so a polygon straddling the wall (Alaska at lon0 = -168) would
+    otherwise be rasterised as a band across the whole world. Unwrap x along each ring, then intersect
+    with the frame and with the frame shifted by one world width."""
+    from shapely.geometry import Polygon, box
+    from shapely.affinity import translate
+    from shapely.validation import make_valid
+    W, H = grid.W, grid.H; rings = []
+    for ring in poly_rings_lonlat:
+        c = np.asarray(ring, np.float64); x, y = grid.xy(c[:, 0], c[:, 1]); x = np.asarray(x, np.float64).copy()
+        d = np.diff(x); jump = np.round(d / W); x[1:] -= np.cumsum(jump) * W      # unwrap: no consecutive jump above half a world
+        rings.append(np.stack([x, y], 1))
+    if len(rings[0]) < 4: return []
+    try:
+        poly = make_valid(Polygon(rings[0], [r for r in rings[1:] if len(r) >= 4]))
+    except Exception:
+        return []
+    out = []
+    xmin, xmax = poly.bounds[0], poly.bounds[2]
+    for k in range(int(np.floor(xmin / W)), int(np.floor(xmax / W)) + 1):
+        part = poly.intersection(box(k * W, -1e9, (k + 1) * W, 1e9))
+        if part.is_empty: continue
+        part = translate(part, xoff=-k * W)
+        geoms = getattr(part, "geoms", [part])
+        for g in geoms:
+            if g.geom_type != "Polygon" or g.area < 1e-6: continue
+            out.append([np.asarray(g.exterior.coords)] + [np.asarray(i.coords) for i in g.interiors])
+    return out
+
+
+def warp_ring_xy(pts_xy, X, Y, grid, max_seg=0.5):
+    pts = render._densify(np.asarray(pts_xy, np.float64), max_seg=max_seg)
+    wp = render.warp_points(pts, X, Y, X.shape[1] - 1)
+    ll = to_pseudo_lonlat(wp, grid)
+    return [[round(float(a), 5), round(float(b), 5)] for a, b in ll]
+
+
 def warp_ring(ring, grid, X, Y, max_seg=0.5):
     c = np.asarray(ring, np.float64)
     if len(c) < 2: return None

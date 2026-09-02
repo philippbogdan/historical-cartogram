@@ -44,15 +44,16 @@ def warped_country_ids(vectors, grid, X, Y, W, oh, ow, sc):
         g = f["geometry"]
         if g["type"] not in ("Polygon", "MultiPolygon"): continue
         k += 1
+        from warp_vectors import frame_clip
         polys = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
         for poly in polys:
-            rings = []
-            for ring in poly:
-                c = np.asarray(ring, np.float64); x, y = grid.xy(c[:, 0], c[:, 1])
-                pts = render._densify(np.stack([x, y], 1), max_seg=0.5)
-                wp = render.warp_points(pts, X, Y, W)
-                rings.append([(float(px * sc), float(py * sc)) for px, py in wp])
-            if len(rings[0]) >= 4: shapes.append(({"type": "Polygon", "coordinates": rings}, k))
+            for part in frame_clip(poly, grid):                   # cut at the frame's walls before warping
+                rings = []
+                for r in part:
+                    pts = render._densify(np.asarray(r, np.float64), max_seg=0.5)
+                    wp = render.warp_points(pts, X, Y, W)
+                    rings.append([(float(px * sc), float(py * sc)) for px, py in wp])
+                if len(rings[0]) >= 4: shapes.append(({"type": "Polygon", "coordinates": rings}, k))
     return features.rasterize(shapes, out_shape=(oh, ow), transform=Affine.identity(), fill=0, dtype="int32")
 
 
