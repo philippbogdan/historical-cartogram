@@ -6,6 +6,7 @@
 """
 import json, os, sys, time
 import numpy as np
+OCEAN = float(os.environ.get("HC_OCEAN", "0.05")); TAG = os.environ.get("HC_TAG", "")   # 20% ocean hero variants: HC_OCEAN=0.2 HC_TAG=_o20
 import rasterio
 from rasterio.enums import Resampling
 sys.path.insert(0, os.path.dirname(__file__))
@@ -51,7 +52,7 @@ def gdp(width):
     if lat[0] < lat[-1]: a = a[::-1]
     grid = prep.Grid("mercator", width, lon0=lon0); P, _ = prep.to_grid(a, (-180, -90, 180, 90), grid)
     print(f"GDP PPP 2015 total {a.sum()/1e12:.1f} trillion (2011 USD)")
-    _solve(f"L4_gdp_{width}", P, grid, 60.0, 0.05, {"source": "Kummu, Taka & Guillaume 2018, GDP PPP 2015, 5 arcmin, CC0", "honesty": "downscaled from national and subnational statistics", "measure": "GDP PPP 2015"})
+    _solve(f"L4_gdp_{width}{TAG}", P, grid, 60.0, OCEAN, {"source": "Kummu, Taka & Guillaume 2018, GDP PPP 2015, 5 arcmin, CC0", "honesty": "downscaled from national and subnational statistics", "measure": "GDP PPP 2015"})
 
 
 def lonely(width):

@@ -7,6 +7,7 @@
 """
 import csv, json, os, sys, time
 import numpy as np
+OCEAN = float(os.environ.get("HC_OCEAN", "0.05")); TAG = os.environ.get("HC_TAG", "")   # 20% ocean hero variants: HC_OCEAN=0.2 HC_TAG=_o20
 sys.path.insert(0, os.path.dirname(__file__))
 from hc import prep, diffusion, ot_poisson, render, hyde, layers
 from run import ROOT, RAW, render_all, load_mesh
@@ -39,7 +40,7 @@ def personyears(width):
         dt = ys[i + 1] - ys[i]; a, b = H.counts(i), H.counts(i + 1); acc += 0.5 * (a + b) * dt
     grid = prep.Grid("mercator", width, lon0=lon0); P, _ = prep.to_grid(acc, H.bounds, grid)
     print(f"person-years total {acc.sum()/1e9:.1f} bn person-years from {ys[0]} to {ys[-1]}")
-    solve_and_save(f"L3_personyears_{width}", P, grid, 60.0, 0.05, {"source": "HYDE 3.3 base, integrated 10,000 BC to 2023", "honesty": "modelled before 1950", "measure": "person-years"})
+    solve_and_save(f"L3_personyears_{width}{TAG}", P, grid, 60.0, OCEAN, {"source": "HYDE 3.3 base, integrated 10,000 BC to 2023", "honesty": "modelled before 1950", "measure": "person-years"})
 
 
 def peak(width):

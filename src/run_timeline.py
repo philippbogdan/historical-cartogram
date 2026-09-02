@@ -11,6 +11,7 @@ sigma_km = float(sys.argv[2]) if len(sys.argv) > 2 else 60.0
 ocean_share = float(sys.argv[3]) if len(sys.argv) > 3 else 0.05
 sel = sys.argv[4] if len(sys.argv) > 4 else "all"
 scenario = sys.argv[5] if len(sys.argv) > 5 else "base"
+tag = sys.argv[6] if len(sys.argv) > 6 else ""          # e.g. _o20 for a 20% ocean variant, kept apart from the base frames
 lon0, xb = -168.0, "wall"
 
 if __name__ == "__main__":
@@ -30,12 +31,12 @@ if __name__ == "__main__":
     index = []
     for i in idx:
         y = years[i]
-        name = f"t_{scenario}_{y:+06d}"
+        name = f"t_{scenario}{tag}_{y:+06d}"
         out = os.path.join(out_root, name)
         if os.path.exists(os.path.join(out, "metrics.json")):
             index.append(name); print("skip", name); continue
         honesty = "modelled (HYDE allocation of regional estimates)" if y < 1950 else "census-based (HYDE, national statistics)"
         run_epoch(out, grid, H.counts(i), H.bounds, y, f"HYDE 3.3 {scenario} population.nc", honesty, sigma_km, ocean, ocean_share, xb, lon0)
         index.append(name)
-    json.dump({"scenario": scenario, "width": width, "frames": index}, open(os.path.join(out_root, f"index_{scenario}_{width}.json"), "w"), indent=1)
+    json.dump({"scenario": scenario, "width": width, "frames": index}, open(os.path.join(out_root, f"index_{scenario}{tag}_{width}.json"), "w"), indent=1)
     print("done", len(index), "frames")

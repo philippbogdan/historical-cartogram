@@ -121,7 +121,13 @@ def draw_uncollapsed(ax, lines, X, Y, W, sc, color, lw, max_compression=7.0, are
 def main(name, out_w=4096, grat_step=15):
     out = os.path.join(ROOT, "experiments", name); p = json.load(open(os.path.join(out, "params.json")))
     from warp_vectors import frame_mesh                      # population-aware fold repair, cached per experiment
-    _, X, Y, _ = frame_mesh(name); X, Y = X.astype(np.float64), Y.astype(np.float64); rho0 = load_mesh(out)[2]
+    _, X, Y, _ = frame_mesh(name); X, Y = X.astype(np.float64), Y.astype(np.float64)
+    draw_hero(X, Y, p, os.path.join(out, "hero.png"), out_w, grat_step)
+
+
+def draw_hero(X, Y, p, out_png, out_w=4096, grat_step=15, title="THE WORLD, AREA = PEOPLE", subtitle=None, source=None, band=True, labels=True, overlay=None, legend_text="= 10 million people", legend_unit=1e7, corner_text=None):
+    """One hero picture from a corner mesh (X, Y) on the frame's grid described by params p."""
+    out = os.path.dirname(out_png)
     grid = prep.Grid(p.get("grid", "mercator"), p["W"], p["lat_cut"], lon0=p.get("lon0", -180.0)); H, W = grid.H, grid.W
     wrap = p.get("x_boundary", "periodic") == "periodic"
     oh, ow = int(round(H * out_w / W)), out_w; sc = ow / W
@@ -129,6 +135,12 @@ def main(name, out_w=4096, grat_step=15):
     ids, names, pops = country_ids(grid, vec); cols = region_palette(vec); rgb = cols[ids]
     ids_out = warped_country_ids(vec, grid, X, Y, W, oh, ow, sc)
     img = cols[ids_out]
+    if overlay is not None:                                   # a per-source-cell raster painted through the warp (the lens grammar)
+        vals, cmap, vmin, vmax, alpha = overlay
+        v = np.clip(render.splat(np.nan_to_num(vals, nan=vmin).astype(np.float64), X, Y, (oh, ow), wrap=wrap), vmin, vmax)
+        col = plt.get_cmap(cmap)((v - vmin) / (vmax - vmin))[..., :3]
+        land = (ids_out > 0)[..., None]
+        img = np.where(land, img * (1 - alpha) + col * alpha, img)
     borders = render.lines_from_geojson(os.path.join(RAW, f"ne_{vec}_admin_0_countries.geojson"), grid)
     coast = render.lines_from_geojson(os.path.join(RAW, f"ne_{vec}_coastline.geojson"), grid)
     grat = render.graticule(grid, grat_step)
@@ -143,7 +155,7 @@ def main(name, out_w=4096, grat_step=15):
     border_a = ndimage.grey_dilation(diff.astype(np.float64), size=(lw_px, lw_px)) * (1 - coast_a)
     img = img * (1 - 0.65 * border_a[..., None]) + np.array([1, 1, 1]) * 0.65 * border_a[..., None]
     img = img * (1 - 0.85 * coast_a[..., None]) + np.array([0.27, 0.27, 0.27]) * 0.85 * coast_a[..., None]
-    band = int(0.13 * oh); fig = plt.figure(figsize=(ow / 100, (oh + band) / 100), dpi=100, facecolor="white")
+    band = int(0.13 * oh) if band else 0; fig = plt.figure(figsize=(ow / 100, (oh + band) / 100), dpi=100, facecolor="white")
     ax = fig.add_axes([0, band / (oh + band), 1, oh / (oh + band)]); ax.set_axis_off(); ax.set_xlim(0, ow); ax.set_ylim(oh, 0)
     ax.imshow(np.clip(img, 0, 1), extent=(0, ow, oh, 0), interpolation="nearest")
     render._add_lines(ax, grat, X, Y, W, sc, "#00000040", 0.6)          # the original graticule, stretched
@@ -155,28 +167,33 @@ def main(name, out_w=4096, grat_step=15):
     Af, cxf, cyf = A.ravel()[order], (cx.ravel() % W)[order], cy.ravel()[order]
     for k, nm in enumerate(names):
         s, e = st[k], en[k]
-        if e <= s: continue
+        if e <= s or not labels: continue
         a = Af[s:e]; share = a.sum() / total
         if share < 0.0008: continue
         ang = cxf[s:e] / W * 2 * np.pi
         mx = (np.arctan2((np.sin(ang) * a).sum(), (np.cos(ang) * a).sum()) / (2 * np.pi)) % 1.0 * W; my = (cyf[s:e] * a).sum() / a.sum()
         fs = float(np.clip(12 + 110 * np.sqrt(share), 13, 96)) * out_w / 4096
         ax.text(mx * sc, my * sc, nm.upper() if share > 0.01 else nm, fontsize=fs, ha="center", va="center", color="#222", alpha=0.85, fontweight="medium" if share > 0.01 else "normal")
-    places = layers.cities(os.path.join(RAW, "ne_10m_populated_places_simple.geojson"), grid, n=400)
-    draw_city_labels_big(ax, places, X, Y, W, sc, (oh, ow), color="#1a1a1a", max_labels=120, base=out_w / 4096)
+    if labels:
+        places = layers.cities(os.path.join(RAW, "ne_10m_populated_places_simple.geojson"), grid, n=400)
+        draw_city_labels_big(ax, places, X, Y, W, sc, (oh, ow), color="#1a1a1a", max_labels=120, base=out_w / 4096)
     # caption band: title and explanation (left), the people square (middle), the ordinary map (right)
+    if corner_text:
+        ax.text(0.012 * ow, 0.015 * oh, corner_text, fontsize=30 * out_w / 4096, fontweight="bold", color="#111", va="top", bbox=dict(facecolor="#ffffffcc", edgecolor="none", pad=6))
+    if not band:
+        fig.savefig(out_png, dpi=100); plt.close(fig); print("wrote", out_png); return
     mpath = os.path.join(out, "metrics.json"); met = json.load(open(mpath)) if os.path.exists(mpath) else {}
     pop = met.get("population") or p.get("population") or 8.191e9          # GHS-POP 2025 world total as the fallback
     ppp = pop / (W * H)
-    side = np.sqrt(1e7 / ppp) * sc                     # pixels holding 10 million people
+    side = np.sqrt(legend_unit / ppp) * sc             # pixels holding one legend unit (10 million people by default)
     cap = fig.add_axes([0, 0, 1, band / (oh + band)]); cap.set_axis_off(); cap.set_xlim(0, ow); cap.set_ylim(band, 0)
     fs = out_w / 4096
-    cap.text(0.015 * ow, 0.20 * band, "THE WORLD, AREA = PEOPLE", fontsize=64 * fs, fontweight="bold", color="#111", va="center")
-    cap.text(0.015 * ow, 0.50 * band, f"Every part of the picture holds as many people as its area says: the square is 10 million people, the whole frame {pop/1e9:.2f} billion.\nCoastlines and borders are drawn where they land. The grey lines are the ordinary 15° graticule, stretched with the land.",
+    cap.text(0.015 * ow, 0.20 * band, title, fontsize=64 * fs, fontweight="bold", color="#111", va="center")
+    cap.text(0.015 * ow, 0.50 * band, subtitle or f"Every part of the picture holds as many people as its area says: the square is 10 million people, the whole frame {pop/1e9:.2f} billion.\nCoastlines and borders are drawn where they land. The grey lines are the ordinary 15° graticule, stretched with the land.",
              fontsize=26 * fs, color="#333", va="center", linespacing=1.5)
-    cap.text(0.015 * ow, 0.82 * band, f"Optimal transport of the GHS-POP 2025 population raster (100 m), land pure, ocean kept at {100 * p.get('ocean_share', 0):.0f}% of the frame. Colours follow UN subregions.", fontsize=19 * fs, color="#666", va="center")
+    cap.text(0.015 * ow, 0.82 * band, source or f"Optimal transport of the GHS-POP 2025 population raster (100 m), land pure, ocean kept at {100 * p.get('ocean_share', 0):.0f}% of the frame. Colours follow UN subregions.", fontsize=19 * fs, color="#666", va="center")
     sx = 0.56 * ow; cap.add_patch(plt.Rectangle((sx, 0.5 * band - side / 2), side, side, facecolor="#ffffff", edgecolor="#222", lw=1.2))
-    cap.text(sx + side + 0.006 * ow, 0.5 * band, "= 10 million people", fontsize=26 * fs, va="center", color="#222")
+    cap.text(sx + side + 0.006 * ow, 0.5 * band, legend_text, fontsize=26 * fs, va="center", color="#222")
     _, y_top = grid.xy(0.0, 76.0); _, y_bot = grid.xy(0.0, -58.0)          # inset shows 58S to 76N
     ih = 0.86 * band; iw = ih * W / (y_bot - y_top)
     ins = fig.add_axes([0.985 - iw / ow, (band - ih) / 2 / (oh + band), iw / ow, ih / (oh + band)]); ins.imshow(rgb, extent=(0, W, H, 0), interpolation="nearest")
@@ -184,7 +201,7 @@ def main(name, out_w=4096, grat_step=15):
     ins.set_xlim(0, W); ins.set_ylim(y_bot, y_top); ins.set_xticks([]); ins.set_yticks([])
     for sp in ins.spines.values(): sp.set_edgecolor("#222"); sp.set_linewidth(0.8)
     ins.set_title("the same colours on the ordinary map", fontsize=19 * fs, color="#333", pad=6)
-    fig.savefig(os.path.join(out, "hero.png"), dpi=100); plt.close(fig); print("wrote", os.path.join(out, "hero.png"), FONT)
+    fig.savefig(out_png, dpi=100); plt.close(fig); print("wrote", out_png, FONT)
 
 
 if __name__ == "__main__":

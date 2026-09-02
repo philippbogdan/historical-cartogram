@@ -12,6 +12,7 @@ width = int(sys.argv[2]) if len(sys.argv) > 2 else 2048
 sigma_km = float(sys.argv[3]) if len(sys.argv) > 3 else 60.0
 ocean_share = float(sys.argv[4]) if len(sys.argv) > 4 else 0.05
 sel = sys.argv[5] if len(sys.argv) > 5 else "all"
+tag = sys.argv[6] if len(sys.argv) > 6 else ""
 lon0, xb, FACTOR = -168.0, "wall", 10        # 30 arcsec rasters block-summed to 5 arcmin, the HYDE resolution
 
 
@@ -47,11 +48,11 @@ if __name__ == "__main__":
     index = []
     for y, f, src, honesty in epochs(source):
         if want is not None and y not in want: continue
-        name = f"t_{source}_{y:+06d}"; out = os.path.join(out_root, name)
+        name = f"t_{source}{tag}_{y:+06d}"; out = os.path.join(out_root, name)
         if os.path.exists(os.path.join(out, "metrics.json")):
             index.append(name); print("skip", name); continue
         counts, bounds = counts_for(f, y, source)
         run_epoch(out, grid, counts, bounds, y, src, honesty, sigma_km, ocean, ocean_share, xb, lon0)
         index.append(name)
-    json.dump({"scenario": source, "width": width, "frames": index}, open(os.path.join(out_root, f"index_{source}_{width}.json"), "w"), indent=1)
+    json.dump({"scenario": source, "width": width, "frames": index}, open(os.path.join(out_root, f"index_{source}{tag}_{width}.json"), "w"), indent=1)
     print("done", len(index), "frames")
