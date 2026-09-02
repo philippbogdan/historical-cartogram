@@ -35,6 +35,47 @@ FAMILY = {"Northern America": 0.60, "Central America": 0.08, "Caribbean": 0.08, 
           "Australia and New Zealand": 0.66, "Melanesia": 0.64, "Micronesia": 0.64, "Polynesia": 0.64}
 
 
+def warped_country_ids(vectors, grid, X, Y, W, oh, ow, sc):
+    """Country polygons densified, pushed through the warp vertex by vertex and rasterised at the OUTPUT
+    resolution: borders stay crisp where the land is magnified (a source-pixel splat gives staircases there)."""
+    gj = json.load(open(os.path.join(RAW, f"ne_{vectors}_admin_0_countries.geojson")))
+    shapes = []; k = 0
+    for f in gj["features"]:
+        g = f["geometry"]
+        if g["type"] not in ("Polygon", "MultiPolygon"): continue
+        k += 1
+        polys = g["coordinates"] if g["type"] == "MultiPolygon" else [g["coordinates"]]
+        for poly in polys:
+            rings = []
+            for ring in poly:
+                c = np.asarray(ring, np.float64); x, y = grid.xy(c[:, 0], c[:, 1])
+                pts = render._densify(np.stack([x, y], 1), max_seg=0.5)
+                wp = render.warp_points(pts, X, Y, W)
+                rings.append([(float(px * sc), float(py * sc)) for px, py in wp])
+            if len(rings[0]) >= 4: shapes.append(({"type": "Polygon", "coordinates": rings}, k))
+    return features.rasterize(shapes, out_shape=(oh, ow), transform=Affine.identity(), fill=0, dtype="int32")
+
+
+def draw_city_labels_big(ax, places, X, Y, W, scale, out_hw, color="#111", max_labels=120, base=1.0):
+    """Like layers.draw_city_labels, with type sizes readable at a quarter of the pixel size."""
+    oh, ow = out_hw; cell = 24
+    occ = np.zeros((oh // cell + 2, ow // cell + 2), bool)
+    pts = np.array([[p[1], p[2]] for p in places]); wp = render.warp_points(pts, X, Y, W); drawn = 0
+    for (name, _, _, pop), (wx, wy) in zip(places, wp):
+        fs = float(np.clip(11 + 4.5 * np.log10(max(pop, 1e5) / 1e6), 11, 22)) * base
+        px, py = (wx % W) * scale, wy * scale
+        w_cells = int(len(name) * fs * 0.62 * 100 / 72 / cell) + 2
+        i, j = int(py // cell), int(px // cell)
+        if i < 1 or i >= occ.shape[0] - 1 or j < 0 or j + w_cells >= occ.shape[1]: continue
+        if occ[i - 1:i + 2, max(j - 1, 0):j + w_cells + 1].any(): continue
+        occ[i - 1:i + 2, max(j - 1, 0):j + w_cells + 1] = True
+        ax.plot(px, py, "o", ms=fs * 0.3, color=color, alpha=0.85)
+        ax.text(px + fs * 0.5, py, name, fontsize=fs, color=color, va="center", ha="left")
+        drawn += 1
+        if drawn >= max_labels: break
+    return drawn
+
+
 def region_palette(vectors="50m"):
     gj = json.load(open(os.path.join(RAW, f"ne_{vectors}_admin_0_countries.geojson")))
     feats = [f for f in gj["features"] if f["geometry"]["type"] in ("Polygon", "MultiPolygon")]
@@ -79,24 +120,27 @@ def draw_uncollapsed(ax, lines, X, Y, W, sc, color, lw, max_compression=7.0, are
 
 def main(name, out_w=4096, grat_step=15):
     out = os.path.join(ROOT, "experiments", name); p = json.load(open(os.path.join(out, "params.json")))
-    X, Y, rho0 = load_mesh(out); X, Y = X.astype(np.float64), Y.astype(np.float64)
+    from warp_vectors import frame_mesh                      # population-aware fold repair, cached per experiment
+    _, X, Y, _ = frame_mesh(name); X, Y = X.astype(np.float64), Y.astype(np.float64); rho0 = load_mesh(out)[2]
     grid = prep.Grid(p.get("grid", "mercator"), p["W"], p["lat_cut"], lon0=p.get("lon0", -180.0)); H, W = grid.H, grid.W
     wrap = p.get("x_boundary", "periodic") == "periodic"
     oh, ow = int(round(H * out_w / W)), out_w; sc = ow / W
     vec = p.get("vectors", "50m")
     ids, names, pops = country_ids(grid, vec); cols = region_palette(vec); rgb = cols[ids]
-    img = np.stack([render.splat(rgb[..., c], X, Y, (oh, ow), wrap=wrap) for c in range(3)], -1)
+    ids_out = warped_country_ids(vec, grid, X, Y, W, oh, ow, sc)
+    img = cols[ids_out]
     borders = render.lines_from_geojson(os.path.join(RAW, f"ne_{vec}_admin_0_countries.geojson"), grid)
     coast = render.lines_from_geojson(os.path.join(RAW, f"ne_{vec}_coastline.geojson"), grid)
     grat = render.graticule(grid, grat_step)
     # lines of constant width in the OUTPUT domain, derived from the warped fills themselves, so a collapsed
     # seam becomes one thin dark line and no polyline overshoots through a fold:
     # coast = edge of the warped ocean coverage; borders = colour edges of the warped country fill
-    oc = np.clip(render.splat((ids == 0).astype(np.float64), X, Y, (oh, ow), wrap=wrap), 0, 1)
-    oc = ndimage.gaussian_filter(oc, 1.2)                                       # soften fold bristles before the edge
+    lw_px = max(1, int(round(out_w / 2048)))
+    oc = ndimage.gaussian_filter((ids_out == 0).astype(np.float64), 0.8)
     coast_a = np.clip(np.hypot(ndimage.sobel(oc, 0), ndimage.sobel(oc, 1)) * 1.2, 0, 1)
-    cedge = sum(np.hypot(ndimage.sobel(img[..., c], 0), ndimage.sobel(img[..., c], 1)) for c in range(3))
-    border_a = np.clip(cedge * 2.5, 0, 1) * (1 - coast_a)
+    coast_a = ndimage.grey_dilation(coast_a, size=(lw_px, lw_px))
+    diff = np.zeros(ids_out.shape, bool); diff[:, 1:] |= ids_out[:, 1:] != ids_out[:, :-1]; diff[1:, :] |= ids_out[1:, :] != ids_out[:-1, :]
+    border_a = ndimage.grey_dilation(diff.astype(np.float64), size=(lw_px, lw_px)) * (1 - coast_a)
     img = img * (1 - 0.65 * border_a[..., None]) + np.array([1, 1, 1]) * 0.65 * border_a[..., None]
     img = img * (1 - 0.85 * coast_a[..., None]) + np.array([0.27, 0.27, 0.27]) * 0.85 * coast_a[..., None]
     band = int(0.13 * oh); fig = plt.figure(figsize=(ow / 100, (oh + band) / 100), dpi=100, facecolor="white")
@@ -113,13 +157,13 @@ def main(name, out_w=4096, grat_step=15):
         s, e = st[k], en[k]
         if e <= s: continue
         a = Af[s:e]; share = a.sum() / total
-        if share < 0.0006: continue
+        if share < 0.0008: continue
         ang = cxf[s:e] / W * 2 * np.pi
         mx = (np.arctan2((np.sin(ang) * a).sum(), (np.cos(ang) * a).sum()) / (2 * np.pi)) % 1.0 * W; my = (cyf[s:e] * a).sum() / a.sum()
-        fs = float(np.clip(7 + 70 * np.sqrt(share), 7, 54)) * out_w / 4096
+        fs = float(np.clip(12 + 110 * np.sqrt(share), 13, 96)) * out_w / 4096
         ax.text(mx * sc, my * sc, nm.upper() if share > 0.01 else nm, fontsize=fs, ha="center", va="center", color="#222", alpha=0.85, fontweight="medium" if share > 0.01 else "normal")
     places = layers.cities(os.path.join(RAW, "ne_10m_populated_places_simple.geojson"), grid, n=400)
-    layers.draw_city_labels(ax, places, X, Y, W, sc, (oh, ow), color="#1a1a1a", max_labels=160)
+    draw_city_labels_big(ax, places, X, Y, W, sc, (oh, ow), color="#1a1a1a", max_labels=120, base=out_w / 4096)
     # caption band: title and explanation (left), the people square (middle), the ordinary map (right)
     mpath = os.path.join(out, "metrics.json"); met = json.load(open(mpath)) if os.path.exists(mpath) else {}
     pop = met.get("population") or p.get("population") or 8.191e9          # GHS-POP 2025 world total as the fallback
@@ -127,19 +171,19 @@ def main(name, out_w=4096, grat_step=15):
     side = np.sqrt(1e7 / ppp) * sc                     # pixels holding 10 million people
     cap = fig.add_axes([0, 0, 1, band / (oh + band)]); cap.set_axis_off(); cap.set_xlim(0, ow); cap.set_ylim(band, 0)
     fs = out_w / 4096
-    cap.text(0.015 * ow, 0.22 * band, "THE WORLD, AREA = PEOPLE", fontsize=34 * fs, fontweight="bold", color="#111", va="center")
+    cap.text(0.015 * ow, 0.20 * band, "THE WORLD, AREA = PEOPLE", fontsize=64 * fs, fontweight="bold", color="#111", va="center")
     cap.text(0.015 * ow, 0.50 * band, f"Every part of the picture holds as many people as its area says: the square is 10 million people, the whole frame {pop/1e9:.2f} billion.\nCoastlines and borders are drawn where they land. The grey lines are the ordinary 15° graticule, stretched with the land.",
-             fontsize=14 * fs, color="#333", va="center", linespacing=1.5)
-    cap.text(0.015 * ow, 0.82 * band, f"Optimal transport of the GHS-POP 2025 population raster (100 m), land pure, ocean kept at {100 * p.get('ocean_share', 0):.0f}% of the frame. Colours follow UN subregions.", fontsize=11.5 * fs, color="#666", va="center")
-    sx = 0.60 * ow; cap.add_patch(plt.Rectangle((sx, 0.5 * band - side / 2), side, side, facecolor="#ffffff", edgecolor="#222", lw=1.2))
-    cap.text(sx + side + 0.006 * ow, 0.5 * band, "= 10 million people", fontsize=14 * fs, va="center", color="#222")
+             fontsize=26 * fs, color="#333", va="center", linespacing=1.5)
+    cap.text(0.015 * ow, 0.82 * band, f"Optimal transport of the GHS-POP 2025 population raster (100 m), land pure, ocean kept at {100 * p.get('ocean_share', 0):.0f}% of the frame. Colours follow UN subregions.", fontsize=19 * fs, color="#666", va="center")
+    sx = 0.56 * ow; cap.add_patch(plt.Rectangle((sx, 0.5 * band - side / 2), side, side, facecolor="#ffffff", edgecolor="#222", lw=1.2))
+    cap.text(sx + side + 0.006 * ow, 0.5 * band, "= 10 million people", fontsize=26 * fs, va="center", color="#222")
     _, y_top = grid.xy(0.0, 76.0); _, y_bot = grid.xy(0.0, -58.0)          # inset shows 58S to 76N
     ih = 0.86 * band; iw = ih * W / (y_bot - y_top)
     ins = fig.add_axes([0.985 - iw / ow, (band - ih) / 2 / (oh + band), iw / ow, ih / (oh + band)]); ins.imshow(rgb, extent=(0, W, H, 0), interpolation="nearest")
     for ln in coast: ins.plot(ln[:, 0], ln[:, 1], color="#4a4a4a", lw=0.3)
     ins.set_xlim(0, W); ins.set_ylim(y_bot, y_top); ins.set_xticks([]); ins.set_yticks([])
     for sp in ins.spines.values(): sp.set_edgecolor("#222"); sp.set_linewidth(0.8)
-    ins.set_title("the same colours on the ordinary map", fontsize=11 * fs, color="#333", pad=4)
+    ins.set_title("the same colours on the ordinary map", fontsize=19 * fs, color="#333", pad=6)
     fig.savefig(os.path.join(out, "hero.png"), dpi=100); plt.close(fig); print("wrote", os.path.join(out, "hero.png"), FONT)
 
 

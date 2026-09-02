@@ -1,0 +1,69 @@
+<!doctype html><html><head><meta charset="utf-8"><title>the humeter world, interactive</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/pmtiles@3.0.7/dist/pmtiles.js"></script>
+<style>
+html,body{margin:0;height:100%;font:14px/1.4 -apple-system,"Helvetica Neue",sans-serif;background:#f6f6f4}
+#map{position:absolute;inset:0}
+#ui{position:absolute;top:12px;left:12px;background:#fffc;padding:10px 12px;border-radius:6px;box-shadow:0 1px 4px #0003;max-width:340px}
+#ui b{display:block;font-size:15px;margin-bottom:4px}
+#ui label{margin-right:10px}
+#hover{position:absolute;bottom:12px;left:12px;background:#fffc;padding:6px 10px;border-radius:6px;font-size:13px;min-width:200px}
+#legend{position:absolute;bottom:12px;right:12px;background:#fffc;padding:8px 10px;border-radius:6px;font-size:13px;display:flex;align-items:center;gap:8px}
+#sq{border:1px solid #222;background:#fff}
+</style></head><body>
+<div id="map"></div>
+<div id="ui"><b>The world, area = people</b>
+<div>style: <select id="style"><option value="colour">simple colour</option><option value="pop">population texture</option><option value="lights">night lights</option></select>
+<label><input id="grat" type="checkbox" checked> graticule</label></div>
+<div style="color:#555;margin-top:4px">zoom in: countries, then provinces and cities, then districts. Click a country to fly into it. <a href="../index.html">about</a> · <a href="../globe/">globe</a></div></div>
+<div id="hover">hover a place</div>
+<div id="legend"><div id="sq"></div><span>= 10 million people</span></div>
+<script type="module">
+const protocol = new pmtiles.Protocol(); maplibregl.addProtocol("pmtiles", protocol.tile);
+const meta = await (await fetch('meta.json')).json();          // {people_per_px, W, lon0, layers:[...]}
+const REGION = meta.region_colours;
+const style = {
+  version: 8, glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+  sources: {
+    countries: { type: "vector", url: "pmtiles://tiles/countries.pmtiles" },
+    admin1: { type: "vector", url: "pmtiles://tiles/admin1.pmtiles" },
+    cities: { type: "vector", url: "pmtiles://tiles/cities.pmtiles" },
+    admin2: { type: "vector", url: "pmtiles://tiles/admin2.pmtiles" },
+    grat: { type: "vector", url: "pmtiles://tiles/graticule.pmtiles" },
+    pop: { type: "raster", tiles: ["../flat/tiles/pop/{z}/{x}/{y}.png"], tileSize: 256, maxzoom: 5 },
+  },
+  layers: [
+    { id: "bg", type: "background", paint: { "background-color": "#f6f6f4" } },
+    { id: "country-fill", type: "fill", source: "countries", "source-layer": "countries", paint: { "fill-color": ["get", "fill"], "fill-opacity": 1 } },
+    { id: "pop-raster", type: "raster", source: "pop", layout: { visibility: "none" }, paint: { "raster-opacity": 0.9 } },
+    { id: "admin1-fill", type: "fill", source: "admin1", "source-layer": "admin1", minzoom: 3, paint: { "fill-color": ["get", "fill"], "fill-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4.5, 1] } },
+    { id: "admin2-line", type: "line", source: "admin2", "source-layer": "admin2", minzoom: 6, paint: { "line-color": "#ffffff", "line-width": 0.6, "line-opacity": ["interpolate", ["linear"], ["zoom"], 6, 0, 7.5, 0.9] } },
+    { id: "admin1-line", type: "line", source: "admin1", "source-layer": "admin1", minzoom: 3, paint: { "line-color": "#ffffff", "line-width": 0.8, "line-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4.5, 0.9] } },
+    { id: "city-fill", type: "fill", source: "cities", "source-layer": "cities", minzoom: 4, paint: { "fill-color": "#000", "fill-opacity": ["interpolate", ["linear"], ["zoom"], 4, 0, 6, 0.10] } },
+    { id: "city-line", type: "line", source: "cities", "source-layer": "cities", minzoom: 4, paint: { "line-color": "#222", "line-width": 0.7, "line-opacity": ["interpolate", ["linear"], ["zoom"], 4, 0, 6, 0.8] } },
+    { id: "grat-line", type: "line", source: "grat", "source-layer": "graticule", paint: { "line-color": "#000", "line-opacity": 0.18, "line-width": 0.7 } },
+    { id: "country-line", type: "line", source: "countries", "source-layer": "countries", paint: { "line-color": "#ffffff", "line-width": ["interpolate", ["linear"], ["zoom"], 0, 0.6, 6, 1.6] } },
+    { id: "coast", type: "line", source: "countries", "source-layer": "coast", paint: { "line-color": "#454545", "line-width": ["interpolate", ["linear"], ["zoom"], 0, 0.7, 6, 1.8] } },
+    { id: "hover-line", type: "line", source: "countries", "source-layer": "countries", paint: { "line-color": "#111", "line-width": 2.5 }, filter: ["==", ["get", "name"], ""] },
+    { id: "country-label", type: "symbol", source: "countries", "source-layer": "countries", maxzoom: 5,
+      layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Semibold"], "text-size": ["interpolate", ["linear"], ["zoom"], 0, ["*", 6, ["^", ["get", "share"], 0.5]], 4, ["*", 40, ["^", ["get", "share"], 0.5]]], "text-transform": ["case", [">", ["get", "share"], 0.01], "uppercase", "none"], "text-padding": 6 },
+      paint: { "text-color": "#222", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
+    { id: "admin1-label", type: "symbol", source: "admin1", "source-layer": "admin1", minzoom: 4.5, layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Regular"], "text-size": 12 }, paint: { "text-color": "#333", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
+    { id: "city-label", type: "symbol", source: "cities", "source-layer": "cities", minzoom: 5, layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Regular"], "text-size": 11 }, paint: { "text-color": "#111", "text-halo-color": "#ffffffcc", "text-halo-width": 1 } },
+    { id: "admin2-label", type: "symbol", source: "admin2", "source-layer": "admin2", minzoom: 7.5, layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Regular"], "text-size": 10 }, paint: { "text-color": "#333", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
+  ]
+};
+const map = new maplibregl.Map({ container: "map", style, center: [0, 20], zoom: 1.2, minZoom: 0.8, maxZoom: 12, renderWorldCopies: false, hash: true, attributionControl: false });
+map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), "top-right");
+// the people square: side = sqrt(1e7 / people_per_px) warped pixels, rescaled with the zoom (meta.W px = 512 * 2^zoom css px at zoom 0 scale)
+function legend() { const px = Math.sqrt(1e7 / meta.people_per_px) * (512 * Math.pow(2, map.getZoom()) / meta.W); const s = Math.max(4, Math.min(160, px)); document.getElementById('sq').style.width = s + 'px'; document.getElementById('sq').style.height = s + 'px'; }
+map.on('zoom', legend); map.on('load', legend);
+const hover = document.getElementById('hover');
+map.on('mousemove', 'country-fill', e => { const f = e.features[0]; map.setFilter('hover-line', ["==", ["get", "name"], f.properties.name]); hover.textContent = `${f.properties.name}: ${(f.properties.pop / 1e6).toFixed(1)} million people, ${(100 * f.properties.share).toFixed(2)}% of the picture`; map.getCanvas().style.cursor = 'pointer'; });
+map.on('mouseleave', 'country-fill', () => { map.setFilter('hover-line', ["==", ["get", "name"], ""]); hover.textContent = 'hover a place'; map.getCanvas().style.cursor = ''; });
+map.on('click', 'country-fill', e => { const f = e.features[0]; const b = JSON.parse(f.properties.bbox); map.fitBounds(b, { padding: 40, duration: 1400 }); });
+document.getElementById('style').onchange = ev => { const v = ev.target.value; map.setLayoutProperty('pop-raster', 'visibility', v === 'pop' ? 'visible' : 'none'); map.setPaintProperty('country-fill', 'fill-opacity', v === 'colour' ? 1 : 0.0); };
+document.getElementById('grat').onchange = ev => map.setLayoutProperty('grat-line', 'visibility', ev.target.checked ? 'visible' : 'none');
+</script></body></html>
