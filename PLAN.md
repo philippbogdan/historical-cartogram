@@ -285,3 +285,16 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
 `README.md`, `PLAN.md` (this), `EXPLORATION.md` (graph + checklist), `DECISIONS.md`, `PRIOR_WORK.md`,
 `DATA.md`, `notes/` (maths, ideas, resolution looks), `experiments/` (runs, INDEX), `src/hc/` (code),
 `src/run.py` (one experiment), `src/serve_tiles.py` + `viewer/` (V0), `tests/synthetic.py`.
+
+## v3 addendum, 2026-09-02: the hero programme (Phil: "do all, filter later")
+
+Four hero pieces in one visual language (notes/design-2026-09-02.md): H1 the today world (8192 deformation,
+20% ocean, 30 km smoothing, 1:10M vectors); H2 the morph loop geography to cartogram (R3, McCann interpolation
+of the OT map); H3 eight epochs as small multiples (T3 for the in-betweens on the time page); H4 the GDP pair
+with GDP per person-year painted as the ratio. Then, in this order: V7 label collision; A5 per-capita overlays
+on the globe; A16 pole cap; V2 nested 100 m solves (residual OT inside city windows composed with the global
+map, so the zoomed tiles are true); L12 the non-human world (cropland, trees); L10 age lens (WorldPop);
+V5 V6 V8 viewer switches (lens, method and morph, metric grid); M11 + L7 semi-discrete OT (one cell per
+million people); the paper's prior-art search; the site cut to map, time and story with the gallery behind.
+Dropped on purpose: S5, M3 completion, M12, P2, L11. Hosting (A9/V10) and the print (A13) stay Phil's.
+Checkpoints at each piece; nothing spent; nothing deployed.
