@@ -82,11 +82,11 @@ def main(exp, layers):
             out.append({"type": "Feature", "properties": {"name": pr.get("name"), "iso": iso, "fill": hexc(fill)}, "geometry": g})
         write_features(os.path.join(TMP, "admin1.geojsonl"), out); tippecanoe(os.path.join(TILES, "admin1.pmtiles"), [("admin1", os.path.join(TMP, "admin1.geojsonl"))], 10); print("admin1:", len(out))
     if "cities" in layers:
-        import pyogrio
-        gdf = pyogrio.read_dataframe(os.path.join(BND, "GHS_STAT_UCDB2015MT_GLOBE_R2019A", "GHS_STAT_UCDB2015MT_GLOBE_R2019A_V1_2.gpkg"), columns=["UC_NM_MN", "CTR_MN_NM", "P15", "AREA"])
+        import pyogrio.raw, shapely
+        meta_, _, wkb, fields = pyogrio.raw.read(os.path.join(BND, "GHS_STAT_UCDB2015MT_GLOBE_R2019A", "GHS_STAT_UCDB2015MT_GLOBE_R2019A_V1_2.gpkg"), columns=["UC_NM_MN", "CTR_MN_NM", "P15"], return_fids=False)
         out = []
-        for geom, name, ctr, p15 in zip(gdf.geometry, gdf["UC_NM_MN"], gdf["CTR_MN_NM"], gdf["P15"]):
-            gg = geom.__geo_interface__
+        for geom_wkb, name, ctr, p15 in zip(wkb, fields[0], fields[1], fields[2]):
+            gg = shapely.from_wkb(geom_wkb).__geo_interface__
             g = warp_polys(gg, grid, X, Y)
             if g is None: continue
             out.append({"type": "Feature", "properties": {"name": name, "country": ctr, "pop": float(p15 or 0)}, "geometry": g})

@@ -24,12 +24,13 @@ def frame_mesh(exp):
 
 
 def to_pseudo_lonlat(pts, grid):
-    """Warped pixel coordinates -> lon/lat of the Web-Mercator square (lat_cut = 85.05 makes it exact)."""
+    """Warped pixel coordinates -> lon/lat of the Web-Mercator square (lat_cut = 85.05 makes it exact).
+    The frame's left wall becomes -180 whatever the geographic lon0: the square is its own world, and
+    nothing may wrap, or polygons at the east wall would be torn across the antimeridian."""
     W, H = grid.W, grid.H
-    lon = pts[:, 0] / W * 360.0 + grid.lon0
-    lon = (lon + 180.0) % 360.0 - 180.0
+    lon = np.clip(pts[:, 0] / W * 360.0 - 180.0, -179.999, 179.999)
     ymax = math.log(math.tan(math.pi / 4 + math.radians(grid.lat_cut) / 2))
-    ym = ymax * (1 - 2 * pts[:, 1] / H)
+    ym = ymax * (1 - 2 * np.clip(pts[:, 1], 0, H) / H)
     lat = np.degrees(2 * np.arctan(np.exp(ym)) - math.pi / 2)
     return np.stack([lon, lat], 1)
 

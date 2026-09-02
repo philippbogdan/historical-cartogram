@@ -55,7 +55,7 @@ const style = {
     { id: "admin2-label", type: "symbol", source: "admin2", "source-layer": "admin2", minzoom: 7.5, layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Regular"], "text-size": 10 }, paint: { "text-color": "#333", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
   ]
 };
-const map = new maplibregl.Map({ container: "map", style, center: [0, 20], zoom: 1.2, minZoom: 0.8, maxZoom: 12, renderWorldCopies: false, hash: true, attributionControl: false });
+const map = window.map = new maplibregl.Map({ container: "map", style, center: [0, 20], zoom: 1.2, minZoom: 0.8, maxZoom: 12, renderWorldCopies: false, hash: true, attributionControl: false });
 map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), "top-right");
 // the people square: side = sqrt(1e7 / people_per_px) warped pixels, rescaled with the zoom (meta.W px = 512 * 2^zoom css px at zoom 0 scale)
 function legend() { const px = Math.sqrt(1e7 / meta.people_per_px) * (512 * Math.pow(2, map.getZoom()) / meta.W); const s = Math.max(4, Math.min(160, px)); document.getElementById('sq').style.width = s + 'px'; document.getElementById('sq').style.height = s + 'px'; }
