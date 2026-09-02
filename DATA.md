@@ -45,3 +45,11 @@ GHS-POP epochs 1975-2030 (5-year, 30 arcsec) from the same JRC directory pattern
 - Deleted 2026-08-29 to free disk: the three 100 m tiles (the global file covers them), the 30" zip, superseded experiment meshes.
 - 2026-09-01  D6 GHS-POP epochs 1975-2030 re-downloaded to `data/raw/ghs_epochs/` (Phil freed the disk); they feed the 1 km era of the timeline (T8).
 - 2026-08-29  D6 GHS-POP epochs (3.8 GB) deleted to free disk; HYDE covers 1950-2023 yearly at 5 arcmin, which is what the timeline uses. Re-download from the JRC pattern if a 1 km modern era is wanted.
+- 2026-09-02  Boundaries for the interactive map (`data/raw/boundaries/`): Natural Earth 10m admin-1 states and
+  provinces (public domain, nvkelso mirror); GHS-UCDB R2019A urban centres, 13,135 polygons with 2015
+  population (JRC, CC BY 4.0); geoBoundaries CGAZ ADM1 and ADM2 (open licence, CC BY 4.0 attribution).
+- 2026-09-02  Copernicus Global Land Service Land Cover 100 m, collection 3, epoch 2019 (Zenodo 3939050, CC BY 4.0):
+  tree-cover fraction (5.65 GB) and crops-cover fraction (2.98 GB) GeoTIFFs in `data/raw/landcover/`, for L12.
+- 2026-09-02  WorldPop 2020 age and sex structures, 1 km global mosaics (CC BY 4.0, data.worldpop.org): 36 bands of
+  3.3 GB each, downloaded one at a time, block-summed to 5 arcmin into `data/derived/worldpop_age/` and
+  deleted; about 80 minutes per band per connection, so this runs for a day in the background.
