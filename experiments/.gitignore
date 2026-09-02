@@ -5,6 +5,7 @@ timeline/t_base_*/countries.png
 timeline/t_ghs_*/countries.png
 timeline/t_ssp2_*/countries.png
 **/*.tmp
+H3_multiples.png
 e022_M3_bfm_4096_pure/cartogram.png
 e022_M3_bfm_4096_pure/cartogram_density.png
 e022_M3_bfm_4096_pure/error.png
@@ -33,6 +34,12 @@ e031_M10s_4096_share0.995/cartogram_density.png
 e031_M10s_4096_share0.995/error.png
 e031_M10s_4096_share0.995/metric_grid.png
 e031_M10s_4096_share0.995/tissot.png
+e035_hero_ocean0.2_share0.999_ocean0.2/cartogram.png
+e035_hero_ocean0.2_share0.999_ocean0.2/cartogram_density.png
+e035_hero_ocean0.2_share0.999_ocean0.2/error.png
+e035_hero_ocean0.2_share0.999_ocean0.2/hero.png
+e035_hero_ocean0.2_share0.999_ocean0.2/metric_grid.png
+e035_hero_ocean0.2_share0.999_ocean0.2/tissot.png
 e008_S2_merc_4096_f01/cartogram.png
 e008_S2_merc_4096_f01/cartogram_density.png
 e008_S2_merc_4096_f01/countries.png
@@ -72,6 +79,12 @@ e032_M10s_4096_landpure_share0.999_ocean0.05/metric_grid.png
 e032_M10s_4096_landpure_share0.999_ocean0.05/stretch.png
 e032_M10s_4096_landpure_share0.999_ocean0.05/tissot.png
 e032_M10s_4096_landpure_share0.999_ocean0.05/twist.png
+e036_hero_ocean0.2_s30_share0.999_ocean0.2/cartogram.png
+e036_hero_ocean0.2_s30_share0.999_ocean0.2/cartogram_density.png
+e036_hero_ocean0.2_s30_share0.999_ocean0.2/error.png
+e036_hero_ocean0.2_s30_share0.999_ocean0.2/hero.png
+e036_hero_ocean0.2_s30_share0.999_ocean0.2/metric_grid.png
+e036_hero_ocean0.2_s30_share0.999_ocean0.2/tissot.png
 e009_S2_merc_4096_f05/cartogram.png
 e009_S2_merc_4096_f05/cartogram_density.png
 e009_S2_merc_4096_f05/error.png
@@ -93,6 +106,11 @@ e031_M10s_4096_share0.99/cartogram_density.png
 e031_M10s_4096_share0.99/error.png
 e031_M10s_4096_share0.99/metric_grid.png
 e031_M10s_4096_share0.99/tissot.png
+e036_hero_ocean0.2_s30_share0.95_ocean0.2/cartogram.png
+e036_hero_ocean0.2_s30_share0.95_ocean0.2/cartogram_density.png
+e036_hero_ocean0.2_s30_share0.95_ocean0.2/error.png
+e036_hero_ocean0.2_s30_share0.95_ocean0.2/metric_grid.png
+e036_hero_ocean0.2_s30_share0.95_ocean0.2/tissot.png
 e031_M10s_4096_share0.98/cartogram.png
 e031_M10s_4096_share0.98/cartogram_density.png
 e031_M10s_4096_share0.98/error.png
@@ -124,3 +142,11 @@ e030_S3_M10_homotopy64_8192_pure/metric_grid.png
 e030_S3_M10_homotopy64_8192_pure/stretch.png
 e030_S3_M10_homotopy64_8192_pure/tissot.png
 e030_S3_M10_homotopy64_8192_pure/twist.png
+H4_pair/gdp_per_personyear.png
+H4_pair/gdp_world.png
+H4_pair/personyears_world.png
+e035_hero_ocean0.2_share0.95_ocean0.2/cartogram.png
+e035_hero_ocean0.2_share0.95_ocean0.2/cartogram_density.png
+e035_hero_ocean0.2_share0.95_ocean0.2/error.png
+e035_hero_ocean0.2_share0.95_ocean0.2/metric_grid.png
+e035_hero_ocean0.2_share0.95_ocean0.2/tissot.png

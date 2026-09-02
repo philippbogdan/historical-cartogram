@@ -85,9 +85,13 @@ def main(exp, layers):
     if "cities" in layers:
         import pyogrio.raw, shapely
         meta_, _, wkb, fields = pyogrio.raw.read(os.path.join(BND, "GHS_STAT_UCDB2015MT_GLOBE_R2019A", "GHS_STAT_UCDB2015MT_GLOBE_R2019A_V1_2.gpkg"), columns=["UC_NM_MN", "CTR_MN_NM", "P15"], return_fids=False)
+        col = {n: fields[i] for i, n in enumerate(meta_["fields"])}          # field order follows the file, not the request
         out = []
-        for geom_wkb, name, ctr, p15 in zip(wkb, fields[0], fields[1], fields[2]):
-            gg = shapely.from_wkb(geom_wkb).__geo_interface__
+        for geom_wkb, name, ctr, p15 in zip(wkb, col["UC_NM_MN"], col["CTR_MN_NM"], col["P15"]):
+            geom = shapely.from_wkb(geom_wkb)
+            geom = geom.buffer(0.012, join_style="round").buffer(-0.012, join_style="round").simplify(0.003)   # the 1 km raster staircase would become spikes under the warp
+            if geom.is_empty: continue
+            gg = geom.__geo_interface__
             g = warp_polys(gg, grid, X, Y)
             if g is None: continue
             out.append({"type": "Feature", "properties": {"name": name, "country": ctr, "pop": float(p15 or 0)}, "geometry": g})

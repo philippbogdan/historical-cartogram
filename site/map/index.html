@@ -50,9 +50,9 @@ const style = {
     { id: "country-label", type: "symbol", source: "countries", "source-layer": "countries", maxzoom: 5,
       layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Semibold"], "text-size": ["interpolate", ["linear"], ["zoom"], 0, ["*", 6, ["^", ["get", "share"], 0.5]], 4, ["*", 40, ["^", ["get", "share"], 0.5]]], "text-transform": ["case", [">", ["get", "share"], 0.01], "uppercase", "none"], "text-padding": 6 },
       paint: { "text-color": "#222", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
-    { id: "admin1-label", type: "symbol", source: "admin1", "source-layer": "admin1", minzoom: 4.5, layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Regular"], "text-size": 12 }, paint: { "text-color": "#333", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
-    { id: "city-label", type: "symbol", source: "cities", "source-layer": "cities", minzoom: 5, layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Regular"], "text-size": 11 }, paint: { "text-color": "#111", "text-halo-color": "#ffffffcc", "text-halo-width": 1 } },
-    { id: "admin2-label", type: "symbol", source: "admin2", "source-layer": "admin2", minzoom: 7.5, layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Regular"], "text-size": 10 }, paint: { "text-color": "#333", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
+    { id: "admin1-label", type: "symbol", source: "admin1", "source-layer": "admin1", minzoom: 4.5, layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 12 }, paint: { "text-color": "#333", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
+    { id: "city-label", type: "symbol", source: "cities", "source-layer": "cities", minzoom: 5, layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 11 }, paint: { "text-color": "#111", "text-halo-color": "#ffffffcc", "text-halo-width": 1 } },
+    { id: "admin2-label", type: "symbol", source: "admin2", "source-layer": "admin2", minzoom: 7.5, layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 10 }, paint: { "text-color": "#333", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
   ]
 };
 const map = window.map = new maplibregl.Map({ container: "map", style, center: [0, 20], zoom: 1.2, minZoom: 0.8, maxZoom: 12, renderWorldCopies: false, hash: true, attributionControl: false });
