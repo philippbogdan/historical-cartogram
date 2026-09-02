@@ -90,16 +90,16 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
 ## The build, in order
 
 ```
- Phase 1  foundations        A1 A2 S1 S2 A11 R2 V0            [x]  S4 (F5 default)  S5 [ ]
- Phase 2  optimal transport  M10 [x]  M3 M11 -> pure, no folds     the picture nobody has made
- Phase 3  gravity            M2 M9 [x]  R5 M8                        the G-slider picture
- Phase 4  legibility+gallery A14 A15 R6 R7 R8 R9 X7 X8 R10 X5 X6 S3  pictures explain themselves
- Phase 5  time               D3 D6 D8 D9 T8 T1 T3 L3 L8 T4 T5 T6 T7 R3   10,000 BC to 2100
- Phase 6  globe              A4 D5 A5 A6 A7 A8 A9 A16 (M12 if needed)   sphere area = people
- Phase 7  lenses             L1 D12 L9 L10 L11 L12 L4 L5 L6 L7 L13       any measure, any moment
- Phase 8  geometry (side)    G1 G4 G2 G3/A10 A13                          the curved manifold
- Phase 9  the viewer         A12 V1-V15                                   Apple-Maps grade, last
- Process  PR1 PR2 throughout
+ Phase 1  foundations        A1 A2 S1 S2 A11 R2 V0            [x]  S4 [~]  S5 [ ]                     7 of 9 done
+ Phase 2  optimal transport  M10 [x] (spectral, pure)  M3 [~]  M11 [ ]                             1 of 3 (the picture exists)
+ Phase 3  gravity            M2 M9 R5 M8 [x]                                                       4 of 4
+ Phase 4  legibility+gallery A14 A15 R6 R7 R8 R9 X7 X8 R10 X5 X6 S3 [x]                            12 of 12
+ Phase 5  time               D3 D6 D8 D9 T8 T1 L3 L8 T4 T5 T6 T7 [x]  T3 R3 [~]                    12 of 14
+ Phase 6  globe              A4 A6 A7 A8 [x]  D5 A5 [~]  A9 A16 [ ]  (M12 not needed so far)        4 of 8
+ Phase 7  lenses             L1 L9 L4 L5 L6 [x]  D12 [~]  L10 L11 L12 L7 L13 [ ]                    5 of 11
+ Phase 8  geometry (side)    G1 G4 G2 [x]  G3/A10 A13 [~]                                          3 of 5
+ Phase 9  the viewer         A12 V1 V3 V4 V9 V11 V12-V15 [x]  V2 V5 V6 V7 [~]  V8 V10 [ ]           10 of 16
+ Process  PR1 PR2 [x]                                                                              60 done, 13 partial, 11 open of 84
 ```
 
 ### Phase 1: foundations `[x]`
@@ -255,22 +255,22 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
           R9 ghost coastline NEW [x]  R10 gallery page NEW [x]  countries coloured+labelled [x]
         ┌───────────────────────┼───────────────────────────┐
         ▼                       ▼                           ▼
- FLAT RECTANGLE [x]      GLOBE (Phase 6)                 LUMPY EARTH (A10, A13)
- share knob [x]          A4 renderer  A5 overlays = per-capita  A6 labels  A7 time, growing radius
- pure needs M3           A8 controls  A9 hosting (checkpoint)  A14 cities NEW  A15 rivers NEW  A16 pole cap NEW
+ FLAT RECTANGLE [x]      GLOBE (Phase 6)                 LUMPY EARTH (A10 [~] relief globe, A13 [~] obj)
+ share knob [x]          A4 renderer [x]  A5 overlays = per-capita [~]  A6 labels [x]  A7 time, growing radius [x]
+ pure via spectral OT [x] A8 controls [x]  A9 hosting [ ] (Phil)  A14 cities [x]  A15 rivers [x]  A16 pole cap [ ]
                                 ▼
- TIMELINE (Phase 5)   T1 epochs  T3 measure interpolation (changed)  T4 honesty  T8 handover NEW
-                      T5 future 2100 NEW  T6 peak time NEW  T7 events NEW  L3 person-years  L8 uncertainty  (F1)
+ TIMELINE (Phase 5)   T1 epochs [x]  T3 measure interpolation [~] (blend stills)  T4 honesty [x]  T8 handover [x]
+                      T5 future 2100 [x]  T6 peak time [x]  T7 events [x]  L3 person-years [x]  L8 uncertainty [x]  (F1 default kept)
                                 ▼
- LENSES (Phase 7)     L1 grammar  D12 catalogue  L4 measure morph  L5 humeter ruler+geodesics  L6 loneliness
-                      L7 one person per pixel (M11)  L9 ratios NEW  L10 age NEW  L11 attention NEW
-                      L12 non-human world NEW  L13 cumulative person-years NEW
+ LENSES (Phase 7)     L1 grammar [x]  D12 catalogue [~]  L4 measure morph [x]  L5 humeter ruler+geodesics [x]  L6 loneliness [x]
+                      L7 one person per pixel (M11) [ ]  L9 ratios [x]  L10 age [ ]  L11 attention [ ]
+                      L12 non-human world [ ]  L13 cumulative person-years [ ]
                                 ▼
- VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles  V1 zoom/pan/rotate  V2 LOD by magnification
-                      V3 flat+globe  V4 time  V5 lens  V6 method/G/morph  V7 labels  V8 metric grid
-                      V9 native textures  V10 static hosting  V11 asset budget
-                      V12 permalinks NEW  V13 compare NEW  V14 story mode NEW  V15 print export NEW
- PROCESS              PR1 golden regression NEW  PR2 honesty labels NEW
+ VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles [x]  V1 zoom/pan/rotate [x]  V2 LOD by magnification [~]
+                      V3 flat+globe [x]  V4 time [x]  V5 lens [~]  V6 method/G/morph [~]  V7 labels [~]  V8 metric grid [ ]
+                      V9 native textures [x]  V10 static hosting [ ] (Phil)  V11 asset budget [x]
+                      V12 permalinks [x]  V13 compare [x]  V14 story mode [x]  V15 print export [x]
+ PROCESS              PR1 golden regression [x]  PR2 honesty labels [x]
 ```
 
 ## Forks that are Phil's

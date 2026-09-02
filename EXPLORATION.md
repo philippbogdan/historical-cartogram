@@ -56,22 +56,22 @@ but feel empty (small). Area = people, on a map you can still read.
           R9 ghost coastline NEW [x]  R10 gallery page NEW [x]  countries coloured+labelled [x]
         ┌───────────────────────┼───────────────────────────┐
         ▼                       ▼                           ▼
- FLAT RECTANGLE [x]      GLOBE (Phase 6)                 LUMPY EARTH (A10, A13)
- share knob [x]          A4 renderer  A5 overlays = per-capita  A6 labels  A7 time, growing radius
- pure needs M3           A8 controls  A9 hosting (checkpoint)  A14 cities NEW  A15 rivers NEW  A16 pole cap NEW
+ FLAT RECTANGLE [x]      GLOBE (Phase 6)                 LUMPY EARTH (A10 [~] relief globe, A13 [~] obj)
+ share knob [x]          A4 renderer [x]  A5 overlays = per-capita [~]  A6 labels [x]  A7 time, growing radius [x]
+ pure via spectral OT [x] A8 controls [x]  A9 hosting [ ] (Phil)  A14 cities [x]  A15 rivers [x]  A16 pole cap [ ]
                                 ▼
- TIMELINE (Phase 5)   T1 epochs  T3 measure interpolation (changed)  T4 honesty  T8 handover NEW
-                      T5 future 2100 NEW  T6 peak time NEW  T7 events NEW  L3 person-years  L8 uncertainty  (F1)
+ TIMELINE (Phase 5)   T1 epochs [x]  T3 measure interpolation [~] (blend stills)  T4 honesty [x]  T8 handover [x]
+                      T5 future 2100 [x]  T6 peak time [x]  T7 events [x]  L3 person-years [x]  L8 uncertainty [x]  (F1 default kept)
                                 ▼
- LENSES (Phase 7)     L1 grammar  D12 catalogue  L4 measure morph  L5 humeter ruler+geodesics  L6 loneliness
-                      L7 one person per pixel (M11)  L9 ratios NEW  L10 age NEW  L11 attention NEW
-                      L12 non-human world NEW  L13 cumulative person-years NEW
+ LENSES (Phase 7)     L1 grammar [x]  D12 catalogue [~]  L4 measure morph [x]  L5 humeter ruler+geodesics [x]  L6 loneliness [x]
+                      L7 one person per pixel (M11) [ ]  L9 ratios [x]  L10 age [ ]  L11 attention [ ]
+                      L12 non-human world [ ]  L13 cumulative person-years [ ]
                                 ▼
- VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles  V1 zoom/pan/rotate  V2 LOD by magnification
-                      V3 flat+globe  V4 time  V5 lens  V6 method/G/morph  V7 labels  V8 metric grid
-                      V9 native textures  V10 static hosting  V11 asset budget
-                      V12 permalinks NEW  V13 compare NEW  V14 story mode NEW  V15 print export NEW
- PROCESS              PR1 golden regression NEW  PR2 honesty labels NEW
+ VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles [x]  V1 zoom/pan/rotate [x]  V2 LOD by magnification [~]
+                      V3 flat+globe [x]  V4 time [x]  V5 lens [~]  V6 method/G/morph [~]  V7 labels [~]  V8 metric grid [ ]
+                      V9 native textures [x]  V10 static hosting [ ] (Phil)  V11 asset budget [x]
+                      V12 permalinks [x]  V13 compare [x]  V14 story mode [x]  V15 print export [x]
+ PROCESS              PR1 golden regression [x]  PR2 honesty labels [x]
 ```
 
 Rules for lenses: one measure per visual channel (area, colour, height, label size), never two on one
