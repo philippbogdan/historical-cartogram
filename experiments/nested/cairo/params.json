@@ -1,0 +1,11 @@
+{
+ "name": "cairo",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 31.260855280873308,
+ "lat": 30.05962610288021,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 62982907.78708395
+}

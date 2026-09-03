@@ -1,0 +1,11 @@
+{
+ "name": "beijing",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 116.35029491123588,
+ "lat": 39.89928274620343,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 43203343.66619453
+}

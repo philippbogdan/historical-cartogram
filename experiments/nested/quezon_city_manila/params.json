@@ -1,0 +1,11 @@
+{
+ "name": "quezon_city_manila",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 121.01975238269327,
+ "lat": 14.552191426288358,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 41288894.907780685
+}

@@ -1,0 +1,11 @@
+{
+ "name": "new_taipei_taipei",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 121.41300367392236,
+ "lat": 25.006897030948018,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 16034681.832773216
+}

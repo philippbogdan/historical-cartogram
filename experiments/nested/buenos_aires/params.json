@@ -1,0 +1,11 @@
+{
+ "name": "buenos_aires",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": -58.538764985745786,
+ "lat": -34.650819584885916,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 16658566.124385998
+}

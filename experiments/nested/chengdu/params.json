@@ -1,0 +1,11 @@
+{
+ "name": "chengdu",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 104.03461813560085,
+ "lat": 30.68897531336779,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 24774136.518143594
+}

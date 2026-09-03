@@ -1,0 +1,11 @@
+{
+ "name": "bogota",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": -74.12384544852229,
+ "lat": 4.65089476888849,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 14487676.6599519
+}

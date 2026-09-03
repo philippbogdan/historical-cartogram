@@ -1,0 +1,11 @@
+{
+ "name": "guangzhou",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 113.57080963524328,
+ "lat": 22.90122117551874,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 70161755.8156867
+}

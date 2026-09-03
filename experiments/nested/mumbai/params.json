@@ -1,0 +1,11 @@
+{
+ "name": "mumbai",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 72.97082464924024,
+ "lat": 19.141152812017058,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 42550540.560252726
+}

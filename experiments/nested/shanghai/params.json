@@ -1,0 +1,11 @@
+{
+ "name": "shanghai",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 121.42728745923714,
+ "lat": 31.192766031719664,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 61706374.36935866
+}

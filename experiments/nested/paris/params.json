@@ -1,0 +1,11 @@
+{
+ "name": "paris",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 2.3218702612340665,
+ "lat": 48.84021468966971,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 14524196.138904734
+}

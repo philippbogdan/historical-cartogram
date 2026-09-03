@@ -1,0 +1,11 @@
+{
+ "name": "london",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": -0.1298113061876532,
+ "lat": 51.49382874831472,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 21337223.794130243
+}

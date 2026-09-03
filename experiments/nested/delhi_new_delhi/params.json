@@ -1,0 +1,11 @@
+{
+ "name": "delhi_new_delhi",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 77.20344631940588,
+ "lat": 28.629031969805215,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 69708575.3614681
+}

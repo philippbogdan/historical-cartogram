@@ -1,0 +1,11 @@
+{
+ "name": "ho_chi_minh_city",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 106.7128682631532,
+ "lat": 10.851908030550245,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 30829282.404393584
+}

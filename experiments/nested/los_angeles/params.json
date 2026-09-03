@@ -1,0 +1,11 @@
+{
+ "name": "los_angeles",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": -117.95468698006844,
+ "lat": 33.954287542233374,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 19047297.654394895
+}

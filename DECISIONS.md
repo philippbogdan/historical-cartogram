@@ -248,3 +248,9 @@
 - 2026-09-03  H1 at 8192 (e037, float64 homotopy, 40 minutes plus a long fold repair): density error +-1% against
   +-2.5% at 4096, and the same picture to the eye at Nepal's comb border. The 4096 frame (e036) stays the
   hero; e037 is the accuracy ceiling for the paper's table. Its 690 MB mesh stays local.
+- 2026-09-04  V2 across the forty largest urban centres (2-degree windows, 3 arcsecond GHS-POP, three output-space
+  rounds each, about 7 minutes per window on the loaded machine): at the 300 m solve scale the population-
+  weighted density spread p95 fell from a median of +2.97 (log, a factor 20 under the global map alone) to
+  +0.14 (15%); p05 from about -1.1 to -0.07. Worst after: Osaka-Kyoto +0.54 (the window's rim taper crosses
+  the Kansai conurbation) and Tokyo +0.30; best: Shanghai, Buenos Aires, Bangkok under 10%. Inside these
+  windows the district level and the 100 m base are true; outside them the map is the 10 km global solve.

@@ -1,0 +1,11 @@
+{
+ "name": "surabaya",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 112.67073272065119,
+ "lat": -7.628831168069378,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 29772036.418866508
+}

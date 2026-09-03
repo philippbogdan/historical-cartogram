@@ -1,0 +1,11 @@
+{
+ "name": "lima",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": -77.01536670902625,
+ "lat": -12.026120192890875,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 12399753.657782098
+}
