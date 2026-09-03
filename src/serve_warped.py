@@ -64,6 +64,14 @@ class Warped:
             self.pyr_left, self.pyr_top, self.pyr_cell = (float(v) for v in z["meta"])
         self.km_per_mesh_px = 2 * np.pi * 6371.0 / self.W
         self.tex = {}                                            # V17 textures through the same inverse map
+        # V2: city windows with their own inverse maps (composed with the global map)
+        import glob
+        self.windows = []
+        for f in sorted(glob.glob(os.path.join(ROOT, "experiments", "nested", "*", "inverse.npz"))):
+            z = np.load(f); n = int(z["n"]); dx = float(z["dx"]); lon0 = float(z["lon0"]); lat1 = float(z["lat1"])
+            self.windows.append({"ILON": z["ILON"].astype(np.float32), "ILAT": z["ILAT"].astype(np.float32), "x0": float(z["x0"]), "y0": float(z["y0"]), "sc": float(z["sc"]),
+                                 "lon0": lon0, "lon1": lon0 + n * dx, "lat0": lat1 - n * dx, "lat1": lat1})
+        if self.windows: print("nested windows:", len(self.windows))
 
     TEXTURES = {"lights": os.path.join(RAW, "lenses", "BlackMarble_2016_3km_geo.tif"),
                 "relief": os.path.join(RAW, "relief", "GRAY_HR_SR_OB_DR.tif")}
@@ -98,6 +106,13 @@ class Warped:
         sxp = (np.arctan2(sx, cx) / (2 * np.pi)) % 1.0 * self.W
         syp = ndimage.map_coordinates(self.IY, coords, order=1, mode="nearest")
         lon, lat = self.grid.lonlat(sxp, syp)
+        for w in self.windows:                                   # inside a city window, the window's own inverse map
+            inb = (U >= w["x0"]) & (V >= w["y0"]) & ((U - w["x0"]) * w["sc"] < w["ILON"].shape[1] - 1) & ((V - w["y0"]) * w["sc"] < w["ILON"].shape[0] - 1)
+            inside = inb & (lon >= w["lon0"]) & (lon < w["lon1"]) & (lat <= w["lat1"]) & (lat > w["lat0"])
+            if not inside.any(): continue
+            cw = [((V[inside] - w["y0"]) * w["sc"]), ((U[inside] - w["x0"]) * w["sc"])]
+            lon = np.array(lon, np.float64); lat = np.array(lat, np.float64)
+            lon[inside] = ndimage.map_coordinates(w["ILON"], cw, order=1, mode="nearest"); lat[inside] = ndimage.map_coordinates(w["ILAT"], cw, order=1, mode="nearest")
         # geographic footprint of one tile pixel (km): from the spread of source coordinates between samples
         dsx = np.abs(np.diff(sxp, axis=1)); dsy = np.abs(np.diff(syp, axis=0))
         foot_px = float(np.median(np.concatenate([dsx.ravel(), dsy.ravel()]))) * ss  # mesh px per tile pixel
