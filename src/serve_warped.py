@@ -36,7 +36,7 @@ class Warped:
         self.IX, self.IY = z["IX"].astype(np.float64), z["IY"].astype(np.float64)
         self.oh, self.ow = self.IX.shape
         self.H, self.W = int(z["src_hw"][0]), int(z["src_hw"][1])
-        self.grid = prep.Grid(self.p.get("grid", "mercator"), self.W, self.p["lat_cut"])
+        self.grid = prep.Grid(self.p.get("grid", "mercator"), self.W, self.p["lat_cut"], lon0=self.p.get("lon0", -180.0))   # lon0 matters: without it every texture sat 12 degrees off the borders
         self.src = rasterio.open(GHS3 if os.path.exists(GHS3) else GHS30)
         self.src30 = rasterio.open(GHS30)
         T = self.src.transform
