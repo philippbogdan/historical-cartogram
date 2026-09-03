@@ -138,10 +138,12 @@ def draw_hero(X, Y, p, out_png, out_w=4096, grat_step=15, title="THE WORLD, AREA
     img = cols[ids_out]
     if overlay is not None:                                   # a per-source-cell raster painted through the warp (the lens grammar)
         vals, cmap, vmin, vmax, alpha = overlay
+        valid = np.isfinite(vals).astype(np.float64)
         v = np.clip(render.splat(np.nan_to_num(vals, nan=vmin).astype(np.float64), X, Y, (oh, ow), wrap=wrap), vmin, vmax)
+        vmask = np.clip(render.splat(valid, X, Y, (oh, ow), wrap=wrap), 0, 1)        # no data (empty land, Antarctica) stays unpainted
         col = plt.get_cmap(cmap)((v - vmin) / (vmax - vmin))[..., :3]
-        land = (ids_out > 0)[..., None]
-        img = np.where(land, img * (1 - alpha) + col * alpha, img)
+        a = (alpha * vmask * (ids_out > 0))[..., None]
+        img = img * (1 - a) + col * a
     borders = render.lines_from_geojson(os.path.join(RAW, f"ne_{vec}_admin_0_countries.geojson"), grid)
     coast = render.lines_from_geojson(os.path.join(RAW, f"ne_{vec}_coastline.geojson"), grid)
     grat = render.graticule(grid, grat_step)
@@ -194,6 +196,14 @@ def draw_hero(X, Y, p, out_png, out_w=4096, grat_step=15, title="THE WORLD, AREA
         legend_unit = float(e * (1 if m < 1.5 else 2 if m < 3.5 else 5 if m < 7.5 else 10)); side = np.sqrt(legend_unit / ppp) * sc
     def fmt(u): return f"{u/1e12:g} trillion" if u >= 1e12 else f"{u/1e9:g} billion" if u >= 1e9 else f"{u/1e6:g} million" if u >= 1e6 else f"{u/1e3:g} thousand" if u >= 1e3 else f"{u:g}"
     legend_text = f"= {fmt(legend_unit)} {name}"
+    cap = fig.add_axes([0, 0, 1, band / (oh + band)]); cap.set_axis_off(); cap.set_xlim(0, ow); cap.set_ylim(band, 0)
+    fs = out_w / 4096
+    cap.text(0.015 * ow, 0.20 * band, title, fontsize=64 * fs, fontweight="bold", color="#111", va="center")
+    import textwrap
+    subtitle = subtitle or f"Every part of the picture holds as many people as its area says: the square is {fmt(legend_unit)} people, the whole frame {pop/1e9:.2f} billion.\nCoastlines and borders are drawn where they land. The grey lines are the ordinary 15° graticule, stretched with the land."
+    subtitle = "\n".join(line for para in subtitle.split("\n") for line in textwrap.wrap(para, 108))[:400]
+    cap.text(0.015 * ow, 0.50 * band, subtitle, fontsize=26 * fs, color="#333", va="center", linespacing=1.5)
+    cap.text(0.015 * ow, 0.82 * band, source or f"Optimal transport of the GHS-POP 2025 population raster (100 m), land pure, ocean kept at {100 * p.get('ocean_share', 0):.0f}% of the frame. Colours follow UN subregions.", fontsize=19 * fs, color="#666", va="center")
     sx = 0.56 * ow; cap.add_patch(plt.Rectangle((sx, 0.5 * band - side / 2), side, side, facecolor="#ffffff", edgecolor="#222", lw=1.2))
     cap.text(sx + side + 0.006 * ow, 0.5 * band, legend_text, fontsize=26 * fs, va="center", color="#222")
     _, y_top = grid.xy(0.0, 76.0); _, y_bot = grid.xy(0.0, -58.0)          # inset shows 58S to 76N
