@@ -2,7 +2,7 @@
  "experiment": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
  "W": 4096,
  "H": 4096,
- "lon0": -168.0,
+ "lon0": -167.958984375,
  "people_per_px": 488.2216453552246,
  "population": 8191000000.0,
  "region_colours": {
