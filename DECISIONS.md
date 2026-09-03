@@ -234,3 +234,7 @@
   Delhi window (2 degrees, 70 M people): population-weighted density spread at the 300 m solve scale from
   -1.15/+2.90 (log, global map alone) to -0.10/+0.21 after three rounds, 3.5 minutes on the GPU. The raw
   100 m cells keep a wider spread (-0.32/+1.14): 300 m is the smoothing, and that is the honest claim.
+- 2026-09-03  The warped tile server built its grid without the frame's lon0, so every raster texture (population,
+  lights, terrain) sat 12 degrees east of the vector borders on the wall frame. Caught while wiring the city
+  windows' inverse maps (Delhi's tile resolved to Balochistan). Any code that turns mesh pixels into
+  longitude must carry lon0; the per-country population check applies to textures too.
