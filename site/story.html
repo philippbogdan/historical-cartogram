@@ -1,18 +1,43 @@
-<!doctype html><html><head><meta charset="utf-8"><title>the humeter world, a tour</title>
-<style>body{font:15px/1.5 -apple-system,sans-serif;background:#0b0d12;color:#ddd;margin:0}#stage{display:flex;height:100vh}#text{width:360px;padding:24px;overflow:auto;background:#0e1118}#view{flex:1;border:0}h1{font-size:20px}a{color:#7cc}.step{cursor:pointer;padding:8px 10px;border-radius:6px;margin:4px 0}.step.on{background:#1b2330}.k{color:#9ab;font-size:12px}</style></head>
-<body><div id="stage"><div id="text"><h1>A tour of the humeter world</h1><p class="k">Click a stop. The map on the right is the zoomable today frame (land = people).</p><div id="steps"></div><p class="k"><a href="index.html">about</a> | <a href="globe/">globe</a> | <a href="time/">time</a></p></div>
-<iframe id="view" src="flat/index.html"></iframe></div>
-<script>
-const stops=[
- ["The whole frame","country/0.5/0.5/1.75","Every square centimetre holds the same number of people. Land is pure; the ocean keeps five percent of the frame so the Atlantic is still a channel and the Pacific a wall."],
- ["India and China","country/0.72/0.5/2.5","A third of humanity in two lobes. Bangladesh, at the crease between them, out-areas Russia."],
- ["The Nile","pop/0.43/0.42/3.5","Egypt is a thick worm along one river: switch to the settlement texture and the desert is a hairline around it."],
- ["Java","pop/0.86/0.83/3.5","An island larger than Australia, which is the sliver below it."],
- ["Europe","country/0.34/0.18/3","The Netherlands and Belgium as large as Sweden, Norway and Finland together."],
- ["The Americas at the wall","country/0.08/0.45/2.5","The frame is cut at the Bering Strait so the Americas sit against the west border. Canada is a thin band; the US coasts pull the interior out into two lobes."],
- ["Siberia","country/0.55/0.06/2.5","Twelve million square kilometres, one thin strip along the top edge: vast, and empty."],
- ["Zoom to the ground","pop/0.72/0.55/6","Anywhere you zoom, the texture is the 100 m population data itself pushed through the warp: villages, rivers, roads."]
-];
-const box=document.getElementById('steps'); const fr=document.getElementById('view');
-stops.forEach((s,i)=>{const d=document.createElement('div'); d.className='step'; d.innerHTML=`<b>${i+1}. ${s[0]}</b><br><span class="k">${s[2]}</span>`; d.onclick=()=>{document.querySelectorAll('.step').forEach(e=>e.classList.remove('on')); d.classList.add('on'); fr.src='flat/index.html#'+s[1];}; box.appendChild(d);});
-</script></body></html>
+<!doctype html><html><head><meta charset="utf-8"><title>The humeter world: the story</title><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+body{margin:0;background:#f6f6f4;color:#222;font:17px/1.55 -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif}
+nav{position:sticky;top:0;background:#f6f6f4ee;border-bottom:1px solid #ddd;padding:10px 24px;display:flex;gap:22px;align-items:baseline;z-index:2}
+nav b{font-size:16px}nav a{color:#333;text-decoration:none}nav a:hover{text-decoration:underline}
+main{max-width:1180px;margin:0 auto;padding:30px 24px 80px}
+h1{font-size:44px;line-height:1.1;margin:10px 0 6px;letter-spacing:-0.5px}h2{font-size:26px;margin:70px 0 8px}
+p.lead{font-size:21px;color:#333;max-width:900px}p{max-width:900px}
+figure{margin:18px 0 0}figure img,figure video{width:100%;height:auto;display:block;border:1px solid #ddd;background:#fff}figcaption{font-size:14px;color:#555;margin-top:8px;max-width:900px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:800px){.pair{grid-template-columns:1fr}}
+.rule{color:#111;font-weight:600}.note{font-size:14px;color:#666}
+</style></head><body>
+<nav><b>The humeter world</b><a href="map/">the map</a><a href="map/globe.html">the globe</a><a href="time/">time</a><a href="story.html">the story</a><a href="index.html">about</a></nav>
+<main>
+<h1>Area = people</h1>
+<p class="lead">Every picture here is the same rectangle stretched so that its area is people: a patch that holds ten million people is always the same size, whether it is Shanghai or Siberia. The stretching is optimal transport, the least total movement that equalises the crowd, so the continents keep their shapes as far as the numbers allow. Nobody has published a population map made this way before.</p>
+
+<h2>1. The world today</h2>
+<p><span class="rule">Reading rule:</span> every part of the picture holds as many people as its area says. Coastlines and borders are drawn where they land. The grey lines are the ordinary 15° graticule, stretched with the land. Land is exact; the ocean keeps a fifth of the frame so the continents keep their gaps.</p>
+<figure><a href="map/"><img src="img/hero_today.jpg" alt="The world, area = people"></a><figcaption>GHS-POP 2025 at 100 m through the optimal-transport warp; colours follow UN subregions; the inset is the same colours on the ordinary map. Click to open the zoomable map.</figcaption></figure>
+
+<h2>2. From geography to people</h2>
+<p>For an optimal-transport map the straight-line interpolation of positions is the shortest path between the two pictures, so every frame of this loop is itself a map.</p>
+<figure><video src="img/morph.mp4" autoplay loop muted playsinline></video><figcaption>Geography to cartogram and back, 60 frames.</figcaption></figure>
+
+<h2>3. The same rectangle, twelve thousand years</h2>
+<p>The frame is always full: when there were five million people on Earth each of them had a lot of picture. What changes is who holds it. India and China hold half the rectangle in every century until the twentieth; then Africa starts to grow, and by 2100 (a projection) it holds the largest share of the future.</p>
+<figure><img src="img/story_epochs.jpg" alt="Eight epochs"><figcaption>HYDE 3.3 population to 2023, SSP2 projection for 2100; each panel solved separately with the same rules. Modelled before 1950, census-based after, projected after 2025.</figcaption></figure>
+
+<h2>4. Wealth and the years of human life</h2>
+<p>Two more measures through the same machine. Area = GDP gives the world of output; area = person-years gives the world of all the years everyone has lived since the end of the Ice Age. They look alike, and the likeness is a trap: both follow today's population, because population growth is exponential and the recent centuries dominate the integral. The honest third picture is the ratio.</p>
+<div class="pair"><figure><img src="img/story_gdp.jpg" alt="Area = GDP"><figcaption>Area = GDP, PPP 2015 (Kummu, Taka and Guillaume 2018).</figcaption></figure>
+<figure><img src="img/story_personyears.jpg" alt="Area = person-years"><figcaption>Area = years of human life since 10,000 BC (HYDE 3.3), 1.7 trillion of them; 60% lived before 1700.</figcaption></figure></div>
+<figure><img src="img/story_ratio.jpg" alt="GDP per person-year"><figcaption>GDP per year of human life, painted on the person-years world. If history equalised wealth this would be one flat colour; it spans a factor of 64 between the 5th and 95th percentile countries.</figcaption></figure>
+
+<h2>5. The non-human world</h2>
+<p>The same rules with trees and cropland as the measure. The people's world turned inside out: Russia, Canada, Brazil and the Congo grow; India shrinks. Cropland is the plains that feed the world.</p>
+<div class="pair"><figure><img src="img/story_trees.jpg" alt="Area = trees"><figcaption>Area = tree cover, Copernicus 100 m, 2019; 39.8 million km².</figcaption></figure>
+<figure><img src="img/story_crops.jpg" alt="Area = cropland"><figcaption>Area = cropland, Copernicus 100 m, 2019; 14.0 million km².</figcaption></figure></div>
+
+<h2>Honesty</h2>
+<p class="note">The deformation is solved on a 4096-cell grid (about 10 km) with 30 km smoothing, so the map equalises population at that scale: a city is inflated as a whole, a block inside it is not. The 100 m data is what is painted on the map and what the zoomable map reads at depth. Densities are within about ±2.5% of exact for 90% of people. HYDE before 1950 is a model; SSP2 after 2025 is a projection. Sources and licences: GHS-POP R2023A (JRC, CC BY 4.0), HYDE 3.3 (PBL), SSP2 grids (Wang, Meng and Long 2022, CC BY 4.0), Kummu et al. 2018 (CC0), Copernicus Global Land Cover (CC BY 4.0), Natural Earth, GHS-UCDB, geoBoundaries. Everything is in the <a href="https://github.com/philippbogdan/historical-cartogram">repository</a>, with the experiments <a href="../experiments/gallery.html">gallery</a> behind it.</p>
+</main></body></html>

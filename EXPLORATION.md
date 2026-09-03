@@ -51,24 +51,24 @@ but feel empty (small). Area = people, on a map you can still read.
  METRICS  X1 area [x]  X2 folds [x]  X3 anisotropy [x]  X4 displacement [x]  X5 seams [x]
           X6 gallery [x]  X7 recognisability NEW [x]  X8 twist NEW [x]      -> F2 F3 F4 (defaults set)
                                 ▼
- RENDER   R1 mesh+coasts+borders+graticule+error [x]  R2 rasters through the warp [x]  R3 morph [~]
+ RENDER   R1 mesh+coasts+borders+graticule+error [x]  R2 rasters through the warp [x]  R3 morph [x]
           R4 WebGL mesh [x]  R6 stretch map NEW [x]  R7 equipotentials NEW [x]  R8 flow lines NEW [x]
           R9 ghost coastline NEW [x]  R10 gallery page NEW [x]  countries coloured+labelled [x]
         ┌───────────────────────┼───────────────────────────┐
         ▼                       ▼                           ▼
  FLAT RECTANGLE [x]      GLOBE (Phase 6)                 LUMPY EARTH (A10 [~] relief globe, A13 [~] obj)
- share knob [x]          A4 renderer [x]  A5 overlays = per-capita [~]  A6 labels [x]  A7 time, growing radius [x]
- pure via spectral OT [x] A8 controls [x]  A9 hosting [ ] (Phil)  A14 cities [x]  A15 rivers [x]  A16 pole cap [ ]
+ share knob [x]          A4 renderer [x]  A5 overlays = per-capita [~]  A6 labels [x]  A7 time, growing radius [~]
+ pure via spectral OT [~] A8 controls [~]  A9 hosting [ ] (Phil)  A14 cities [x]  A15 rivers [x]  A16 pole cap [ ]
                                 ▼
- TIMELINE (Phase 5)   T1 epochs [x]  T3 measure interpolation [~] (blend stills)  T4 honesty [x]  T8 handover [x]
-                      T5 future 2100 [x]  T6 peak time [x]  T7 events [x]  L3 person-years [x]  L8 uncertainty [x]  (F1 default kept)
+ TIMELINE (Phase 5)   T1 epochs [~]  T3 measure interpolation [~] (blend stills)  T4 honesty [x]  T8 handover [x]
+                      T5 future 2100 [x]  T6 peak time [x]  T7 events [~]  L3 person-years [x]  L8 uncertainty [~]  (F1 default kept)
                                 ▼
  LENSES (Phase 7)     L1 grammar [x]  D12 catalogue [~]  L4 measure morph [x]  L5 humeter ruler+geodesics [x]  L6 loneliness [x]
-                      L7 one person per pixel (M11) [ ]  L9 ratios [x]  L10 age [ ]  L11 attention [ ]
-                      L12 non-human world [ ]  L13 cumulative person-years [ ]
+                      L7 one person per pixel (M11) [ ]  L9 ratios [x]  L10 age [~]  L11 attention [ ]
+                      L12 non-human world [x]  L13 cumulative person-years [ ]
                                 ▼
  VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles [x]  V1 zoom/pan/rotate [x]  V2 LOD by magnification [~]
-                      V3 flat+globe [x]  V4 time [x]  V5 lens [~]  V6 method/G/morph [~]  V7 labels [~]  V8 metric grid [ ]
+                      V3 flat+globe [x]  V4 time [x]  V5 lens [x]  V6 method/G/morph [~]  V7 labels [~]  V8 metric grid [~]
                       V9 native textures [x]  V10 static hosting [ ] (Phil)  V11 asset budget [x]
                       V12 permalinks [x]  V13 compare [x]  V14 story mode [x]  V15 print export [x]
  PROCESS              PR1 golden regression [x]  PR2 honesty labels [x]
@@ -128,14 +128,14 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
  RENDER
   [x] R1 warped mesh (pcolormesh) + warped coastlines, borders, graticule, error map
   [x] R2 rasters through the same field: population, night lights, terrain
-  [~] R3 morph geography -> cartogram (interpolate displacement; OT gives the geodesic)
+  [x] R3 morph geography -> cartogram (interpolate displacement; OT gives the geodesic)
   [x] R4 WebGL mesh for the site (scrub in the browser)
   [x] R5 the human-gravity slider G in [-1, +1]: attractive flow (anti-cartogram) | Earth | repulsive flow (cartogram)
   [x] A11 metric grid (100 km ground squares through the warp) + Tissot ellipses
   [x] A12 zoomable warped tile pyramid; [~] A13 3D print
   [x] L1 lens grammar (mu area, nu colour, t); [~] L2 measure catalogue; [x] L3 person-years cartogram
   [x] L4 measure-to-measure OT morph; [x] L5 humeter ruler + geodesics; [x] L6 loneliness metric 1/rho
-  [ ] L7 one person per pixel gigapixel; [x] L8 uncertainty texture from HYDE bounds
+  [ ] L7 one person per pixel gigapixel; [~] L8 uncertainty texture from HYDE bounds
 
  SOLVER INFRASTRUCTURE
   [x] S1 GPU solver (M4, MPS)   [x] S2 4096 run (e008 e009)   [x] S3 8192 run   [ ] S5 exact field evaluation (NUFFT) for the flows   [~] S4 fold gate: repair exists, gate definition under review (see DECISIONS 2026-08-29)
@@ -143,8 +143,8 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
  VIEWER (Phase 9, last)
   [x] V0 dev viewer (local tile server + Leaflet), serving the 100 m raster
   [x] V1 zoom/pan/rotate  [~] V2 LOD by local magnification  [x] V3 flat + globe, same assets
-  [x] V4 time scrubber  [~] V5 lens switch  [~] V6 method switch, G-slider, morph
-  [~] V7 labels with collision  [ ] V8 metric grid toggle  [x] V9 native textures, zoom to city
+  [x] V4 time scrubber  [x] V5 lens switch  [~] V6 method switch, G-slider, morph
+  [~] V7 labels with collision  [~] V8 metric grid toggle  [x] V9 native textures, zoom to city
   [ ] V10 static hosting in free tiers  [x] V11 asset budget and cost gate
 
  ARTEFACT (the globe, Act 3)
@@ -158,15 +158,15 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [~] A5 overlays as textures through the same warp: night lights (VIIRS VNL / Black Marble), road
          density (GRIP4), terrain, shipping (AIS density), flights; each one reads as a PER-CAPITA map
   [x] A6 labels: ~300 largest cities at warped positions, text unwarped; ghost graticule; dark Apple-style base
-  [x] A7 time on the globe: per-epoch displacement textures (RGBA16F 1024x512 x ~80 epochs ~ 80 MB),
+  [~] A7 time on the globe: per-epoch displacement textures (RGBA16F 1024x512 x ~80 epochs ~ 80 MB),
          blended in the vertex shader; log-time scrubber; growth shown by globe radius ~ sqrt(population)
-  [x] A8 controls kept small: time is the hero; method, G-slider, morph and overlay behind one cluster
+  [~] A8 controls kept small: time is the hero; method, G-slider, morph and overlay behind one cluster
   [ ] A9 static hosting on the existing site (no server, no cost); WebGL2 or WebGPU
   [~] A10 lumpy Earth (first version is a relief globe, radius = humeter scale; free spring relaxation buckles): isometric-ish 3D embedding of the population manifold on the sphere (spring
          relaxation of a sphere mesh with population rest lengths); the sculpture, ties to G1-G3
 
  TIMELINE (Act 2)
-  [x] T1 HYDE ingestion, ~80 epochs through the same prep
+  [~] T1 HYDE ingestion, ~80 epochs through the same prep
   [ ] T2 how to show growth vs redistribution: fixed frame / growing frame / people-per-pixel caption /
          growing globe (radius ~ sqrt(pop): 6000 BC is a marble)
   [~] T3 time interpolation (log-time); OT displacement interpolation between epochs
@@ -191,7 +191,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [x] R6 stretch map  [x] R7 equipotentials  [x] R8 flow lines  [x] R9 ghost coastline  [x] R10 gallery page
   [x] D6 GHS 1975-2030  [ ] D7 BUILT/SMOD  [x] D8 SSP 2100  [x] D9 Reba cities  [ ] D10 GHS-UCDB  [x] D11 rivers  [~] D12 lens measures
   [x] A14 city labels  [x] A15 rivers  [ ] A16 pole cap
-  [x] T5 future  [x] T6 peak time  [x] T7 events  [x] T8 handover
-  [x] L9 ratios  [ ] L10 age  [ ] L11 attention  [ ] L12 non-human world  [ ] L13 cumulative person-years
+  [x] T5 future  [x] T6 peak time  [~] T7 events  [x] T8 handover
+  [x] L9 ratios  [~] L10 age  [ ] L11 attention  [x] L12 non-human world  [ ] L13 cumulative person-years
   [x] V12 permalinks  [x] V13 compare  [x] V14 story mode  [x] V15 print export
   [x] PR1 golden regression  [x] PR2 honesty labels

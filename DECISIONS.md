@@ -214,3 +214,15 @@
   so they are rounded (buffer out and in, ~1 km) and simplified before warping.
 - 2026-09-02  H4: the GDP world and the person-years world look alike because both follow today's population;
   the ratio picture (GDP per person-year, log2, RdBu) is the honest third panel and shows the 64-fold spread.
+- 2026-09-03  V17 base styles run through the warped tile server (population at 100 m, night lights from Black
+  Marble 2016, terrain from Natural Earth shaded relief), sampled per output pixel via the inverse map, so any
+  raster becomes a style; they are local (port 8766) until a pyramid is precomputed for hosting. The static
+  z0-5 population pyramid is the hosted fallback.
+- 2026-09-03  L12: the tree world (39.8 million km2 of tree cover) and the cropland world (14.0 million km2) are
+  the population world's complement and the two most immediately striking lens pictures; both within +-1%.
+- 2026-09-03  The globe now has its own tile set from the periodic equal-area frame (e034): pixel x is true
+  longitude, pixel y the equal-area latitude, drawn by MapLibre 5's globe projection with a flat toggle; the
+  three.js globe stays as the earlier version. The legend square picks a round unit automatically so it always
+  fits the caption band, whatever the measure.
+- 2026-09-03  The site is cut to three doors (the map, time, the story); everything else stays reachable under
+  "also" and in the experiments gallery.

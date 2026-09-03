@@ -94,8 +94,8 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
  Phase 2  optimal transport  M10 [x] (spectral, pure)  M3 [~]  M11 [ ]                             1 of 3 (the picture exists)
  Phase 3  gravity            M2 M9 R5 M8 [x]                                                       4 of 4
  Phase 4  legibility+gallery A14 A15 R6 R7 R8 R9 X7 X8 R10 X5 X6 S3 [x]                            12 of 12
- Phase 5  time               D3 D6 D8 D9 T8 T1 L3 L8 T4 T5 T6 T7 [x]  T3 R3 [~]                    12 of 14
- Phase 6  globe              A4 A6 A7 A8 [x]  D5 A5 [~]  A9 A16 [ ]  (M12 not needed so far)        4 of 8
+ Phase 5  time               D3 D6 D8 D9 T8 T1 L3 L8 T4 T5 T6 T7 [~]  T3 R3 [x]                    12 of 14
+ Phase 6  globe              A4 A6 A7 A8 [~]  D5 A5 [~]  A9 A16 [ ]  (M12 not needed so far)        4 of 8
  Phase 7  lenses             L1 L9 L4 L5 L6 [x]  D12 [~]  L10 L11 L12 L7 L13 [ ]                    5 of 11
  Phase 8  geometry (side)    G1 G4 G2 [x]  G3/A10 A13 [~]                                          3 of 5
  Phase 9  the viewer         A12 V1 V3 V4 V9 V11 V12-V15 [x]  V2 V5 V6 V7 [~]  V8 V10 [ ]           10 of 16
@@ -149,12 +149,12 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
 
 - D3 `[x]` HYDE 3.4 verified and ingested (epochs, bounds, format). D6 `[x]` NEW GHS-POP 1975-2030 at 1 km.
 - T8 `[x]` NEW handover: HYDE before 1975, GHS-POP 1975-2025, SSP2 from 2030; no normalisation needed (scale invariance), seam disagreement measured.
-- T1 `[x]` (126 epochs at 2048) every epoch through the default method; population conserved per epoch.
+- T1 `[~]` (126 epochs at 2048) every epoch through the default method; population conserved per epoch.
 - T3 `[~]` playback by interpolating the MEASURE between epochs (every frame a true cartogram); log-time scrubbing.
-- L3 `[x]` person-years frame. L8 `[x]` uncertainty from HYDE bounds. T4 `[x]` honesty label.
+- L3 `[x]` person-years frame. L8 `[~]` uncertainty from HYDE bounds. T4 `[x]` honesty label.
 - D8 `[x]` NEW SSP gridded projections (Wang, Meng and Long 2022, SSP2 only) and T5 `[x]` NEW the future to 2100 by scenario.
-- D9 `[x]` NEW Reba historical city points and T7 `[x]` NEW events on the map through each epoch's warp.
-- T6 `[x]` NEW peak-time lens (epoch of maximum density per pixel). R3 `[~]` geography-to-cartogram morph.
+- D9 `[x]` NEW Reba historical city points and T7 `[~]` NEW events on the map through each epoch's warp.
+- T6 `[x]` NEW peak-time lens (epoch of maximum density per pixel). R3 `[x]` geography-to-cartogram morph.
 - (F1) growth display, default as above. Gate: full playback reviewed.
 
 ### Phase 6: the globe
@@ -163,7 +163,7 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
 - D5 `[~]` overlay data: VIIRS night lights, GRIP4 roads, terrain, AIS shipping, flights.
 - A5 `[~]` (lights and roads as per-capita on the flat frame; textures on the globe) overlays through the warp as per-capita maps (night lights nearly uniform as the check).
 - A6 `[x]` labels (countries + A14 cities), ghost graticule, dark base. A16 `[ ]` NEW pole cap treatment.
-- A7 `[x]` time on the globe, growing radius. A8 `[x]` one control cluster. A9 `[ ]` static hosting (checkpoint).
+- A7 `[~]` time on the globe, growing radius. A8 `[~]` one control cluster. A9 `[ ]` static hosting (checkpoint).
 - M12 `[ ]` NEW sphere-native OT only if the equal-area cylinder shows polar damage (was A3).
 - Gate: sphere area = people to Phase 2 tolerance; 60 fps on the M4.
 
@@ -172,8 +172,8 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
 - L1 `[x]` the grammar in the pipeline. D12 `[~]` NEW measure catalogue ingested (GDP: Kummu/DOSE; lights;
   carbon: EDGAR/ODIAC; cropland: HYDE/GAEZ; travel time: Weiss 2018; attention; age: WorldPop; biomass).
 - L9 `[x]` NEW ratio family (people/lights, people/cropland, people/CO2, people/roads).
-- L10 `[ ]` NEW age lens (median age; under-15s as the next generation). L11 `[ ]` NEW attention lens.
-- L12 `[ ]` NEW the non-human world (Earth by trees, cropland, protected land) as the complement.
+- L10 `[~]` NEW age lens (median age; under-15s as the next generation). L11 `[ ]` NEW attention lens.
+- L12 `[x]` NEW the non-human world (Earth by trees, cropland, protected land) as the complement.
 - L4 `[x]` measure-to-measure OT morph. L5 `[x]` humeter ruler and geodesics. L6 `[x]` loneliness metric.
 - L7 `[ ]` one person per pixel (via M11). L13 `[ ]` NEW cumulative person-years as a slider.
 - Gate: at least three lenses live with sources and honesty notes.
@@ -250,24 +250,24 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
  METRICS  X1 area [x]  X2 folds [x]  X3 anisotropy [x]  X4 displacement [x]  X5 seams [x]
           X6 gallery [x]  X7 recognisability NEW [x]  X8 twist NEW [x]      -> F2 F3 F4 (defaults set)
                                 ▼
- RENDER   R1 mesh+coasts+borders+graticule+error [x]  R2 rasters through the warp [x]  R3 morph [~]
+ RENDER   R1 mesh+coasts+borders+graticule+error [x]  R2 rasters through the warp [x]  R3 morph [x]
           R4 WebGL mesh [x]  R6 stretch map NEW [x]  R7 equipotentials NEW [x]  R8 flow lines NEW [x]
           R9 ghost coastline NEW [x]  R10 gallery page NEW [x]  countries coloured+labelled [x]
         ┌───────────────────────┼───────────────────────────┐
         ▼                       ▼                           ▼
  FLAT RECTANGLE [x]      GLOBE (Phase 6)                 LUMPY EARTH (A10 [~] relief globe, A13 [~] obj)
- share knob [x]          A4 renderer [x]  A5 overlays = per-capita [~]  A6 labels [x]  A7 time, growing radius [x]
- pure via spectral OT [x] A8 controls [x]  A9 hosting [ ] (Phil)  A14 cities [x]  A15 rivers [x]  A16 pole cap [ ]
+ share knob [x]          A4 renderer [x]  A5 overlays = per-capita [~]  A6 labels [x]  A7 time, growing radius [~]
+ pure via spectral OT [~] A8 controls [~]  A9 hosting [ ] (Phil)  A14 cities [x]  A15 rivers [x]  A16 pole cap [ ]
                                 ▼
- TIMELINE (Phase 5)   T1 epochs [x]  T3 measure interpolation [~] (blend stills)  T4 honesty [x]  T8 handover [x]
-                      T5 future 2100 [x]  T6 peak time [x]  T7 events [x]  L3 person-years [x]  L8 uncertainty [x]  (F1 default kept)
+ TIMELINE (Phase 5)   T1 epochs [~]  T3 measure interpolation [~] (blend stills)  T4 honesty [x]  T8 handover [x]
+                      T5 future 2100 [x]  T6 peak time [x]  T7 events [~]  L3 person-years [x]  L8 uncertainty [~]  (F1 default kept)
                                 ▼
  LENSES (Phase 7)     L1 grammar [x]  D12 catalogue [~]  L4 measure morph [x]  L5 humeter ruler+geodesics [x]  L6 loneliness [x]
-                      L7 one person per pixel (M11) [ ]  L9 ratios [x]  L10 age [ ]  L11 attention [ ]
-                      L12 non-human world [ ]  L13 cumulative person-years [ ]
+                      L7 one person per pixel (M11) [ ]  L9 ratios [x]  L10 age [~]  L11 attention [ ]
+                      L12 non-human world [x]  L13 cumulative person-years [ ]
                                 ▼
  VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles [x]  V1 zoom/pan/rotate [x]  V2 LOD by magnification [~]
-                      V3 flat+globe [x]  V4 time [x]  V5 lens [~]  V6 method/G/morph [~]  V7 labels [~]  V8 metric grid [ ]
+                      V3 flat+globe [x]  V4 time [x]  V5 lens [x]  V6 method/G/morph [~]  V7 labels [~]  V8 metric grid [~]
                       V9 native textures [x]  V10 static hosting [ ] (Phil)  V11 asset budget [x]
                       V12 permalinks [x]  V13 compare [x]  V14 story mode [x]  V15 print export [x]
  PROCESS              PR1 golden regression [x]  PR2 honesty labels [x]

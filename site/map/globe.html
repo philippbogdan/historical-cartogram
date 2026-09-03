@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><title>the humeter world, globe</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@5.6.0/dist/maplibre-gl.js"></script>
+<script src="https://unpkg.com/pmtiles@3.0.7/dist/pmtiles.js"></script>
+<style>html,body{margin:0;height:100%;font:14px/1.4 -apple-system,"Helvetica Neue",sans-serif;background:#0b0d12}#map{position:absolute;inset:0}
+#ui{position:absolute;top:12px;left:12px;background:#fffc;padding:10px 12px;border-radius:6px;box-shadow:0 1px 4px #0003;max-width:340px}#ui b{display:block;font-size:15px;margin-bottom:4px}
+#hover{position:absolute;bottom:12px;left:12px;background:#fffc;padding:6px 10px;border-radius:6px;font-size:13px;min-width:200px}</style></head><body>
+<div id="map"></div>
+<div id="ui"><b>The globe, area = people</b><div>projection: <select id="proj"><option value="globe">globe</option><option value="mercator">flat</option></select> <label><input id="grat" type="checkbox" checked> graticule</label></div>
+<div style="color:#555;margin-top:4px">Drag to rotate, wheel to zoom. The sphere's surface is people: every patch holds as many as its area says. <a href="index.html">flat map</a> · <a href="../index.html">about</a></div></div>
+<div id="hover">hover a place</div>
+<script type="module">
+const protocol = new pmtiles.Protocol(); maplibregl.addProtocol("pmtiles", protocol.tile);
+const style = {
+  version: 8, glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf", projection: { type: "globe" },
+  sources: { countries: { type: "vector", url: "pmtiles://tiles_globe/countries.pmtiles" }, admin1: { type: "vector", url: "pmtiles://tiles_globe/admin1.pmtiles" }, cities: { type: "vector", url: "pmtiles://tiles_globe/cities.pmtiles" }, grat: { type: "vector", url: "pmtiles://tiles_globe/graticule.pmtiles" } },
+  layers: [
+    { id: "bg", type: "background", paint: { "background-color": "#f6f6f4" } },
+    { id: "country-fill", type: "fill", source: "countries", "source-layer": "countries", paint: { "fill-color": ["get", "fill"] } },
+    { id: "admin1-fill", type: "fill", source: "admin1", "source-layer": "admin1", minzoom: 3, paint: { "fill-color": ["get", "fill"], "fill-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4.5, 1] } },
+    { id: "admin1-line", type: "line", source: "admin1", "source-layer": "admin1", minzoom: 3, paint: { "line-color": "#ffffff", "line-width": 0.8, "line-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4.5, 0.9] } },
+    { id: "city-fill", type: "fill", source: "cities", "source-layer": "cities", minzoom: 4, paint: { "fill-color": "#000", "fill-opacity": ["interpolate", ["linear"], ["zoom"], 4, 0, 6, 0.10] } },
+    { id: "city-line", type: "line", source: "cities", "source-layer": "cities", minzoom: 4, paint: { "line-color": "#222", "line-width": 0.7, "line-opacity": ["interpolate", ["linear"], ["zoom"], 4, 0, 6, 0.8] } },
+    { id: "grat-line", type: "line", source: "grat", "source-layer": "graticule", paint: { "line-color": "#000", "line-opacity": 0.18, "line-width": 0.7 } },
+    { id: "country-line", type: "line", source: "countries", "source-layer": "countries", paint: { "line-color": "#ffffff", "line-width": ["interpolate", ["linear"], ["zoom"], 0, 0.6, 6, 1.6] } },
+    { id: "coast", type: "line", source: "countries", "source-layer": "coast", paint: { "line-color": "#454545", "line-width": ["interpolate", ["linear"], ["zoom"], 0, 0.7, 6, 1.8] } },
+    { id: "hover-line", type: "line", source: "countries", "source-layer": "countries", paint: { "line-color": "#111", "line-width": 2.5 }, filter: ["==", ["get", "name"], ""] },
+    { id: "country-label", type: "symbol", source: "countries", "source-layer": "countries", maxzoom: 5, layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Semibold"], "text-size": ["interpolate", ["linear"], ["zoom"], 0, ["*", 6, ["^", ["get", "share"], 0.5]], 4, ["*", 40, ["^", ["get", "share"], 0.5]]], "text-transform": ["case", [">", ["get", "share"], 0.01], "uppercase", "none"] }, paint: { "text-color": "#222", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
+    { id: "admin1-label", type: "symbol", source: "admin1", "source-layer": "admin1", minzoom: 4.5, layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 12 }, paint: { "text-color": "#333", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
+    { id: "city-label", type: "symbol", source: "cities", "source-layer": "cities", minzoom: 5, filter: ["!=", ["get", "name"], "N/A"], layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 11 }, paint: { "text-color": "#111", "text-halo-color": "#ffffffcc", "text-halo-width": 1 } },
+  ]
+};
+const map = window.map = new maplibregl.Map({ container: "map", style, center: [60, 20], zoom: 1.6, minZoom: 0.8, maxZoom: 11, hash: true, attributionControl: false });
+map.addControl(new maplibregl.NavigationControl({ visualizePitch: false }), "top-right");
+const hover = document.getElementById('hover');
+map.on('mousemove', 'country-fill', e => { const f = e.features[0]; map.setFilter('hover-line', ["==", ["get", "name"], f.properties.name]); hover.textContent = `${f.properties.name}: ${(f.properties.pop / 1e6).toFixed(1)} million people, ${(100 * f.properties.share).toFixed(2)}% of the sphere`; });
+map.on('mouseleave', 'country-fill', () => { map.setFilter('hover-line', ["==", ["get", "name"], ""]); hover.textContent = 'hover a place'; });
+document.getElementById('proj').onchange = ev => map.setProjection({ type: ev.target.value });
+document.getElementById('grat').onchange = ev => map.setLayoutProperty('grat-line', 'visibility', ev.target.checked ? 'visible' : 'none');
+</script></body></html>

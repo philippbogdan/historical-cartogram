@@ -186,21 +186,14 @@ def draw_hero(X, Y, p, out_png, out_w=4096, grat_step=15, title="THE WORLD, AREA
     mpath = os.path.join(out, "metrics.json"); met = json.load(open(mpath)) if os.path.exists(mpath) else {}
     pop = met.get("population") or p.get("population") or 8.191e9          # GHS-POP 2025 world total as the fallback
     ppp = pop / (W * H)
-    side = np.sqrt(legend_unit / ppp) * sc             # pixels holding one legend unit (10 million people by default)
+    name = legend_text[2:].strip() if legend_text.startswith("=") else legend_text          # the measure's name, e.g. "people", "km² of trees"
+    if name.startswith("10 million "): name = name[len("10 million "):]
+    side = np.sqrt(legend_unit / ppp) * sc             # pixels holding one legend unit
     if side > 0.62 * band or side < 0.18 * band:       # pick a round unit that gives a readable square
         want = (0.5 * band / sc) ** 2 * ppp; e = 10 ** np.floor(np.log10(want)); m = want / e
         legend_unit = float(e * (1 if m < 1.5 else 2 if m < 3.5 else 5 if m < 7.5 else 10)); side = np.sqrt(legend_unit / ppp) * sc
-        unit_name = legend_text.split(" of ")[-1] if " of " in legend_text else legend_text.replace("= 10 million ", "").replace("= ", "")
-        legend_text = f"= {legend_unit/1e9:g} billion {unit_name}" if legend_unit >= 1e9 else f"= {legend_unit/1e6:g} million {unit_name}" if legend_unit >= 1e6 else f"= {legend_unit/1e3:g} thousand {unit_name}" if legend_unit >= 1e3 else f"= {legend_unit:g} {unit_name}"
-    cap = fig.add_axes([0, 0, 1, band / (oh + band)]); cap.set_axis_off(); cap.set_xlim(0, ow); cap.set_ylim(band, 0)
-    fs = out_w / 4096
-    cap.text(0.015 * ow, 0.20 * band, title, fontsize=64 * fs, fontweight="bold", color="#111", va="center")
-    import textwrap
-    subtitle = subtitle or f"Every part of the picture holds as many people as its area says: the square is 10 million people, the whole frame {pop/1e9:.2f} billion.\nCoastlines and borders are drawn where they land. The grey lines are the ordinary 15° graticule, stretched with the land."
-    subtitle = "\n".join(line for para in subtitle.split("\n") for line in textwrap.wrap(para, 108))[:400]
-    cap.text(0.015 * ow, 0.50 * band, subtitle or f"Every part of the picture holds as many people as its area says: the square is 10 million people, the whole frame {pop/1e9:.2f} billion.\nCoastlines and borders are drawn where they land. The grey lines are the ordinary 15° graticule, stretched with the land.",
-             fontsize=26 * fs, color="#333", va="center", linespacing=1.5)
-    cap.text(0.015 * ow, 0.82 * band, source or f"Optimal transport of the GHS-POP 2025 population raster (100 m), land pure, ocean kept at {100 * p.get('ocean_share', 0):.0f}% of the frame. Colours follow UN subregions.", fontsize=19 * fs, color="#666", va="center")
+    def fmt(u): return f"{u/1e12:g} trillion" if u >= 1e12 else f"{u/1e9:g} billion" if u >= 1e9 else f"{u/1e6:g} million" if u >= 1e6 else f"{u/1e3:g} thousand" if u >= 1e3 else f"{u:g}"
+    legend_text = f"= {fmt(legend_unit)} {name}"
     sx = 0.56 * ow; cap.add_patch(plt.Rectangle((sx, 0.5 * band - side / 2), side, side, facecolor="#ffffff", edgecolor="#222", lw=1.2))
     cap.text(sx + side + 0.006 * ow, 0.5 * band, legend_text, fontsize=26 * fs, va="center", color="#222")
     _, y_top = grid.xy(0.0, 76.0); _, y_bot = grid.xy(0.0, -58.0)          # inset shows 58S to 76N

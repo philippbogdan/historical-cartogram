@@ -47,8 +47,10 @@ def tippecanoe(out, layers, maxzoom):
 
 
 def main(exp, layers):
-    os.makedirs(TILES, exist_ok=True); os.makedirs(TMP, exist_ok=True)
+    global TILES, TMP
     grid, X, Y, p = frame_mesh(exp); W, H = grid.W, grid.H
+    if grid.kind == "equalarea": TILES = os.path.join(SITE, "tiles_globe"); TMP = TMP + "_globe"     # the globe's tile set
+    os.makedirs(TILES, exist_ok=True); os.makedirs(TMP, exist_ok=True)
     ids, names, pops = country_ids(grid, "50m"); cols = region_palette("50m")
     A = np.abs(quad_areas(X, Y)); share = np.bincount(ids.ravel(), weights=A.ravel(), minlength=len(names) + 1)[1:] / A.sum()
     gj = json.load(open(os.path.join(RAW, "ne_50m_admin_0_countries.geojson")))
@@ -114,7 +116,7 @@ def main(exp, layers):
     mpath = os.path.join(ROOT, "experiments", exp, "metrics.json"); met = json.load(open(mpath)) if os.path.exists(mpath) else {}
     pop = met.get("population") or 8.191e9
     json.dump({"experiment": exp, "W": W, "H": H, "lon0": grid.lon0, "people_per_px": pop / (W * H), "population": pop,
-               "region_colours": {k: hexc(v) for k, v in zip([f["properties"].get("SUBREGION") for f in feats_c], cols[1:])}}, open(os.path.join(SITE, "meta.json"), "w"), indent=1)
+               "region_colours": {k: hexc(v) for k, v in zip([f["properties"].get("SUBREGION") for f in feats_c], cols[1:])}}, open(os.path.join(SITE, "meta_globe.json" if grid.kind == "equalarea" else "meta.json"), "w"), indent=1)
     print("meta.json written")
 
 

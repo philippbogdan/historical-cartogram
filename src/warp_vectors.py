@@ -28,6 +28,10 @@ def to_pseudo_lonlat(pts, grid):
     The frame's left wall becomes -180 whatever the geographic lon0: the square is its own world, and
     nothing may wrap, or polygons at the east wall would be torn across the antimeridian."""
     W, H = grid.W, grid.H
+    if grid.kind == "equalarea":                      # the globe's periodic frame: true longitude, equal-area latitude
+        lon = (pts[:, 0] / W * 360.0 + grid.lon0 + 180.0) % 360.0 - 180.0
+        lat = np.degrees(np.arcsin(np.clip(1 - 2 * pts[:, 1] / H, -1, 1)))
+        return np.stack([lon, lat], 1)
     lon = np.clip(pts[:, 0] / W * 360.0 - 180.0, -179.999, 179.999)
     ymax = math.log(math.tan(math.pi / 4 + math.radians(grid.lat_cut) / 2))
     ym = ymax * (1 - 2 * np.clip(pts[:, 1], 0, H) / H)
