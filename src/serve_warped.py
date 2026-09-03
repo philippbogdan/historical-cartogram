@@ -206,7 +206,7 @@ def main():
                     self.send_response(500); self.end_headers(); self.wfile.write(str(e).encode()); return
                 if png is None:
                     self.send_response(404); self.end_headers(); return
-                self.send_response(200); self.send_header("Content-Type", "image/png"); self.send_header("Cache-Control", "max-age=3600"); self.end_headers(); self.wfile.write(png)
+                self.send_response(200); self.send_header("Content-Type", "image/png"); self.send_header("Cache-Control", "max-age=3600"); self.send_header("Access-Control-Allow-Origin", "*"); self.end_headers(); self.wfile.write(png)
             elif self.path.startswith("/meta"):
                 self.send_response(200); self.send_header("Content-Type", "application/json"); self.end_headers()
                 self.wfile.write(json.dumps({"maxZoom": wp.maxz, "name": name}).encode())
