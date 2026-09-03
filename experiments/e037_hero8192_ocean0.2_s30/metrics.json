@@ -1,0 +1,42 @@
+{
+ "folds": 5912087,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.010598814527144625,
+ "log_ratio_popweighted_p50": 0.00029649440542618927,
+ "log_ratio_popweighted_p95": 0.009643192695210225,
+ "log_ratio_min": -10.269366834170247,
+ "log_ratio_max": 18.620907366079457,
+ "anisotropy_popweighted_p50": 3.8924616567903643,
+ "anisotropy_popweighted_p95": 20.43468114145464,
+ "displacement_mean_px": 2180.309031656214,
+ "displacement_max_px": 4268.852292975138,
+ "folds_before_repair": 7220320,
+ "folds_after_repair": 5912087,
+ "repair_iterations": 499,
+ "repaired_corners": 9017873,
+ "folds_in_populated_cells": 7483,
+ "p95_shift_by_repair": -2.13827946186039e-06,
+ "pre_repair": {
+  "log_ratio_popweighted_p05": -0.010598568732950344,
+  "log_ratio_popweighted_p95": 0.009645330974672085,
+  "anisotropy_popweighted_p50": 3.892522856308475,
+  "anisotropy_popweighted_p95": 20.442418172190834
+ },
+ "mode": "ot_homotopy",
+ "stages": [
+  {
+   "share": 0.95,
+   "iters": 400,
+   "residual": 0.2389720181875658,
+   "cell_folds": 187128
+  },
+  {
+   "share": 0.999,
+   "iters": 271,
+   "residual": 0.26027821490068953,
+   "cell_folds": 7177465
+  }
+ ],
+ "polish_residual": 0.26027821490068953,
+ "seconds": 2364.810725927353
+}

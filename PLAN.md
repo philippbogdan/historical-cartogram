@@ -42,7 +42,7 @@ read at every scale and every moment:
 Representative means: every one of the six exists, works in a real browser or as a reviewed picture,
 carries its source and honesty note, and is reproducible from the repo.
 
-## Current state (2026-09-01)
+## Current state (2026-09-01; v3 product status in the v3 section below, 2026-09-03)
 
 Repo `~/historical-cartogram`, public, 72 commits, 51 experiments plus 163 timeline frames, `experiments/INDEX.md` and
 `experiments/gallery.html` generated. Nothing spent; nothing deployed (V10/A9 is Phil's call).

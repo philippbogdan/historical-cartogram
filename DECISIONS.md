@@ -245,3 +245,6 @@
   Labelling 16 million output pixels against 8,192 sites needs chunks of about 1 GB on the GPU. No such
   picture exists in the literature (PRIOR_WORK.md). "One person per pixel" (L7 as first stated) is the same
   construction with 8 billion sites and is not attempted.
+- 2026-09-03  H1 at 8192 (e037, float64 homotopy, 40 minutes plus a long fold repair): density error +-1% against
+  +-2.5% at 4096, and the same picture to the eye at Nepal's comb border. The 4096 frame (e036) stays the
+  hero; e037 is the accuracy ceiling for the paper's table. Its 690 MB mesh stays local.
