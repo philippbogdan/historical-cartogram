@@ -8,7 +8,8 @@ sys.path.insert(0, os.path.dirname(__file__))
 from hc import prep, render
 from hc.diffusion import quad_areas
 from run import ROOT, RAW
-from warp_vectors import frame_mesh, warp_ring, warp_ring_xy, frame_clip, to_pseudo_lonlat
+from warp_vectors import frame_mesh, warp_ring, warp_ring_xy, frame_clip, to_pseudo_lonlat, NestedWarp
+import warp_vectors
 from render_countries import country_ids
 from render_hero import region_palette
 
@@ -49,6 +50,8 @@ def tippecanoe(out, layers, maxzoom):
 def main(exp, layers):
     global TILES, TMP
     grid, X, Y, p = frame_mesh(exp); W, H = grid.W, grid.H
+    if grid.kind != "equalarea":                                   # V2: the city windows' composed maps ride inside the flat map
+        warp_vectors.NESTED = NestedWarp(exp); print("nested windows:", len(warp_vectors.NESTED.windows))
     if grid.kind == "equalarea": TILES = os.path.join(SITE, "tiles_globe"); TMP = TMP + "_globe"     # the globe's tile set
     os.makedirs(TILES, exist_ok=True); os.makedirs(TMP, exist_ok=True)
     ids, names, pops = country_ids(grid, "50m"); cols = region_palette("50m")

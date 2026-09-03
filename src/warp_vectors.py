@@ -70,9 +70,12 @@ def frame_clip(poly_rings_lonlat, grid):
     return out
 
 
+NESTED = None          # set by build_map_tiles when city windows exist
+
+
 def warp_ring_xy(pts_xy, X, Y, grid, max_seg=0.5):
     pts = render._densify(np.asarray(pts_xy, np.float64), max_seg=max_seg)
-    wp = render.warp_points(pts, X, Y, X.shape[1] - 1)
+    wp = NESTED.warp(pts) if NESTED is not None else render.warp_points(pts, X, Y, X.shape[1] - 1)
     ll = to_pseudo_lonlat(wp, grid)
     return [[round(float(a), 5), round(float(b), 5)] for a, b in ll]
 
@@ -112,3 +115,35 @@ def warp_geojson(exp, src, dst, name_field=None, pop_field=None, level=None, kee
 if __name__ == "__main__":
     a = sys.argv
     warp_geojson(a[1], a[2], a[3], a[4] if len(a) > 4 else None, a[5] if len(a) > 5 else None, int(a[6]) if len(a) > 6 else None)
+
+
+class NestedWarp:
+    """V2: the global map with the city windows' composed maps inside them. Points (global mesh px) inside
+    a window's lon/lat box are warped by that window's corner mesh (already composed with the global map);
+    everything else by the global mesh. Windows are chosen by nearest centre where they overlap."""
+    def __init__(self, exp, windows_dir=None):
+        self.grid, self.X, self.Y, self.p = frame_mesh(exp); self.W = self.grid.W
+        import glob
+        self.windows = []
+        for d in sorted(glob.glob(os.path.join(windows_dir or os.path.join(ROOT, "experiments", "nested"), "*", "mesh.npz"))):
+            z = np.load(d); n = int(z["n"]); lon0, lat1, dx = float(z["lon0"]), float(z["lat1"]), float(z["dx"])
+            self.windows.append({"name": os.path.basename(os.path.dirname(d)), "X": z["X"].astype(np.float64), "Y": z["Y"].astype(np.float64), "lon0": lon0, "lat1": lat1, "dx": dx, "n": n,
+                                 "lon1": lon0 + n * dx, "lat0": lat1 - n * dx, "clon": lon0 + 0.5 * n * dx, "clat": lat1 - 0.5 * n * dx})
+
+    def warp(self, pts):
+        """pts: (N, 2) global mesh px -> warped global px."""
+        pts = np.asarray(pts, np.float64); out = render.warp_points(pts, self.X, self.Y, self.W)
+        if not self.windows: return out
+        lon, lat = self.grid.lonlat(pts[:, 0] % self.W, pts[:, 1]); lon = np.asarray(lon); lat = np.asarray(lat)
+        best = np.full(len(pts), -1); bestd = np.full(len(pts), np.inf)
+        for k, w in enumerate(self.windows):
+            inside = (lon >= w["lon0"]) & (lon < w["lon1"]) & (lat <= w["lat1"]) & (lat > w["lat0"])
+            d = np.hypot(lon - w["clon"], lat - w["clat"]); take = inside & (d < bestd); best[take] = k; bestd[take] = d[take]
+        from scipy import ndimage
+        for k, w in enumerate(self.windows):
+            m = best == k
+            if not m.any(): continue
+            u = (lon[m] - w["lon0"]) / w["dx"]; v = (w["lat1"] - lat[m]) / w["dx"]
+            out[m, 0] = ndimage.map_coordinates(w["X"], [v, u], order=1, mode="nearest")
+            out[m, 1] = ndimage.map_coordinates(w["Y"], [v, u], order=1, mode="nearest")
+        return out

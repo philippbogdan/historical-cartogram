@@ -1,0 +1,322 @@
+[
+ {
+  "name": "guangzhou",
+  "city": "Guangzhou",
+  "country": "China",
+  "lon": 113.57080963524328,
+  "lat": 22.90122117551874,
+  "pop2015": 40589878.1018
+ },
+ {
+  "name": "jakarta",
+  "city": "Jakarta",
+  "country": "Indonesia",
+  "lon": 106.85354367919243,
+  "lat": -6.380869900840121,
+  "pop2015": 36312538.7725
+ },
+ {
+  "name": "tokyo",
+  "city": "Tokyo",
+  "country": "Japan",
+  "lon": 139.6505083452442,
+  "lat": 35.68217365294061,
+  "pop2015": 33028731.2212
+ },
+ {
+  "name": "delhi_new_delhi",
+  "city": "Delhi [New Delhi]",
+  "country": "India",
+  "lon": 77.20344631940588,
+  "lat": 28.629031969805215,
+  "pop2015": 26658713.5982
+ },
+ {
+  "name": "shanghai",
+  "city": "Shanghai",
+  "country": "China",
+  "lon": 121.42728745923714,
+  "lat": 31.192766031719664,
+  "pop2015": 24472119.102
+ },
+ {
+  "name": "dhaka",
+  "city": "Dhaka",
+  "country": "Bangladesh",
+  "lon": 90.40197183643257,
+  "lat": 23.807365267343645,
+  "pop2015": 23942350.0273
+ },
+ {
+  "name": "mumbai",
+  "city": "Mumbai",
+  "country": "India",
+  "lon": 72.97082464924024,
+  "lat": 19.141152812017058,
+  "pop2015": 21755882.3649
+ },
+ {
+  "name": "quezon_city_manila",
+  "city": "Quezon City [Manila]",
+  "country": "Philippines",
+  "lon": 121.01975238269327,
+  "lat": 14.552191426288358,
+  "pop2015": 21691140.9203
+ },
+ {
+  "name": "kolkata",
+  "city": "Kolkata",
+  "country": "India",
+  "lon": 88.29300727242547,
+  "lat": 22.525243825600647,
+  "pop2015": 21620289.2795
+ },
+ {
+  "name": "seoul",
+  "city": "Seoul",
+  "country": "South Korea",
+  "lon": 126.92473270327368,
+  "lat": 37.47591168215948,
+  "pop2015": 21600841.0338
+ },
+ {
+  "name": "cairo",
+  "city": "Cairo",
+  "country": "Egypt",
+  "lon": 31.260855280873308,
+  "lat": 30.05962610288021,
+  "pop2015": 19734085.7298
+ },
+ {
+  "name": "mexico_city",
+  "city": "Mexico City",
+  "country": "Mexico",
+  "lon": -99.10586663936182,
+  "lat": 19.45174356505344,
+  "pop2015": 19559564.0339
+ },
+ {
+  "name": "s_o_paulo",
+  "city": "S\u00e3o Paulo",
+  "country": "Brazil",
+  "lon": -46.59952223688973,
+  "lat": -23.57283208721691,
+  "pop2015": 19114337.2031
+ },
+ {
+  "name": "beijing",
+  "city": "Beijing",
+  "country": "China",
+  "lon": 116.35029491123588,
+  "lat": 39.89928274620343,
+  "pop2015": 17982667.6475
+ },
+ {
+  "name": "new_york",
+  "city": "New York",
+  "country": "United States",
+  "lon": -73.88077935599034,
+  "lat": 40.7736990464652,
+  "pop2015": 15950674.2895
+ },
+ {
+  "name": "osaka_kyoto",
+  "city": "Osaka [Kyoto]",
+  "country": "Japan",
+  "lon": 135.42019960601596,
+  "lat": 34.70045379574574,
+  "pop2015": 15692797.3891
+ },
+ {
+  "name": "bangkok",
+  "city": "Bangkok",
+  "country": "Thailand",
+  "lon": 100.54394596918695,
+  "lat": 13.76699863534228,
+  "pop2015": 14730839.4278
+ },
+ {
+  "name": "los_angeles",
+  "city": "Los Angeles",
+  "country": "United States",
+  "lon": -117.95468698006844,
+  "lat": 33.954287542233374,
+  "pop2015": 14281719.797
+ },
+ {
+  "name": "istanbul",
+  "city": "Istanbul",
+  "country": "Turkey",
+  "lon": 29.030730182847623,
+  "lat": 40.99522774801745,
+  "pop2015": 14111242.4123
+ },
+ {
+  "name": "moscow",
+  "city": "Moscow",
+  "country": "Russia",
+  "lon": 37.64894413846967,
+  "lat": 55.739146108143245,
+  "pop2015": 14077364.3642
+ },
+ {
+  "name": "buenos_aires",
+  "city": "Buenos Aires",
+  "country": "Argentina",
+  "lon": -58.538764985745786,
+  "lat": -34.650819584885916,
+  "pop2015": 13906506.018
+ },
+ {
+  "name": "karachi",
+  "city": "Karachi",
+  "country": "Pakistan",
+  "lon": 67.07803256467616,
+  "lat": 24.89934705237856,
+  "pop2015": 13150694.4818
+ },
+ {
+  "name": "tehran",
+  "city": "Tehran",
+  "country": "Iran",
+  "lon": 51.2276443861349,
+  "lat": 35.69858046435401,
+  "pop2015": 12515044.5449
+ },
+ {
+  "name": "lagos",
+  "city": "Lagos",
+  "country": "Nigeria",
+  "lon": 3.297381492660659,
+  "lat": 6.567209038944576,
+  "pop2015": 11575042.5303
+ },
+ {
+  "name": "ho_chi_minh_city",
+  "city": "Ho Chi Minh City",
+  "country": "Vietnam",
+  "lon": 106.7128682631532,
+  "lat": 10.851908030550245,
+  "pop2015": 11488340.1456
+ },
+ {
+  "name": "bengaluru",
+  "city": "Bengaluru",
+  "country": "India",
+  "lon": 77.57473888891522,
+  "lat": 13.020173450350779,
+  "pop2015": 10631615.3677
+ },
+ {
+  "name": "jieyang",
+  "city": "Jieyang",
+  "country": "China",
+  "lon": 116.46277527651941,
+  "lat": 23.42956714793597,
+  "pop2015": 10445183.075
+ },
+ {
+  "name": "lahore",
+  "city": "Lahore",
+  "country": "Pakistan",
+  "lon": 74.25272191335097,
+  "lat": 31.518054004419763,
+  "pop2015": 10114717.5133
+ },
+ {
+  "name": "chennai",
+  "city": "Chennai",
+  "country": "India",
+  "lon": 80.17342685778976,
+  "lat": 13.016415692702934,
+  "pop2015": 9992602.37644
+ },
+ {
+  "name": "rio_de_janeiro",
+  "city": "Rio de Janeiro",
+  "country": "Brazil",
+  "lon": -43.390559390408384,
+  "lat": -22.83818399113865,
+  "pop2015": 9798104.80101
+ },
+ {
+  "name": "paris",
+  "city": "Paris",
+  "country": "France",
+  "lon": 2.3218702612340665,
+  "lat": 48.84021468966971,
+  "pop2015": 9711652.2566
+ },
+ {
+  "name": "london",
+  "city": "London",
+  "country": "United Kingdom",
+  "lon": -0.1298113061876532,
+  "lat": 51.49382874831472,
+  "pop2015": 9609627.23125
+ },
+ {
+  "name": "chengdu",
+  "city": "Chengdu",
+  "country": "China",
+  "lon": 104.03461813560085,
+  "lat": 30.68897531336779,
+  "pop2015": 9318649.15575
+ },
+ {
+  "name": "lima",
+  "city": "Lima",
+  "country": "Peru",
+  "lon": -77.01536670902625,
+  "lat": -12.026120192890875,
+  "pop2015": 9265580.4988
+ },
+ {
+  "name": "new_taipei_taipei",
+  "city": "New Taipei [Taipei]",
+  "country": "Taiwan",
+  "lon": 121.41300367392236,
+  "lat": 25.006897030948018,
+  "pop2015": 8873426.90241
+ },
+ {
+  "name": "bogota",
+  "city": "Bogota",
+  "country": "Colombia",
+  "lon": -74.12384544852229,
+  "lat": 4.65089476888849,
+  "pop2015": 8608815.41423
+ },
+ {
+  "name": "surabaya",
+  "city": "Surabaya",
+  "country": "Indonesia",
+  "lon": 112.67073272065119,
+  "lat": -7.628831168069378,
+  "pop2015": 8352589.50448
+ },
+ {
+  "name": "hyderabad",
+  "city": "Hyderabad",
+  "country": "India",
+  "lon": 78.45580562923938,
+  "lat": 17.434111460191414,
+  "pop2015": 8135155.37124
+ },
+ {
+  "name": "wuhan",
+  "city": "Wuhan",
+  "country": "China",
+  "lon": 114.29476578320703,
+  "lat": 30.55378626427272,
+  "pop2015": 7344344.75004
+ },
+ {
+  "name": "singapore",
+  "city": "Singapore",
+  "country": "Singapore",
+  "lon": 103.79646202136371,
+  "lat": 1.4173586574078028,
+  "pop2015": 6920918.42518
+ }
+]
