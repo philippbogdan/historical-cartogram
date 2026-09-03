@@ -1,0 +1,11 @@
+{
+ "name": "delhi",
+ "global": "e036_hero_ocean0.2_s30_share0.999_ocean0.2",
+ "lon": 77.2,
+ "lat": 28.6,
+ "size_deg": 2.0,
+ "cells": 2400,
+ "cell_arcsec": 2.9999999881176924,
+ "sigma_m": 300.0,
+ "population": 69751451.724984
+}

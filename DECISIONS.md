@@ -226,3 +226,11 @@
   fits the caption band, whatever the measure.
 - 2026-09-03  The site is cut to three doors (the map, time, the story); everything else stays reachable under
   "also" and in the experiments gallery.
+- 2026-09-03  V2 nested 100 m solves work, with one non-obvious rule: correct in the OUTPUT space. Push the
+  window's 3 arcsecond people through the current map onto a regular grid, solve optimal transport there
+  (walls, rim tapered to the mean so the window stays glued to its surroundings), compose, repeat three
+  times. Solving on the source lattice and composing T o L fails after the first round because the
+  global Jacobian varies over the local displacements (Delhi: spread went from a factor 2 to a factor 500).
+  Delhi window (2 degrees, 70 M people): population-weighted density spread at the 300 m solve scale from
+  -1.15/+2.90 (log, global map alone) to -0.10/+0.21 after three rounds, 3.5 minutes on the GPU. The raw
+  100 m cells keep a wider spread (-0.32/+1.14): 300 m is the smoothing, and that is the honest claim.
