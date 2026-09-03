@@ -49,6 +49,11 @@ w = np.outer(t, t)
 #    solve optimal transport there (walls, tapered), and compose L' o T. Solving on the source lattice and
 #    composing T o L fails after the first round because the global Jacobian varies over the local moves.
 XC, YC = compose(xs, ys)                                    # current map: window corners in global mesh px
+XT0, YT0 = XC.copy(), YC.copy()
+# the window's own rim must not move (the outside is mapped by the global map alone): taper the local
+# DISPLACEMENT to zero at the source window's edges, not just the density on the output grid's bbox
+tc = np.ones(n + 1); mc = int(0.05 * n); rampc = 0.5 * (1 - np.cos(np.linspace(0, np.pi, mc))); tc[:mc] = rampc; tc[-mc:] = rampc[::-1]
+wc = np.outer(tc, tc)
 res, folds = 0.0, 0
 for k in range(3):
     x0_, x1_ = XC.min(), XC.max(); y0_, y1_ = YC.min(), YC.max(); span = max(x1_ - x0_, y1_ - y0_)
@@ -64,11 +69,14 @@ for k in range(3):
     if k == 2: Xk, Yk, _ = diffusion.repair_folds(Xk, Yk, periodic=False, mass=po.rho0, log=lambda *_: None)   # the repair is the slow step; once, at the end
     # compose: every window corner moves to where the output-space map sends its current position
     u = ((XC - x0_) * sc_).ravel(); v = ((YC - y0_) * sc_).ravel()
-    XC = x0_ + ndimage.map_coordinates(Xk, [v, u], order=1, mode="nearest").reshape(XC.shape) / sc_
-    YC = y0_ + ndimage.map_coordinates(Yk, [v, u], order=1, mode="nearest").reshape(YC.shape) / sc_
+    XN = x0_ + ndimage.map_coordinates(Xk, [v, u], order=1, mode="nearest").reshape(XC.shape) / sc_
+    YN = y0_ + ndimage.map_coordinates(Yk, [v, u], order=1, mode="nearest").reshape(YC.shape) / sc_
+    XC = XC + wc * (XN - XC); YC = YC + wc * (YN - YC)
     A_now = np.abs(quad_areas(XC, YC)); d = P / np.maximum(A_now, 1e-12); mm = (P > 0)
     print(f"round {k + 1}: output-space solve residual {res:.4f}, {time.time()-t0:.0f}s", flush=True)
 XTL, YTL = XC, YC                                             # the composed map for the window's corners
+rim = np.hypot(XTL - XT0, YTL - YT0); rim_max = float(max(rim[0].max(), rim[-1].max(), rim[:, 0].max(), rim[:, -1].max()))
+print(f"rim displacement vs the global map: max {rim_max:.4f} px (must be ~0)")
 X, Y = XTL, YTL                                               # saved as the window mesh (global coordinates)
 # 5. how equal is the window now? people per warped area of each 3" cell, before and after
 A_T = np.abs(quad_areas(XT, YT)); A_TL = np.abs(quad_areas(XTL, YTL))

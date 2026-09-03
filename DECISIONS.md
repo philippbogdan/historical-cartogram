@@ -254,3 +254,9 @@
   +0.14 (15%); p05 from about -1.1 to -0.07. Worst after: Osaka-Kyoto +0.54 (the window's rim taper crosses
   the Kansai conurbation) and Tokyo +0.30; best: Shanghai, Buenos Aires, Bangkok under 10%. Inside these
   windows the district level and the 100 m base are true; outside them the map is the 10 km global solve.
+- 2026-09-04  Nested-window rule two: pin the window's own rim. The output-space solve is tapered on the bbox of
+  the warped window, not on the window's curved boundary, so the first forty windows moved their rims and the
+  global-map neighbours (Sambhal, Budaun) overlapped Delhi's nested geometry in the map. The local
+  DISPLACEMENT is now blended to zero with a taper on the source lattice's edges; the rim moves 0.0000 px
+  and the outside stays the global map. Delhi's spread at 300 m is -0.22/+0.26 (from -1.15/+2.90); the
+  rim zone can no longer equalise, which is the price of continuity. All forty windows re-run.
