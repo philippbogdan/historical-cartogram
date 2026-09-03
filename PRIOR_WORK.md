@@ -47,3 +47,32 @@ Nearest:
 - Semi-discrete: https://github.com/mrgt/MongeAmpere , https://github.com/sd-ot/pysdot , https://github.com/BrunoLevy/geogram
 - Entropic: https://github.com/jeanfeydy/geomloss , https://github.com/ott-jax/ott , https://github.com/PythonOT/POT
 - Monge-Ampere FEM: https://github.com/ekawecki/Monge--Ampere , https://github.com/METHODS-Group/ProximalGalerkin (example 10)
+
+## Prior-art check for the paper, 2026-09-03 (Luna workers on Parallel Search; load-bearing items opened by hand)
+
+Verdict: no paper, preprint, thesis or repository found that computes a population (or any) cartogram with the
+Brenier map or a Monge-Ampere solver. Transport-map cartograms exist but are flow-based (Gastner, Seguy and
+More 2018, PNAS, https://doi.org/10.1073/pnas.1712674115, verified: "a flow-based algorithm whose equations of
+motion are numerically easier to solve"). Vivien Seguy's Kyoto thesis (c. 2017, repository 2433/233857,
+UNVERIFIED: the repository refuses the fetch) has a cartogram chapter that its abstract calls flow-based.
+
+Closest prior art, verified:
+- Zhao, Su, Gu, Kaufman, Sun, Gao and Luo 2013, IEEE TVCG 19(12), "Area-Preservation Mapping using Optimal
+  Mass Transport": Monge-Brenier OT for area-preserving surface flattening, with an "earth map" example that
+  preserves the continents' GEOMETRIC areas (an equal-area projection), not a population measure.
+- Weller, Browne, Budd and Cullen 2016, J. Comput. Phys., "Mesh Adaptation on the Sphere using Optimal
+  Transport and the Numerical Solution of a Monge-Ampere type Equation" (arXiv 1512.02935): Monge-Ampere
+  solved on the sphere with observed precipitation as the monitor function; the nearest thing to a
+  sphere-native OT cartogram, framed as mesh adaptation.
+- Finn, Delzanno and Chacon 2008, Int. Meshing Roundtable: "Minimization of the L2 norm of the grid
+  displacement leads to equidistribution via the Monge-Ampere equation" (verbatim, via Luna); Budd and
+  Williams 2009 (SIAM J. Sci. Comput.) and Sulman, Williams and Russell 2011 (JCP, UNVERIFIED page): the
+  moving-mesh Monge-Ampere literature, never applied to maps.
+- Carroll and Moore 2008, "A Multi-scale Dynamic Map Using Cartograms to Reflect User Focus", Geospatial
+  Vision (LNGC), Springer, https://doi.org/10.1007/978-3-540-70970-1_5 (verified): a recursive, nested
+  cartogram (country, provinces, districts, cities, suburbs) driven by user focus, Gastner-Newman based. The
+  precedent for nesting; ours nests by data resolution, not by focus.
+- Hennig, Dorling and Ramsden 2009, GISRUK: the finest published gridded population cartogram found, 2.5
+  arc-minutes ("a population grid of 8640x3432 pixels", via Luna). No 1 km or 100 m cartogram found.
+- No published unit of length defined by world-average population density, and no Riemannian
+  g = rho x Euclidean framing of cartograms, found (absence is UNVERIFIED as a universal claim).
