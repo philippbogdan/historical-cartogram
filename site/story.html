@@ -38,6 +38,10 @@ figure{margin:18px 0 0}figure img,figure video{width:100%;height:auto;display:bl
 <div class="pair"><figure><img src="img/story_trees.jpg" alt="Area = trees"><figcaption>Area = tree cover, Copernicus 100 m, 2019; 39.8 million km².</figcaption></figure>
 <figure><img src="img/story_crops.jpg" alt="Area = cropland"><figcaption>Area = cropland, Copernicus 100 m, 2019; 14.0 million km².</figcaption></figure></div>
 
+<h2>6. The power diagram of humanity</h2>
+<p>The discrete counterpart of the cartogram. Semi-discrete optimal transport from the population raster to 8,192 points gives 8,192 convex cells, every one holding exactly a million people. The ordinary map is not stretched; the cells are: a few streets in Dhaka, most of Siberia in the north, and the outer cells reach across the oceans because the plane is shared.</p>
+<figure><img src="img/story_power.jpg" alt="The power diagram of humanity"><figcaption>Laguerre cells by semi-discrete optimal transport (pysdot); every cell 1.00 million people; country colours underneath.</figcaption></figure>
+
 <h2>Honesty</h2>
 <p class="note">The deformation is solved on a 4096-cell grid (about 10 km) with 30 km smoothing, so the map equalises population at that scale: a city is inflated as a whole, a block inside it is not. The 100 m data is what is painted on the map and what the zoomable map reads at depth. Densities are within about ±2.5% of exact for 90% of people. HYDE before 1950 is a model; SSP2 after 2025 is a projection. Sources and licences: GHS-POP R2023A (JRC, CC BY 4.0), HYDE 3.3 (PBL), SSP2 grids (Wang, Meng and Long 2022, CC BY 4.0), Kummu et al. 2018 (CC0), Copernicus Global Land Cover (CC BY 4.0), Natural Earth, GHS-UCDB, geoBoundaries. Everything is in the <a href="https://github.com/philippbogdan/historical-cartogram">repository</a>, with the experiments <a href="../experiments/gallery.html">gallery</a> behind it.</p>
 </main></body></html>

@@ -238,3 +238,10 @@
   lights, terrain) sat 12 degrees east of the vector borders on the wall frame. Caught while wiring the city
   windows' inverse maps (Delhi's tile resolved to Balochistan). Any code that turns mesh pixels into
   longitude must carry lon0; the per-country population check applies to textures too.
+- 2026-09-03  M11/L7: the power diagram of humanity. Semi-discrete optimal transport (pysdot) from the population
+  raster on the 2048 grid to 8,192 sites, every Laguerre cell exactly one million people. Newton needs every
+  cell non-empty at the start, which a five-decade density denies: solve on a 32-cell blur first and sharpen
+  in steps, keeping the weights; Lloyd relaxation at the sharp density breaks the same condition, so none.
+  Labelling 16 million output pixels against 8,192 sites needs chunks of about 1 GB on the GPU. No such
+  picture exists in the literature (PRIOR_WORK.md). "One person per pixel" (L7 as first stated) is the same
+  construction with 8 billion sites and is not attempted.

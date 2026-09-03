@@ -42,7 +42,7 @@ but feel empty (small). Area = people, on a map you can still read.
  ┌─ least displacement (OT) ───────────┐   ┌─ least angle distortion ─┐
  │ M10 Poisson iteration [x] (not pure)│   │ M7 quasiconformal [ ]    │
  │ M3 back-and-forth     [~]  <- now   │   └──────────────────────────┘
- │ M11 semi-discrete     [ ]  NEW      │
+ │ M11 semi-discrete     [x]  NEW      │
  │ M5 monotone FD [ ]  M4 Sinkhorn [ ] │
  │ M6 sliced [ ]   M12 on sphere [ ]   │
  └───────────────┬─────────────────────┘
@@ -64,7 +64,7 @@ but feel empty (small). Area = people, on a map you can still read.
                       T5 future 2100 [x]  T6 peak time [x]  T7 events [x]  L3 person-years [x]  L8 uncertainty [x]  (F1 default kept)
                                 ▼
  LENSES (Phase 7)     L1 grammar [x]  D12 catalogue [~]  L4 measure morph [x]  L5 humeter ruler+geodesics [x]  L6 loneliness [x]
-                      L7 one person per pixel (M11) [ ]  L9 ratios [x]  L10 age [~]  L11 attention [ ]
+                      L7 one person per pixel (M11) [x]  L9 ratios [x]  L10 age [~]  L11 attention [ ]
                       L12 non-human world [x]  L13 cumulative person-years [ ]
                                 ▼
  VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles [x]  V1 zoom/pan/rotate [x]  V2 LOD by magnification [~]
@@ -135,7 +135,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [x] A12 zoomable warped tile pyramid; [~] A13 3D print
   [x] L1 lens grammar (mu area, nu colour, t); [~] L2 measure catalogue; [x] L3 person-years cartogram
   [x] L4 measure-to-measure OT morph; [x] L5 humeter ruler + geodesics; [x] L6 loneliness metric 1/rho
-  [ ] L7 one person per pixel gigapixel; [x] L8 uncertainty texture from HYDE bounds
+  [~] L7 one person per pixel gigapixel; [x] L8 uncertainty texture from HYDE bounds
 
  SOLVER INFRASTRUCTURE
   [x] S1 GPU solver (M4, MPS)   [x] S2 4096 run (e008 e009)   [x] S3 8192 run   [ ] S5 exact field evaluation (NUFFT) for the flows   [~] S4 fold gate: repair exists, gate definition under review (see DECISIONS 2026-08-29)
@@ -186,7 +186,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
 - Which OT formulation survives zero-density oceans best (M3 vs M4 vs M5)?
 
  NEW in v2 (see PLAN.md for the phase each belongs to)
-  [ ] M11 semi-discrete OT   [ ] M12 OT on the sphere   [ ] S5 exact field evaluation
+  [x] M11 semi-discrete OT   [ ] M12 OT on the sphere   [ ] S5 exact field evaluation
   [x] X7 recognisability     [x] X8 twist map
   [x] R6 stretch map  [x] R7 equipotentials  [x] R8 flow lines  [x] R9 ghost coastline  [x] R10 gallery page
   [x] D6 GHS 1975-2030  [ ] D7 BUILT/SMOD  [x] D8 SSP 2100  [x] D9 Reba cities  [ ] D10 GHS-UCDB  [x] D11 rivers  [~] D12 lens measures

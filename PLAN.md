@@ -91,7 +91,7 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
 
 ```
  Phase 1  foundations        A1 A2 S1 S2 A11 R2 V0            [x]  S4 [~]  S5 [ ]                     7 of 9 done
- Phase 2  optimal transport  M10 [x] (spectral, pure)  M3 [~]  M11 [ ]                             1 of 3 (the picture exists)
+ Phase 2  optimal transport  M10 [x] (spectral, pure)  M3 [~]  M11 [x]                             1 of 3 (the picture exists)
  Phase 3  gravity            M2 M9 R5 M8 [x]                                                       4 of 4
  Phase 4  legibility+gallery A14 A15 R6 R7 R8 R9 X7 X8 R10 X5 X6 S3 [x]                            12 of 12
  Phase 5  time               D3 D6 D8 D9 T8 T1 L3 L8 T4 T5 T6 T7 [x]  T3 R3 [x]                    12 of 14
@@ -118,7 +118,7 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
   it gives the global convex structure but its discrete map is a staircase where the map compresses and
   the ascent stalls at 4096 pure (21% mass misplaced). Kept as a solver for moderate contrasts; the pure
   route is M10 homotopy. Gate status: ±5% met (±3.5%); populated folds 5.5k of 1.9M, not zero (F5 default applies).
-- M11 `[ ]` NEW semi-discrete OT (Laguerre cells): one convex cell per N people, exact areas, no folds;
+- M11 `[x]` NEW semi-discrete OT (Laguerre cells): one convex cell per N people, exact areas, no folds;
   a new picture (the power diagram of humanity) and the engine for L7. Mérigot/Lévy code as reference.
 - M5 `[ ]` monotone Monge-Ampère finite differences, only if M3 stalls. M4, M6 `[ ]` optional comparisons.
 - Gate: MET 2026-08-29 on error; folds gate under F5 default. e025 is the pure OT world at 4096.
@@ -175,7 +175,7 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
 - L10 `[~]` NEW age lens (median age; under-15s as the next generation). L11 `[ ]` NEW attention lens.
 - L12 `[x]` NEW the non-human world (Earth by trees, cropland, protected land) as the complement.
 - L4 `[x]` measure-to-measure OT morph. L5 `[x]` humeter ruler and geodesics. L6 `[x]` loneliness metric.
-- L7 `[ ]` one person per pixel (via M11). L13 `[ ]` NEW cumulative person-years as a slider.
+- L7 `[~]` one person per pixel (via M11). L13 `[ ]` NEW cumulative person-years as a slider.
 - Gate: at least three lenses live with sources and honesty notes.
 
 ### Phase 8: geometry (side)
@@ -241,7 +241,7 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
  ┌─ least displacement (OT) ───────────┐   ┌─ least angle distortion ─┐
  │ M10 Poisson iteration [x] (not pure)│   │ M7 quasiconformal [ ]    │
  │ M3 back-and-forth     [~]  <- next  │   └──────────────────────────┘
- │ M11 semi-discrete     [ ]  NEW      │
+ │ M11 semi-discrete     [x]  NEW      │
  │ M5 monotone FD [ ]  M4 Sinkhorn [ ] │
  │ M6 sliced [ ]   M12 on sphere [ ]   │
  └───────────────┬─────────────────────┘
@@ -263,7 +263,7 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
                       T5 future 2100 [x]  T6 peak time [x]  T7 events [x]  L3 person-years [x]  L8 uncertainty [x]  (F1 default kept)
                                 ▼
  LENSES (Phase 7)     L1 grammar [x]  D12 catalogue [~]  L4 measure morph [x]  L5 humeter ruler+geodesics [x]  L6 loneliness [x]
-                      L7 one person per pixel (M11) [ ]  L9 ratios [x]  L10 age [~]  L11 attention [ ]
+                      L7 one person per pixel (M11) [x]  L9 ratios [x]  L10 age [~]  L11 attention [ ]
                       L12 non-human world [x]  L13 cumulative person-years [ ]
                                 ▼
  VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles [x]  V1 zoom/pan/rotate [x]  V2 LOD by magnification [~]
