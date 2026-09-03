@@ -76,3 +76,8 @@ Closest prior art, verified:
   arc-minutes ("a population grid of 8640x3432 pixels", via Luna). No 1 km or 100 m cartogram found.
 - No published unit of length defined by world-average population density, and no Riemannian
   g = rho x Euclidean framing of cartograms, found (absence is UNVERIFIED as a universal claim).
+- Semi-discrete OT and power diagrams: no population cartogram built from Laguerre cells found. Adjacent:
+  Gastner and Newman 2006 (Phys. Rev. E, Voronoi facilities drawn ON a diffusion cartogram); Levy 2015 (ESAIM
+  M2AN, semi-discrete OT algorithm, no maps); Cano, Buchin, Castermans, Pieterse, Sonke and Speckmann 2015
+  (CGF, mosaic cartograms of square or hexagonal tiles); Evan Savage 2013 (blog, quadtree tiles of roughly
+  equal population). An equal-population Laguerre tessellation of the world (M11) is not in the literature.

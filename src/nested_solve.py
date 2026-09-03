@@ -61,7 +61,7 @@ for k in range(3):
     sig_out = max(1.0, sigma_px * sc_ * np.sqrt(np.median(np.abs(quad_areas(XC, YC)))))   # the solve scale in output px
     po, stages = ot_poisson.spectral_homotopy(counts, [0.9, 0.99], sig_out, "wall", iters=400, damping=0.5, log=lambda s: None)
     Xk, Yk = po.mesh(); res, folds = po.residual()
-    Xk, Yk, _ = diffusion.repair_folds(Xk, Yk, periodic=False, mass=po.rho0, log=lambda *_: None)
+    if k == 2: Xk, Yk, _ = diffusion.repair_folds(Xk, Yk, periodic=False, mass=po.rho0, log=lambda *_: None)   # the repair is the slow step; once, at the end
     # compose: every window corner moves to where the output-space map sends its current position
     u = ((XC - x0_) * sc_).ravel(); v = ((YC - y0_) * sc_).ravel()
     XC = x0_ + ndimage.map_coordinates(Xk, [v, u], order=1, mode="nearest").reshape(XC.shape) / sc_
