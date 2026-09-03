@@ -19,12 +19,12 @@ H = hyde.Hyde(os.path.join(RAW, "hyde33", "population_base.nc")); ys = list(H.ye
 for i in range(len(ys) - 1): acc += 0.5 * (H.counts(i) + H.counts(i + 1)) * (ys[i + 1] - ys[i])
 # panel 1: GDP world
 grid, X, Y, p = frame_mesh(gdp_exp); tot = float(a.sum()); p["population"] = tot
-draw_hero(X, Y, p, os.path.join(out, "gdp_world.png"), out_w, title="THE WORLD, AREA = GDP", legend_text="= 100 billion dollars a year (PPP, 2015)", legend_unit=1e11,
+draw_hero(X, Y, p, os.path.join(out, "gdp_world.png"), out_w, title="THE WORLD, AREA = GDP", legend_text="dollars a year (PPP, 2015)", legend_unit=1e11,
           subtitle=f"Every part of the picture holds as much economic output as its area says; the whole frame is {tot/1e12:.0f} trillion dollars a year.\nCountries keep their colours from the population world, so a country that grew is rich per head and one that shrank is poor per head.",
           source="Optimal transport of Kummu, Taka and Guillaume 2018 GDP PPP 2015 (5 arcmin, CC0), land pure, ocean 20% of the frame.")
 # panel 2: person-years world, and the ratio GDP per person-year painted on it
 grid2, X2, Y2, p2 = frame_mesh(py_exp); tot2 = float(acc.sum()); p2["population"] = tot2
-draw_hero(X2, Y2, p2, os.path.join(out, "personyears_world.png"), out_w, title="THE WORLD, AREA = YEARS OF HUMAN LIFE SINCE 10,000 BC", legend_text="= 10 billion person-years", legend_unit=1e10,
+draw_hero(X2, Y2, p2, os.path.join(out, "personyears_world.png"), out_w, title="THE WORLD, AREA = YEARS OF HUMAN LIFE SINCE 10,000 BC", legend_text="person-years", legend_unit=1e10,
           subtitle=f"Every part of the picture holds as many person-years as its area says: all the years everyone has lived there since the end of the Ice Age, {tot2/1e12:.2f} trillion in the frame.\nSixty percent of them were lived before 1700. The picture looks like today's population because population growth is exponential.",
           source="HYDE 3.3 population, integrated over its 126 epochs; optimal transport, land pure, ocean 20% of the frame.")
 # ratio raster on the person-years grid: GDP / person-years per source cell, relative to the world ratio, log2 scale
@@ -34,7 +34,7 @@ from scipy import ndimage
 Gs = ndimage.gaussian_filter(G, 5); Ps = ndimage.gaussian_filter(PY, 5)
 ratio = np.where(Ps > 1e5, Gs / np.maximum(Ps, 1), np.nan); world = G.sum() / PY.sum()
 lg = np.log2(ratio / world)
-draw_hero(X2, Y2, p2, os.path.join(out, "gdp_per_personyear.png"), out_w, title="GDP PER YEAR OF HUMAN LIFE", legend_text="= 10 billion person-years", legend_unit=1e10,
+draw_hero(X2, Y2, p2, os.path.join(out, "gdp_per_personyear.png"), out_w, title="GDP PER YEAR OF HUMAN LIFE", legend_text="person-years", legend_unit=1e10,
           subtitle="The person-years world, painted with output per person-year: blue is a quarter of the world average or less, red four times or more.\nIf history equalised wealth this picture would be one flat colour. It spans a factor of 64 between the 5th and 95th percentile countries.",
           source="Kummu GDP PPP 2015 divided by HYDE person-years since 10,000 BC, per 5 arcmin cell, smoothed 5 cells; log2 scale, RdBu.",
           overlay=(lg, "RdBu_r", -2.0, 2.0, 0.85))

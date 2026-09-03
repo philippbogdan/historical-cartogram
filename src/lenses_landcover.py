@@ -42,7 +42,7 @@ if not os.path.exists(os.path.join(ROOT, "experiments", exp, "metrics.json")):
 g, X, Y, p = frame_mesh(exp); p["population"] = total
 title = "THE WORLD, AREA = TREES" if what == "tree" else "THE WORLD, AREA = CROPLAND"
 unit = 1e6 if what == "tree" else 5e5
-draw_hero(X, Y, p, os.path.join(ROOT, "experiments", exp, "hero.png"), 4096, title=title, legend_text=f"= {unit/1e6:g} million km² of {'trees' if what == 'tree' else 'cropland'}", legend_unit=unit,
+draw_hero(X, Y, p, os.path.join(ROOT, "experiments", exp, "hero.png"), 4096, title=title, legend_text=f"km² of {'trees' if what == 'tree' else 'cropland'}", legend_unit=unit,
           subtitle=(f"Every part of the picture holds as much tree cover as its area says; the frame is {total/1e6:.1f} million km² of trees. The people's world turned inside out: Russia, Canada, Brazil and the Congo grow; India shrinks."
                     if what == "tree" else f"Every part of the picture holds as much cropland as its area says; the frame is {total/1e6:.1f} million km² of crops. The plains that feed the world: India, the US Midwest, the Black Earth, the North China Plain."),
           source=f"Optimal transport of the Copernicus 100 m {name.lower()} cover fraction (2019, CC BY 4.0), land pure, ocean 20% of the frame. Colours follow UN subregions.")

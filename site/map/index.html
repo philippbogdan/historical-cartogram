@@ -15,7 +15,7 @@ html,body{margin:0;height:100%;font:14px/1.4 -apple-system,"Helvetica Neue",sans
 </style></head><body>
 <div id="map"></div>
 <div id="ui"><b>The world, area = people</b>
-<div>style: <select id="style"><option value="colour">simple colour</option><option value="pop">population texture</option><option value="lights">night lights</option></select>
+<div>style: <select id="style"><option value="colour">simple colour</option><option value="pop">population, 100 m</option><option value="lights">night lights</option><option value="relief">terrain</option></select>
 <label><input id="grat" type="checkbox" checked> graticule</label></div>
 <div style="color:#555;margin-top:4px">zoom in: countries, then provinces and cities, then districts. Click a country to fly into it. <a href="../index.html">about</a> · <a href="../globe/">globe</a></div></div>
 <div id="hover">hover a place</div>
@@ -32,12 +32,16 @@ const style = {
     cities: { type: "vector", url: "pmtiles://tiles/cities.pmtiles" },
     admin2: { type: "vector", url: "pmtiles://tiles/admin2.pmtiles" },
     grat: { type: "vector", url: "pmtiles://tiles/graticule.pmtiles" },
-    pop: { type: "raster", tiles: ["../flat/tiles/pop/{z}/{x}/{y}.png"], tileSize: 256, maxzoom: 5 },
+    pop: { type: "raster", tiles: [(location.hostname === "localhost" ? "http://localhost:8766/tiles/{z}/{x}/{y}.png?layer=pop&mode=max" : "../flat/tiles/pop/{z}/{x}/{y}.png")], tileSize: 256, maxzoom: location.hostname === "localhost" ? 9 : 5 },
+    lights: { type: "raster", tiles: ["http://localhost:8766/tiles/{z}/{x}/{y}.png?layer=lights"], tileSize: 256, maxzoom: 9 },
+    relief: { type: "raster", tiles: ["http://localhost:8766/tiles/{z}/{x}/{y}.png?layer=relief"], tileSize: 256, maxzoom: 9 },
   },
   layers: [
     { id: "bg", type: "background", paint: { "background-color": "#f6f6f4" } },
     { id: "country-fill", type: "fill", source: "countries", "source-layer": "countries", paint: { "fill-color": ["get", "fill"], "fill-opacity": 1 } },
-    { id: "pop-raster", type: "raster", source: "pop", layout: { visibility: "none" }, paint: { "raster-opacity": 0.9 } },
+    { id: "pop-raster", type: "raster", source: "pop", layout: { visibility: "none" }, paint: { "raster-opacity": 0.95 } },
+    { id: "lights-raster", type: "raster", source: "lights", layout: { visibility: "none" }, paint: { "raster-opacity": 1 } },
+    { id: "relief-raster", type: "raster", source: "relief", layout: { visibility: "none" }, paint: { "raster-opacity": 1 } },
     { id: "admin1-fill", type: "fill", source: "admin1", "source-layer": "admin1", minzoom: 3, paint: { "fill-color": ["get", "fill"], "fill-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4.5, 1] } },
     { id: "admin2-line", type: "line", source: "admin2", "source-layer": "admin2", minzoom: 6, paint: { "line-color": "#ffffff", "line-width": 0.6, "line-opacity": ["interpolate", ["linear"], ["zoom"], 6, 0, 7.5, 0.9] } },
     { id: "admin1-line", type: "line", source: "admin1", "source-layer": "admin1", minzoom: 3, paint: { "line-color": "#ffffff", "line-width": 0.8, "line-opacity": ["interpolate", ["linear"], ["zoom"], 3, 0, 4.5, 0.9] } },
@@ -51,7 +55,7 @@ const style = {
       layout: { "text-field": ["get", "name"], "text-font": ["Open Sans Semibold"], "text-size": ["interpolate", ["linear"], ["zoom"], 0, ["*", 6, ["^", ["get", "share"], 0.5]], 4, ["*", 40, ["^", ["get", "share"], 0.5]]], "text-transform": ["case", [">", ["get", "share"], 0.01], "uppercase", "none"], "text-padding": 6 },
       paint: { "text-color": "#222", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
     { id: "admin1-label", type: "symbol", source: "admin1", "source-layer": "admin1", minzoom: 4.5, layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 12 }, paint: { "text-color": "#333", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
-    { id: "city-label", type: "symbol", source: "cities", "source-layer": "cities", minzoom: 5, layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 11 }, paint: { "text-color": "#111", "text-halo-color": "#ffffffcc", "text-halo-width": 1 } },
+    { id: "city-label", type: "symbol", source: "cities", "source-layer": "cities", minzoom: 5, filter: ["!=", ["get", "name"], "N/A"], layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 11 }, paint: { "text-color": "#111", "text-halo-color": "#ffffffcc", "text-halo-width": 1 } },
     { id: "admin2-label", type: "symbol", source: "admin2", "source-layer": "admin2", minzoom: 7.5, layout: { "text-field": ["get", "name"], "text-font": ["Noto Sans Regular"], "text-size": 10 }, paint: { "text-color": "#333", "text-halo-color": "#ffffffaa", "text-halo-width": 1 } },
   ]
 };
@@ -64,6 +68,6 @@ const hover = document.getElementById('hover');
 map.on('mousemove', 'country-fill', e => { const f = e.features[0]; map.setFilter('hover-line', ["==", ["get", "name"], f.properties.name]); hover.textContent = `${f.properties.name}: ${(f.properties.pop / 1e6).toFixed(1)} million people, ${(100 * f.properties.share).toFixed(2)}% of the picture`; map.getCanvas().style.cursor = 'pointer'; });
 map.on('mouseleave', 'country-fill', () => { map.setFilter('hover-line', ["==", ["get", "name"], ""]); hover.textContent = 'hover a place'; map.getCanvas().style.cursor = ''; });
 map.on('click', 'country-fill', e => { const f = e.features[0]; const b = JSON.parse(f.properties.bbox); map.fitBounds(b, { padding: 40, duration: 1400 }); });
-document.getElementById('style').onchange = ev => { const v = ev.target.value; map.setLayoutProperty('pop-raster', 'visibility', v === 'pop' ? 'visible' : 'none'); map.setPaintProperty('country-fill', 'fill-opacity', v === 'colour' ? 1 : 0.0); };
+document.getElementById('style').onchange = ev => { const v = ev.target.value; for (const r of ['pop', 'lights', 'relief']) map.setLayoutProperty(r + '-raster', 'visibility', v === r ? 'visible' : 'none'); map.setPaintProperty('country-fill', 'fill-opacity', v === 'colour' ? 1 : 0.0); map.setPaintProperty('admin1-fill', 'fill-opacity', v === 'colour' ? ["interpolate", ["linear"], ["zoom"], 3, 0, 4.5, 1] : 0); const dark = v === 'lights'; for (const l of ['country-line', 'admin1-line', 'admin2-line']) map.setPaintProperty(l, 'line-color', dark ? '#ffffff80' : '#ffffff'); map.setPaintProperty('coast', 'line-color', dark ? '#bbbbbb' : '#454545'); };
 document.getElementById('grat').onchange = ev => map.setLayoutProperty('grat-line', 'visibility', ev.target.checked ? 'visible' : 'none');
 </script></body></html>

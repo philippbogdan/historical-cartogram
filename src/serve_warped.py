@@ -63,6 +63,20 @@ class Warped:
             self.pyr = {int(k[1:]): z[k].astype(np.float32) for k in z.files if k.startswith("L")}
             self.pyr_left, self.pyr_top, self.pyr_cell = (float(v) for v in z["meta"])
         self.km_per_mesh_px = 2 * np.pi * 6371.0 / self.W
+        self.tex = {}                                            # V17 textures through the same inverse map
+
+    TEXTURES = {"lights": os.path.join(RAW, "lenses", "BlackMarble_2016_3km_geo.tif"),
+                "relief": os.path.join(RAW, "relief", "GRAY_HR_SR_OB_DR.tif")}
+
+    def texture(self, name):
+        if name not in self.tex:
+            with rasterio.open(self.TEXTURES[name]) as src:
+                a = src.read(); T = src.transform
+            a = np.moveaxis(a, 0, -1) if a.shape[0] in (3, 4) else a[0][..., None]
+            if a.shape[-1] == 4: a = a[..., :3]
+            if a.shape[-1] == 1: a = np.repeat(a, 3, axis=-1)
+            self.tex[name] = (a.astype(np.uint8), T)
+        return self.tex[name]
 
     def tile(self, z, x, y, layer="pop", vmax=3.8, ss=2, mode="max"):
         """Source density is read at a scale fixed by the ZOOM LEVEL, not by the tile's geographic
@@ -89,7 +103,11 @@ class Warped:
         foot_px = float(np.median(np.concatenate([dsx.ravel(), dsy.ravel()]))) * ss  # mesh px per tile pixel
         lat_c = np.radians(float(np.median(lat)))
         foot_km = foot_px * self.km_per_mesh_px * max(np.cos(lat_c), 0.1)
-        if layer == "country":
+        if layer in self.TEXTURES:
+            arr, T = self.texture(layer)
+            gx = np.clip(((lon - T.c) / T.a).astype(int), 0, arr.shape[1] - 1); gy = np.clip(((T.f - lat) / -T.e).astype(int), 0, arr.shape[0] - 1)
+            rgb = arr[gy, gx].reshape(TILE, ss, TILE, ss, 3).mean(axis=(1, 3)).astype(np.uint8)
+        elif layer == "country":
             gx, gy = self.cid_grid.xy(lon, lat)
             ids = self.cids[np.clip(gy.astype(int), 0, self.cids.shape[0] - 1), np.clip(gx.astype(int), 0, self.cids.shape[1] - 1)]
             rgb = self.cols[ids]
@@ -178,7 +196,8 @@ def main():
         def do_GET(self):
             if self.path.startswith("/tiles/"):
                 path, _, qs = self.path.partition("?")
-                layer = "country" if "layer=country" in qs else "pop"
+                import re as _re
+                mm = _re.search(r"layer=([a-z]+)", qs); layer = mm.group(1) if mm else "pop"
                 mode = "avg" if "mode=avg" in qs else "max"
                 try:
                     z, x, y = (int(v) for v in path[7:].split(".")[0].split("/"))

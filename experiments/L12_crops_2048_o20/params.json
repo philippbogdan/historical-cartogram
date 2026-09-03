@@ -1,0 +1,21 @@
+{
+ "name": "L12_crops_2048_o20",
+ "method": "ot_spectral_homotopy",
+ "grid": "mercator",
+ "lat_cut": 85.0511,
+ "lon0": -168.0,
+ "width": 2048,
+ "W": 2048,
+ "H": 2048,
+ "x_boundary": "wall",
+ "floor": 0.0010010010010010019,
+ "share": 0.999,
+ "ocean_share": 0.2,
+ "sigma_km": 60.0,
+ "sigma_px": 3.069684414869267,
+ "vectors": "50m",
+ "source": "Copernicus Global Land Cover 100 m 2019, Crops cover fraction (CC BY 4.0)",
+ "honesty": "satellite classification, 2019",
+ "measure": "km2 of crops",
+ "population": 13989380.950139679
+}
