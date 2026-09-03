@@ -69,7 +69,7 @@ class Warped:
         self.windows = []
         for f in sorted(glob.glob(os.path.join(ROOT, "experiments", "nested", "*", "inverse.npz"))):
             z = np.load(f); n = int(z["n"]); dx = float(z["dx"]); lon0 = float(z["lon0"]); lat1 = float(z["lat1"])
-            self.windows.append({"ILON": z["ILON"].astype(np.float32), "ILAT": z["ILAT"].astype(np.float32), "x0": float(z["x0"]), "y0": float(z["y0"]), "sc": float(z["sc"]),
+            self.windows.append({"ILON": z["ILON"].astype(np.float32), "ILAT": z["ILAT"].astype(np.float32), "COV": z["COV"].astype(np.float32) if "COV" in z.files else np.ones(z["ILON"].shape, np.float32), "x0": float(z["x0"]), "y0": float(z["y0"]), "sc": float(z["sc"]),
                                  "lon0": lon0, "lon1": lon0 + n * dx, "lat0": lat1 - n * dx, "lat1": lat1})
         if self.windows: print("nested windows:", len(self.windows))
 
@@ -108,7 +108,10 @@ class Warped:
         lon, lat = self.grid.lonlat(sxp, syp)
         for w in self.windows:                                   # inside a city window, the window's own inverse map
             inb = (U >= w["x0"]) & (V >= w["y0"]) & ((U - w["x0"]) * w["sc"] < w["ILON"].shape[1] - 1) & ((V - w["y0"]) * w["sc"] < w["ILON"].shape[0] - 1)
-            inside = inb & (lon >= w["lon0"]) & (lon < w["lon1"]) & (lat <= w["lat1"]) & (lat > w["lat0"])
+            if not inb.any(): continue
+            cwb = [((V[inb] - w["y0"]) * w["sc"]), ((U[inb] - w["x0"]) * w["sc"])]
+            cov = np.zeros(U.shape, bool); cov[inb] = ndimage.map_coordinates(w["COV"], cwb, order=0, mode="constant", cval=0) > 0.5
+            inside = inb & cov                                   # the window's composed footprint, not the global map's
             if not inside.any(): continue
             cw = [((V[inside] - w["y0"]) * w["sc"]), ((U[inside] - w["x0"]) * w["sc"])]
             lon = np.array(lon, np.float64); lat = np.array(lat, np.float64)
