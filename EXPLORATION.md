@@ -64,10 +64,10 @@ but feel empty (small). Area = people, on a map you can still read.
                       T5 future 2100 [x]  T6 peak time [x]  T7 events [x]  L3 person-years [x]  L8 uncertainty [x]  (F1 default kept)
                                 ▼
  LENSES (Phase 7)     L1 grammar [x]  D12 catalogue [~]  L4 measure morph [x]  L5 humeter ruler+geodesics [x]  L6 loneliness [x]
-                      L7 one person per pixel (M11) [x]  L9 ratios [x]  L10 age [~]  L11 attention [ ]
+                      L7 one person per pixel (M11) [x]  L9 ratios [x]  L10 age [x]  L11 attention [ ]
                       L12 non-human world [x]  L13 cumulative person-years [ ]
                                 ▼
- VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles [x]  V1 zoom/pan/rotate [x]  V2 LOD by magnification [~]
+ VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles [x]  V1 zoom/pan/rotate [x]  V2 LOD by magnification [x]
                       V3 flat+globe [x]  V4 time [x]  V5 lens [x]  V6 method/G/morph [~]  V7 labels [~]  V8 metric grid [~]
                       V9 native textures [x]  V10 static hosting [ ] (Phil)  V11 asset budget [x]
                       V12 permalinks [x]  V13 compare [x]  V14 story mode [x]  V15 print export [x]
@@ -142,7 +142,7 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
 
  VIEWER (Phase 9, last)
   [x] V0 dev viewer (local tile server + Leaflet), serving the 100 m raster
-  [x] V1 zoom/pan/rotate  [~] V2 LOD by local magnification  [x] V3 flat + globe, same assets
+  [x] V1 zoom/pan/rotate  [x] V2 LOD by local magnification  [x] V3 flat + globe, same assets
   [x] V4 time scrubber  [x] V5 lens switch  [~] V6 method switch, G-slider, morph
   [~] V7 labels with collision  [~] V8 metric grid toggle  [x] V9 native textures, zoom to city
   [ ] V10 static hosting in free tiers  [x] V11 asset budget and cost gate
@@ -192,6 +192,6 @@ Act 1 pins time at 2025 and compares methods. Act 2 (timeline) is last.
   [x] D6 GHS 1975-2030  [ ] D7 BUILT/SMOD  [x] D8 SSP 2100  [x] D9 Reba cities  [ ] D10 GHS-UCDB  [x] D11 rivers  [~] D12 lens measures
   [x] A14 city labels  [x] A15 rivers  [ ] A16 pole cap
   [x] T5 future  [x] T6 peak time  [x] T7 events  [x] T8 handover
-  [x] L9 ratios  [~] L10 age  [ ] L11 attention  [x] L12 non-human world  [ ] L13 cumulative person-years
+  [x] L9 ratios  [x] L10 age  [ ] L11 attention  [x] L12 non-human world  [ ] L13 cumulative person-years
   [x] V12 permalinks  [x] V13 compare  [x] V14 story mode  [x] V15 print export
   [x] PR1 golden regression  [x] PR2 honesty labels

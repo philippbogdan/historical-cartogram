@@ -172,7 +172,7 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
 - L1 `[x]` the grammar in the pipeline. D12 `[~]` NEW measure catalogue ingested (GDP: Kummu/DOSE; lights;
   carbon: EDGAR/ODIAC; cropland: HYDE/GAEZ; travel time: Weiss 2018; attention; age: WorldPop; biomass).
 - L9 `[x]` NEW ratio family (people/lights, people/cropland, people/CO2, people/roads).
-- L10 `[~]` NEW age lens (median age; under-15s as the next generation). L11 `[ ]` NEW attention lens.
+- L10 `[x]` NEW age lens (median age; under-15s as the next generation). L11 `[ ]` NEW attention lens.
 - L12 `[x]` NEW the non-human world (Earth by trees, cropland, protected land) as the complement.
 - L4 `[x]` measure-to-measure OT morph. L5 `[x]` humeter ruler and geodesics. L6 `[x]` loneliness metric.
 - L7 `[~]` one person per pixel (via M11). L13 `[ ]` NEW cumulative person-years as a slider.
@@ -263,10 +263,10 @@ interpolation as continuous playback, other SSP scenarios, jellium at 4096.
                       T5 future 2100 [x]  T6 peak time [x]  T7 events [x]  L3 person-years [x]  L8 uncertainty [x]  (F1 default kept)
                                 ▼
  LENSES (Phase 7)     L1 grammar [x]  D12 catalogue [~]  L4 measure morph [x]  L5 humeter ruler+geodesics [x]  L6 loneliness [x]
-                      L7 one person per pixel (M11) [x]  L9 ratios [x]  L10 age [~]  L11 attention [ ]
+                      L7 one person per pixel (M11) [x]  L9 ratios [x]  L10 age [x]  L11 attention [ ]
                       L12 non-human world [x]  L13 cumulative person-years [ ]
                                 ▼
- VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles [x]  V1 zoom/pan/rotate [x]  V2 LOD by magnification [~]
+ VIEWER (Phase 9)     V0 dev viewer [x]  A12 warped tiles [x]  V1 zoom/pan/rotate [x]  V2 LOD by magnification [x]
                       V3 flat+globe [x]  V4 time [x]  V5 lens [x]  V6 method/G/morph [~]  V7 labels [~]  V8 metric grid [~]
                       V9 native textures [x]  V10 static hosting [ ] (Phil)  V11 asset budget [x]
                       V12 permalinks [x]  V13 compare [x]  V14 story mode [x]  V15 print export [x]

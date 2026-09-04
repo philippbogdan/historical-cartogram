@@ -260,3 +260,6 @@
   DISPLACEMENT is now blended to zero with a taper on the source lattice's edges; the rim moves 0.0000 px
   and the outside stays the global map. Delhi's spread at 300 m is -0.22/+0.26 (from -1.15/+2.90); the
   rim zone can no longer equalise, which is the price of continuity. All forty windows re-run.
+- 2026-09-04  Forty windows re-solved with pinned rims: median p95 spread at 300 m 3.03 -> 0.17 (log), median p05
+  -0.12; worst Osaka-Kyoto +0.56, Tokyo +0.30, Lahore +0.28. The vector tiles and the texture server now run
+  through all forty composed maps.
