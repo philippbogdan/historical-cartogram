@@ -403,6 +403,7 @@ class SpectralPoissonOT(TorchPoissonOT):
         return self.psi
 
     target = None       # optional non-uniform target density nu (mean 1): solves det(I + D^2 psi) = rho / nu(x + grad psi)
+    rho_eff_max = 300.0
 
     def _rho_eff(self, S):
         """rho / nu(T(x)) for the current map T = x + grad psi, nu sampled bilinearly (the nested-window case)."""
@@ -415,7 +416,7 @@ class SpectralPoissonOT(TorchPoissonOT):
         ys = T.arange(H, device=psi.device, dtype=psi.dtype)[:, None] + gy; xs = T.arange(W, device=psi.device, dtype=psi.dtype)[None, :] + gx
         grid = T.stack([xs / max(W - 1, 1) * 2 - 1, ys / max(H - 1, 1) * 2 - 1], -1)[None]
         nu = T.nn.functional.grid_sample(self.target[None, None], grid, mode="bilinear", padding_mode="border", align_corners=True)[0, 0]
-        return self.rho / T.clamp(nu, min=1e-3)
+        return T.clamp(self.rho / T.clamp(nu, min=1e-3), min=1e-2, max=self.rho_eff_max)
 
     def iterate(self, iters=200, damping=0.5, log=print, tol=1e-3, keep_best=True, patience=5):
         T = self.torch

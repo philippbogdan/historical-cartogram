@@ -54,20 +54,33 @@ XT0, YT0 = compose(xs, ys)
 LX, LY = xs.copy(), ys.copy(); res, folds = 0.0, 0
 mu = ndimage.gaussian_filter(P, sigma_px, mode="reflect"); mu = mu + 1e-3 * mu.mean(); mu = mu / mu.mean()
 import torch
-for k in range(1):                                          # one exact solve; a second round on the composed areas diverges
-    XC, YC = compose(LX, LY); A_c = np.abs(quad_areas(XC, YC))
-    nu = ndimage.gaussian_filter(A_c, sigma_px, mode="reflect"); nu = nu / nu.mean()
-    po = ot_poisson.SpectralPoissonOT(None, x_boundary="wall", rho=mu); po.sigma_px = float(sigma_px)
-    po.target = torch.tensor(nu, dtype=po.rho.dtype, device=po.rho.device)
-    po.one_shot(); info = po.iterate(iters=600, damping=0.5, log=lambda s: None, tol=3e-4); res, folds = info["residual"], info["cell_folds"]
-    Xk, Yk = po.mesh(); Xk = np.clip(Xk, 0, n); Yk = np.clip(Yk, 0, n)
-    pts = np.stack([Xk.ravel(), Yk.ravel()], 1)
-    LX = ndimage.map_coordinates(LX, [pts[:, 1], pts[:, 0]], order=1, mode="nearest").reshape(LX.shape)
-    LY = ndimage.map_coordinates(LY, [pts[:, 1], pts[:, 0]], order=1, mode="nearest").reshape(LY.shape)
-    XC, YC = compose(LX, LY); A_now = np.abs(quad_areas(XC, YC))
+XC, YC = compose(LX, LY); A_c = np.abs(quad_areas(XC, YC))
+nu_full = ndimage.gaussian_filter(A_c, sigma_px, mode="reflect"); nu_full = nu_full / nu_full.mean()
+def spread_of(LXc, LYc):
+    XCc, YCc = compose(LXc, LYc); A_now = np.abs(quad_areas(XCc, YCc))
     Ps = ndimage.gaussian_filter(P, sigma_px, mode="reflect"); As = ndimage.gaussian_filter(A_now, sigma_px, mode="reflect")
     d = Ps / np.maximum(As, 1e-12); mm = Ps > 0; lg = np.log(d[mm] / (Ps[mm].sum() / As[mm].sum())); wgt = Ps[mm] / Ps[mm].sum(); o = np.argsort(lg); cw = np.cumsum(wgt[o])
-    print(f"round {k + 1}: local residual {res:.4f} ({info['iters']} iters), spread at {sigma_m:.0f} m {lg[o][np.searchsorted(cw, 0.05)]:+.2f}/{lg[o][np.searchsorted(cw, 0.95)]:+.2f}, {time.time()-t0:.0f}s", flush=True)
+    return float(lg[o][np.searchsorted(cw, 0.05)]), float(lg[o][np.searchsorted(cw, 0.95)])
+b5, b95 = spread_of(xs, ys)
+# continuation in the target: nu^t for t = 0.5 then 1, warm-started; the non-uniform fixed point diverges
+# when mu / nu spans four decades at once (Lima's coast against the Andes)
+po = ot_poisson.SpectralPoissonOT(None, x_boundary="wall", rho=mu); po.sigma_px = float(sigma_px); po.one_shot()
+fallback = False
+for t in (0.5, 1.0):
+    nu_t = nu_full ** t; nu_t = nu_t / nu_t.mean()
+    po.target = torch.tensor(nu_t, dtype=po.rho.dtype, device=po.rho.device)
+    info = po.iterate(iters=600, damping=0.35, log=lambda s: None, tol=3e-4); res, folds = info["residual"], info["cell_folds"]
+    print(f"target^{t}: residual {res:.4f} ({info['iters']} iters), {time.time()-t0:.0f}s", flush=True)
+Xk, Yk = po.mesh(); Xk = np.clip(Xk, 0, n); Yk = np.clip(Yk, 0, n)
+pts = np.stack([Xk.ravel(), Yk.ravel()], 1)
+LXn = ndimage.map_coordinates(LX, [pts[:, 1], pts[:, 0]], order=1, mode="nearest").reshape(LX.shape)
+LYn = ndimage.map_coordinates(LY, [pts[:, 1], pts[:, 0]], order=1, mode="nearest").reshape(LY.shape)
+a5, a95 = spread_of(LXn, LYn)
+if a95 > b95 or a95 > 1.5 or a5 < -1.5:                      # judged on the composed spread, not the clamped solver residual
+    fallback = True; print(f"solve rejected (spread {a5:+.2f}/{a95:+.2f} vs {b5:+.2f}/{b95:+.2f}): this window keeps the global map", flush=True)
+else:
+    LX, LY = LXn, LYn
+print(f"spread at {sigma_m:.0f} m: before {b5:+.2f}/{b95:+.2f}, after {a5:+.2f}/{a95:+.2f}", flush=True)
 XC, YC = compose(LX, LY)
 nf = int((quad_areas(XC, YC) <= 0).sum()); nfp = int(((quad_areas(XC, YC) <= 0) & (P > 100)).sum())
 print(f"composed mesh folds: {nf} cells, {nfp} with over 100 people")
@@ -88,7 +101,7 @@ b5, b95 = spread(A_T); a5, a95 = spread(A_TL); bs5, bs95 = spread_s(A_T); as5, a
 print(f"population-weighted log density spread, p05/p95: raw 100 m cells before {b5:+.2f}/{b95:+.2f} after {a5:+.2f}/{a95:+.2f}; at the {sigma_m:.0f} m solve scale before {bs5:+.2f}/{bs95:+.2f} after {as5:+.2f}/{as95:+.2f}")
 np.savez_compressed(os.path.join(out, "mesh.npz"), X=XTL.astype(np.float32), Y=YTL.astype(np.float32), lon0=lon0, lat1=lat1, dx=dx, n=n, note="composed map: window corner (i, j) -> global mesh px")
 json.dump({"name": name, "global": GLOBAL, "lon": lon_c, "lat": lat_c, "size_deg": size, "cells": n, "cell_arcsec": dx * 3600, "sigma_m": sigma_m, "population": float(P.sum())}, open(os.path.join(out, "params.json"), "w"), indent=1)
-json.dump({"before_p05": b5, "before_p95": b95, "after_p05": a5, "after_p95": a95, "smoothed_before_p05": bs5, "smoothed_before_p95": bs95, "smoothed_after_p05": as5, "smoothed_after_p95": as95, "local_residual": res, "local_folds": int(folds), "seconds": time.time() - t0}, open(os.path.join(out, "metrics.json"), "w"), indent=1)
+json.dump({"fallback_global": fallback, "before_p05": b5, "before_p95": b95, "after_p05": a5, "after_p95": a95, "smoothed_before_p05": bs5, "smoothed_before_p95": bs95, "smoothed_after_p05": as5, "smoothed_after_p95": as95, "local_residual": res, "local_folds": int(folds), "seconds": time.time() - t0}, open(os.path.join(out, "metrics.json"), "w"), indent=1)
 # 6. pictures: the window's people painted through T and through T o L, at the same output scale
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 x0, x1 = min(XT.min(), XTL.min()), max(XT.max(), XTL.max()); y0, y1 = min(YT.min(), YTL.min()), max(YT.max(), YTL.max())
