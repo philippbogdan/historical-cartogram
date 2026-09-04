@@ -263,3 +263,11 @@
 - 2026-09-04  Forty windows re-solved with pinned rims: median p95 spread at 300 m 3.03 -> 0.17 (log), median p05
   -0.12; worst Osaka-Kyoto +0.56, Tokyo +0.30, Lahore +0.28. The vector tiles and the texture server now run
   through all forty composed maps.
+- 2026-09-04  Nested-window rule three: the output-space solve must see the window's mean density outside the
+  window's footprint (the bbox corners are not empty space to expand into) and the source taper pushed
+  forward inside it; with that, the rim stays at 0.0000 px and Delhi's districts overlap none of their
+  eastern neighbours (measured: 0.00% with Sambhal, Budaun, Bulandshahr, Shahjahanpur). What the map shows
+  at Delhi's core is then honest: the city's blocks inflated, the countryside between the city and the rim
+  compressed to its 300 m share. The composed mesh keeps folds in empty cells (Delhi: 349k cells, 1.5k with
+  people) because the population-aware repair would move the rim; they are not repaired. Delhi at 300 m:
+  -0.21/+0.45 from -1.15/+2.90. All forty windows re-run a third time.

@@ -60,9 +60,20 @@ for k in range(3):
     ng = 2048; sc_ = ng / span                                # output grid covering the warped window
     cx = 0.25 * (XC[:-1, :-1] + XC[:-1, 1:] + XC[1:, :-1] + XC[1:, 1:]); cy = 0.25 * (YC[:-1, :-1] + YC[:-1, 1:] + YC[1:, :-1] + YC[1:, 1:])
     counts, _, _ = np.histogram2d(((cy - y0_) * sc_).ravel(), ((cx - x0_) * sc_).ravel(), bins=ng, range=[[0, ng], [0, ng]], weights=P.ravel())
-    # taper: the solve must leave the window's rim alone (identity there), so blend the rim to the mean density
-    t = np.ones(ng); m_ = int(0.06 * ng); ramp = 0.5 * (1 - np.cos(np.linspace(0, np.pi, m_))); t[:m_] = ramp; t[-m_:] = ramp[::-1]
-    wt = np.outer(t, t); counts = counts.mean() + wt * (counts - counts.mean())
+    # the solve must see nothing to gain outside the window's footprint and nothing to fix near its rim:
+    # outside the footprint the density is set to the window's mean; inside, the source taper (pushed
+    # forward) blends the density to the mean, so the transport near the boundary is small and smooth
+    from rasterio import features
+    from rasterio.transform import Affine
+    ring = np.concatenate([np.stack([XC[0, :], YC[0, :]], 1), np.stack([XC[:, -1], YC[:, -1]], 1), np.stack([XC[-1, ::-1], YC[-1, ::-1]], 1), np.stack([XC[::-1, 0], YC[::-1, 0]], 1)])
+    poly = {"type": "Polygon", "coordinates": [[(float((a - x0_) * sc_), float((b - y0_) * sc_)) for a, b in ring]]}
+    cov = features.rasterize([(poly, 1)], out_shape=(ng, ng), transform=Affine.identity(), fill=0, dtype="uint8").astype(bool)
+    wsrc = 0.25 * (wc[:-1, :-1] + wc[:-1, 1:] + wc[1:, :-1] + wc[1:, 1:])           # source taper per cell
+    wsum, _, _ = np.histogram2d(((cy - y0_) * sc_).ravel(), ((cx - x0_) * sc_).ravel(), bins=ng, range=[[0, ng], [0, ng]], weights=(wsrc * np.abs(quad_areas(XC, YC))).ravel())
+    asum, _, _ = np.histogram2d(((cy - y0_) * sc_).ravel(), ((cx - x0_) * sc_).ravel(), bins=ng, range=[[0, ng], [0, ng]], weights=np.abs(quad_areas(XC, YC)).ravel())
+    wt = np.where(asum > 0, wsum / np.maximum(asum, 1e-12), 0.0); wt = ndimage.gaussian_filter(wt, 2)
+    mean_in = counts[cov].sum() / max(cov.sum(), 1)
+    counts = np.where(cov, mean_in + wt * (counts - mean_in), mean_in)
     sig_out = max(1.0, sigma_px * sc_ * np.sqrt(np.median(np.abs(quad_areas(XC, YC)))))   # the solve scale in output px
     po, stages = ot_poisson.spectral_homotopy(counts, [0.9, 0.99], sig_out, "wall", iters=400, damping=0.5, log=lambda s: None)
     Xk, Yk = po.mesh(); res, folds = po.residual()
@@ -74,6 +85,8 @@ for k in range(3):
     XC = XC + wc * (XN - XC); YC = YC + wc * (YN - YC)
     A_now = np.abs(quad_areas(XC, YC)); d = P / np.maximum(A_now, 1e-12); mm = (P > 0)
     print(f"round {k + 1}: output-space solve residual {res:.4f}, {time.time()-t0:.0f}s", flush=True)
+nf = int((quad_areas(XC, YC) <= 0).sum()); nfp = int(((quad_areas(XC, YC) <= 0) & (P > 100)).sum())
+print(f"composed mesh folds: {nf} cells, {nfp} of them with over 100 people (the fold repair would move the rim, so none here)")
 XTL, YTL = XC, YC                                             # the composed map for the window's corners
 rim = np.hypot(XTL - XT0, YTL - YT0); rim_max = float(max(rim[0].max(), rim[-1].max(), rim[:, 0].max(), rim[:, -1].max()))
 print(f"rim displacement vs the global map: max {rim_max:.4f} px (must be ~0)")
