@@ -287,3 +287,7 @@
   output size over the mesh size itself, and the window inverse maps (and the before/after diagnostics)
   pre-scaled the coordinates as well, so every inverse lookup pointed a hundred kilometres off. Fixed;
   the inverse now returns the window's rim and Delhi's centre to 0.001 degrees.
+- 2026-09-04  V2 final: all forty windows accepted under the exact solver with target continuation. Median p95
+  spread at 300 m 3.03 -> 0.26 (log; a factor 20 to 1.3), median p05 -0.29; worst Lima +0.76, Hyderabad
+  +0.46, New York +0.45; best Buenos Aires +0.15, Tokyo +0.16. The inverse maps and the vector tiles run
+  through all forty; Delhi's centre resolves to itself.
