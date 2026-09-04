@@ -271,3 +271,7 @@
   compressed to its 300 m share. The composed mesh keeps folds in empty cells (Delhi: 349k cells, 1.5k with
   people) because the population-aware repair would move the rim; they are not repaired. Delhi at 300 m:
   -0.21/+0.45 from -1.15/+2.90. All forty windows re-run a third time.
+- 2026-09-04  Third and final window run (mean outside the footprint, pushed taper, pinned rim): median p95 at
+  300 m 3.03 -> 0.28, median p05 -0.22; worst Osaka-Kyoto +0.80, Paris +0.47, Lima +0.46. Continuity with the
+  global map costs some equalisation against the unpinned run (0.17), and is worth it: no window overlaps
+  its neighbours.
