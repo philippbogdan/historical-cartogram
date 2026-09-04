@@ -12,7 +12,18 @@ X, Y = z["X"].astype(np.float64), z["Y"].astype(np.float64); n = int(z["n"]); lo
 x0, x1, y0, y1 = X.min(), X.max(), Y.min(), Y.max(); sc = n_out / max(x1 - x0, y1 - y0); oh, ow = int((y1 - y0) * sc) + 1, int((x1 - x0) * sc) + 1
 # source lon/lat at cell centres, pushed through the composed corner mesh
 cc = np.arange(n) + 0.5; lon = lon0 + cc * dx; lat = lat1 - cc * dx; LON, LAT = np.meshgrid(lon, lat)
-ILON = render.splat(LON, (X - x0) * sc, (Y - y0) * sc, (oh, ow), wrap=False); ILAT = render.splat(LAT, (X - x0) * sc, (Y - y0) * sc, (oh, ow), wrap=False)
+# where the composed mesh folds (empty cells squeezed under populated ones), the people decide which source
+# cell an output pixel shows: weight the splat by population, so folds in empty cells cannot smear the lookup
+import rasterio
+from rasterio.windows import Window
+from run import RAW
+with rasterio.open(os.path.join(RAW, "GHS_POP_E2025_GLOBE_R2023A_4326_3ss_V1_0.tif")) as src:
+    T3 = src.transform; c0 = int(round((lon0 - T3.c) / T3.a)); r0 = int(round((T3.f - lat1) / T3.a))
+    P = src.read(1, window=Window(c0, r0, n, n)).astype(np.float64); P[P < 0] = 0
+wgt = P + 1e-3 * max(P.mean(), 1e-9)
+# render.splat scales mesh coordinates by ow/n and oh/n itself, so hand it coordinates in those units
+Xs = (X - x0) * sc * n / ow; Ys = (Y - y0) * sc * n / oh
+ILON = render.splat(LON, Xs, Ys, (oh, ow), wrap=False, weights=wgt); ILAT = render.splat(LAT, Xs, Ys, (oh, ow), wrap=False, weights=wgt)
 # coverage: which output pixels the window's composed mesh actually lands on (rasterise the mesh's outer ring)
 from rasterio import features
 from rasterio.transform import Affine

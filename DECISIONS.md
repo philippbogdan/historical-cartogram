@@ -275,3 +275,15 @@
   300 m 3.03 -> 0.28, median p05 -0.22; worst Osaka-Kyoto +0.80, Paris +0.47, Lima +0.46. Continuity with the
   global map costs some equalisation against the unpinned run (0.17), and is worth it: no window overlaps
   its neighbours.
+- 2026-09-04  V2, the formulation that is actually right: the local problem is optimal transport on the source
+  rectangle from mu = the window's people (300 m smoothed) to nu = the global map's area measure, so that
+  det(DL) = mu / nu(L(x)) and T o L has Jacobian mu. The spectral solver now takes a non-uniform target
+  (`SpectralPoissonOT.target`, sampled at the current map each iteration). One solve, walls, no rim to pin:
+  L maps the rectangle onto itself, the composed image is exactly the global map's image of the window,
+  nothing can overlap a neighbour, and the rim only slides along itself. Delhi: -0.38/+0.44 at 300 m,
+  22k folds all in empty cells, 30 s. The output-space rounds and the source-space multiscale rounds
+  (three days of variants) were approximations of this equation.
+- 2026-09-04  The striped Delhi tiles were never the solver: `render.splat` scales mesh coordinates by the
+  output size over the mesh size itself, and the window inverse maps (and the before/after diagnostics)
+  pre-scaled the coordinates as well, so every inverse lookup pointed a hundred kilometres off. Fixed;
+  the inverse now returns the window's rim and Delhi's centre to 0.001 degrees.

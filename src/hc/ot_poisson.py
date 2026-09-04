@@ -392,7 +392,8 @@ class SpectralPoissonOT(TorchPoissonOT):
             return super().residual(psi)
         xx, xy, yy = self.hessian_S(self.S)
         J = (1 + xx) * (1 + yy) - xy ** 2
-        return float(((J - self.rho).abs() * self.rho).sum() / self.rho.sum()), int((J <= 0).sum())
+        rho = self._rho_eff(self.S) if (self.target is not None and self.S is not None) else self.rho
+        return float(((J - rho).abs() * rho).sum() / rho.sum()), int((J <= 0).sum())
 
     def one_shot(self):
         T = self.torch
@@ -400,6 +401,21 @@ class SpectralPoissonOT(TorchPoissonOT):
         self.S = T.fft.rfft2(self._ext(rhs - rhs.mean()))
         self.psi = self.psi_from_S(self.S)
         return self.psi
+
+    target = None       # optional non-uniform target density nu (mean 1): solves det(I + D^2 psi) = rho / nu(x + grad psi)
+
+    def _rho_eff(self, S):
+        """rho / nu(T(x)) for the current map T = x + grad psi, nu sampled bilinearly (the nested-window case)."""
+        T = self.torch
+        if self.target is None:
+            return self.rho
+        psi = self.psi_from_S(S)
+        gy, gx = T.gradient(psi)                                       # d/dy (rows), d/dx (cols), in px
+        H, W = psi.shape
+        ys = T.arange(H, device=psi.device, dtype=psi.dtype)[:, None] + gy; xs = T.arange(W, device=psi.device, dtype=psi.dtype)[None, :] + gx
+        grid = T.stack([xs / max(W - 1, 1) * 2 - 1, ys / max(H - 1, 1) * 2 - 1], -1)[None]
+        nu = T.nn.functional.grid_sample(self.target[None, None], grid, mode="bilinear", padding_mode="border", align_corners=True)[0, 0]
+        return self.rho / T.clamp(nu, min=1e-3)
 
     def iterate(self, iters=200, damping=0.5, log=print, tol=1e-3, keep_best=True, patience=5):
         T = self.torch
@@ -413,6 +429,7 @@ class SpectralPoissonOT(TorchPoissonOT):
         n = -1
         for n in range(iters):
             xx, xy, yy = self.hessian_S(self.S)
+            rho = self._rho_eff(self.S) if self.target is not None else self.rho
             rhs = T.sqrt(T.clamp((1 + xx) ** 2 + 2 * xy ** 2 + (1 + yy) ** 2 + 2 * rho, min=0.0)) - 2
             S_new = T.fft.rfft2(self._ext(rhs - rhs.mean()))
             self.S = (1 - damping) * self.S + damping * S_new

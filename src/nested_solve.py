@@ -45,52 +45,35 @@ rho_s = ndimage.gaussian_filter(P, sigma_px, mode="reflect")
 # taper weights: the local map is the identity near the window's edges so windows compose seamlessly
 t = np.ones(n); m = int(0.05 * n); ramp = 0.5 * (1 - np.cos(np.linspace(0, np.pi, m))); t[:m] = ramp; t[-m:] = ramp[::-1]
 w = np.outer(t, t)
-# 3. correct in the OUTPUT space: push the window's people through the current map onto a regular grid,
-#    solve optimal transport there (walls, tapered), and compose L' o T. Solving on the source lattice and
-#    composing T o L fails after the first round because the global Jacobian varies over the local moves.
-XC, YC = compose(xs, ys)                                    # current map: window corners in global mesh px
-XT0, YT0 = XC.copy(), YC.copy()
-# the window's own rim must not move (the outside is mapped by the global map alone): taper the local
-# DISPLACEMENT to zero at the source window's edges, not just the density on the output grid's bbox
-tc = np.ones(n + 1); mc = int(0.05 * n); rampc = 0.5 * (1 - np.cos(np.linspace(0, np.pi, mc))); tc[:mc] = rampc; tc[-mc:] = rampc[::-1]
-wc = np.outer(tc, tc)
-res, folds = 0.0, 0
-for k in range(3):
-    x0_, x1_ = XC.min(), XC.max(); y0_, y1_ = YC.min(), YC.max(); span = max(x1_ - x0_, y1_ - y0_)
-    ng = 2048; sc_ = ng / span                                # output grid covering the warped window
-    cx = 0.25 * (XC[:-1, :-1] + XC[:-1, 1:] + XC[1:, :-1] + XC[1:, 1:]); cy = 0.25 * (YC[:-1, :-1] + YC[:-1, 1:] + YC[1:, :-1] + YC[1:, 1:])
-    counts, _, _ = np.histogram2d(((cy - y0_) * sc_).ravel(), ((cx - x0_) * sc_).ravel(), bins=ng, range=[[0, ng], [0, ng]], weights=P.ravel())
-    # the solve must see nothing to gain outside the window's footprint and nothing to fix near its rim:
-    # outside the footprint the density is set to the window's mean; inside, the source taper (pushed
-    # forward) blends the density to the mean, so the transport near the boundary is small and smooth
-    from rasterio import features
-    from rasterio.transform import Affine
-    ring = np.concatenate([np.stack([XC[0, :], YC[0, :]], 1), np.stack([XC[:, -1], YC[:, -1]], 1), np.stack([XC[-1, ::-1], YC[-1, ::-1]], 1), np.stack([XC[::-1, 0], YC[::-1, 0]], 1)])
-    poly = {"type": "Polygon", "coordinates": [[(float((a - x0_) * sc_), float((b - y0_) * sc_)) for a, b in ring]]}
-    cov = features.rasterize([(poly, 1)], out_shape=(ng, ng), transform=Affine.identity(), fill=0, dtype="uint8").astype(bool)
-    wsrc = 0.25 * (wc[:-1, :-1] + wc[:-1, 1:] + wc[1:, :-1] + wc[1:, 1:])           # source taper per cell
-    wsum, _, _ = np.histogram2d(((cy - y0_) * sc_).ravel(), ((cx - x0_) * sc_).ravel(), bins=ng, range=[[0, ng], [0, ng]], weights=(wsrc * np.abs(quad_areas(XC, YC))).ravel())
-    asum, _, _ = np.histogram2d(((cy - y0_) * sc_).ravel(), ((cx - x0_) * sc_).ravel(), bins=ng, range=[[0, ng], [0, ng]], weights=np.abs(quad_areas(XC, YC)).ravel())
-    wt = np.where(asum > 0, wsum / np.maximum(asum, 1e-12), 0.0); wt = ndimage.gaussian_filter(wt, 2)
-    mean_in = counts[cov].sum() / max(cov.sum(), 1)
-    counts = np.where(cov, mean_in + wt * (counts - mean_in), mean_in)
-    sig_out = max(1.0, sigma_px * sc_ * np.sqrt(np.median(np.abs(quad_areas(XC, YC)))))   # the solve scale in output px
-    po, stages = ot_poisson.spectral_homotopy(counts, [0.9, 0.99], sig_out, "wall", iters=400, damping=0.5, log=lambda s: None)
-    Xk, Yk = po.mesh(); res, folds = po.residual()
-    if k == 2: Xk, Yk, _ = diffusion.repair_folds(Xk, Yk, periodic=False, mass=po.rho0, log=lambda *_: None)   # the repair is the slow step; once, at the end
-    # compose: every window corner moves to where the output-space map sends its current position
-    u = ((XC - x0_) * sc_).ravel(); v = ((YC - y0_) * sc_).ravel()
-    XN = x0_ + ndimage.map_coordinates(Xk, [v, u], order=1, mode="nearest").reshape(XC.shape) / sc_
-    YN = y0_ + ndimage.map_coordinates(Yk, [v, u], order=1, mode="nearest").reshape(YC.shape) / sc_
-    XC = XC + wc * (XN - XC); YC = YC + wc * (YN - YC)
-    A_now = np.abs(quad_areas(XC, YC)); d = P / np.maximum(A_now, 1e-12); mm = (P > 0)
-    print(f"round {k + 1}: output-space solve residual {res:.4f}, {time.time()-t0:.0f}s", flush=True)
+# 3. the exact local problem: optimal transport on the source rectangle (walls) from mu = the window's people
+#    to nu = the area measure of the global map, det(DL) = mu / nu(L(x)), so that T o L has Jacobian mu.
+#    L maps the rectangle onto itself: the composed image is exactly the global map's image of the window,
+#    nothing overlaps the neighbours and there is no rim to pin. Two rounds: the second corrects with the
+#    composed map's actual areas.
+XT0, YT0 = compose(xs, ys)
+LX, LY = xs.copy(), ys.copy(); res, folds = 0.0, 0
+mu = ndimage.gaussian_filter(P, sigma_px, mode="reflect"); mu = mu + 1e-3 * mu.mean(); mu = mu / mu.mean()
+import torch
+for k in range(1):                                          # one exact solve; a second round on the composed areas diverges
+    XC, YC = compose(LX, LY); A_c = np.abs(quad_areas(XC, YC))
+    nu = ndimage.gaussian_filter(A_c, sigma_px, mode="reflect"); nu = nu / nu.mean()
+    po = ot_poisson.SpectralPoissonOT(None, x_boundary="wall", rho=mu); po.sigma_px = float(sigma_px)
+    po.target = torch.tensor(nu, dtype=po.rho.dtype, device=po.rho.device)
+    po.one_shot(); info = po.iterate(iters=600, damping=0.5, log=lambda s: None, tol=3e-4); res, folds = info["residual"], info["cell_folds"]
+    Xk, Yk = po.mesh(); Xk = np.clip(Xk, 0, n); Yk = np.clip(Yk, 0, n)
+    pts = np.stack([Xk.ravel(), Yk.ravel()], 1)
+    LX = ndimage.map_coordinates(LX, [pts[:, 1], pts[:, 0]], order=1, mode="nearest").reshape(LX.shape)
+    LY = ndimage.map_coordinates(LY, [pts[:, 1], pts[:, 0]], order=1, mode="nearest").reshape(LY.shape)
+    XC, YC = compose(LX, LY); A_now = np.abs(quad_areas(XC, YC))
+    Ps = ndimage.gaussian_filter(P, sigma_px, mode="reflect"); As = ndimage.gaussian_filter(A_now, sigma_px, mode="reflect")
+    d = Ps / np.maximum(As, 1e-12); mm = Ps > 0; lg = np.log(d[mm] / (Ps[mm].sum() / As[mm].sum())); wgt = Ps[mm] / Ps[mm].sum(); o = np.argsort(lg); cw = np.cumsum(wgt[o])
+    print(f"round {k + 1}: local residual {res:.4f} ({info['iters']} iters), spread at {sigma_m:.0f} m {lg[o][np.searchsorted(cw, 0.05)]:+.2f}/{lg[o][np.searchsorted(cw, 0.95)]:+.2f}, {time.time()-t0:.0f}s", flush=True)
+XC, YC = compose(LX, LY)
 nf = int((quad_areas(XC, YC) <= 0).sum()); nfp = int(((quad_areas(XC, YC) <= 0) & (P > 100)).sum())
-print(f"composed mesh folds: {nf} cells, {nfp} of them with over 100 people (the fold repair would move the rim, so none here)")
-XTL, YTL = XC, YC                                             # the composed map for the window's corners
+print(f"composed mesh folds: {nf} cells, {nfp} with over 100 people")
+XTL, YTL = XC, YC
 rim = np.hypot(XTL - XT0, YTL - YT0); rim_max = float(max(rim[0].max(), rim[-1].max(), rim[:, 0].max(), rim[:, -1].max()))
-print(f"rim displacement vs the global map: max {rim_max:.4f} px (must be ~0)")
-X, Y = XTL, YTL                                               # saved as the window mesh (global coordinates)
+print(f"rim displacement vs the global map: max {rim_max:.4f} px (slides along the rim only)")
 # 5. how equal is the window now? people per warped area of each 3" cell, before and after
 A_T = np.abs(quad_areas(XT, YT)); A_TL = np.abs(quad_areas(XTL, YTL))
 inner = np.zeros(P.shape, bool); inner[m:-m, m:-m] = True
@@ -112,7 +95,7 @@ x0, x1 = min(XT.min(), XTL.min()), max(XT.max(), XTL.max()); y0, y1 = min(YT.min
 sc = out_px / max(x1 - x0, y1 - y0); oh, ow = int((y1 - y0) * sc) + 1, int((x1 - x0) * sc) + 1
 dens = np.log10(np.maximum(P / (km_per_cell ** 2), 1))            # people per km2, log
 for tag, (XX, YY) in (("before", (XT, YT)), ("after", (XTL, YTL))):
-    img = render.splat(dens, (XX - x0) * sc, (YY - y0) * sc, (oh, ow), wrap=False)
+    img = render.splat(dens, (XX - x0) * sc * n / ow, (YY - y0) * sc * n / oh, (oh, ow), wrap=False)   # splat scales by ow/n, oh/n itself
     fig, ax = render._figure(oh, ow, "white"); ax.imshow(np.clip(img / 5.0, 0, 1), cmap="magma", extent=(0, ow, oh, 0), vmin=0, vmax=1)
     ax.text(0.01, 0.01, f"{name}: 100 m population through {'the global map only' if tag == 'before' else 'the global map composed with the local 100 m solve'} (people per km2, log); density spread p05/p95 {(b5, b95) if tag == 'before' else (a5, a95)}", transform=ax.transAxes, fontsize=9, color="#fff", bbox=dict(facecolor="#000a", edgecolor="none", pad=3))
     fig.savefig(os.path.join(out, f"{tag}.png"), dpi=100); plt.close(fig)
