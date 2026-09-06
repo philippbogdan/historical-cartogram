@@ -78,7 +78,7 @@ test('Every shipped data file matches the measured artifact and loads from a pro
     assert.equal(createHash('sha256').update(contents).digest('hex'),expected.sha256,name);
   }
   const html=readFileSync(`${root}site/index.html`,'utf8');
-  for (const [,url] of html.matchAll(/(?:src|href)="(human-space\/[^"]+)"/g)) assert.ok(existsSync(`${root}site/${url}`),url);
+  for (const [,url] of html.matchAll(/(?:src|href)="(human-space\/[^"]+)"/g)) assert.ok(existsSync(`${root}site/${url.split('?')[0]}`),url);
   assert.ok(!/(?:src|href)="\//.test(html), 'Root-relative URLs break a repository Pages site');
   assert.ok(existsSync(`${assets}OFL.txt`));
 });
