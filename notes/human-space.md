@@ -85,12 +85,16 @@ centre. Projecting the sampled force onto the existing atlas displacement gives 
 pressure curve, averaged across neighbouring transformation states.
 
 The browser exponentially approaches the requested endpoint with a rate driven by that pressure.
-This gives a rapid release followed by settling, without random particle jitter. It is a
+A short exponential launch ramp and a lower motion rate give the viewer time to follow the
+groups, with a long settling phase and no random particle jitter. It is a
 repulsion-driven timing model constrained to the atlas's existing path, not an unconstrained
 Coulomb simulation or a new population equilibrium. Reversal is a controlled return along that
 same path. Every layer still uses one shared transformation coordinate.
 
 `src/build_human_motion.py` writes `motion.json`, including the source geometry and population
-hashes. `tests/human_motion.test.mjs` checks the association with the current atlas, early release,
+hashes. `tests/human_motion.test.mjs` checks the association with the current atlas, a gentle launch,
 settling, bounded reversal and consistency across refresh rates. Reduced motion keeps direct
 endpoint changes; manual scrubbing remains immediate and pauses playback.
+
+The launch ramp has a 0.18-second time constant. Expansion reaches its final settled endpoint
+in roughly 6.6 seconds and collapse in roughly 4.3 seconds, plus the existing endpoint holds.

@@ -1,5 +1,5 @@
 import { endpoints, interpolate, ease } from './geometry.js';
-import { advanceMotion } from './motion.js?v=90a7a4942cb2';
+import { advanceMotion } from './motion.js?v=1cf775ced8dc';
 
 const $ = id => document.getElementById(id);
 const canvas = $('map'), stage = $('map-stage'), overlay = $('labels');
@@ -259,8 +259,9 @@ function tick(now){
   if(leg){
     if(now>=leg.start){
       const elapsed=Math.min(.1,Math.max(0,(now-leg.last)/1000));
+      const age=Math.max(0,(leg.last-leg.start)/1000);
       leg.last=now;
-      updateProgress(advanceMotion(state.t,leg.to,elapsed,pressure));
+      updateProgress(advanceMotion(state.t,leg.to,elapsed,pressure,age));
       if(state.t===leg.to){
         if(leg.loop)leg={to:1-leg.to,start:now+1400,last:now+1400,loop:true};
         else leg=null;

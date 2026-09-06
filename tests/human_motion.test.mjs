@@ -12,7 +12,7 @@ function run(from,to,seconds,hz) {
   let p=from;
   for(let elapsed=0;elapsed<seconds-1e-10;) {
     const dt=Math.min(1/hz,seconds-elapsed);
-    p=advanceMotion(p,to,dt,pressure);elapsed+=dt;
+    p=advanceMotion(p,to,dt,pressure,elapsed);elapsed+=dt;
   }
   return p;
 }
@@ -28,18 +28,19 @@ test('Repulsion timing belongs to the delivered population and geometry',()=>{
   assert.ok(model.signed_pressure[0]>model.signed_pressure.at(-1));
 });
 
-test('Expansion releases most movement immediately and then settles',()=>{
-  const early=run(0,1,.5,120),late=run(0,1,1.5,120);
-  assert.ok(early>.75&&early<.95,'Most movement should happen in the first half second, with a visible settling tail');
+test('Expansion gives the viewer time to follow the release and settling',()=>{
+  const early=run(0,1,.5,120),late=run(0,1,4,120);
+  assert.ok(run(0,1,.1,120)<.25,'The first movement should be gentle enough to follow');
+  assert.ok(early>.35&&early<.65,'The first half second should leave substantial movement ahead');
   assert.ok(late>.99&&late<1,'Settling must slow before the final endpoint');
-  assert.equal(run(0,1,3,120),1);
+  assert.equal(run(0,1,8,120),1);
 });
 
 test('Expansion, collapse and interrupted targets stay bounded without jitter or overshoot',()=>{
   for(const from of [0,.1,.47,.9,1])for(const to of [0,1]) {
     let p=from;
-    for(let i=0;i<480;i++) {
-      const next=advanceMotion(p,to,1/120,pressure);
+    for(let i=0;i<1200;i++) {
+      const next=advanceMotion(p,to,1/120,pressure,i/120);
       assert.ok(Number.isFinite(next)&&next>=0&&next<=1);
       assert.ok(Math.abs(next-to)<=Math.abs(p-to));
       p=next;
@@ -47,7 +48,7 @@ test('Expansion, collapse and interrupted targets stay bounded without jitter or
     assert.equal(p,to);
   }
   const interrupted=run(0,1,.15,120);
-  assert.equal(run(interrupted,0,3,120),0);
+  assert.equal(run(interrupted,0,8,120),0);
 });
 
 test('Motion timing is consistent across display refresh rates',()=>{
