@@ -6,13 +6,13 @@ on:
     paths:
       - 'site/index.html'
       - 'site/human-space/**'
-      - 'tests/human_space.test.mjs'
+      - 'tests/human_*.test.mjs'
       - '.github/workflows/human-space.yml'
   pull_request:
     paths:
       - 'site/index.html'
       - 'site/human-space/**'
-      - 'tests/human_space.test.mjs'
+      - 'tests/human_*.test.mjs'
       - '.github/workflows/human-space.yml'
   workflow_dispatch:
 
@@ -32,14 +32,15 @@ jobs:
           sparse-checkout: |
             site/index.html
             site/human-space
-            tests/human_space.test.mjs
+            tests/human_*.test.mjs
           sparse-checkout-cone-mode: false
       - name: Verify the delivered population and geometry
-        run: node --test tests/human_space.test.mjs
+        run: node --test tests/human_*.test.mjs
       - name: Check browser scripts
         run: |
           node --check site/human-space/app.js
           node --check site/human-space/geometry.js
+          node --check site/human-space/motion.js
       - name: Package the human atlas
         run: |
           mkdir -p _site

@@ -24,6 +24,10 @@ Small identity at the top, one strong reading rule, then a large uninterrupted m
 
 The transformation is controlled by a continuous slider and a play/pause button. The same population units, country shapes and selected location move together. Playback pauses at endpoints and reverses. Manual scrubbing pauses playback. No entrance theatrics. Respect reduced motion and pause when the tab is hidden.
 
+Expansion has a forceful initial release and exponential settling. A spatially averaged
+inverse-square repulsion model drives the collective timing along the atlas deformation.
+There is no random per-particle jitter, overshoot or decorative bounce.
+
 ## Responsive behaviour
 
 Keep the map visible on phones, keep controls touch-sized, and stack explanation rather than shrinking it into a sidebar. Zoom permits inspection of individual population units. Do not rely on hover for essential information.
