@@ -1,5 +1,5 @@
 import { endpoints, interpolate, ease } from './geometry.js';
-import { advanceMotion } from './motion.js?v=90a7a4942cb2';
+import { advanceMotion } from './motion.js?v=cb51c7b4f78f';
 
 const $ = id => document.getElementById(id);
 const canvas = $('map'), stage = $('map-stage'), overlay = $('labels');
@@ -9,6 +9,7 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const controls=[...document.querySelectorAll('.experience button,.colour-section button')].filter(b=>b.id!=='retry');
 controls.forEach(b=>b.disabled=true);
 const state = { t: 0, lens: 0, dots: false, selected: -1, zoom: 1, cx: .5, cy: .28, follow: false };
+let motionVelocity=0;
 let pressure, gl, world, warp, n, program, uniforms, meshVAO, meshIndexCount, edgesVAO, edgeCount, dotsVAO;
 let unitPositions, labels, textures = [], width = 1, height = 1, dpr = 1, fit = 1;
 let ready = false, dirty = true, raf = 0, leg = null, cameraLeg = null, pointers = new Map(), lastPointer = null;
@@ -260,7 +261,9 @@ function tick(now){
     if(now>=leg.start){
       const elapsed=Math.min(.1,Math.max(0,(now-leg.last)/1000));
       leg.last=now;
-      updateProgress(advanceMotion(state.t,leg.to,elapsed,pressure));
+      const next=advanceMotion(state.t,motionVelocity,leg.to,elapsed,pressure);
+      motionVelocity=next.velocity;
+      updateProgress(next.position);
       if(state.t===leg.to){
         if(leg.loop)leg={to:1-leg.to,start:now+1400,last:now+1400,loop:true};
         else leg=null;
@@ -283,10 +286,10 @@ function playbackUI(playing){
   $('play-icon').innerHTML=playing?'<path d="M6 5h4v14H6zm8 0h4v14h-4Z"/>':'<path d="m9 5 11 7-11 7Z"/>';
 }
 
-function pause(){leg=null;playbackUI(false);}
+function pause(){leg=null;motionVelocity=0;playbackUI(false);}
 function goTo(t){
-  if(!ready)return;pause();
-  if(reducedMotion.matches)updateProgress(t);
+  if(!ready)return;leg=null;playbackUI(false);
+  if(reducedMotion.matches){motionVelocity=0;updateProgress(t);}
   else {const now=performance.now();leg={to:t,start:now,last:now,loop:false};requestRender();}
 }
 function togglePlay(){

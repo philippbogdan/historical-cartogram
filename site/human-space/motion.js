@@ -6,11 +6,18 @@ export function pressureAt(position, pressure) {
   return pressure[i]*(1-fraction)+pressure[i+1]*fraction;
 }
 
-export function advanceMotion(position,target,seconds,pressure) {
+// Preserve collective velocity when the destination changes. Each short step
+// uses the closed-form critically damped response for the local pressure.
+export function advanceMotion(position,velocity,target,seconds,pressure) {
   const steps=Math.max(1,Math.ceil(seconds*240)),dt=seconds/steps;
   for(let i=0;i<steps;i++) {
-    const rate=1.3+5.7*Math.sqrt(Math.max(0,pressureAt(position,pressure)));
-    position=target+(position-target)*Math.exp(-rate*dt);
+    const frequency=.84+1.68*Math.sqrt(Math.max(0,pressureAt(position,pressure)));
+    const offset=position-target,combined=velocity+frequency*offset;
+    const decay=Math.exp(-frequency*dt);
+    position=target+(offset+combined*dt)*decay;
+    velocity=(velocity-frequency*combined*dt)*decay;
+    if(position<0||position>1){position=Math.max(0,Math.min(1,position));velocity=0;}
   }
-  return Math.abs(position-target)<.00025?target:position;
+  if(Math.abs(position-target)<.00025&&Math.abs(velocity)<.001)return {position:target,velocity:0};
+  return {position,velocity};
 }

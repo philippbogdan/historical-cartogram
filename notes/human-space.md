@@ -84,13 +84,19 @@ positive charge, deposited onto a grid and spatially averaged. The force kernel 
 centre. Projecting the sampled force onto the existing atlas displacement gives a collective
 pressure curve, averaged across neighbouring transformation states.
 
-The browser exponentially approaches the requested endpoint with a rate driven by that pressure.
-This gives a rapid release followed by settling, without random particle jitter. It is a
+The shared deformation coordinate has velocity and a critically damped response whose frequency
+is driven by that pressure. Exponential damping gives a gentle launch and a long settling phase,
+without random particle jitter. Direction changes preserve velocity, so the groups briefly carry
+on before turning; Pause and direct scrubbing stop that momentum immediately. It is a
 repulsion-driven timing model constrained to the atlas's existing path, not an unconstrained
 Coulomb simulation or a new population equilibrium. Reversal is a controlled return along that
 same path. Every layer still uses one shared transformation coordinate.
 
 `src/build_human_motion.py` writes `motion.json`, including the source geometry and population
-hashes. `tests/human_motion.test.mjs` checks the association with the current atlas, early release,
+hashes. `tests/human_motion.test.mjs` checks the association with the current atlas, a gentle launch,
 settling, bounded reversal and consistency across refresh rates. Reduced motion keeps direct
 endpoint changes; manual scrubbing remains immediate and pauses playback.
+
+Expansion reaches its final settled endpoint in roughly 6.6 seconds and collapse in roughly
+5.4 seconds, plus the existing endpoint holds. Each integration step uses the exact local
+critically damped response, with short substeps for the spatially varying pressure.

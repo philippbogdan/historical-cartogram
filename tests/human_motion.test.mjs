@@ -8,14 +8,15 @@ const assets=new URL('../site/human-space/',import.meta.url);
 const model=JSON.parse(readFileSync(new URL('motion.json',assets)));
 const pressure=model.pressure;
 const world=JSON.parse(readFileSync(new URL('world.json',assets)));
-function run(from,to,seconds,hz) {
-  let p=from;
+function runState(from,to,seconds,hz,velocity=0) {
+  let state={position:from,velocity};
   for(let elapsed=0;elapsed<seconds-1e-10;) {
     const dt=Math.min(1/hz,seconds-elapsed);
-    p=advanceMotion(p,to,dt,pressure);elapsed+=dt;
+    state=advanceMotion(state.position,state.velocity,to,dt,pressure);elapsed+=dt;
   }
-  return p;
+  return state;
 }
+function run(from,to,seconds,hz){return runState(from,to,seconds,hz).position;}
 
 test('Repulsion timing belongs to the delivered population and geometry',()=>{
   for(const name of ['world','warp']) {
@@ -28,18 +29,20 @@ test('Repulsion timing belongs to the delivered population and geometry',()=>{
   assert.ok(model.signed_pressure[0]>model.signed_pressure.at(-1));
 });
 
-test('Expansion releases most movement immediately and then settles',()=>{
-  const early=run(0,1,.5,120),late=run(0,1,1.5,120);
-  assert.ok(early>.75&&early<.95,'Most movement should happen in the first half second, with a visible settling tail');
+test('Expansion gives the viewer time to follow the release and settling',()=>{
+  const early=run(0,1,.5,120),late=run(0,1,4,120);
+  assert.ok(run(0,1,.1,120)<.25,'The first movement should be gentle enough to follow');
+  assert.ok(early>.2&&early<.45,'The first half second should leave substantial movement ahead');
   assert.ok(late>.99&&late<1,'Settling must slow before the final endpoint');
-  assert.equal(run(0,1,3,120),1);
+  assert.equal(run(0,1,8,120),1);
 });
 
 test('Expansion, collapse and interrupted targets stay bounded without jitter or overshoot',()=>{
   for(const from of [0,.1,.47,.9,1])for(const to of [0,1]) {
-    let p=from;
-    for(let i=0;i<480;i++) {
-      const next=advanceMotion(p,to,1/120,pressure);
+    let p=from,velocity=0;
+    for(let i=0;i<1200;i++) {
+      const result=advanceMotion(p,velocity,to,1/120,pressure);
+      const next=result.position;velocity=result.velocity;
       assert.ok(Number.isFinite(next)&&next>=0&&next<=1);
       assert.ok(Math.abs(next-to)<=Math.abs(p-to));
       p=next;
@@ -47,7 +50,7 @@ test('Expansion, collapse and interrupted targets stay bounded without jitter or
     assert.equal(p,to);
   }
   const interrupted=run(0,1,.15,120);
-  assert.equal(run(interrupted,0,3,120),0);
+  assert.equal(run(interrupted,0,8,120),0);
 });
 
 test('Motion timing is consistent across display refresh rates',()=>{
@@ -55,4 +58,16 @@ test('Motion timing is consistent across display refresh rates',()=>{
     const reference=run(1-to,to,seconds,120);
     for(const hz of [24,30,60,90,144])assert.ok(Math.abs(run(1-to,to,seconds,hz)-reference)<.003);
   }
+});
+
+test('A direction change preserves momentum before turning smoothly',()=>{
+  const moving=runState(0,1,.7,120);
+  assert.ok(moving.velocity>0);
+  const reversed=runState(moving.position,0,.08,120,moving.velocity);
+  assert.ok(reversed.position>moving.position,'The groups should carry briefly before reversing');
+  assert.ok(reversed.velocity>0&&reversed.velocity<moving.velocity,'The opposing force should decelerate existing motion');
+  assert.equal(runState(moving.position,0,9,120,moving.velocity).position,0);
+  const stopped=advanceMotion(moving.position,0,moving.position,.1,pressure);
+  assert.equal(stopped.position,moving.position);
+  assert.equal(stopped.velocity,0);
 });
