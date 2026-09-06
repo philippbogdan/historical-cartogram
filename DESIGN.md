@@ -26,7 +26,8 @@ The transformation is controlled by a continuous slider and a play/pause button.
 
 Expansion builds smoothly and has a long exponential settling phase. A spatially averaged
 inverse-square repulsion model drives the collective timing along the atlas deformation.
-There is no random per-particle jitter, overshoot or decorative bounce.
+Collective momentum carries through direction changes, with a damped turn. Pause and direct
+scrubbing stop the motion. There is no random per-particle jitter or decorative bounce.
 
 ## Responsive behaviour
 
