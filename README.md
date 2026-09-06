@@ -19,7 +19,7 @@ The main experience is self-contained; it needs no API, account, tile server or 
 
 Published atlas: <https://philippbogdan.github.io/historical-cartogram/>.
 
-Verify the shipped data: `node --test tests/human_space.test.mjs`.
+Verify the shipped data and motion: `node --test tests/human_*.test.mjs`.
 The GitHub workflow verifies this bundle and publishes the main route to GitHub Pages on merge.
 It uploads only `site/index.html` and `site/human-space/`, not the research tile archive.
 
@@ -29,7 +29,8 @@ Rebuild with the local source data and the existing e036 and M11 experiment inpu
 python src/build_human_units.py
 python src/build_human_space.py
 python src/balance_human_fabric.py
-node --test tests/human_space.test.mjs
+python src/build_human_motion.py
+node --test tests/human_*.test.mjs
 ```
 
 The first pass audits and corrects the older geographic units. The final pass constructs the new

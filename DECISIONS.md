@@ -1,5 +1,10 @@
 # Decisions
 
+- 2026-09-06 H5 motion: use averaged positive-charge repulsion to drive exponential settling.
+  Project a softened inverse-square field onto the existing atlas path, preserving the verified
+  geometry and population identities. This is a constrained motion model; do not describe it as
+  freely simulated particles. Keep the parameters and solver provenance in technical notes.
+
 - 2026-09-05 H5: a conserved resampled population is insufficient evidence for million-person
   cells. Fixed subpixel sampling misallocates mass in dense source pixels. Use adaptive quadrature
   to initialise the capacity solve, then calibrate against exact intersections of the transported

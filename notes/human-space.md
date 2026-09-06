@@ -75,3 +75,22 @@ population precision remain in the data, not the interface. Currency values are 
 optional selection details. The slider has one pair of endpoint labels; source-grid and build
 provenance belong in the linked source notes. Cell edges are clipped to land in the fragment
 shader, preserving the underlying population partition and motion while clearing empty ocean.
+
+## Repulsive motion, 6 September 2026
+
+Animation timing uses a coarse-grained repulsive field. Each population group supplies equal
+positive charge, deposited onto a grid and spatially averaged. The force kernel is
+`r / (|r|² + epsilon²)^(3/2)`, approaching an inverse-square magnitude away from the softened
+centre. Projecting the sampled force onto the existing atlas displacement gives a collective
+pressure curve, averaged across neighbouring transformation states.
+
+The browser exponentially approaches the requested endpoint with a rate driven by that pressure.
+This gives a rapid release followed by settling, without random particle jitter. It is a
+repulsion-driven timing model constrained to the atlas's existing path, not an unconstrained
+Coulomb simulation or a new population equilibrium. Reversal is a controlled return along that
+same path. Every layer still uses one shared transformation coordinate.
+
+`src/build_human_motion.py` writes `motion.json`, including the source geometry and population
+hashes. `tests/human_motion.test.mjs` checks the association with the current atlas, early release,
+settling, bounded reversal and consistency across refresh rates. Reduced motion keeps direct
+endpoint changes; manual scrubbing remains immediate and pauses playback.

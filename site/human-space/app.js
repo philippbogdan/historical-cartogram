@@ -1,4 +1,5 @@
 import { endpoints, interpolate, ease } from './geometry.js';
+import { advanceMotion } from './motion.js?v=90a7a4942cb2';
 
 const $ = id => document.getElementById(id);
 const canvas = $('map'), stage = $('map-stage'), overlay = $('labels');
@@ -8,7 +9,7 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const controls=[...document.querySelectorAll('.experience button,.colour-section button')].filter(b=>b.id!=='retry');
 controls.forEach(b=>b.disabled=true);
 const state = { t: 0, lens: 0, dots: false, selected: -1, zoom: 1, cx: .5, cy: .28, follow: false };
-let gl, world, warp, n, program, uniforms, meshVAO, meshIndexCount, edgesVAO, edgeCount, dotsVAO;
+let pressure, gl, world, warp, n, program, uniforms, meshVAO, meshIndexCount, edgesVAO, edgeCount, dotsVAO;
 let unitPositions, labels, textures = [], width = 1, height = 1, dpr = 1, fit = 1;
 let ready = false, dirty = true, raf = 0, leg = null, cameraLeg = null, pointers = new Map(), lastPointer = null;
 let selectionBox = { width: 0, height: 0 };
@@ -257,10 +258,11 @@ function tick(now){
   raf=0;
   if(leg){
     if(now>=leg.start){
-      const u=Math.min(1,(now-leg.start)/leg.duration);
-      updateProgress(leg.from+(leg.to-leg.from)*ease(u));
-      if(u>=1){
-        if(leg.loop)leg={from:leg.to,to:1-leg.to,start:now+1700,duration:7000,loop:true};
+      const elapsed=Math.min(.1,Math.max(0,(now-leg.last)/1000));
+      leg.last=now;
+      updateProgress(advanceMotion(state.t,leg.to,elapsed,pressure));
+      if(state.t===leg.to){
+        if(leg.loop)leg={to:1-leg.to,start:now+1400,last:now+1400,loop:true};
         else leg=null;
       }
     }
@@ -285,14 +287,14 @@ function pause(){leg=null;playbackUI(false);}
 function goTo(t){
   if(!ready)return;pause();
   if(reducedMotion.matches)updateProgress(t);
-  else {leg={from:state.t,to:t,start:performance.now(),duration:1400,loop:false};requestRender();}
+  else {const now=performance.now();leg={to:t,start:now,last:now,loop:false};requestRender();}
 }
 function togglePlay(){
   if(!ready)return;
   if(reducedMotion.matches){pause();updateProgress(state.t<.5?1:0);return;}
   if(leg?.loop){pause();return;}
   const to=state.t>.999?0:1;
-  leg={from:state.t,to,start:performance.now(),duration:7000*Math.max(.15,Math.abs(to-state.t)),loop:true};
+  const now=performance.now();leg={to,start:now,last:now,loop:true};
   playbackUI(true);requestRender();
 }
 
@@ -455,10 +457,12 @@ async function fetchAsset(name,type){
 
 $('retry').addEventListener('click',()=>location.reload());
 try {
-  const [metadata,warpBuffer,atlasImage,edgeBuffer]=await Promise.all([
-    fetchAsset('world.json','json'),fetchAsset('warp.bin'),fetchAsset('atlas.png','image'),fetchAsset('edges.bin')
+  const [metadata,warpBuffer,atlasImage,edgeBuffer,motion]=await Promise.all([
+    fetchAsset('world.json','json'),fetchAsset('warp.bin'),fetchAsset('atlas.png','image'),fetchAsset('edges.bin'),fetchAsset('motion.json','json')
   ]);
   world=metadata;warp=new Float32Array(warpBuffer);n=world.projection.meshResolution;
+  pressure=motion.pressure;
+  if(!Array.isArray(pressure)||pressure.length<2||!pressure.every(p=>Number.isFinite(p)&&p>=0))throw new Error('Incomplete motion data');
   if(warp.length!==(n+1)*(n+1)*2||world.unitCount!==world.units.length)throw new Error('Incomplete map data');
   unitPositions=world.units.map(u=>endpoints(u.uv,warp,n));
   labels=[...world.labels.map(l=>({...l,position:endpoints(l.uv,warp,n),city:false})),...world.cities.map(l=>({...l,position:endpoints(l.uv,warp,n),city:true}))];
