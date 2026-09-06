@@ -17,6 +17,8 @@ geography <---- same population units ----> human space
 Run locally: `python -m http.server 8777 --directory site`, then open `http://localhost:8777/`.
 The main experience is self-contained; it needs no API, account, tile server or external font.
 
+Published atlas: <https://philippbogdan.github.io/historical-cartogram/>.
+
 Verify the shipped data: `node --test tests/human_space.test.mjs`.
 The GitHub workflow verifies this bundle and publishes the main route to GitHub Pages on merge.
 It uploads only `site/index.html` and `site/human-space/`, not the research tile archive.

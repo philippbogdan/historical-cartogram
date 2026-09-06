@@ -51,6 +51,12 @@ Browser verification must separately exercise forward and reverse motion, scrubb
 unit, all colour modes, zoom, touch-sized layouts, keyboard controls and reduced motion. A fresh
 adversarial agent judges the user contract without reading implementation or expected results.
 
+On 6 September 2026 the final bundle passed that independent visual/interaction review:
+recognisable geography, intermediate motion, a more even human-space fabric, a selected cell
+through both representations and economic lenses, reversal, and a measured 320 CSS-pixel phone
+layout. No blocking clipping or marker overlap remained. This was one reviewer's bounded
+inspection, not an exhaustive browser survey or a numerical source audit.
+
 The static publication contains only the new landing page and its own assets. The large research
 tile sets and intermediate rasters do not need to be uploaded to serve this experience.
 

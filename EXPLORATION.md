@@ -11,7 +11,7 @@ population raster -> balanced human-space cells -> pull back onto geography
 ```
 
 The acceptance criterion is one understandable experience with stable units, not completion of
-every research branch. H5 is in active visual and numerical verification.
+every research branch. H5 passed numerical and independent browser verification on 2026-09-06.
 
 v2 (2026-08-29): IDs and phases in `PLAN.md`; NEW nodes from notes/ideas-2026-08-29.md are in the graph.
 

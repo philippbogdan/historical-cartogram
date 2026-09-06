@@ -14,11 +14,14 @@ geography + population cells <---- same units ----> human space
                            place / output / lived history
 ```
 
-- [~] H5: one live, coherent experience, replacing the disconnected landing-page gallery.
+- [x] H5: one coherent reversible experience, replacing the disconnected landing-page gallery.
 - Acceptance: recognisable geography; reversible motion; stable population units; an orderly
   human-space fabric; meaningful colour comparisons on the same population; laptop and touch use.
 - Publication: a small static site deployed from the public repository after numerical checks
   and independent browser verification. The user's current Git instructions authorise publication.
+- Verification, 2026-09-06: all four data/geometry checks passed; an independent browser reviewer
+  passed the final laptop and 320-pixel phone contract. The release workflow publishes the main
+  route at https://philippbogdan.github.io/historical-cartogram/.
 
 ## Historical plan, v2
 
