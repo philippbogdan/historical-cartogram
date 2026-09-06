@@ -9,3 +9,4 @@ notes/resolution/global_*.png
 site/map/tiles/*.pmtiles
 site/map/tiles/*.tmp
 site/map/tiles_globe/*.pmtiles
+work/

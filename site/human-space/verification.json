@@ -1,0 +1,68 @@
+{
+  "unit_count": 8192,
+  "population_total": 8191988480.681665,
+  "unit_population_min": 999953.2498279528,
+  "unit_population_max": 1000044.8337588178,
+  "unit_mass_max_relative_error": 4.623999062780548e-05,
+  "partition_area_relative_error": 0.0,
+  "folded_display_triangles_by_progress": {
+    "0.0": 0,
+    "0.05": 0,
+    "0.1": 0,
+    "0.15": 0,
+    "0.2": 0,
+    "0.25": 0,
+    "0.3": 0,
+    "0.35": 0,
+    "0.4": 0,
+    "0.45": 0,
+    "0.5": 0,
+    "0.55": 0,
+    "0.6": 0,
+    "0.65": 0,
+    "0.7": 0,
+    "0.75": 0,
+    "0.8": 0,
+    "0.85": 0,
+    "0.9": 0,
+    "0.95": 0,
+    "1.0": 0
+  },
+  "geography_share": 0.04,
+  "gdp_year": 2015,
+  "gdp_denominator_year": 2015,
+  "gdp_total": 106758839502815.22,
+  "personyears_total": 1689232296654.708,
+  "missing_gdp_units": 0,
+  "assets": {
+    "world.json": {
+      "bytes": 1470273,
+      "sha256": "5416a2deb7797871523d68b552fab909a16428bb69a2acef07c6dcdeefb93c1a"
+    },
+    "warp.bin": {
+      "bytes": 2105352,
+      "sha256": "57c794acc882ee7a3d0f674766afbb06a0950662623aabea2f6cb8cc2520b0b9"
+    },
+    "atlas.png": {
+      "bytes": 616029,
+      "sha256": "5b63115dec647f6fe2fb86beb12c8a4a3d153654408fe0df5630f879dc2e7999"
+    },
+    "edges.bin": {
+      "bytes": 3738000,
+      "sha256": "a11cbd866b8a8e4387d4c00b36668378772a49c64ad420a20ae49471beeb2aed"
+    },
+    "source-population-check.json": {
+      "bytes": 516,
+      "sha256": "c272c1057d03079c31af761f1edb218ed3d3a3c739f14d67555f8e2307661688"
+    }
+  },
+  "source_population_total": 8191988480.681663,
+  "conservative_transport_relative_error": 2.220446049250313e-16,
+  "unit_centre_roundtrip_max": 2.4279387088187486e-15,
+  "cell_construction": "Balanced in human space; pulled back to geography",
+  "centroidal_iterations": 5,
+  "measure_resolution": 4096,
+  "quadrature_max_people_per_sample": 2000,
+  "source_capacity_check": "source-population-check.json",
+  "source_capacity_max_relative_error": 4.623999062802753e-05
+}

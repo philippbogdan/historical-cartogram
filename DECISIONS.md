@@ -1,5 +1,34 @@
 # Decisions
 
+- 2026-09-05 H5: a conserved resampled population is insufficient evidence for million-person
+  cells. Fixed subpixel sampling misallocates mass in dense source pixels. Use adaptive quadrature
+  to initialise the capacity solve, then calibrate against exact intersections of the transported
+  source-pixel triangles with the population cells. The final report and CI require this source
+  check, separately from the resampled-grid balance.
+
+- 2026-09-05 H5: Phil selected one reversible 2D population transformation as the current goal.
+  The visual must communicate the feeling of human fullness and geographical emptiness. Existing
+  methods, globes and historical playback remain research; the landing route now serves this
+  focused experience.
+- 2026-09-05 H5: audit cached claims against actual data. The old M11 report wrote perfect mass
+  spread when it reloaded cached sites, and its density floor counted artificial people. Integrate
+  real population independently of the numerical floor. Use "about one million" and report the
+  actual range. The old high-resolution meshes also retained folds; their reports do not certify
+  a reversible browser mesh.
+- 2026-09-05 H5: choose the population cells in human space, then pull them back to geography.
+  Stretching geographically round Laguerre cells produces streaks at the endpoint. Capacity
+  constraints and centroidal relaxation in the destination give a more orderly fabric while
+  preserving the same population allocation throughout the animation.
+- 2026-09-05 H5: all layers use one piecewise affine display mesh. The geographic endpoint uses
+  linear latitude for a familiar broad atlas. The population endpoint retains the previous ocean
+  buffer, smooths numerical noise and mixes in 4% geography. Displayed cell areas are therefore
+  approximate, not an exact population ruler. Tests check every triangle for the entire continuous
+  interpolation, including the minimum of its area polynomial between endpoints.
+- 2026-09-05 H5: colour changes never change area, unit identity or selection. Output per person
+  uses GDP PPP 2015 divided by GHS-POP 2015. The history comparison divides the share of 2015 output
+  by the share of HYDE person-years integrated from 10,000 BC to 2023. It is a spatial comparison,
+  not a causal claim or a measure of personal wealth.
+
 - 2026-08-28  Two acts: methods at pinned time (2025) first, timeline (HYDE) last.
 - 2026-08-28  Pinned dataset for method work: GHS-POP R2023A epoch 2025, 30 arcsec
   WGS84 counts. Finest complete global raster is GHS-POP 3 arcsec; used later for renders only.

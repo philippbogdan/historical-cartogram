@@ -1,0 +1,67 @@
+name: Human space
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/index.html'
+      - 'site/human-space/**'
+      - 'tests/human_space.test.mjs'
+      - '.github/workflows/human-space.yml'
+  pull_request:
+    paths:
+      - 'site/index.html'
+      - 'site/human-space/**'
+      - 'tests/human_space.test.mjs'
+      - '.github/workflows/human-space.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: human-space-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          sparse-checkout: |
+            site/index.html
+            site/human-space
+            tests/human_space.test.mjs
+          sparse-checkout-cone-mode: false
+      - name: Verify the delivered population and geometry
+        run: node --test tests/human_space.test.mjs
+      - name: Check browser scripts
+        run: |
+          node --check site/human-space/app.js
+          node --check site/human-space/geometry.js
+      - name: Package the human atlas
+        run: |
+          mkdir -p _site
+          cp site/index.html _site/
+          cp -R site/human-space _site/
+      - uses: actions/upload-pages-artifact@v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          path: _site
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4

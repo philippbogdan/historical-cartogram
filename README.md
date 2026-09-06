@@ -1,5 +1,48 @@
 # The humeter world
 
+## Human space, 2026-09-05
+
+The main experience is now one reversible 2D atlas. Follow the same population cells from familiar
+geography into human space, then use colour to compare economic output per person or output
+relative to accumulated person-years. The cells represent about one million people each. Oceans
+and some physical geography remain, so the result stays recognisable rather than claiming exact
+equality of displayed area.
+
+```
+geography <---- same population units ----> human space
+                         |
+              place / output / lived history
+```
+
+Run locally: `python -m http.server 8777 --directory site`, then open `http://localhost:8777/`.
+The main experience is self-contained; it needs no API, account, tile server or external font.
+
+Verify the shipped data: `node --test tests/human_space.test.mjs`.
+The GitHub workflow verifies this bundle and publishes the main route to GitHub Pages on merge.
+It uploads only `site/index.html` and `site/human-space/`, not the research tile archive.
+
+Rebuild with the local source data and the existing e036 and M11 experiment inputs:
+
+```
+python src/build_human_units.py
+python src/build_human_space.py
+python src/balance_human_fabric.py
+node --test tests/human_space.test.mjs
+```
+
+The first pass audits and corrects the older geographic units. The final pass constructs the new
+cells in human space and pulls them back through the display mesh. Intermediate caches live in
+`work/human-space/`; delete these generated caches before rebuilding with different source data
+or a different display mesh. The committed browser assets are sufficient to run the result.
+See `PRODUCT.md`, `DESIGN.md`, and `notes/human-space.md` for the current intent and data meanings.
+Full attribution, source-model limitations and reuse terms are in
+[`site/human-space/SOURCES.md`](site/human-space/SOURCES.md).
+
+## Earlier research
+
+The description below records the earlier experimental viewers. They are not the definition or
+accuracy claim of the current human-space experience.
+
 A map of the Earth in which **area is people**: every square centimetre of the picture holds the
 same number of human beings. Built from the finest complete population raster (GHS-POP, 100 m) by
 optimal transport, so nothing rotates and everything moves as little as it can. Land is pure; the
