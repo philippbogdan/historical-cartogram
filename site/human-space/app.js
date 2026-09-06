@@ -78,7 +78,8 @@ void main(){
     colour=vec4(base*.77,alpha*.95);return;
   }
   if(u_mode==1){
-    float alpha=country==0?.035:.28;
+    if(country==0)discard;
+    float alpha=.28;
     if(id==u_selected)alpha=.8;
     colour=vec4(.18,.26,.29,alpha);return;
   }
@@ -249,7 +250,6 @@ function updateProgress(t){
   state.t=Math.max(0,Math.min(1,t));range.value=Math.round(state.t*1000);
   range.style.setProperty('--progress',`${state.t*100}%`);
   range.setAttribute('aria-valuetext',`${Math.round(state.t*100)}% transformed${state.t===0?', geography':state.t===1?', human space':''}`);
-  $('phase').textContent=state.t<.05?'The world we recognise':state.t>.95?'A world sized by people':'The same people, unfolding';
   requestRender();
 }
 
@@ -317,6 +317,7 @@ function selectUnit(id,follow=false){
   if(!ready)return;
   if(id<0){detachCamera();state.selected=-1;$('selection').hidden=true;document.querySelectorAll('#places button').forEach(b=>b.setAttribute('aria-pressed','false'));requestRender();return;}
   state.selected=id;
+  $('selection-more').open=false;
   follow=follow||width<600;
   if(follow){
     state.follow=true;
@@ -326,18 +327,30 @@ function selectUnit(id,follow=false){
   updateSelection();requestRender();
 }
 
+function comparison(ratio){
+  const fractions=[[.2,'a fifth'],[.25,'a quarter'],[1/3,'a third'],[.5,'half'],[.75,'three quarters']];
+  for(const [value,label] of fractions)if(Math.abs(ratio/value-1)<=.1)return `About ${label} of the world average.`;
+  if(ratio>=.95&&ratio<=1.05)return 'About the world average.';
+  if(ratio<1)return `About ${new Intl.NumberFormat('en-GB',{maximumSignificantDigits:1}).format(ratio*100)}% of the world average.`;
+  return `About ${new Intl.NumberFormat('en-GB',{maximumSignificantDigits:2}).format(ratio)}× the world average.`;
+}
+
 function updateSelection(){
   const u=world.units[state.selected];if(!u)return;
   $('selection').hidden=false;
   $('selection-place').textContent=u.country?world.countries[u.country].name:'Coastal population';
-  $('selection-people').textContent=`Cell ${(u.id+1).toLocaleString('en-GB')} · ${u.people.toLocaleString('en-GB')} people`;
   let text;
+  const more=$('selection-more');
+  more.hidden=state.lens!==1;
   if(state.lens===0){
-    const number=new Intl.NumberFormat('en-GB',{maximumSignificantDigits:3});
-    text=u.expansion>=1?`This patch becomes ${number.format(u.expansion)}× its geographic size.`:`This patch contracts to ${number.format(100*u.expansion)}% of its geographic size.`;
+    const number=new Intl.NumberFormat('en-GB',{maximumSignificantDigits:u.expansion>=10?1:2});
+    text=u.expansion>=.9&&u.expansion<=1.1?'About the same size in both views.':u.expansion>1?`About ${number.format(u.expansion)}× its geographic size.`:`About ${new Intl.NumberFormat('en-GB',{maximumSignificantDigits:1}).format(100*u.expansion)}% of its geographic size.`;
   }else{
     const ratio=state.lens===1?u.ratio:u.history;
-    text=ratio===null?'No economic output estimate for this cell.':`${ratio.toFixed(2)}× the world average${state.lens===1?` · $${u.output.toLocaleString('en-GB')} PPP per person in 2015`: ' output relative to accumulated person-years'}.`;
+    text=ratio===null?'No estimate for this area.':comparison(ratio);
+    if(state.lens===1){
+      $('selection-value').textContent=u.output===null?'No estimate for this area.':`$${u.output.toLocaleString('en-GB')} per person in 2015, adjusted for purchasing power (constant 2011 international dollars).`;
+    }
   }
   $('selection-detail').textContent=text;
   selectionBox={width:$('selection').offsetWidth,height:$('selection').offsetHeight};
@@ -357,11 +370,10 @@ function setLens(lens){
   state.lens=lens;
   document.querySelectorAll('[data-lens]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.lens)===lens)));
   $('colour-legend').hidden=lens===0;
-  $('lens-description').textContent=[
-    'The same colours keep places recognisable as their shapes change.',
-    'Economic output per person in 2015. The geography changes; differences in output remain. Area still follows the same 2025 people.',
-    '2015 economic output relative to accumulated person-years, 10,000 BC to 2023. A comparison of where output and human history are concentrated.'
-  ][lens];
+  $('lens-description').hidden=lens===0;
+  $('lens-description').textContent=['','Economic output per person, 2015.','Economic output compared with where people have lived throughout history.'][lens];
+  $('legend-meaning').textContent=lens===1?'Blue: less output per person. Red: more. Grey: no estimate.':'Blue: a smaller share of output than of lived years. Red: a larger share. Grey: no estimate.';
+  $('selection-more').open=false;
   if(state.selected>=0)updateSelection();requestRender();
 }
 
@@ -379,6 +391,7 @@ function wireControls(){
   document.querySelectorAll('[data-lens]').forEach(b=>b.addEventListener('click',()=>setLens(Number(b.dataset.lens))));
   $('zoom-in').addEventListener('click',()=>changeZoom(1.5));$('zoom-out').addEventListener('click',()=>changeZoom(1/1.5));$('zoom-reset').addEventListener('click',resetView);
   $('clear-selection').addEventListener('click',()=>selectUnit(-1));
+  $('selection-more').addEventListener('toggle',()=>{selectionBox={width:$('selection').offsetWidth,height:$('selection').offsetHeight};requestRender();});
   world.places.forEach(place=>{
     const button=document.createElement('button');button.textContent=place.name;button.dataset.unit=place.unit;button.setAttribute('aria-pressed','false');
     button.addEventListener('click',()=>selectUnit(place.unit,true));$('places').append(button);

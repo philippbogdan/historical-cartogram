@@ -67,3 +67,11 @@ matplotlib 3.11.1, Pillow 12.2.0, Shapely 2.1.2, pysdot 0.2.39 and netCDF4 1.7.4
 plus the existing `src/hc` project modules. Rebuilding needs the local source
 rasters and the e036/M11 experiment inputs listed in the README; these large
 inputs are not part of the static publication.
+
+## Visitor-facing information, 6 September 2026
+
+Selection identifies a place and gives a rounded comparison. Internal cell IDs and solver-level
+population precision remain in the data, not the interface. Currency values are available through
+optional selection details. The slider has one pair of endpoint labels; source-grid and build
+provenance belong in the linked source notes. Cell edges are clipped to land in the fragment
+shader, preserving the underlying population partition and motion while clearing empty ocean.
