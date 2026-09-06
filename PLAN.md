@@ -1,4 +1,29 @@
-# historical-cartogram: the megaplan, v2
+# Human space: current target, 2026-09-05
+
+H5 is the current product objective. The older exploration plans below are the research record,
+not the acceptance criteria for the current build.
+
+Make one beautiful, reversible 2D transformation in which the same identifiable units of humanity
+carry familiar geography into human space, so a viewer immediately feels why densely inhabited
+places are big. Preserve enough geography to stay oriented, then use colour to reveal differences
+across that human world.
+
+```
+geography + population cells <---- same units ----> human space
+                                      |
+                           place / output / lived history
+```
+
+- [x] H5: one coherent reversible experience, replacing the disconnected landing-page gallery.
+- Acceptance: recognisable geography; reversible motion; stable population units; an orderly
+  human-space fabric; meaningful colour comparisons on the same population; laptop and touch use.
+- Publication: a small static site deployed from the public repository after numerical checks
+  and independent browser verification. The user's current Git instructions authorise publication.
+- Verification, 2026-09-06: all four data/geometry checks passed; an independent browser reviewer
+  passed the final laptop and 320-pixel phone contract. The release workflow publishes the main
+  route at https://philippbogdan.github.io/historical-cartogram/.
+
+## Historical plan, v2
 
 As of 2026-08-29. Supersedes v1 (2026-08-28). Every node has an ID used in commits, experiment
 folders, `EXPLORATION.md` and chat. This file says WHAT we want, in what order, and what is done.

@@ -1,0 +1,13 @@
+{
+  "method": "Exact intersection of transported source-pixel triangles with population cells",
+  "input_sha256": "92b0b584f097a16b11ab3cef3422fe02d93dfa1bb26b4fbdad843cb3a20fd18f",
+  "source_pixels": 617944,
+  "source_triangles": 1235888,
+  "source_population": 8191988480.681663,
+  "integrated_population": 8191988480.681665,
+  "population_min": 999953.2498279528,
+  "population_max": 1000044.8337588178,
+  "max_relative_capacity_error": 4.623999062802753e-05,
+  "iterations": 15,
+  "seconds": 154.94634770800258
+}

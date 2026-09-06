@@ -1,18 +1,65 @@
-<!doctype html><html><head><meta charset="utf-8"><title>The humeter world</title><meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-body{margin:0;background:#f6f6f4;color:#222;font:17px/1.55 -apple-system,"Helvetica Neue",Helvetica,Arial,sans-serif}
-main{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
-h1{font-size:54px;line-height:1.05;margin:0 0 10px;letter-spacing:-1px}p.lead{font-size:21px;max-width:880px;color:#333}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:34px 0}@media(max-width:900px){.grid{grid-template-columns:1fr}}
-.card{background:#fff;border:1px solid #ddd;border-radius:8px;overflow:hidden;text-decoration:none;color:#222}.card img{width:100%;display:block;aspect-ratio:1.2;object-fit:cover}.card div{padding:12px 14px}.card b{font-size:18px;display:block}.card span{color:#555;font-size:15px}
-.more{font-size:15px;color:#555}.more a{color:#333}
-</style></head><body><main>
-<h1>The humeter world</h1>
-<p class="lead">Maps whose area is people. The Mercator rectangle stretched by optimal transport so that ten million people always fill the same patch of paper, for today, across twelve thousand years, and for any measure you like. One humeter is a kilometre at the world's average density.</p>
-<div class="grid">
-<a class="card" href="map/"><img src="img/hero_today.jpg" alt="the map"><div><b>The map</b><span>Zoom from countries to provinces and cities to districts; switch the base to population, night lights or terrain.</span></div></a>
-<a class="card" href="time/"><img src="img/story_epochs.jpg" alt="time"><div><b>Time</b><span>10,000 BC to 2100, 103 frames on one scrubber, with the handovers between sources declared.</span></div></a>
-<a class="card" href="story.html"><img src="img/story_trees.jpg" alt="the story"><div><b>The story</b><span>The world today, the morph, the epochs, wealth against the years of human life, the non-human world.</span></div></a>
-</div>
-<p class="more">Also: <a href="map/globe.html">the globe</a> · <a href="flat/">the earlier flat viewer</a> · <a href="globe/">the earlier three.js globe</a> · <a href="lenses.html">lenses</a> · <a href="geometry.html">geometry</a> · <a href="compare.html">compare</a> · <a href="../experiments/gallery.html">every experiment</a> · <a href="https://github.com/philippbogdan/historical-cartogram">repository</a>.</p>
-</main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f4f8f9">
+  <meta name="description" content="Watch the same million-person cells carry familiar geography into human space. An interactive population atlas.">
+  <title>Humeter | A world made of people</title>
+  <link rel="icon" href="human-space/icon.svg" type="image/svg+xml">
+  <link rel="preload" href="human-space/chivo.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="human-space/style.css">
+  <script type="module" src="human-space/app.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="identity" href="./" aria-label="Humeter home"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M3 3h6v6H3zm8 0h6v6h-6zm8 0h6v6h-6zM3 11h6v6H3zm8 0h6v6h-6zm8 0h6v6h-6zM3 19h6v6H3zm8 0h6v6h-6zm8 0h6v6h-6z"/></svg>humeter<span class="identity-note">a human atlas</span></a>
+    <a class="about-link" href="#reading-the-map">How to read this <span aria-hidden="true">↗</span></a>
+  </header>
+  <main>
+    <div class="introduction">
+      <h1>A world made of people.</h1>
+      <p>Each cell holds about <strong>one million people.</strong><br>Watch crowded places unfold into a bigger human world.</p>
+    </div>
+    <section class="experience" aria-label="Interactive human atlas">
+      <div class="map-toolbar">
+        <div class="view-buttons" role="group" aria-label="Population representation">
+          <button id="cells" class="view-button" aria-pressed="true"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 2h6v6H2zm8 0h6v6h-6zM2 10h6v6H2zm8 0h6v6h-6z"/></svg>Cells</button>
+          <button id="dots" class="view-button" aria-pressed="false"><svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="5" cy="5" r="2"/><circle cx="13" cy="5" r="2"/><circle cx="5" cy="13" r="2"/><circle cx="13" cy="13" r="2"/></svg>Dots</button>
+        </div>
+        <p class="unit-key"><span class="key-cell" aria-hidden="true"></span><span id="unit-key">1 cell ≈ 1 million people</span><span class="data-year">2025 estimate</span></p>
+        <div class="zoom-buttons" role="group" aria-label="Map zoom"><button id="zoom-out" aria-label="Zoom out">−</button><button id="zoom-reset" aria-label="Reset map view">Reset</button><button id="zoom-in" aria-label="Zoom in">+</button></div>
+      </div>
+      <div class="map-stage" id="map-stage" aria-busy="true">
+        <canvas id="map" tabindex="0" role="img" aria-label="World population map. Use the transformation slider below to expand densely populated places. Select a cell to follow the same people." aria-describedby="map-description"></canvas>
+        <canvas id="labels" aria-hidden="true"></canvas>
+        <div id="loading" role="status"><span class="loading-mark" aria-hidden="true">▦</span>Drawing the human world…</div>
+        <div id="load-error" hidden><p>The map could not load.</p><button id="retry">Try again</button><p id="error-detail"></p></div>
+        <div id="selection" class="selection" hidden aria-live="polite"><div class="selection-top"><span id="selection-place"></span><button id="clear-selection" aria-label="Stop following this cell">×</button></div><p id="selection-people"></p><p id="selection-detail"></p></div>
+        <p class="map-hint" id="map-hint">Select a cell to follow it <span>·</span> Scroll to zoom</p>
+      </div>
+      <p id="map-description" class="sr-only">The world is divided into 8,192 cells containing approximately one million people each. On ordinary geography, these cells are small in densely inhabited places and large elsewhere. The transformation stretches dense places and contracts sparse places, carrying the same cells, dots and country boundaries together. Some geographical space is retained for recognition. The colour lenses show economic output differences on the same population world.</p>
+      <div class="journey">
+        <button id="play" class="play" aria-label="Play the transformation" disabled><svg id="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg><span id="play-text">Watch it unfold</span></button>
+        <div class="scrubber"><div class="scrubber-labels"><button id="to-geography">Geography</button><span id="phase">The world we recognise</span><button id="to-human">Human space</button></div><label for="transformation" class="sr-only">Geography to human space</label><input id="transformation" type="range" min="0" max="1000" step="1" value="0" disabled aria-valuetext="Geography, 0% transformed"><div class="scrubber-captions"><span>Space follows land</span><span>Space follows people</span></div></div>
+      </div>
+      <div class="explore-row"><span>Follow a place</span><div id="places" role="group" aria-label="Places to explore"></div><p id="movement-note">Same people. A different sense of size.</p></div>
+    </section>
+    <section class="colour-section" aria-label="Colour lenses">
+      <div class="colour-controls"><span class="control-label">Colour shows</span><div role="group" aria-label="Colour lens"><button data-lens="0" aria-pressed="true">Place</button><button data-lens="1" aria-pressed="false">Output per person</button><button data-lens="2" aria-pressed="false">Output &amp; lived history</button></div></div>
+      <div class="colour-explanation"><p id="lens-description">The same colours keep places recognisable as their shapes change.</p><div id="colour-legend" hidden><div class="colour-ramp" aria-hidden="true"></div><div class="legend-labels"><span>¼× or less</span><span>World average</span><span>4× or more</span></div><p>Blue: less output relative to the measure. Red: more. Grey: no estimate.</p></div></div>
+    </section>
+    <details id="reading-the-map">
+      <summary>What changes, and what stays the same <span aria-hidden="true">+</span></summary>
+      <div class="reading-grid">
+        <div><h2>One million, everywhere.</h2><p>Each cell represents approximately one million people in the 2025 population model. The same cells survive every step of the animation. Select one, then move the slider back and forth.</p><p>These are statistical groups spread over a patch of land. Dots identify these same groups throughout the change of scale. Some cells cross national borders.</p></div>
+        <div><h2>A little geography stays.</h2><p>The map opens up densely inhabited places and compresses sparsely inhabited ones. Ocean space, smoothing and a small geographical component keep the world recognisable.</p><p>The cells approach a more even fabric, but their displayed areas and shapes are not perfectly equal. “One million” describes their population, not an exact square on the screen.</p></div>
+        <div><h2>Colour asks another question.</h2><p>Area always follows the same 2025 population. Output per person uses economic output and population from 2015. The history lens compares the share of 2015 output with the share of accumulated person-years from 10,000 BC to 2023.</p><p>These are spatial comparisons. They do not establish why places became wealthy. GDP measures economic output, not personal income or accumulated wealth.</p></div>
+      </div>
+      <div class="sources"><p><strong>Data &amp; method.</strong> <a href="https://human-settlement.emergency.copernicus.eu/ghs_pop2023.php">GHS-POP R2023A</a> (2025 projection and 2015 estimate); <a href="https://doi.org/10.1038/sdata.2018.4">Kummu, Taka &amp; Guillaume</a> (2015 GDP PPP, constant 2011 international dollars); <a href="https://doi.org/10.24416/UU01-AEZZIT">HYDE 3.3, 2023 release</a> (reconstructed population from 10,000 BC to 2023); <a href="https://www.naturalearthdata.com/">Natural Earth</a> (boundaries).</p><p>HYDE 3.3 updates the <a href="https://doi.org/10.5194/essd-9-927-2017">2017 HYDE 3.2 methodology</a>. This atlas integrates the 126 epochs in the HYDE 3.3 baseline NetCDF, whose metadata identifies the March 2023 run. Its earlier values are historical reconstructions.</p><p>Cells are calculated on a 2,048 × 2,048 population count grid. The displayed transformation is a smoothed optimal-transport map with ocean space retained. <a href="human-space/verification.json">Numerical checks</a> · <a href="human-space/SOURCES.md">Sources &amp; reuse</a> · <a href="https://github.com/philippbogdan/historical-cartogram">Source &amp; research</a></p></div>
+    </details>
+  </main>
+  <footer><span>humeter</span><p>Same planet. Seen through human lives.</p><span>2025 population</span></footer>
+  <noscript><p class="noscript">This interactive map needs JavaScript. The explanation and data sources above remain available.</p></noscript>
+</body>
+</html>

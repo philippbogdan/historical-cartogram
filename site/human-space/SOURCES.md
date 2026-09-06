@@ -1,0 +1,65 @@
+# Human atlas: sources and transformations
+
+This bundle was built on 5 September 2026. Its cells describe a population model,
+not individually tracked people. Numerical precision in the cell allocation does
+not remove uncertainty in the source estimates.
+
+## Population
+
+Schiavina, M., Freire, S., Carioli, A. and MacManus, K. (2023).
+[GHS-POP R2023A](https://doi.org/10.2905/2FF68A52-5B5B-4A22-8F40-C41DA8332CFE).
+European Commission, Joint Research Centre.
+
+The atlas uses the 2025 projection for its geometry and the 2015 estimate for its
+economic denominator. Counts are re-binned onto a 2,048 by 2,048 grid and divided
+into population cells. The display transformation retains ocean space, smooths
+the earlier transport mesh and includes a geographical component for legibility.
+These are modifications made by this project. See the provider's linked dataset
+record for attribution and reuse terms.
+
+## Economic output
+
+Kummu, M., Taka, M. and Guillaume, J. H. A.
+[Gridded global datasets for GDP and HDI](https://zenodo.org/records/4972425),
+associated with the [2018 methods paper](https://doi.org/10.1038/sdata.2018.4).
+The dataset record specifies CC0 1.0.
+
+The input is the 2015 slice of `GDP_PPP_1990_2015_5arcmin_v2.nc`, in constant
+2011 international dollars. This gridded GDP product was itself distributed using
+HYDE 3.2 population. Our output-per-person lens divides its cell totals by
+GHS-POP 2015 population in the same patches. Differences between those population
+models can therefore affect local ratios. Values are spatial estimates, not
+individual incomes or independent measurements at the displayed cell scale.
+
+## Accumulated person-years
+
+Klein Goldewijk, K. (2023), with contribution by Beusen, A.
+[History Database of the Global Environment 3.3](https://doi.org/10.24416/UU01-AEZZIT).
+Utrecht University.
+
+The input is the baseline population NetCDF with 126 epochs from 10,000 BC to
+2023, identifying the March 2023 run in its metadata. The project integrates
+between epochs by the trapezoidal rule, reallocates this measure into its cells,
+and compares each cell's share of 2015 output with its share of person-years.
+This is a comparison of spatial distributions, not a causal explanation of wealth.
+
+The dataset's DOI record specifies
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+The downloaded package also contains older CC BY 3.0 wording. The HYDE-derived
+history values distributed in this bundle follow the DOI record's CC BY-NC-SA
+4.0 terms, retaining attribution and identifying the transformations above.
+
+## Boundaries and typeface
+
+Boundaries and place information: [Natural Earth](https://www.naturalearthdata.com/),
+public-domain cartographic data, transformed by this project.
+
+Chivo: Omnibus-Type, distributed with its [SIL Open Font License](OFL.txt).
+
+## Verification
+
+`source-population-check.json` records integration of the original population
+grid through the final cell geometry. `verification.json` records the delivered
+asset hashes. The repository's `tests/human_space.test.mjs` checks population
+accounting, all rendered triangles over the continuous transformation, compatible
+economic years and the delivered asset hashes.
