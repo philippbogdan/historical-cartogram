@@ -20,6 +20,11 @@ Monotone has no labels. Country and continent hues stay attached to their cells;
 use lighter polygon fills beneath the black boundaries. Offshore sites receive the
 nearest country's colour. Names use uppercase Chivo, weight 900, tight spacing and
 solid black ink. A fine white knockout keeps names legible over polygon lines.
+Type dimensions scale with the square root of each region's current visible area.
+Measure country land footprints through the same deformation, zoom and viewport
+clipping. Exclude ocean extensions so tiny islands do not get oversized labels.
+Prioritise labels by current area rather than population count. No fixed country
+or continent font sizes. Hide labels below a legible size instead of enlarging them.
 No grey categories, shadows, explanatory panels or legends.
 
 ## Motion and gravity
