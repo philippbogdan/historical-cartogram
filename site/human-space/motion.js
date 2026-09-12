@@ -15,9 +15,11 @@ export function advanceMotion(position,velocity,target,seconds,pressure) {
     const speedLimit=.32;
     const offset=position-target,combined=velocity+frequency*offset;
     const decay=Math.exp(-frequency*dt);
-    const nextPosition=target+(offset+combined*dt)*decay;
-    position+=Math.max(-speedLimit*dt,Math.min(speedLimit*dt,nextPosition-position));
-    velocity=Math.max(-speedLimit,Math.min(speedLimit,(velocity-frequency*combined*dt)*decay));
+    const desiredVelocity=Math.max(-speedLimit,Math.min(speedLimit,(velocity-frequency*combined*dt)*decay));
+    const previousVelocity=velocity;
+    // Bound acceleration as well as speed, so leaving either endpoint glides.
+    velocity+=Math.max(-1.6*dt,Math.min(1.6*dt,desiredVelocity-velocity));
+    position+=(previousVelocity+velocity)*.5*dt;
     if(position<0||position>1){position=Math.max(0,Math.min(1,position));velocity=0;}
   }
   if(Math.abs(position-target)<.00025&&Math.abs(velocity)<.001)return {position:target,velocity:0};

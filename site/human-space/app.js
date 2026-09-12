@@ -1,6 +1,6 @@
 import { paperEndpoints, populationCoasts, isFrameEdge, southLimit } from './paper-geometry.js?v=443f532c9617';
 import { createPaperPolygons } from './paper-polygons.js?v=0bbaaa527873';
-import { advanceMotion } from './motion.js?v=3bbbc54f76e7';
+import { advanceMotion } from './motion.js?v=dcd838de8516';
 import {createRegionAreas,labelFontSize} from './label-area.js?v=976deb01dff5';
 import {fadeLabel} from './label-visibility.js?v=063489ba9917';
 
@@ -90,8 +90,8 @@ function showLabel(label,visible){
   const elapsed=label.visible===visible?frameSeconds:0;
   label.visible=visible;
   label.opacity=fadeLabel(label.opacity,visible,elapsed,reducedMotion.matches);
-  label.element.style.opacity=label.opacity;
-  label.element.setAttribute('aria-hidden',String(!visible));
+  if(label.element.style.opacity!==String(label.opacity))label.element.style.opacity=label.opacity;
+  if(label.element.getAttribute('aria-hidden')!==String(!visible))label.element.setAttribute('aria-hidden',String(!visible));
   if(label.opacity!==(visible?1:0))labelsAnimating=true;
 }
 function drawLabels(){
@@ -114,16 +114,19 @@ function drawLabels(){
   const boxes=[];
   for(let mode=1;mode<=2;mode++)for(const label of labelGroups[mode-1]){
     const el=label.element;
+    if(mode!==colourMode&&label.opacity===0)continue;
     if(!label.center){showLabel(label,false);continue;}
     const x=width/2+(label.center[0]-viewCx)*fit*zoom;
     const y=height/2+(label.center[1]-viewCy)*fit*zoom;
     const size=labelFontSize(label.area,label.width);
     const w=label.width*size,h=size*(mode===2&&label.name.includes(' ')?2:1.15);
-    el.style.fontSize=`${size}px`;
-    el.style.transform=`translate(${x}px,${y}px) translate(-50%,-50%)`;
     const box={left:x-w/2-5,right:x+w/2+5,top:y-h/2-4,bottom:y+h/2+4};
     const blocked=mode!==colourMode||size<9||box.left<4||box.right>width-4||box.top<4||box.bottom>height-4||
       (!immersive&&box.left<300&&box.top<102)||boxes.some(b=>box.left<b.right&&box.right>b.left&&box.top<b.bottom&&box.bottom>b.top);
+    if(!blocked||label.opacity>0){
+      el.style.fontSize=`${size}px`;
+      el.style.transform=`translate(${x}px,${y}px) translate(-50%,-50%)`;
+    }
     showLabel(label,!blocked);
     if(!blocked)boxes.push(box);
   }

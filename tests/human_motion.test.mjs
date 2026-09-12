@@ -30,10 +30,10 @@ test('Repulsion timing belongs to the delivered population and geometry',()=>{
 });
 
 test('Expansion gives the viewer time to follow the release and settling',()=>{
-  const early=run(0,1,.5,120),late=run(0,1,4,120);
+  const early=run(0,1,.5,120),late=run(0,1,4.25,120);
   assert.ok(run(0,1,.1,120)<.25,'The first movement should be gentle enough to follow');
   assert.ok(early>.1&&early<.18,'The capped peak speed should leave most movement ahead');
-  assert.equal(late,1,'The short settling tail should finish within four seconds');
+  assert.equal(late,1,'The short settling tail should finish within 4.25 seconds');
   assert.equal(run(0,1,8,120),1);
 });
 
@@ -80,5 +80,16 @@ test('A direction change preserves momentum before turning smoothly',()=>{
       assert.ok(Math.abs(state.velocity)<=.320001);
     }
     assert.equal(state.position,1-from);
+  }
+});
+
+test('Departures glide with bounded acceleration instead of jumping to cruising speed',()=>{
+  for(const from of [0,1]){
+    let state={position:from,velocity:0};
+    for(let i=0;i<60;i++){
+      const next=advanceMotion(state.position,state.velocity,1-from,1/120,pressure);
+      assert.ok(Math.abs(next.velocity-state.velocity)<=1.60001/120);
+      state=next;
+    }
   }
 });
