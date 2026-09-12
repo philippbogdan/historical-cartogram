@@ -1,3 +1,8 @@
+# Current presentation, 2026-09-12
+
+The live route is now the ink-only cartogram: black dots on white, with no visible UI.
+This supersedes the earlier colour-lens and labelled-interface acceptance criteria below.
+
 # Human space: current target, 2026-09-05
 
 H5 is the current product objective. The older exploration plans below are the research record,

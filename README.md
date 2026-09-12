@@ -1,29 +1,22 @@
 # The humeter world
 
-## Human space, 2026-09-05
+## Ink cartogram, 2026-09-12
 
-The main experience is now one reversible 2D atlas. Follow the same population cells from familiar
-geography into human space, then use colour to compare economic output per person or output
-relative to accumulated person-years. The cells represent about one million people each. Oceans
-and some physical geography remain, so the result stays recognisable rather than claiming exact
-equality of displayed area.
+The main page is a full-viewport population cartogram in small black ink dots on white.
+There are no visible controls, labels, text, colour fills or alternative styles. It opens in
+human space and moves slowly between human space and geography. Tap or Space pauses;
+drag pans; scroll or pinch zooms; Home resets the view. Reduced motion starts with a still map.
 
-```
-geography <---- same population units ----> human space
-                         |
-              place / output / lived history
-```
+Live: <https://philippbogdan.github.io/historical-cartogram/>.
+Run locally: `python -m http.server 8777 --directory site`.
+Verify population, geometry and momentum: `node --test tests/human_*.test.mjs`.
 
-Run locally: `python -m http.server 8777 --directory site`, then open `http://localhost:8777/`.
-The main experience is self-contained; it needs no API, account, tile server or external font.
+The Canvas renderer uses the existing 8,192 population groups and deformation. It loads no
+fonts, country texture, polygon edges or economic colours. The underlying data and technical
+checks remain available in the repository. Sources and reuse terms are in
+[`site/human-space/SOURCES.md`](site/human-space/SOURCES.md).
 
-Published atlas: <https://philippbogdan.github.io/historical-cartogram/>.
-
-Verify the shipped data and motion: `node --test tests/human_*.test.mjs`.
-The GitHub workflow verifies this bundle and publishes the main route to GitHub Pages on merge.
-It uploads only `site/index.html` and `site/human-space/`, not the research tile archive.
-
-Rebuild with the local source data and the existing e036 and M11 experiment inputs:
+Rebuild the data with the existing local source rasters and experiment inputs:
 
 ```
 python src/build_human_units.py
@@ -33,13 +26,9 @@ python src/build_human_motion.py
 node --test tests/human_*.test.mjs
 ```
 
-The first pass audits and corrects the older geographic units. The final pass constructs the new
-cells in human space and pulls them back through the display mesh. Intermediate caches live in
-`work/human-space/`; delete these generated caches before rebuilding with different source data
-or a different display mesh. The committed browser assets are sufficient to run the result.
-See `PRODUCT.md`, `DESIGN.md`, and `notes/human-space.md` for the current intent and data meanings.
-Full attribution, source-model limitations and reuse terms are in
-[`site/human-space/SOURCES.md`](site/human-space/SOURCES.md).
+These build steps require the archived source datasets and e036/M11 experiment inputs.
+The committed browser assets suffice to run the map. See `notes/human-space.md` for the
+numerical method and the history of the earlier interface.
 
 ## Earlier research
 
