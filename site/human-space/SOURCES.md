@@ -96,3 +96,27 @@ Polygon fills use a 2048-pixel cell-ID texture on the GPU's continuous deformati
 mesh. Black polygon borders use the exported vector vertices, independent of the
 texture, so zoom retains sharp lines. The canvas renderer remains a compatibility
 fallback when WebGL 2 is unavailable. Dot and label anchors share the same warp.
+
+## Borderless gravity modes (12 September 2026)
+
+The display now projects the original Mercator cells to linear latitude at the
+geographic endpoint, using the earlier wide human-space shape for push. The
+source Figure 6 cells and population masses are unchanged. Outer frame edges
+are omitted, and geometry south of 60 degrees south is not drawn. This removes
+the Antarctic coastline; all 8,192 population sites remain inside the visible
+latitude range. Fullscreen uses a cover view with pan/zoom, hiding the selectors.
+
+Push retains the existing outward display deformation. Pull is a separate visual
+flow exported by `src/build_pull_gravity.py` to `pull.bin`. Equal-population sites
+supply an attractive softened inverse-square field on a 256 by 145 density grid.
+Gaussian averaging suppresses cell-scale noise. Mobility drops in dense cores,
+which lets incoming material gather around core margins. The flow is integrated
+with midpoint steps, then its strength is limited to preserve a usable drawing
+mesh. This is an illustrative force field, not a new optimal-transport solution.
+`gravity.json` records source hashes, softening, integration settings and strength.
+
+Both modes use the same eased playback between geography and the selected field.
+Changing push/pull changes the field, independently of playback direction. A
+second damped coordinate blends the two fields. Tests check the determinant's
+minimum over all convex combinations of geography, push and pull, so both the
+animation and changing the gravity mode preserve mesh orientation.

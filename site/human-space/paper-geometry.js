@@ -1,10 +1,31 @@
-import { sampleWarp } from './geometry.js';
+import { geography, sampleWarp } from './geometry.js';
 
-export function paperEndpoints(source, warp, n) {
-  const result=new Float64Array(source.length*2);
+export const southLimit=.5-Math.log(Math.tan(Math.PI/4-Math.PI/6))/(2*Math.PI);
+
+export function isFrameEdge(x,y,xx,yy){
+  return (x<1e-7&&xx<1e-7)||(x>1-1e-7&&xx>1-1e-7)||
+    (y<1e-7&&yy<1e-7)||(y>1-1e-7&&yy>1-1e-7);
+}
+
+export function paperEndpoints(source, warp, n, pull) {
+  const result=new Float64Array(source.length*3);
   for(let i=0;i<source.length;i+=2){
-    const x=source[i],y=source[i+1],b=sampleWarp([x,y],warp,n);
-    result.set([x,y,b[0],b[1]],i*2);
+    const uv=[source[i],source[i+1]],a=geography(uv),b=sampleWarp(uv,warp,n);
+    const c=pull?sampleWarp(uv,pull,n):a;
+    result.set([a[0],a[1],b[0],b[1]*.56,c[0],c[1]],i*3);
+  }
+  return result;
+}
+
+export function populationCoasts(lines){
+  const result=[];
+  for(const line of lines){
+    let part=[];
+    for(const p of line){
+      if(p[1]<=southLimit)part.push(p);
+      else{if(part.length>1)result.push(part);part=[];}
+    }
+    if(part.length>1)result.push(part);
   }
   return result;
 }
