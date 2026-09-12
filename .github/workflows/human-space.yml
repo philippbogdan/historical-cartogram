@@ -42,6 +42,8 @@ jobs:
           node --check site/human-space/geometry.js
           node --check site/human-space/motion.js
           node --check site/human-space/polygons.js
+          node --check site/human-space/paper-geometry.js
+          node --check site/human-space/paper-polygons.js
       - name: Package the human atlas
         run: |
           mkdir -p _site

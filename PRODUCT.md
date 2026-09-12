@@ -6,18 +6,23 @@ brand
 
 ## Purpose
 
-A population cartogram on white with two compact radio groups at the top left.
-Colour: monotone, countries, continents. Representation: dots, polygons. Default to black
-ink dots. These are the only visible controls; no branding, map labels, headings or panels.
+An interactive version of Figure 6 in the cartogram paper. The actual 8,192 Laguerre
+cells are the hero, drawn in black on white on the original square Mercator frame.
+The visual fills the screen, with compact native radio selectors for colour
+(monotone, countries, continents), representation (dots, polygons) and direction
+(push, pull). A small fullscreen icon expands the drawing.
 
 ## Behaviour
 
-Open in human space. The same million-person groups move slowly between geography and
-human space with the existing damped momentum. Direct gestures work on the drawing:
-tap or Space pauses, drag pans, scroll or pinch zooms. Reduced motion opens a still cartogram.
-Accessible descriptions remain available without visible copy.
+Open on the still Figure 6 polygon drawing. Push expands the same geometry into
+human space. Pull returns it to geography. Preserve slow damped momentum when
+reversing direction, then stop at the selected endpoint. Tap or Space pauses or
+resumes, drag pans, scroll or pinch zooms, Home resets. Reduced motion changes
+endpoints immediately. No headings, explanatory panels, data IDs or branding.
 
-## Priorities
+## Colour and labels
 
-Small, crisp black dots; uninterrupted white space; a coherent population shape; calm movement.
-Data and method documentation stay in the repository and source files.
+Country and continent modes have bold black names attached to their regions.
+Hide colliding labels and reveal smaller countries on zoom. No grey fallback:
+assign offshore sites to their nearest country for presentation. Keep the original
+population allocation intact and document this simplification in the source notes.
