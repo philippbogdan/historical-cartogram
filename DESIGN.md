@@ -1,31 +1,39 @@
-# Paper cartogram
+# Borderless ink cartogram
 
-## Scene
+## Scene and marks
 
-Figure 6 from paper/main.pdf, printed in black ink on white paper, made interactive.
-The figure is the entire surface. Three small native radio groups sit at top left.
+Figure 6's line drawing brought into continuous motion, filling the viewport.
+Black ink on white, no rectangular outline or framed-paper margin. Use the original
+Laguerre cell geometry, fine vector boundaries and dotted coastlines. Dots remain
+small circular marks at the corresponding sites. Both representations share motion.
 
-## Geometry and marks
+## Geography
 
-Use the original M11 Laguerre polygons and square Mercator frame, including cells
-that extend across oceans. Draw fine black polygon boundaries and dotted 110m
-coastlines. Polygons are the opening representation; dots remain small ink marks
-at the corresponding sites. Retain vectors for sharp zoom and fullscreen viewing.
+Use longitude and linear latitude at the geographic endpoint and the previous
+wide human-space shape at the expanded endpoint. Omit coastline south of 60 degrees
+south and hide polygon fragments there. None of the population sites are south of
+that cutoff. Remove outer frame edges explicitly rather than hiding them with CSS.
 
 ## Colour and type
 
-Monotone is black on white and has no labels. Countries and continents use their
-respective hues, with lighter polygon fills so black boundaries and names remain
-legible. Every rendered cell has a country assignment; offshore assignments use
-nearest country, and oceanic island groups are placed in their geographic continent.
-Labels use Chivo at weight 900, uppercase, tight spacing, solid black. Continent
-names are larger, with country names revealed progressively on zoom. A fine white knockout keeps names legible over polygon lines. No grey cells,
-shadows, panels or legends.
+Monotone has no labels. Country and continent hues stay attached to their cells;
+use lighter polygon fills beneath the black boundaries. Offshore sites receive the
+nearest country's colour. Names use uppercase Chivo, weight 900, tight spacing and
+solid black ink. A fine white knockout keeps names legible over polygon lines.
+No grey categories, shadows, explanatory panels or legends.
 
-## Movement
+## Motion and gravity
 
-The initial view is the still paper figure. Push expands it through the existing
-smoothed transport mesh; pull returns it. The interpolation now retains the square
-Mercator aspect ratio at both ends. Both directions use the existing slow damped
-momentum and stop at the selected endpoint. Zoom, pan and fullscreen apply to the
-whole drawing, including labels. Reduced motion uses immediate endpoint changes.
+Restore the slow automatic journey with endpoint holds and critically damped
+momentum. Push retains the existing outward cartogram deformation. Pull uses an
+attractive softened inverse-square field sourced by the population sites, with
+reduced mobility in dense cores so incoming material gathers around the cores.
+Switch gravity smoothly without swapping playback direction. Pause stops both
+motions. Reduced motion applies the chosen mode immediately.
+
+## Immersion
+
+Normal view fits the wide map without a frame. Fullscreen covers the available
+screen and hides the radio selectors. Keep a quiet exit glyph at the top right,
+with F and Escape keyboard support. Use native or WebKit fullscreen, and retain
+the same immersive layout where the browser cannot enter native fullscreen.

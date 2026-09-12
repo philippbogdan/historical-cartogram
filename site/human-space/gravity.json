@@ -1,0 +1,16 @@
+{
+  "model": "Attractive softened inverse-square flow with low mobility in dense cores",
+  "paper_sha256": "6c4b3abd00bebcdee5aa88ed673d18f8033c1286f7bd69585a78fc48905cbcb3",
+  "pull_sha256": "3c336fe85b737ac493311ce1ae24087010967abeea2244f8ffb2a51164152ae8",
+  "grid": [
+    256,
+    145
+  ],
+  "mesh_resolution": 512,
+  "steps": 100,
+  "step_seconds": 0.025,
+  "core_density": 0.0005829575158904116,
+  "softening": 0.00980392156862745,
+  "strength": 0.46329123015975293,
+  "minimum_interpolated_triangle_area": 3.311013431629814e-07
+}

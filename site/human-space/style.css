@@ -20,3 +20,11 @@ canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}
 
 #polygons{position:fixed;inset:0;pointer-events:none;z-index:0}
 #map{position:relative;z-index:1}
+
+body.immersive .selectors{display:none}
+body.immersive #expand{opacity:.18;background:transparent;top:calc(16px + env(safe-area-inset-top));right:calc(16px + env(safe-area-inset-right))}
+body.immersive #expand:hover,body.immersive #expand:focus-visible{opacity:1}
+.fs-exit{display:none}
+.immersive .fs-enter{display:none}
+.immersive .fs-exit{display:block}
+#map:focus-visible{outline:none}
