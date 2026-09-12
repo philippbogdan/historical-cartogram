@@ -13,7 +13,7 @@ def update_import(path,name):
 for module,dependency in [('paper-polygons.js','paper-geometry.js'),('screen-fabric.js','paper-geometry.js'),
                          ('paper-polygons.js','screen-fabric.js'),('label-area.js','paper-geometry.js'),
                          ('app.js','paper-geometry.js'),('app.js','paper-polygons.js'),
-                         ('app.js','label-area.js'),('app.js','label-visibility.js')]:
+                         ('app.js','motion.js'),('app.js','label-area.js'),('app.js','label-visibility.js')]:
     update_import(root/module,dependency)
 path=root/'app.js';source=path.read_text()
 for name in ['paper.json','paper-cells.bin','warp.bin','motion.json','pull.bin','label-regions.json',

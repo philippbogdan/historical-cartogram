@@ -1,6 +1,6 @@
 import { paperEndpoints, populationCoasts, isFrameEdge, southLimit } from './paper-geometry.js?v=443f532c9617';
 import { createPaperPolygons } from './paper-polygons.js?v=0bbaaa527873';
-import { advanceMotion } from './motion.js?v=cb51c7b4f78f';
+import { advanceMotion } from './motion.js?v=3bbbc54f76e7';
 import {createRegionAreas,labelFontSize} from './label-area.js?v=976deb01dff5';
 import {fadeLabel} from './label-visibility.js?v=063489ba9917';
 
@@ -135,7 +135,7 @@ function tick(now){
     const dt=Math.min(.1,Math.max(0,(now-Math.max(last,holdUntil))/1000));
     const next=advanceMotion(progress,velocity,target,dt,pressure);
     progress=next.position;velocity=next.velocity;
-    if(progress===target&&velocity===0){target=1-target;holdUntil=now+3200;}
+    if(progress===target&&velocity===0){target=1-target;holdUntil=now+450;}
   }
   if(ready&&!document.hidden&&gravityAnimating){
     const next=advanceMotion(gravity,gravityVelocity,gravityTarget,Math.min(.1,Math.max(0,(now-last)/1000)),[1,1]);
@@ -304,7 +304,7 @@ try{
     label.element=el;labels.append(el);
   }));
   document.querySelectorAll('.selectors input').forEach(input=>input.disabled=false);
-  ready=true;holdUntil=performance.now()+3200;last=performance.now();resize();
+  ready=true;holdUntil=performance.now()+700;last=performance.now();resize();
 }catch(error){
   console.error(error);canvas.setAttribute('aria-label','The cartogram could not load. Reload the page to try again.');
 }

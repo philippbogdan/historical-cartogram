@@ -11,11 +11,13 @@ export function pressureAt(position, pressure) {
 export function advanceMotion(position,velocity,target,seconds,pressure) {
   const steps=Math.max(1,Math.ceil(seconds*240)),dt=seconds/steps;
   for(let i=0;i<steps;i++) {
-    const frequency=.84+1.68*Math.sqrt(Math.max(0,pressureAt(position,pressure)));
+    const frequency=7+Math.sqrt(Math.max(0,pressureAt(position,pressure)));
+    const speedLimit=.32;
     const offset=position-target,combined=velocity+frequency*offset;
     const decay=Math.exp(-frequency*dt);
-    position=target+(offset+combined*dt)*decay;
-    velocity=(velocity-frequency*combined*dt)*decay;
+    const nextPosition=target+(offset+combined*dt)*decay;
+    position+=Math.max(-speedLimit*dt,Math.min(speedLimit*dt,nextPosition-position));
+    velocity=Math.max(-speedLimit,Math.min(speedLimit,(velocity-frequency*combined*dt)*decay));
     if(position<0||position>1){position=Math.max(0,Math.min(1,position));velocity=0;}
   }
   if(Math.abs(position-target)<.00025&&Math.abs(velocity)<.001)return {position:target,velocity:0};

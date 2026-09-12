@@ -32,8 +32,8 @@ test('Repulsion timing belongs to the delivered population and geometry',()=>{
 test('Expansion gives the viewer time to follow the release and settling',()=>{
   const early=run(0,1,.5,120),late=run(0,1,4,120);
   assert.ok(run(0,1,.1,120)<.25,'The first movement should be gentle enough to follow');
-  assert.ok(early>.2&&early<.45,'The first half second should leave substantial movement ahead');
-  assert.ok(late>.99&&late<1,'Settling must slow before the final endpoint');
+  assert.ok(early>.1&&early<.18,'The capped peak speed should leave most movement ahead');
+  assert.equal(late,1,'The short settling tail should finish within four seconds');
   assert.equal(run(0,1,8,120),1);
 });
 
@@ -63,11 +63,22 @@ test('Motion timing is consistent across display refresh rates',()=>{
 test('A direction change preserves momentum before turning smoothly',()=>{
   const moving=runState(0,1,.7,120);
   assert.ok(moving.velocity>0);
-  const reversed=runState(moving.position,0,.08,120,moving.velocity);
+  const reversed=runState(moving.position,0,.002,120,moving.velocity);
   assert.ok(reversed.position>moving.position,'The groups should carry briefly before reversing');
   assert.ok(reversed.velocity>0&&reversed.velocity<moving.velocity,'The opposing force should decelerate existing motion');
   assert.equal(runState(moving.position,0,9,120,moving.velocity).position,0);
   const stopped=advanceMotion(moving.position,0,moving.position,.1,pressure);
   assert.equal(stopped.position,moving.position);
   assert.equal(stopped.velocity,0);
+});
+
+ test('Both directions finish promptly with a restrained peak speed',()=>{
+  for(const from of [0,1]){
+    let state={position:from,velocity:0};
+    for(let i=0;i<510;i++){
+      state=advanceMotion(state.position,state.velocity,1-from,1/120,pressure);
+      assert.ok(Math.abs(state.velocity)<=.320001);
+    }
+    assert.equal(state.position,1-from);
+  }
 });
