@@ -29,10 +29,10 @@ def prepare_density(counts, floor, sigma, x_boundary, ocean=None, ocean_share=0.
 
 
 class _Base:
-    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic"):
+    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic", rho=None):
         assert x_boundary in ("periodic", "wall")
         self.x_boundary = x_boundary
-        self.rho0 = prepare_density(counts, floor, sigma, x_boundary)
+        self.rho0 = prepare_density(counts, floor, sigma, x_boundary) if rho is None else np.asarray(rho, np.float64)
         self.H, self.W = self.rho0.shape
 
     def corner_mesh(self):
@@ -59,8 +59,8 @@ class _Base:
 class DiffusionCartogram(_Base):
     """numpy/scipy backend."""
 
-    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic"):
-        super().__init__(counts, floor, sigma, x_boundary)
+    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic", rho=None):
+        super().__init__(counts, floor, sigma, x_boundary, rho=rho)
         H, W = self.H, self.W
         ky = np.pi * np.arange(H) / H
         if x_boundary == "periodic":
@@ -159,8 +159,8 @@ class DiffusionCartogram(_Base):
 class TorchDiffusionCartogram(_Base):
     """torch backend (S1): same maths, FFT with mirror extension, grid_sample interpolation."""
 
-    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic", device=None):
-        super().__init__(counts, floor, sigma, x_boundary)
+    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic", device=None, rho=None):
+        super().__init__(counts, floor, sigma, x_boundary, rho=rho)
         import torch
         self.torch = torch
         if device is None:

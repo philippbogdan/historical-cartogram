@@ -1,0 +1,18 @@
+{
+ "figure": "fig6_power",
+ "experiment": "M11_power_8192_2048",
+ "sites_path": "/Users/phil/historical-cartogram/experiments/M11_power_8192_2048/sites.npz",
+ "metrics": {
+  "N": 8192,
+  "grid_w": 2048,
+  "people_per_cell": 999998.5938332108,
+  "seconds": 229.75414896011353,
+  "mass_spread": [
+   0.9999999999190724,
+   1.0000000000103333
+  ]
+ },
+ "n_cells": 8192,
+ "cells": "Laguerre cells of the semi-discrete optimal transport from the 2048-cell population grid to the sites; polygons from pysdot",
+ "sites_path_sha256": "6e1b4df7ebdc0fd5"
+}

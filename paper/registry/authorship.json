@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "authors": [
+    {
+      "author_id": "A001",
+      "name": "Philipp Bogdan",
+      "is_human": true,
+      "credit_roles": [
+        "conceptualization",
+        "methodology",
+        "software",
+        "investigation",
+        "visualization",
+        "writing \u2013 original draft",
+        "writing \u2013 review & editing"
+      ],
+      "authorship_criteria": {
+        "substantial_contribution": true,
+        "drafted_or_critically_revised": true,
+        "final_approval": false,
+        "accountable_for_work": true
+      }
+    }
+  ],
+  "contributors": [],
+  "corresponding_author_id": "A001",
+  "accountability": {
+    "all_authors_approved": false,
+    "guarantor_author_ids": [
+      "A001"
+    ]
+  },
+  "ai_use": {
+    "used": true,
+    "tools": [
+      {
+        "name": "Claude Code (Claude Fable 5.1)",
+        "version": "CLI 2.1.x, model claude-fable-5-1, 2026-09-12",
+        "provider": "Anthropic",
+        "purpose": "code, benchmark runs, figures and manuscript drafting under the author's direction; author decision 2026-09-12: no AI-use statement in the arXiv version, record kept here",
+        "materials_sent": "public_text",
+        "external_service": true
+      }
+    ],
+    "disclosed_in": [],
+    "human_verification_complete": false,
+    "journal_policy_checked": false
+  },
+  "declarations": {
+    "ai_use": {
+      "status": "not_applicable",
+      "content_sha256": "",
+      "verified_by": "",
+      "verified_on": ""
+    },
+    "author_contributions": {
+      "status": "not_applicable",
+      "content_sha256": "",
+      "verified_by": "",
+      "verified_on": ""
+    },
+    "conflicts": {
+      "status": "draft",
+      "content_sha256": "",
+      "verified_by": "",
+      "verified_on": ""
+    },
+    "funding": {
+      "status": "draft",
+      "content_sha256": "",
+      "verified_by": "",
+      "verified_on": ""
+    }
+  }
+}

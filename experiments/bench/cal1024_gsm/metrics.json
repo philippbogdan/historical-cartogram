@@ -1,0 +1,48 @@
+{
+ "folds": 12484,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.14837859932770447,
+ "log_ratio_popweighted_p50": 0.0020982959071383315,
+ "log_ratio_popweighted_p95": 0.10344109493611418,
+ "log_ratio_min": -7.713058055527344,
+ "log_ratio_max": 9.0471690999238,
+ "anisotropy_popweighted_p50": 14.991460855268167,
+ "anisotropy_popweighted_p95": 128.70117003327988,
+ "displacement_mean_px": 320.00585405409583,
+ "displacement_max_px": 670.6007856626328,
+ "twist_popweighted_p50_deg": 38.94792761923587,
+ "twist_popweighted_p95_deg": 100.67723116011148,
+ "displacement_popweighted_mean_px": 276.4725987731567,
+ "displacement_popweighted_rms_px": 306.46918591603657,
+ "transport_cost_popweighted_mean_sq_px": 93923.3619160382,
+ "km_per_px_equator": 39.09196639847768,
+ "seconds": 104.22671103477478,
+ "shape_error_popweighted": 1.2812591624377878,
+ "shape_error_median": 0.9468158989683536,
+ "worst": [
+  [
+   "Puerto Rico",
+   4.211
+  ],
+  [
+   "Philippines",
+   3.191
+  ],
+  [
+   "Portugal",
+   2.924
+  ],
+  [
+   "Tajikistan",
+   2.789
+  ],
+  [
+   "United States of America",
+   2.751
+  ]
+ ],
+ "steps": 3621,
+ "rejected": 1,
+ "t_end": 1.0,
+ "final_dev": 0.0
+}

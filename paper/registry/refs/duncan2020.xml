@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/dUvGfA6RnGzAMkhU9HrlQAhNi3M</id>
+  <title>arXiv Query: search_query=&amp;id_list=2011.09714&amp;start=0&amp;max_results=10</title>
+  <updated>2026-09-12T16:06:12Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2011.09714" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2011.09714v1</id>
+    <title>Task-Based Effectiveness of Interactive Contiguous Area Cartograms</title>
+    <updated>2020-11-19T08:32:16Z</updated>
+    <link href="https://arxiv.org/abs/2011.09714v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2011.09714v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms are map-based data visualizations in which the area of each map region is proportional to an associated numeric data value (e.g., population or gross domestic product). A cartogram is called contiguous if it conforms to this area principle while also keeping neighboring regions connected. Because of their distorted appearance, contiguous cartograms have been criticized as difficult to read. Some authors have suggested that cartograms may be more legible if they are accompanied by interactive features (e.g., animations, linked brushing, or infotips). We conducted an experiment to evaluate this claim. Participants had to perform visual analysis tasks with interactive and noninteractive contiguous cartograms. The task types covered various aspects of cartogram readability, ranging from elementary lookup tasks to synoptic tasks (i.e., tasks in which participants had to summarize high-level differences between two cartograms). Elementary tasks were carried out equally well with and without interactivity. Synoptic tasks, by contrast, were more difficult without interactive features. With access to interactivity, however, most participants answered even synoptic questions correctly. In a subsequent survey, participants rated the interactive features as "easy to use" and "helpful." Our study suggests that interactivity has the potential to make contiguous cartograms accessible even for those readers who are unfamiliar with interactive computer graphics or do not have a prior affinity to working with maps. Among the interactive features, animations had the strongest positive effect, so we recommend them as a minimum of interactivity when contiguous cartograms are displayed on a computer screen.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-11-19T08:32:16Z</published>
+    <arxiv:comment>18 pages, 5 figures. Supplemental material available by clicking on "Other formats". To be published in IEEE Transactions on Visualization and Computer Graphics</arxiv:comment>
+    <arxiv:primary_category term="cs.HC"/>
+    <arxiv:journal_ref>IEEE Transactions on Visualization and Computer Graphics, vol. 27, no. 3, pp. 2136-2152 (2021)</arxiv:journal_ref>
+    <author>
+      <name>Ian K. Duncan</name>
+    </author>
+    <author>
+      <name>Shi Tingsheng</name>
+    </author>
+    <author>
+      <name>Simon T. Perrault</name>
+    </author>
+    <author>
+      <name>Michael T. Gastner</name>
+    </author>
+    <arxiv:doi>10.1109/TVCG.2020.3041745</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TVCG.2020.3041745" title="doi"/>
+  </entry>
+</feed>

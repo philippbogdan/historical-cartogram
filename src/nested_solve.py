@@ -14,8 +14,8 @@ from hc.diffusion import quad_areas
 from run import ROOT, RAW
 from warp_vectors import frame_mesh
 
-GLOBAL = "e036_hero_ocean0.2_s30_share0.999_ocean0.2"
-GHS3 = os.path.join(RAW, "GHS_POP_E2025_GLOBE_R2023A_4326_3ss_V1_0.tif")
+GLOBAL = os.environ.get("HC_GLOBAL", "e036_hero_ocean0.2_s30_share0.999_ocean0.2")
+GHS3 = os.environ.get("HC_GHS3", os.path.join(RAW, "GHS_POP_E2025_GLOBE_R2023A_4326_3ss_V1_0.tif"))
 
 name, lon_c, lat_c = sys.argv[1], float(sys.argv[2]), float(sys.argv[3])
 size = float(sys.argv[4]) if len(sys.argv) > 4 else 2.0; sigma_m = float(sys.argv[5]) if len(sys.argv) > 5 else 300.0; out_px = int(sys.argv[6]) if len(sys.argv) > 6 else 2048

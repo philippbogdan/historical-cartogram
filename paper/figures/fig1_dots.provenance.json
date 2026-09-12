@@ -1,0 +1,12 @@
+{
+ "figure": "fig1_dots",
+ "bench_tag": "b4096_ot_hero",
+ "mesh_path": "/Users/phil/historical-cartogram/experiments/bench/b4096_ot_hero/mesh.npz",
+ "people_per_dot": 1000000.0,
+ "n_dots": 8191,
+ "dots": "systematic sampling along raster order, seed 20260912, uniform jitter within the cell",
+ "vectors": "Natural Earth 1:50m coastline",
+ "population": "GHS-POP R2023A epoch 2025, 30 arcsec, re-binned to the solver grid",
+ "total_people": 8191988473.063813,
+ "mesh_path_sha256": "666031ee5d785719"
+}

@@ -1,0 +1,1780 @@
+{
+  "schema_version": "1.0",
+  "methods": [
+    {
+      "method_id": "M001",
+      "name": "Spectral fixed-point Monge-Ampere solve (BFO method 1) with continuation in the share",
+      "analysis_intent": "descriptive",
+      "protocol_status": "prespecified",
+      "outcome_ids": [
+        "O001",
+        "O002",
+        "O003",
+        "O004",
+        "O005"
+      ]
+    },
+    {
+      "method_id": "M002",
+      "name": "Gastner-Newman diffusion cartogram, own implementation, t0 = 0.01",
+      "analysis_intent": "descriptive",
+      "protocol_status": "prespecified",
+      "outcome_ids": [
+        "O001",
+        "O002",
+        "O003",
+        "O004",
+        "O005"
+      ]
+    },
+    {
+      "method_id": "M003",
+      "name": "Nested transport to the global map's area measure (Delhi window)",
+      "analysis_intent": "descriptive",
+      "protocol_status": "prespecified",
+      "outcome_ids": [
+        "O006"
+      ]
+    },
+    {
+      "method_id": "M004",
+      "name": "Semi-discrete transport to 8192 equal masses (pysdot)",
+      "analysis_intent": "descriptive",
+      "protocol_status": "prespecified",
+      "outcome_ids": [
+        "O007"
+      ]
+    }
+  ],
+  "numeric_facts": [
+    {
+      "fact_id": "N001",
+      "concept": "b1024_ot_s95.err_p05_pct",
+      "value": -2.500191010172159,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N002",
+      "concept": "b1024_ot_s95.err_p95_pct",
+      "value": 2.0763901668943596,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N003",
+      "concept": "b1024_ot_s95.aniso_p50",
+      "value": 3.6532440160567696,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N004",
+      "concept": "b1024_ot_s95.aniso_p95",
+      "value": 18.852978332612174,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N005",
+      "concept": "b1024_ot_s95.twist_p50",
+      "value": 0.01398071540140561,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N006",
+      "concept": "b1024_ot_s95.twist_p95",
+      "value": 0.047409388536990754,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N007",
+      "concept": "b1024_ot_s95.cost_frame2",
+      "value": 0.08196436364975698,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N008",
+      "concept": "b1024_ot_s95.disp_popmean_frame",
+      "value": 0.26870436994978875,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N009",
+      "concept": "b1024_ot_s95.shape",
+      "value": 0.7527580732936923,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N010",
+      "concept": "b1024_ot_s95.folds",
+      "value": 2733,
+      "unit": "count",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N011",
+      "concept": "b1024_ot_s95.seconds",
+      "value": 6.067438125610352,
+      "unit": "seconds",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N012",
+      "concept": "b1024_d_s95.err_p05_pct",
+      "value": -3.207316310983721,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N013",
+      "concept": "b1024_d_s95.err_p95_pct",
+      "value": 3.0607401233227804,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N014",
+      "concept": "b1024_d_s95.aniso_p50",
+      "value": 4.768403516865468,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N015",
+      "concept": "b1024_d_s95.aniso_p95",
+      "value": 40.59331199765781,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N016",
+      "concept": "b1024_d_s95.twist_p50",
+      "value": 7.018336796134797,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N017",
+      "concept": "b1024_d_s95.twist_p95",
+      "value": 25.937353894524676,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N018",
+      "concept": "b1024_d_s95.cost_frame2",
+      "value": 0.08222765694967998,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N019",
+      "concept": "b1024_d_s95.disp_popmean_frame",
+      "value": 0.26923736926379016,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N020",
+      "concept": "b1024_d_s95.shape",
+      "value": 0.8440850310296312,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N021",
+      "concept": "b1024_d_s95.folds",
+      "value": 122,
+      "unit": "count",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N022",
+      "concept": "b1024_d_s95.seconds",
+      "value": 4.024622917175293,
+      "unit": "seconds",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N023",
+      "concept": "b2048_ot_s95.err_p05_pct",
+      "value": -2.4340163161733375,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N024",
+      "concept": "b2048_ot_s95.err_p95_pct",
+      "value": 2.1878307113664563,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N025",
+      "concept": "b2048_ot_s95.aniso_p50",
+      "value": 3.810072865020331,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N026",
+      "concept": "b2048_ot_s95.aniso_p95",
+      "value": 21.934368074621048,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N027",
+      "concept": "b2048_ot_s95.twist_p50",
+      "value": 0.013249740162974762,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N028",
+      "concept": "b2048_ot_s95.twist_p95",
+      "value": 0.04671178987054939,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N029",
+      "concept": "b2048_ot_s95.cost_frame2",
+      "value": 0.08205131069169964,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N030",
+      "concept": "b2048_ot_s95.disp_popmean_frame",
+      "value": 0.26882832489508357,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N031",
+      "concept": "b2048_ot_s95.shape",
+      "value": 0.7728448556795924,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N032",
+      "concept": "b2048_ot_s95.folds",
+      "value": 12377,
+      "unit": "count",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N033",
+      "concept": "b2048_ot_s95.seconds",
+      "value": 26.398864030838013,
+      "unit": "seconds",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N034",
+      "concept": "b2048_d_s95.err_p05_pct",
+      "value": -3.7171795897228743,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N035",
+      "concept": "b2048_d_s95.err_p95_pct",
+      "value": 3.6367907532675936,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N036",
+      "concept": "b2048_d_s95.aniso_p50",
+      "value": 5.5014042169379165,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N037",
+      "concept": "b2048_d_s95.aniso_p95",
+      "value": 51.10899814023123,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N038",
+      "concept": "b2048_d_s95.twist_p50",
+      "value": 8.032593473209891,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N039",
+      "concept": "b2048_d_s95.twist_p95",
+      "value": 30.28664246209119,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N040",
+      "concept": "b2048_d_s95.cost_frame2",
+      "value": 0.08234059084287883,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N041",
+      "concept": "b2048_d_s95.disp_popmean_frame",
+      "value": 0.2693938992914457,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N042",
+      "concept": "b2048_d_s95.shape",
+      "value": 0.8779448622700963,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N043",
+      "concept": "b2048_d_s95.folds",
+      "value": 8671,
+      "unit": "count",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N044",
+      "concept": "b2048_d_s95.seconds",
+      "value": 18.71047568321228,
+      "unit": "seconds",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N045",
+      "concept": "b4096_ot_s95.err_p05_pct",
+      "value": -2.52035802726418,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N046",
+      "concept": "b4096_ot_s95.err_p95_pct",
+      "value": 2.406418190447801,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N047",
+      "concept": "b4096_ot_s95.aniso_p50",
+      "value": 3.9305694710826318,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N048",
+      "concept": "b4096_ot_s95.aniso_p95",
+      "value": 25.085350553684876,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N049",
+      "concept": "b4096_ot_s95.twist_p50",
+      "value": 0.013045448338248309,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N050",
+      "concept": "b4096_ot_s95.twist_p95",
+      "value": 0.04726209620459107,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N051",
+      "concept": "b4096_ot_s95.cost_frame2",
+      "value": 0.08198454370982507,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N052",
+      "concept": "b4096_ot_s95.disp_popmean_frame",
+      "value": 0.26870551393882014,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N053",
+      "concept": "b4096_ot_s95.shape",
+      "value": 0.7849147686825542,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N054",
+      "concept": "b4096_ot_s95.folds",
+      "value": 72606,
+      "unit": "count",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N055",
+      "concept": "b4096_ot_s95.seconds",
+      "value": 131.08595371246338,
+      "unit": "seconds",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N056",
+      "concept": "b4096_d_s95.err_p05_pct",
+      "value": -6.2629180206848485,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N057",
+      "concept": "b4096_d_s95.err_p95_pct",
+      "value": 5.925737042627088,
+      "unit": "percent",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N058",
+      "concept": "b4096_d_s95.aniso_p50",
+      "value": 6.304751166375124,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N059",
+      "concept": "b4096_d_s95.aniso_p95",
+      "value": 62.633270309131795,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N060",
+      "concept": "b4096_d_s95.twist_p50",
+      "value": 8.822462081181634,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N061",
+      "concept": "b4096_d_s95.twist_p95",
+      "value": 33.90198059614833,
+      "unit": "degrees",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N062",
+      "concept": "b4096_d_s95.cost_frame2",
+      "value": 0.08233240057896352,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N063",
+      "concept": "b4096_d_s95.disp_popmean_frame",
+      "value": 0.2693607400380521,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N064",
+      "concept": "b4096_d_s95.shape",
+      "value": 0.9010347125457578,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N065",
+      "concept": "b4096_d_s95.folds",
+      "value": 189062,
+      "unit": "count",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N066",
+      "concept": "b4096_d_s95.seconds",
+      "value": 123.19297981262207,
+      "unit": "seconds",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_d_s95",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N067",
+      "concept": "cost_ratio_1024",
+      "value": 0.9967979958363142,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b1024",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N068",
+      "concept": "cost_ratio_2048",
+      "value": 0.9964867855790447,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b2048",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N069",
+      "concept": "cost_ratio_4096",
+      "value": 0.9957749699183759,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N070",
+      "concept": "hero.err_p05_pct",
+      "value": -2.3117696707576796,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_hero",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N071",
+      "concept": "hero.err_p95_pct",
+      "value": 2.8741170346852307,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_hero",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N072",
+      "concept": "hero.aniso_p50",
+      "value": 4.0199147832422195,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_hero",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N073",
+      "concept": "hero.twist_p50",
+      "value": 0.01192038285865812,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_hero",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N074",
+      "concept": "hero.folds",
+      "value": 301535,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_hero",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N075",
+      "concept": "hero.seconds",
+      "value": 455.0950331687927,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_hero",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N076",
+      "concept": "hero.residual",
+      "value": 0.0005823467508889735,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_hero",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N077",
+      "concept": "hero.shape",
+      "value": 0.79985213966989,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E101"
+      ],
+      "analysis_set": "b4096_ot_hero",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N078",
+      "concept": "delhi.smoothed_before_p05",
+      "value": -1.1506039542598023,
+      "unit": "log-ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E102"
+      ],
+      "analysis_set": "delhi",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N079",
+      "concept": "delhi.smoothed_before_p95",
+      "value": 2.8985059159953335,
+      "unit": "log-ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E102"
+      ],
+      "analysis_set": "delhi",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N080",
+      "concept": "delhi.smoothed_after_p05",
+      "value": -0.37856163745826493,
+      "unit": "log-ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E102"
+      ],
+      "analysis_set": "delhi",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N081",
+      "concept": "delhi.smoothed_after_p95",
+      "value": 0.4374609126137895,
+      "unit": "log-ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E102"
+      ],
+      "analysis_set": "delhi",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N082",
+      "concept": "delhi.local_residual",
+      "value": 0.0013841763138771057,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E102"
+      ],
+      "analysis_set": "delhi",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N083",
+      "concept": "delhi.local_folds",
+      "value": 993,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E102"
+      ],
+      "analysis_set": "delhi",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N084",
+      "concept": "delhi.seconds",
+      "value": 112.81477189064026,
+      "unit": "mixed",
+      "section": "Results",
+      "evidence_ids": [
+        "E102"
+      ],
+      "analysis_set": "delhi",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N085",
+      "concept": "delhi.population",
+      "value": 69751451.724984,
+      "unit": "people",
+      "section": "Results",
+      "evidence_ids": [
+        "E102"
+      ],
+      "analysis_set": "delhi",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N086",
+      "concept": "m11.N",
+      "value": 8192,
+      "unit": "count",
+      "section": "Results",
+      "evidence_ids": [
+        "E103"
+      ],
+      "analysis_set": "m11",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N087",
+      "concept": "m11.people_per_cell",
+      "value": 999998.5938332108,
+      "unit": "people",
+      "section": "Results",
+      "evidence_ids": [
+        "E103"
+      ],
+      "analysis_set": "m11",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N088",
+      "concept": "m11.mass_spread_min",
+      "value": 0.9999999999190724,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E103"
+      ],
+      "analysis_set": "m11",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    },
+    {
+      "fact_id": "N089",
+      "concept": "m11.mass_spread_max",
+      "value": 1.0000000000103333,
+      "unit": "ratio",
+      "section": "Results",
+      "evidence_ids": [
+        "E103"
+      ],
+      "analysis_set": "m11",
+      "numerator": null,
+      "denominator": null,
+      "sample_size": null
+    }
+  ],
+  "results": [
+    {
+      "result_id": "R001",
+      "method_id": "M001",
+      "outcome_id": "O001",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 1048576
+    },
+    {
+      "result_id": "R002",
+      "method_id": "M001",
+      "outcome_id": "O002",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 1048576
+    },
+    {
+      "result_id": "R003",
+      "method_id": "M001",
+      "outcome_id": "O003",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 1048576
+    },
+    {
+      "result_id": "R004",
+      "method_id": "M001",
+      "outcome_id": "O004",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 1048576
+    },
+    {
+      "result_id": "R005",
+      "method_id": "M001",
+      "outcome_id": "O005",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 1048576
+    },
+    {
+      "result_id": "R006",
+      "method_id": "M001",
+      "outcome_id": "O001",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 4194304
+    },
+    {
+      "result_id": "R007",
+      "method_id": "M001",
+      "outcome_id": "O002",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 4194304
+    },
+    {
+      "result_id": "R008",
+      "method_id": "M001",
+      "outcome_id": "O003",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 4194304
+    },
+    {
+      "result_id": "R009",
+      "method_id": "M001",
+      "outcome_id": "O004",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 4194304
+    },
+    {
+      "result_id": "R010",
+      "method_id": "M001",
+      "outcome_id": "O005",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 4194304
+    },
+    {
+      "result_id": "R011",
+      "method_id": "M001",
+      "outcome_id": "O001",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R012",
+      "method_id": "M001",
+      "outcome_id": "O002",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R013",
+      "method_id": "M001",
+      "outcome_id": "O003",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R014",
+      "method_id": "M001",
+      "outcome_id": "O004",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R015",
+      "method_id": "M001",
+      "outcome_id": "O005",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R016",
+      "method_id": "M001",
+      "outcome_id": "O001",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R017",
+      "method_id": "M001",
+      "outcome_id": "O002",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R018",
+      "method_id": "M001",
+      "outcome_id": "O003",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R019",
+      "method_id": "M001",
+      "outcome_id": "O004",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R020",
+      "method_id": "M001",
+      "outcome_id": "O005",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R021",
+      "method_id": "M002",
+      "outcome_id": "O001",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 1048576
+    },
+    {
+      "result_id": "R022",
+      "method_id": "M002",
+      "outcome_id": "O002",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 1048576
+    },
+    {
+      "result_id": "R023",
+      "method_id": "M002",
+      "outcome_id": "O003",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 1048576
+    },
+    {
+      "result_id": "R024",
+      "method_id": "M002",
+      "outcome_id": "O004",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 1048576
+    },
+    {
+      "result_id": "R025",
+      "method_id": "M002",
+      "outcome_id": "O005",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 1048576
+    },
+    {
+      "result_id": "R026",
+      "method_id": "M002",
+      "outcome_id": "O001",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 4194304
+    },
+    {
+      "result_id": "R027",
+      "method_id": "M002",
+      "outcome_id": "O002",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 4194304
+    },
+    {
+      "result_id": "R028",
+      "method_id": "M002",
+      "outcome_id": "O003",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 4194304
+    },
+    {
+      "result_id": "R029",
+      "method_id": "M002",
+      "outcome_id": "O004",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 4194304
+    },
+    {
+      "result_id": "R030",
+      "method_id": "M002",
+      "outcome_id": "O005",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 4194304
+    },
+    {
+      "result_id": "R031",
+      "method_id": "M002",
+      "outcome_id": "O001",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R032",
+      "method_id": "M002",
+      "outcome_id": "O002",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R033",
+      "method_id": "M002",
+      "outcome_id": "O003",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R034",
+      "method_id": "M002",
+      "outcome_id": "O004",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R035",
+      "method_id": "M002",
+      "outcome_id": "O005",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E101"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 16777216
+    },
+    {
+      "result_id": "R036",
+      "method_id": "M003",
+      "outcome_id": "O006",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E102"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 5760000
+    },
+    {
+      "result_id": "R037",
+      "method_id": "M004",
+      "outcome_id": "O007",
+      "analysis_intent": "descriptive",
+      "evidence_ids": [
+        "E103"
+      ],
+      "reported_sections": [
+        "Results"
+      ],
+      "sample_size": 8192
+    }
+  ]
+}

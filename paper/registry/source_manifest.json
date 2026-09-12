@@ -1,0 +1,965 @@
+{
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "evidence_id": "E001",
+      "title": "{Diffusion-based method for producing density-equalizing maps",
+      "authors": [
+        "Gastner, Michael T.",
+        "Newman, M. E. J."
+      ],
+      "year": 2004,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1073/pnas.0400280101",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1073/pnas.0400280101"
+      },
+      "locator": "abstract and method section: diffusion process, velocity field; no stated objective",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E002",
+      "title": "{Fast flow-based algorithm for creating density-equalizing map projections",
+      "authors": [
+        "Gastner, Michael T.",
+        "Seguy, Vivien",
+        "More, Pratyush"
+      ],
+      "year": 2018,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1073/pnas.1712674115",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1073/pnas.1712674115"
+      },
+      "locator": "abstract: 'a flow-based algorithm whose equations of motion are numerically easier to solve'; eq. 5",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E003",
+      "title": "{Polar factorization and monotone rearrangement of vector\u2010valued functions",
+      "authors": [
+        "Brenier, Yann"
+      ],
+      "year": 1991,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1002/cpa.3160440402",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1002/cpa.3160440402"
+      },
+      "locator": "main theorem: polar factorisation, gradient of a convex function, uniqueness",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E004",
+      "title": "{The regularity of mappings with a convex potential",
+      "authors": [
+        "Caffarelli, Luis A."
+      ],
+      "year": 1992,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1090/s0894-0347-1992-1124980-8",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1090/S0894-0347-1992-1124980-8"
+      },
+      "locator": "regularity of maps with convex potential for densities bounded away from zero and infinity",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E005",
+      "title": "{Optimal Transport",
+      "authors": [
+        "Villani, C\u00e9dric"
+      ],
+      "year": 2009,
+      "source_type": "book",
+      "identifiers": {
+        "doi": "10.1007/978-3-540-71050-9",
+        "isbn": "9783540710509",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1007/978-3-540-71050-9"
+      },
+      "locator": "chapters on Brenier's theorem and Monge-Ampere",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E006",
+      "title": "{Two Numerical Methods for the elliptic Monge-Amp\u00e8re equation",
+      "authors": [
+        "Benamou, Jean-David",
+        "Froese, Brittany D.",
+        "Oberman, Adam M."
+      ],
+      "year": 2010,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1051/m2an/2010017",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1051/m2an/2010017"
+      },
+      "locator": "method 1: Laplacian fixed point Delta u = sqrt(|D^2 u|^2 + 2f)",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E007",
+      "title": "{Numerical solution of the Monge\u2013Amp\u00e8re equation by a Newton\u2019s algorithm",
+      "authors": [
+        "Loeper, Gr\u00e9goire",
+        "Rapetti, Francesca"
+      ],
+      "year": 2005,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1016/j.crma.2004.12.018",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1016/j.crma.2004.12.018"
+      },
+      "locator": "Newton method for periodic Monge-Ampere",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E008",
+      "title": "{An efficient numerical algorithm for the L2 optimal transport problem with periodic densities",
+      "authors": [
+        "Saumier, L.-P.",
+        "Agueh, M.",
+        "Khouider, B."
+      ],
+      "year": 2013,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1093/imamat/hxt032",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1093/imamat/hxt032"
+      },
+      "locator": "damped Newton with FFT Poisson solves for periodic L2 OT (arXiv 1009.6039 abstract)",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E009",
+      "title": "{A fast approach to optimal transport: the back-and-forth method",
+      "authors": [
+        "Jacobs, Matt",
+        "L\u00e9ger, Flavien"
+      ],
+      "year": 2020,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1007/s00211-020-01154-8",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1007/s00211-020-01154-8"
+      },
+      "locator": "abstract: grids as large as 4096 x 4096 in a matter of minutes; Table 1: 4096 x 4096, 56.46 s, single 1.6 GHz core (arXiv 1905.12154v2)",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E010",
+      "title": "{Moving Mesh Generation Using the Parabolic Monge\u2013Amp\u00e8re Equation",
+      "authors": [
+        "Budd, C. J.",
+        "Williams, J. F."
+      ],
+      "year": 2009,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1137/080716773",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1137/080716773"
+      },
+      "locator": "parabolic Monge-Ampere for moving meshes",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E011",
+      "title": "{The geometry of r-adaptive meshes generated using optimal transport methods",
+      "authors": [
+        "Budd, C.J.",
+        "Russell, R.D.",
+        "Walsh, E."
+      ],
+      "year": 2015,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1016/j.jcp.2014.11.007",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1016/j.jcp.2014.11.007"
+      },
+      "locator": "geometry of OT-generated r-adaptive meshes",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E012",
+      "title": "{Mesh adaptation on the sphere using optimal transport and the numerical solution of a Monge\u2013Amp\u00e8re type equation",
+      "authors": [
+        "Weller, Hilary",
+        "Browne, Philip",
+        "Budd, Chris",
+        "Cullen, Mike"
+      ],
+      "year": 2016,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1016/j.jcp.2015.12.018",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1016/j.jcp.2015.12.018"
+      },
+      "locator": "sphere: OT meshes do not tangle (arXiv 1512.02935)",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E013",
+      "title": "{Optimal-Transport--Based Mesh Adaptivity on the Plane and Sphere Using Finite Elements",
+      "authors": [
+        "McRae, Andrew T. T.",
+        "Cotter, Colin J.",
+        "Budd, Chris J."
+      ],
+      "year": 2018,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1137/16m1109515",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1137/16M1109515"
+      },
+      "locator": "map closest to the identity, gradient of a scalar potential, immune to tangling (arXiv 1612.08077)",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E014",
+      "title": "{Area-Preservation Mapping using Optimal Mass Transport",
+      "authors": [
+        "Xin Zhao",
+        "Zhengyu Su",
+        "Gu, Xianfeng David",
+        "Kaufman, Arie",
+        "Jian Sun",
+        "Jie Gao",
+        "Feng Luo"
+      ],
+      "year": 2013,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1109/tvcg.2013.135",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1109/TVCG.2013.135"
+      },
+      "locator": "area-preserving surface flattening by optimal mass transport",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E015",
+      "title": "{Rediscovering the World: Map Transformations of Human and Physical Space",
+      "authors": [
+        "Hennig, Benjamin D."
+      ],
+      "year": 2013,
+      "source_type": "book",
+      "identifiers": {
+        "doi": "10.1007/978-3-642-34848-8",
+        "isbn": "9783642348488",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1007/978-3-642-34848-8"
+      },
+      "locator": "gridded population cartograms by diffusion; pale ocean and gaps between continents as the legibility device (ch. 4, pp. 111-147)",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E016",
+      "title": "{The State of the Art in Cartograms",
+      "authors": [
+        "Nusrat, Sabrina",
+        "Kobourov, Stephen"
+      ],
+      "year": 2016,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1111/cgf.12932",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1111/cgf.12932"
+      },
+      "locator": "survey of cartogram methods and metrics; no rotation metric",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E017",
+      "title": "{Quantitative Measures for Cartogram Generation Techniques",
+      "authors": [
+        "Alam, Md. Jawaherul",
+        "Kobourov, Stephen G.",
+        "Veeramoni, Sankar"
+      ],
+      "year": 2015,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1111/cgf.12647",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1111/cgf.12647"
+      },
+      "locator": "quantitative cartogram measures: statistical, topology, orientation/shape, complexity",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E018",
+      "title": "{An algorithm to construct continuous area cartograms",
+      "authors": [
+        "Dougenik, James A.",
+        "Chrisman, Nicholas R.",
+        "Niemeyer, Duane R."
+      ],
+      "year": 1985,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1111/j.0033-0124.1985.00075.x",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1111/j.0033-0124.1985.00075.x"
+      },
+      "locator": "rubber-sheet algorithm",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E019",
+      "title": "{Thirty Five Years of Computer Cartograms",
+      "authors": [
+        "Tobler, Waldo"
+      ],
+      "year": 2004,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1111/j.1467-8306.2004.09401004.x",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1111/j.1467-8306.2004.09401004.x"
+      },
+      "locator": "history of computer cartograms",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E020",
+      "title": "{Density-Equalizing Maps for Simply Connected Open Surfaces",
+      "authors": [
+        "Choi, Gary P. T.",
+        "Rycroft, Chris H."
+      ],
+      "year": 2018,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1137/17m1124796",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1137/17M1124796"
+      },
+      "locator": "density-equalising maps by diffusion for surfaces",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E021",
+      "title": "{Minimum-distortion continuous cartograms by numerically optimized meshes",
+      "authors": [
+        "Robert C. Sargent"
+      ],
+      "year": 2024,
+      "source_type": "preprint",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://arxiv.org/abs/2411.17129"
+      },
+      "locator": "abstract: numerically optimised meshes minimising cartographic error and distortion; sphere variant",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E022",
+      "title": "{Fast Time-Varying Contiguous Cartograms Using Integral Images",
+      "authors": [
+        "Vladimir Molchanov",
+        "Hennes Rave",
+        "Lars Linsen"
+      ],
+      "year": 2026,
+      "source_type": "preprint",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://arxiv.org/abs/2604.13880"
+      },
+      "locator": "abstract: integral-image deformation, GPU, time-varying cartograms",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E023",
+      "title": "{Topology-Preserving Line Densification for Creating Contiguous Cartograms",
+      "authors": [
+        "Nihal Z. Miaji",
+        "Adi Singhania",
+        "Matthias E. Goh",
+        "Callista Le",
+        "Atima Tharatipyakul",
+        "Michael T. Gastner"
+      ],
+      "year": 2025,
+      "source_type": "preprint",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://arxiv.org/abs/2511.08121"
+      },
+      "locator": "abstract: topology-preserving line densification with a flow-based generator",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E024",
+      "title": "{A Multi-scale Dynamic Map Using Cartograms to Reflect User Focus",
+      "authors": [
+        "Carroll, Grant",
+        "Moore, Antoni"
+      ],
+      "year": 2008,
+      "source_type": "chapter",
+      "identifiers": {
+        "doi": "10.1007/978-3-540-70970-1_5",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1007/978-3-540-70970-1_5"
+      },
+      "locator": "nested multi-scale cartograms driven by user focus",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E025",
+      "title": "{Balanced centroidal power diagrams for redistricting",
+      "authors": [
+        "Cohen-Addad, Vincent",
+        "Klein, Philip N.",
+        "Young, Neal E."
+      ],
+      "year": 2018,
+      "source_type": "conference_paper",
+      "identifiers": {
+        "doi": "10.1145/3274895.3274979",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1145/3274895.3274979"
+      },
+      "locator": "balanced centroidal power diagrams with equal-population districts",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E026",
+      "title": "{A Multiscale Approach to Optimal Transport",
+      "authors": [
+        "M\u00e9rigot, Quentin"
+      ],
+      "year": 2011,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1111/j.1467-8659.2011.02032.x",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1111/j.1467-8659.2011.02032.x"
+      },
+      "locator": "semi-discrete optimal transport, Laguerre cells, multiscale Newton",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E027",
+      "title": "pysdot: semi-discrete optimal transport in Python",
+      "authors": [
+        "Leclerc, Hugo",
+        "M{\\'e"
+      ],
+      "year": 2019,
+      "source_type": "software",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://github.com/sd-ot/pysdot"
+      },
+      "locator": "semi-discrete OT library used for the power diagram",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E028",
+      "title": "GHS-POP R2023A - GHS population grid multitemporal (1975-2030)",
+      "authors": [
+        "Schiavina, Marcello",
+        "Freire, Sergio",
+        "MacManus, Kytt"
+      ],
+      "year": 2023,
+      "source_type": "dataset",
+      "identifiers": {
+        "doi": "10.2905/2FF68A52-5B5B-4A22-8F40-C41DA8332CFE",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://data.europa.eu/89h/2ff68a52-5b5b-4a22-8f40-c41da8332cfe"
+      },
+      "locator": "GHS-POP R2023A, epoch 2025, 30 arcsec and 3 arcsec tiles; census counts disaggregated onto built-up area",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E029",
+      "title": "Natural Earth, free vector and raster map data, version 5.1.1",
+      "authors": [
+        "{Natural Earth"
+      ],
+      "year": 2022,
+      "source_type": "dataset",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://www.naturalearthdata.com/"
+      },
+      "locator": "1:50m coastline and admin-0 countries (POP_EST field), 1:110m coastline",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E030",
+      "title": "{A computational fluid mechanics solution to the Monge-Kantorovich mass transfer problem",
+      "authors": [
+        "Benamou, Jean-David",
+        "Brenier, Yann"
+      ],
+      "year": 2000,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1007/s002110050002",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1007/s002110050002"
+      },
+      "locator": "fluid formulation of optimal transport",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E031",
+      "title": "{An efficient approach for the numerical solution of the Monge\u2013Amp\u00e8re equation",
+      "authors": [
+        "Sulman, Mohamed M.",
+        "Williams, J.F.",
+        "Russell, Robert D."
+      ],
+      "year": 2011,
+      "source_type": "journal_article",
+      "identifiers": {
+        "doi": "10.1016/j.apnum.2010.10.006",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1016/j.apnum.2010.10.006"
+      },
+      "locator": "parabolic Monge-Ampere solver",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E032",
+      "title": "{Task-Based Effectiveness of Interactive Contiguous Area Cartograms",
+      "authors": [
+        "Ian K. Duncan",
+        "Shi Tingsheng",
+        "Simon T. Perrault",
+        "Michael T. Gastner"
+      ],
+      "year": 2020,
+      "source_type": "preprint",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://arxiv.org/abs/2011.09714"
+      },
+      "locator": "interactive contiguous area cartograms, task-based evaluation",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E033",
+      "title": "{The Human Shape of the Planet",
+      "authors": [
+        "Hennig, Benjamin D."
+      ],
+      "year": 2012,
+      "source_type": "chapter",
+      "identifiers": {
+        "doi": "10.1007/978-3-642-34848-8_4",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "http://dx.doi.org/10.1007/978-3-642-34848-8_4"
+      },
+      "locator": "The Human Shape of the Planet: gridded world population cartogram chapter",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E101",
+      "title": "Benchmark records: experiments/bench/*/{params,metrics}.json in the repository",
+      "authors": [
+        "Philipp Bogdan"
+      ],
+      "year": 2026,
+      "source_type": "dataset",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://github.com/philippbogdan/historical-cartogram"
+      },
+      "locator": "commit 5e8e4b5; produced by src/bench_methods.py on 2026-09-12",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E102",
+      "title": "Local refinement record: experiments/nested/delhi/{params,metrics}.json",
+      "authors": [
+        "Philipp Bogdan"
+      ],
+      "year": 2026,
+      "source_type": "dataset",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://github.com/philippbogdan/historical-cartogram"
+      },
+      "locator": "commit 5e8e4b5; produced by src/nested_solve.py on 2026-09-12",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E103",
+      "title": "Semi-discrete record: experiments/M11_power_8192_2048/metrics.json",
+      "authors": [
+        "Philipp Bogdan"
+      ],
+      "year": 2026,
+      "source_type": "dataset",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://github.com/philippbogdan/historical-cartogram"
+      },
+      "locator": "commit 5e8e4b5; produced by src/m11_powerdiagram.py on 2026-09-12",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E104",
+      "title": "The historical-cartogram repository (code, records, figure provenance, manuscript source)",
+      "authors": [
+        "Philipp Bogdan"
+      ],
+      "year": 2026,
+      "source_type": "software",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://github.com/philippbogdan/historical-cartogram"
+      },
+      "locator": "https://github.com/philippbogdan/historical-cartogram commit 5e8e4b5",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    },
+    {
+      "evidence_id": "E105",
+      "title": "arXiv API listing of all records matching all:cartogram, retrieved 2026-09-12",
+      "authors": [
+        "Philipp Bogdan"
+      ],
+      "year": 2026,
+      "source_type": "registry",
+      "identifiers": {
+        "doi": "",
+        "isbn": "",
+        "pmid": "",
+        "pmcid": "",
+        "url": "https://github.com/philippbogdan/historical-cartogram"
+      },
+      "locator": "paper/registry/refs/arxiv_cartogram_2026-09-12.xml: 37 entries, none with optimal transport, Monge-Ampere, Brenier or Wasserstein in title or abstract",
+      "confidentiality": "public",
+      "verification": {
+        "status": "verified",
+        "source_opened": true,
+        "verified_by": "Claude Fable 5.1 (assistant): DOI or arXiv record opened; paper text opened where quoted. Author re-verification pending",
+        "verified_on": "2026-09-12"
+      }
+    }
+  ]
+}

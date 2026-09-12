@@ -1,0 +1,19 @@
+{
+ "figure": "fig4_cdf",
+ "tags": [
+  "b4096_ot_s95",
+  "b4096_d_s95"
+ ],
+ "weights": "population per source cell (the smoothed, floored density used by the solver)",
+ "cells": "raw meshes, cells with positive area only",
+ "stats": {
+  "b4096_ot_s95": {
+   "twist_p50": 0.013111540195273481,
+   "aniso_p50": 3.9305618411041316
+  },
+  "b4096_d_s95": {
+   "twist_p50": 8.822459420375688,
+   "aniso_p50": 6.304751133192233
+  }
+ }
+}

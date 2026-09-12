@@ -1,0 +1,5 @@
+b4096_d_s95: mercator 4096x4096 lat_cut 85.0511 lon0 -167.958984375 sigma 3.07 px share 0.95 ocean 0.0 method diffusion {'t_start': 0.01}
+  step 100 t=325 dt=12.5 maxdisp=1.304 dev=132.2331 46s
+  step 200 t=3.05e+04 dt=1.44e+03 maxdisp=12.085 dev=13.5558 91s
+  done: 280 steps (0 rejected), t=1.223e+07, dev=7.26e-04, 123s
+RESULT b4096_d_s95: err p05/p95 -0.0647/+0.0576 aniso 6.30/62.6 twist 8.82/33.90 disp mean 974.5 popmean 1103.3 poprms 1175.3 shape 0.901 folds 189062 123s

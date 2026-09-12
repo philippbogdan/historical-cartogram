@@ -325,3 +325,18 @@
   spread at 300 m 3.03 -> 0.26 (log; a factor 20 to 1.3), median p05 -0.29; worst Lima +0.76, Hyderabad
   +0.46, New York +0.45; best Buenos Aires +0.15, Tokyo +0.16. The inverse maps and the vector tiles run
   through all forty; Delhi's centre resolves to itself.
+- 2026-09-12  The preprint (`paper/`): "The optimal-transport cartogram: world population as a Brenier map". Cold
+  re-evaluation of the project first: no discovery, one modest methods note. The claims were re-measured on a matched
+  benchmark (`src/bench_methods.py`, records in `experiments/bench/`): the diffusion map's population-weighted transport
+  cost is within 0.4% of the transport map's (the least-movement property is invisible in practice); the earlier "OT is
+  3x more accurate" was an artefact of the diffusion start time t0 = 0.5 px^2 (with 3 px pre-smoothing, t0 = 0.01 gives
+  +-3% at 1024); the real differences are rotation (0 vs 9 deg median, 34 deg p95) and anisotropy (3.9 vs 6.3 median).
+  Continuation in the share is insurance, not a necessity, for the spectral solver (direct solve at s = 0.999 converges
+  at 1024 and 2048 with the same error). The home-grown GSM flow was not faithful to the published method and is not
+  reported. The solver is BFO 2010 method 1 with FFT; Jacobs and Leger reach 4096^2 in a minute on one CPU core, so no
+  speed claim. Figures are monochrome dot renders (`paper/figures/`), every figure has a provenance sidecar; the
+  manuscript is written from a claim/evidence registry (`paper/registry/`) whose audits pass except the human gates
+  (author verification, confidentiality review, AI-use record), which are Phil's to tick. No AI acknowledgement in the
+  paper by Phil's decision (recorded in `paper/registry/authorship.json`).
+- 2026-09-12  Repo restored from GitHub after the 2026-09-07 archive; data re-downloaded (GHS-POP 30", two 3" tiles
+  around Delhi), meshes re-solved. The Drive archive (41 GB) was not needed.

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/CCwsovbm6hhCuB5zy+gEG17pQKc</id>
+  <title>arXiv Query: search_query=&amp;id_list=2604.13880&amp;start=0&amp;max_results=10</title>
+  <updated>2026-09-12T15:49:13Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2604.13880" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2604.13880v1</id>
+    <title>Fast Time-Varying Contiguous Cartograms Using Integral Images</title>
+    <updated>2026-04-15T13:41:30Z</updated>
+    <link href="https://arxiv.org/abs/2604.13880v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.13880v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms are a technique for visually representing geographically distributed statistical data, where values of a numerical attribute are mapped to the size of geographic regions. Contiguous cartograms preserve the adjacencies of the original regions during the mapping. To be useful, contiguous cartograms also require approximate preservation of shapes and relative positions. Due to these desirable properties, contiguous cartograms are among the most popular ones. Most methods for constructing contiguous cartograms exploit a deformation of the original map. Aiming at the preservation of geographical properties, existing approaches are often algorithmically cumbersome and computationally intensive. We propose a novel deformation technique for computing time-varying contiguous cartograms based on integral images evaluated for a series of discrete density distributions. The density textures represent the given dynamic statistical data. The iterative application of the proposed mapping smoothly transforms the domain to gradually equalize the temporal density, i.e., region areas grow or shrink following their evolutionary statistical data. Global shape preservation at each time step is controlled by a single parameter that can be interactively adjusted by the user. Our efficient GPU implementation of the proposed algorithm is significantly faster than existing state-of-the-art methods while achieving comparable quality for cartographic accuracy, shape preservation, and topological error. We investigate strategies for transitioning between adjacent time steps and discuss the parameter choice. Our approach applies to comparative cartograms' morphing and interactive cartogram exploration.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-15T13:41:30Z</published>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>Vladimir Molchanov</name>
+    </author>
+    <author>
+      <name>Hennes Rave</name>
+    </author>
+    <author>
+      <name>Lars Linsen</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,48 @@
+{
+ "folds": 8671,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.0378802796689034,
+ "log_ratio_popweighted_p50": 0.0007757023938742596,
+ "log_ratio_popweighted_p95": 0.035722203897045925,
+ "log_ratio_min": -3.4770768128230944,
+ "log_ratio_max": 9.181101777796561,
+ "anisotropy_popweighted_p50": 5.5014042169379165,
+ "anisotropy_popweighted_p95": 51.10899814023123,
+ "displacement_mean_px": 487.2258075834675,
+ "displacement_max_px": 1028.0046478056627,
+ "twist_popweighted_p50_deg": 8.032593473209891,
+ "twist_popweighted_p95_deg": 30.28664246209119,
+ "displacement_popweighted_mean_px": 551.7187057488808,
+ "displacement_popweighted_rms_px": 587.6746289696791,
+ "transport_cost_popweighted_mean_sq_px": 345361.46953465004,
+ "km_per_px_equator": 19.54598319923884,
+ "seconds": 18.71047568321228,
+ "shape_error_popweighted": 0.8779448622700963,
+ "shape_error_median": 0.6928764408472526,
+ "worst": [
+  [
+   "United States of America",
+   4.001
+  ],
+  [
+   "Costa Rica",
+   2.213
+  ],
+  [
+   "Portugal",
+   2.116
+  ],
+  [
+   "El Salvador",
+   2.069
+  ],
+  [
+   "Mexico",
+   2.006
+  ]
+ ],
+ "steps": 241,
+ "rejected": 0,
+ "t_end": 3022795.5357041676,
+ "final_dev": 0.0007897615432739258
+}

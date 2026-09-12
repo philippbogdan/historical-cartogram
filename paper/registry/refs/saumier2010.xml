@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/tdfPhvMs9i2r6rIeNxD/EZ+f4sA</id>
+  <title>arXiv Query: search_query=&amp;id_list=1009.6039&amp;start=0&amp;max_results=10</title>
+  <updated>2026-09-12T14:57:14Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=1009.6039" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/1009.6039v2</id>
+    <title>An efficient numerical algorithm for the L2 optimal transport problem with applications to image processing</title>
+    <updated>2011-03-01T03:34:00Z</updated>
+    <link href="https://arxiv.org/abs/1009.6039v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1009.6039v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present a numerical method to solve the optimal transport problem with a quadratic cost when the source and target measures are periodic probability densities. This method is based on a numerical resolution of the corresponding Monge-Ampère equation. We extend the damped Newton algorithm of Loeper and Rapetti \cite{LR} to the more general case of a non uniform density which is relevant to the optimal transport problem, and we show that our algorithm converges for sufficiently large damping coefficients. The main idea consists of designing an iterative scheme where the fully nonlinear equation is approximated by a non-constant coefficient linear elliptic PDE that we solve numerically. We introduce several improvements and some new techniques for the numerical resolution of the corresponding linear system. Namely, we use a Fast Fourier Transform (FFT) method by Strain \cite{St}, which allows to increase the efficiency of our algorithm against the standard finite difference method. Moreover, we use a fourth order finite difference scheme to approximate the partial derivatives involved in the nonlinear terms of the Newton algorithm, which are evaluated once at each iteration; this leads to a significant improvement of the accuracy of the method, but does not sacrifice its efficiency. Finally, we present some numerical experiments which demonstrate the robustness and efficiency of our method on several examples of image processing, including an application to multiple sclerosis disease detection.</summary>
+    <category term="math.NA" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2010-09-30T05:17:16Z</published>
+    <arxiv:comment>30 pages, 18 figures</arxiv:comment>
+    <arxiv:primary_category term="math.NA"/>
+    <author>
+      <name>Louis-Philippe Saumier</name>
+    </author>
+    <author>
+      <name>Martial Agueh</name>
+    </author>
+    <author>
+      <name>Boualem Khouider</name>
+    </author>
+  </entry>
+</feed>
