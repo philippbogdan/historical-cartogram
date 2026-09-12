@@ -16,6 +16,7 @@ test('Figure 6 contains the original 8192 cells and partitions the whole Mercato
   assert.equal(data.offsets.length,8193);
   assert.equal(data.offsets.at(-1)*2,xy.length);
   assert.equal(hash(raw),data.geometry_sha256);
+  assert.equal(hash(asset('paper-atlas.png')),data.atlas_sha256);
   assert.ok(Math.abs(data.people_per_cell-999998.5938332108)<1e-7);
   let total=0;
   for(let i=0;i<8192;i++){

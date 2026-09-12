@@ -1,7 +1,10 @@
 import { paperEndpoints, labelAnchors } from './paper-geometry.js?v=0b3c413bf9ec';
+import { createPaperPolygons } from './paper-polygons.js?v=ac34b4ec23b3';
 import { advanceMotion } from './motion.js?v=cb51c7b4f78f';
 
-const canvas=document.getElementById('map'),context=canvas.getContext('2d',{alpha:false});
+const canvas=document.getElementById('map'),context=canvas.getContext('2d');
+const polygonCanvas=document.getElementById('polygons');
+let polygonRenderer;
 const labels=document.getElementById('labels');
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const pointers=new Map();
@@ -26,8 +29,12 @@ function trace(source,start,end,close=false){
 function draw(){
   if(!ready)return;
   context.setTransform(dpr,0,0,dpr,0,0);
-  context.fillStyle='#fff';context.fillRect(0,0,width,height);
+  polygonCanvas.hidden=representation!=='polygons'||!polygonRenderer;
+  context.clearRect(0,0,width,height);
+  if(polygonCanvas.hidden){context.fillStyle='#fff';context.fillRect(0,0,width,height);}
   if(representation==='polygons'){
+    if(polygonRenderer)polygonRenderer({width,height,dpr,fit,zoom,cx,cy,progress,colourMode});
+    else {
     context.lineWidth=Math.max(.45,fit*.00055)*Math.pow(zoom,.35);
     context.lineJoin='round';context.strokeStyle='#000';
     if(colourMode){
@@ -40,6 +47,7 @@ function draw(){
     context.beginPath();
     for(let i=0;i<data.sites.length;i++)trace(vertices,data.offsets[i]*4,data.offsets[i+1]*4,true);
     context.stroke();
+    }
   }else{
     const radius=Math.max(.65,Math.min(1.1,fit/850))*Math.pow(zoom,.25);
     for(const group of groups[colourMode]){
@@ -190,6 +198,12 @@ async function asset(name,type='arrayBuffer'){
 try{
   const [paper,raw,mesh,motion]=await Promise.all([asset('paper.json','json'),asset('paper-cells.bin'),asset('warp.bin'),asset('motion.json','json')]);
   data=paper;const warp=new Float32Array(mesh),n=Math.sqrt(warp.length/2)-1;
+  try{
+    const response=await fetch(new URL('paper-atlas.png',import.meta.url));
+    if(!response.ok)throw new Error('Could not load polygon colours');
+    const image=await createImageBitmap(await response.blob(),{colorSpaceConversion:'none'});
+    polygonRenderer=createPaperPolygons(polygonCanvas,warp,n,image,paper,new Float32Array(raw));image.close();
+  }catch(error){console.warn('Using the canvas polygon renderer:',error.message);}
   points=paperEndpoints(paper.sites.flat(),warp,n);
   vertices=paperEndpoints(new Float32Array(raw),warp,n);
   coasts=paper.coastlines.map(line=>paperEndpoints(line.flat(),warp,n));pressure=motion.pressure;

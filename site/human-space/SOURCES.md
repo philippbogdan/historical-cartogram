@@ -91,3 +91,8 @@ floor; polygon fills mix their colour with white. No missing-value grey is drawn
 Country names are anchored to a site belonging to that country, with small offsets
 to avoid overlaps, prioritised by
 site count, and suppressed on collisions; smaller names appear when zooming in.
+
+Polygon fills use a 2048-pixel cell-ID texture on the GPU's continuous deformation
+mesh. Black polygon borders use the exported vector vertices, independent of the
+texture, so zoom retains sharp lines. The canvas renderer remains a compatibility
+fallback when WebGL 2 is unavailable. Dot and label anchors share the same warp.

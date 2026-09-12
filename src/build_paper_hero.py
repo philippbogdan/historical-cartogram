@@ -12,6 +12,8 @@ from pysdot import PowerDiagram
 from pysdot.domain_types import ConvexPolyhedraAssembly
 import shapely
 from shapely import STRtree
+from rasterio.features import rasterize
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'site/human-space'
@@ -35,6 +37,12 @@ for a, b in zip(offsets[:-1], offsets[1:]):
     ends.append(ends[-1]+len(dense))
 vertices = np.concatenate(rings).astype('<f4')
 (OUT/'paper-cells.bin').write_bytes(vertices.tobytes())
+# A cell-ID texture colours the continuous mesh; borders remain exact vectors.
+cell_ids = rasterize([(shapely.geometry.Polygon(xy[a:b]*W), i)
+                      for i, (a, b) in enumerate(zip(offsets[:-1], offsets[1:]))],
+                     out_shape=(H, W), dtype='uint16')
+atlas = np.stack((cell_ids%256, cell_ids//256, np.full_like(cell_ids, 255)), axis=-1).astype('uint8')
+Image.fromarray(atlas).save(OUT/'paper-atlas.png', optimize=True)
 
 features = json.loads((ROOT/'data/raw/ne_50m_admin_0_countries.geojson').read_text())['features']
 geometries = [shapely.geometry.shape(f['geometry']) for f in features]
@@ -95,6 +103,7 @@ for feature in json.loads(coast_source.read_text())['features']:
 metadata = {'source': 'paper/figures/fig6_power.py',
             'sites_sha256': hashlib.sha256(SOURCE.read_bytes()).hexdigest(),
             'geometry_sha256': hashlib.sha256(vertices.tobytes()).hexdigest(),
+            'atlas_sha256': hashlib.sha256((OUT/'paper-atlas.png').read_bytes()).hexdigest(),
             'warp_sha256': hashlib.sha256((OUT/'warp.bin').read_bytes()).hexdigest(),
             'country_assignment': 'Containing country, nearest country for offshore sites; presentation only.',
             'offshore_sites': offshore, 'offsets': ends, 'sites': sites.tolist(),

@@ -17,3 +17,6 @@ canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}
 #expand svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2}
 :focus-visible{outline:2px solid #000;outline-offset:4px}
 @media(max-width:480px){.selectors{left:8px;top:8px;gap:15px;padding:4px}#expand{top:12px;right:8px}}
+
+#polygons{position:fixed;inset:0;pointer-events:none;z-index:0}
+#map{position:relative;z-index:1}

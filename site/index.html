@@ -7,8 +7,8 @@
   <meta name="description" content="The power diagram of humanity. An interactive figure in black ink.">
   <title>Humeter</title>
   <link rel="icon" href="human-space/icon.svg?v=6c865740be67" type="image/svg+xml">
-  <link rel="stylesheet" href="human-space/style.css?v=920938e8ed2b">
-  <script type="module" src="human-space/app.js?v=6a4f3f9646f6"></script>
+  <link rel="stylesheet" href="human-space/style.css?v=ec24b7a23338">
+  <script type="module" src="human-space/app.js?v=f5845676adbf"></script>
 </head>
 <body>
   <div class="selectors">
@@ -27,6 +27,7 @@
     </fieldset>
   </div>
   <button id="expand" aria-label="Expand map" title="Expand map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg></button>
+  <canvas id="polygons" aria-hidden="true"></canvas>
   <div id="labels"></div>
   <canvas id="map" tabindex="0" role="img" aria-label="Figure 6, the power diagram of humanity. Each dot or polygon represents about one million people. Push expands the drawing into human space; pull returns it to geography. Tap or press Space to pause or resume. Drag to pan, scroll or pinch to zoom. Left and right arrows change the view. Home resets the zoom."></canvas>
 </body>
