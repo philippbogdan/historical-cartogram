@@ -33,6 +33,7 @@ The corner icon or F toggles fullscreen; Escape exits. Keep the exit icon subdue
 ## Colour and labels
 
 Country and continent modes have bold black names attached to their regions.
-Hide colliding labels and reveal smaller countries on zoom. No grey fallback:
+Size each label from its region's current visible area, following the deformation,
+zoom and viewport clipping. Hide colliding labels and type too small to read. No grey fallback:
 assign offshore sites to their nearest country for presentation. Keep the original
 population allocation intact and document simplifications in the source notes.

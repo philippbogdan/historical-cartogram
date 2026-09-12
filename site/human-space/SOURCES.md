@@ -120,3 +120,17 @@ Changing push/pull changes the field, independently of playback direction. A
 second damped coordinate blends the two fields. Tests check the determinant's
 minimum over all convex combinations of geography, push and pull, so both the
 animation and changing the gravity mode preserve mesh orientation.
+
+
+## Labels sized to the current drawing
+
+`label-area.js` measures country footprints in each frame, after the same
+deformation and southern cutoff as the renderer. `src/build_label_regions.py`
+exports Natural Earth 50m outlines with seam handling, holes and densification
+into `label-regions.bin` and a source-hashed sidecar. Land areas are summed by
+country and then by continent. Ocean extensions of the Laguerre cells do not
+inflate island labels. The footprints are clipped to the current viewport before
+measuring, so zooming or panning partly out of view changes the measured area.
+Type dimensions scale with the square root of the pixel area, with a fixed
+adjustment for long names. Collision priority also follows current area. No fixed
+population-count threshold or fixed country/continent font size determines size.

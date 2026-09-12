@@ -1,10 +1,11 @@
 import { paperEndpoints, labelAnchors, populationCoasts, isFrameEdge, southLimit } from './paper-geometry.js?v=443f532c9617';
 import { createPaperPolygons } from './paper-polygons.js?v=6507105d557f';
 import { advanceMotion } from './motion.js?v=cb51c7b4f78f';
+import {createRegionAreas,labelFontSize} from './label-area.js?v=c3a1b396f41a';
 
 const canvas=document.getElementById('map'),context=canvas.getContext('2d');
 const polygonCanvas=document.getElementById('polygons');
-let polygonRenderer,edgePoints;
+let polygonRenderer,edgePoints,measureAreas;
 const labels=document.getElementById('labels');
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const pointers=new Map();
@@ -74,16 +75,24 @@ function draw(){
 }
 function drawLabels(){
   labels.classList.toggle('over-polygons',representation==='polygons');
+  if(colourMode===0){
+    for(const group of labelGroups)for(const label of group)label.element.hidden=true;
+    return;
+  }
+  const countryAreas=measureAreas({progress,gravity,scale:fit*zoom,width,height,cx,cy:viewCy});
+  for(const group of labelGroups){
+    for(const label of group)label.area=label.countryIds.reduce((sum,id)=>sum+countryAreas[id],0);
+    group.sort((a,b)=>b.area-a.area);
+  }
   const boxes=[];
   for(let mode=1;mode<=2;mode++){
     for(const label of labelGroups[mode-1]){
       const el=label.element;
       if(mode!==colourMode){el.hidden=true;continue;}
       const [x,y]=screen(points,label.index*6);
-      const size=mode===2?Math.max(14,Math.min(36,fit*.033))*Math.pow(zoom,.1):
-        Math.max(12,Math.min(24,11+Math.sqrt(label.count)*.38))*Math.pow(zoom,.14);
-      // Small countries appear on zoom, instead of covering their neighbours.
-      if(mode===1&&label.count*zoom*zoom<14){el.hidden=true;continue;}
+      const size=labelFontSize(label.area,label.width);
+      // Hide type that is too small to read instead of inflating a small region.
+      if(size<9){el.hidden=true;continue;}
       el.style.fontSize=`${size}px`;
       const w=label.width*size,h=size*(mode===2&&label.name.includes(' ')?2:1.15);
       if(x<-w/2||x>width+w/2||y<-h/2||y>height+h/2){el.hidden=true;continue;}
@@ -228,7 +237,7 @@ async function asset(name,type='arrayBuffer'){
   return response[type]();
 }
 try{
-  const [paper,raw,mesh,motion,pullRaw]=await Promise.all([asset('paper.json','json'),asset('paper-cells.bin'),asset('warp.bin'),asset('motion.json','json'),asset('pull.bin')]);
+  const [paper,raw,mesh,motion,pullRaw,regions,regionRaw]=await Promise.all([asset('paper.json','json'),asset('paper-cells.bin'),asset('warp.bin'),asset('motion.json','json'),asset('pull.bin'),asset('label-regions.json','json'),asset('label-regions.bin')]);
   data=paper;const pull=new Float32Array(pullRaw);const warp=new Float32Array(mesh),n=Math.sqrt(warp.length/2)-1;
   try{
     const response=await fetch(new URL('paper-atlas.png',import.meta.url));
@@ -239,6 +248,8 @@ try{
   points=paperEndpoints(paper.sites.flat(),warp,n,pull);
   const sourceVertices=new Float32Array(raw);
   vertices=paperEndpoints(sourceVertices,warp,n,pull);
+  const regionSource=new Float32Array(regionRaw);
+  measureAreas=createRegionAreas({...regions,countries:paper.countries},regionSource,paperEndpoints(regionSource,warp,n,pull));
   const edges=[];
   for(let i=0;i<paper.sites.length;i++){
     const a=paper.offsets[i],b=paper.offsets[i+1];
@@ -262,6 +273,7 @@ try{
   labelGroups=labelAnchors(paper);
   context.font='900 100px Chivo';
   labelGroups.forEach((group,mode)=>group.forEach(label=>{
+    label.countryIds=paper.countries.flatMap((country,i)=>(mode?country.continent:country.name)===label.name?[i]:[]);
     const el=document.createElement('span');el.className='map-label';el.hidden=true;
     el.textContent=label.name.toUpperCase();
     if(mode===1)el.style.whiteSpace='pre';
