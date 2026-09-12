@@ -100,3 +100,12 @@ endpoint changes; manual scrubbing remains immediate and pauses playback.
 Expansion reaches its final settled endpoint in roughly 6.6 seconds and collapse in roughly
 5.4 seconds, plus the existing endpoint holds. Each integration step uses the exact local
 critically damped response, with short substeps for the spatially varying pressure.
+
+## Ink-only presentation, 12 September 2026
+
+The visible interface has been removed. A single full-viewport Canvas renders only the existing
+population dots in black on white, with no country texture, polygon edges, labels, fonts,
+readouts or style controls. It starts in human space and uses the existing damped momentum
+for slow automatic round trips. Direct gestures and keyboard input operate on the drawing.
+Reduced motion starts paused in human space. Previous colour-lens interface notes above are
+historical; the source data and numerical checks remain intact.
