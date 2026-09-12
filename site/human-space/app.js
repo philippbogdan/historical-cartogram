@@ -1,26 +1,28 @@
-import { paperEndpoints, labelAnchors, populationCoasts, isFrameEdge, southLimit } from './paper-geometry.js?v=443f532c9617';
-import { createPaperPolygons } from './paper-polygons.js?v=6507105d557f';
+import { paperEndpoints, populationCoasts, isFrameEdge, southLimit } from './paper-geometry.js?v=443f532c9617';
+import { createPaperPolygons } from './paper-polygons.js?v=0bbaaa527873';
 import { advanceMotion } from './motion.js?v=cb51c7b4f78f';
-import {createRegionAreas,labelFontSize} from './label-area.js?v=c3a1b396f41a';
+import {createRegionAreas,labelFontSize} from './label-area.js?v=976deb01dff5';
+import {fadeLabel} from './label-visibility.js?v=063489ba9917';
 
 const canvas=document.getElementById('map'),context=canvas.getContext('2d');
 const polygonCanvas=document.getElementById('polygons');
-let polygonRenderer,edgePoints,measureAreas;
+let polygonRenderer,edgePoints,measureAreas,landPoints,landRegions;
 const labels=document.getElementById('labels');
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const pointers=new Map();
-let colourMode=0,representation='polygons',data,points,vertices,coasts,groups,labelGroups;
+let colourMode=1,representation='polygons',data,points,vertices,coasts,groups,labelGroups;
 let pressure,frame=0,last=0,holdUntil=0,ready=false;
-let progress=1,velocity=0,target=0,playing=!reducedMotion.matches;
+let progress=0,velocity=0,target=1,playing=!reducedMotion.matches;
 let gravity=0,gravityVelocity=0,gravityTarget=0,gravityAnimating=false,immersive=false;
-let width=1,height=1,dpr=1,fit=1,zoom=1,cx=.5,cy=.28,viewCy=.28;
+let width=1,height=1,dpr=1,fit=1,zoom=1,cx=.5,cy=.28,viewCx=.5,viewCy=.28;
+let frameSeconds=0,labelsAnimating=false;
 let gesture=null,origin=null,dragged=false;
 document.querySelectorAll('.selectors input').forEach(input=>input.disabled=true);
 
 function screen(source,i){
   const tx=source[i+2]+(source[i+4]-source[i+2])*gravity;
   const ty=source[i+3]+(source[i+5]-source[i+3])*gravity;
-  return [width/2+(source[i]+(tx-source[i])*progress-cx)*fit*zoom,
+  return [width/2+(source[i]+(tx-source[i])*progress-viewCx)*fit*zoom,
     height/2+(source[i+1]+(ty-source[i+1])*progress-viewCy)*fit*zoom];
 }
 function trace(source,start,end,close=false){
@@ -34,22 +36,33 @@ function draw(){
   if(!ready)return;
   const expanded=progress*(1-gravity),mapHeight=.43+.13*expanded;
   viewCy=cy-.035*(1-expanded);
-  fit=immersive?Math.max(width,height/mapHeight):Math.min(width,height/mapHeight);
+  viewCx=cx;fit=Math.min(width,height/mapHeight);
+  if(immersive){
+    fit=Math.max(width,height/mapHeight);
+    viewCx=Math.max(-.5,Math.min(1.5,cx));viewCy=Math.max(-.2,Math.min(.8,viewCy));
+  }
   context.setTransform(dpr,0,0,dpr,0,0);
-  polygonCanvas.hidden=representation!=='polygons'||!polygonRenderer;
+  polygonCanvas.hidden=!polygonRenderer;
   context.clearRect(0,0,width,height);
-  if(polygonCanvas.hidden){context.fillStyle='#fff';context.fillRect(0,0,width,height);}
+  if(polygonCanvas.hidden){
+    context.fillStyle='#d9ecf6';context.fillRect(0,0,width,height);
+    context.fillStyle='#fff';context.beginPath();
+    for(let i=0;i<landRegions.country_ids.length;i++)trace(landPoints,landRegions.offsets[i]*6,landRegions.offsets[i+1]*6,true);
+    context.fill();
+  }
+  else polygonRenderer({width,height,dpr,fit,zoom,cx:viewCx,cy:viewCy,progress,colourMode,gravity,immersive,representation});
   if(representation==='polygons'){
-    if(polygonRenderer)polygonRenderer({width,height,dpr,fit,zoom,cx,cy:viewCy,progress,colourMode,gravity});
-    else {
+    if(!polygonRenderer){
     context.lineWidth=Math.max(.45,fit*.00055)*Math.pow(zoom,.35);
     context.lineJoin='round';context.strokeStyle='#000';
     if(colourMode){
+      context.save();context.clip();
       for(const group of groups[colourMode]){
         context.fillStyle=group.fill;context.beginPath();
         for(const i of group.indices)trace(vertices,data.offsets[i]*6,data.offsets[i+1]*6,true);
         context.fill();
       }
+      context.restore();
     }
     context.beginPath();
     for(let i=0;i<edgePoints.length;i+=12)trace(edgePoints,i,i+12);
@@ -73,46 +86,49 @@ function draw(){
   context.stroke();context.setLineDash([]);
   drawLabels();
 }
+function showLabel(label,visible){
+  label.opacity=fadeLabel(label.opacity,visible,frameSeconds,reducedMotion.matches);
+  label.element.style.opacity=label.opacity;
+  label.element.setAttribute('aria-hidden',String(!visible));
+  if(label.opacity!==(visible?1:0))labelsAnimating=true;
+}
 function drawLabels(){
+  labelsAnimating=false;
   labels.classList.toggle('over-polygons',representation==='polygons');
-  if(colourMode===0){
-    for(const group of labelGroups)for(const label of group)label.element.hidden=true;
-    return;
-  }
-  const countryAreas=measureAreas({progress,gravity,scale:fit*zoom,width,height,cx,cy:viewCy});
-  for(const group of labelGroups){
-    for(const label of group)label.area=label.countryIds.reduce((sum,id)=>sum+countryAreas[id],0);
+  const regions=measureAreas({progress,gravity,scale:fit*zoom,width,height,cx:viewCx,cy:viewCy});
+  for(const [mode,group] of labelGroups.entries()){
+    for(const label of group){
+      label.area=0;let area=0,x=0,y=0;
+      for(const id of label.countryIds){
+        label.area+=regions[id];
+        const a=regions.landAreas[id];
+        const centroid=mode===0?regions.labelCentroids:regions.centroids;
+        if(a>1e-14&&Number.isFinite(centroid[id*2])){area+=a;x+=centroid[id*2]*a;y+=centroid[id*2+1]*a;}
+      }
+      label.center=area>0?[x/area,y/area]:null;
+    }
     group.sort((a,b)=>b.area-a.area);
   }
   const boxes=[];
-  for(let mode=1;mode<=2;mode++){
-    for(const label of labelGroups[mode-1]){
-      const el=label.element;
-      if(mode!==colourMode){el.hidden=true;continue;}
-      const [x,y]=screen(points,label.index*6);
-      const size=labelFontSize(label.area,label.width);
-      // Hide type that is too small to read instead of inflating a small region.
-      if(size<9){el.hidden=true;continue;}
-      el.style.fontSize=`${size}px`;
-      const w=label.width*size,h=size*(mode===2&&label.name.includes(' ')?2:1.15);
-      if(x<-w/2||x>width+w/2||y<-h/2||y>height+h/2){el.hidden=true;continue;}
-      let placement=null;
-      const candidates=[[0,0],[0,1.4],[0,-1.4],[1.4,0],[-1.4,0],[0,2.8],[0,-2.8]];
-      for(const [dx,dy] of candidates){
-        const px=mode===2?Math.max(w/2+10,Math.min(width-w/2-10,x+dx*size)):x+dx*size,py=y+dy*size;
-        const box={left:px-w/2-5,right:px+w/2+5,top:py-h/2-4,bottom:py+h/2+4};
-        const blocked=box.left<4||box.right>width-4||box.top<4||box.bottom>height-4||
-          (!immersive&&box.left<300&&box.top<102)||boxes.some(b=>box.left<b.right&&box.right>b.left&&box.top<b.bottom&&box.bottom>b.top);
-        if(!blocked){placement={px,py,box};break;}
-      }
-      el.hidden=!placement;
-      if(placement){el.style.transform=`translate(${placement.px}px,${placement.py}px) translate(-50%,-50%)`;boxes.push(placement.box);}
-    }
+  for(let mode=1;mode<=2;mode++)for(const label of labelGroups[mode-1]){
+    const el=label.element;
+    if(!label.center){showLabel(label,false);continue;}
+    const x=width/2+(label.center[0]-viewCx)*fit*zoom;
+    const y=height/2+(label.center[1]-viewCy)*fit*zoom;
+    const size=labelFontSize(label.area,label.width);
+    const w=label.width*size,h=size*(mode===2&&label.name.includes(' ')?2:1.15);
+    el.style.fontSize=`${size}px`;
+    el.style.transform=`translate(${x}px,${y}px) translate(-50%,-50%)`;
+    const box={left:x-w/2-5,right:x+w/2+5,top:y-h/2-4,bottom:y+h/2+4};
+    const blocked=mode!==colourMode||size<9||box.left<4||box.right>width-4||box.top<4||box.bottom>height-4||
+      (!immersive&&box.left<300&&box.top<102)||boxes.some(b=>box.left<b.right&&box.right>b.left&&box.top<b.bottom&&box.bottom>b.top);
+    showLabel(label,!blocked);
+    if(!blocked)boxes.push(box);
   }
 }
 function requestDraw(){if(!frame)frame=requestAnimationFrame(tick);}
 function tick(now){
-  frame=0;
+  frame=0;frameSeconds=Math.min(.1,Math.max(0,(now-last)/1000));
   if(ready&&playing&&!document.hidden&&now>=holdUntil){
     const dt=Math.min(.1,Math.max(0,(now-Math.max(last,holdUntil))/1000));
     const next=advanceMotion(progress,velocity,target,dt,pressure);
@@ -125,7 +141,7 @@ function tick(now){
     if(gravity===gravityTarget&&gravityVelocity===0)gravityAnimating=false;
   }
   last=now;draw();
-  if(ready&&(playing||gravityAnimating)&&!document.hidden)requestDraw();
+  if(ready&&(playing||gravityAnimating||labelsAnimating)&&!document.hidden)requestDraw();
 }
 function resize(){
   width=innerWidth;height=innerHeight;dpr=Math.min(devicePixelRatio||1,3);
@@ -237,19 +253,22 @@ async function asset(name,type='arrayBuffer'){
   return response[type]();
 }
 try{
-  const [paper,raw,mesh,motion,pullRaw,regions,regionRaw]=await Promise.all([asset('paper.json','json'),asset('paper-cells.bin'),asset('warp.bin'),asset('motion.json','json'),asset('pull.bin'),asset('label-regions.json','json'),asset('label-regions.bin')]);
+  const [paper,raw,mesh,motion,pullRaw,regions,regionRaw,countryColours]=await Promise.all([asset('paper.json?v=6c4b3abd00be','json'),asset('paper-cells.bin?v=af14e54dc0aa'),asset('warp.bin?v=57c794acc882'),asset('motion.json?v=9edb24cf0d77','json'),asset('pull.bin?v=faa000730354'),asset('label-regions.json?v=1b3b1a39cd24','json'),asset('label-regions.bin?v=8cc6ed44cd5d'),asset('country-colours.json?v=f04009388852','json')]);
+  countryColours.countries.forEach((entry,i)=>{if(entry.name!==paper.countries[i].name)throw new Error('Country colour IDs do not match');paper.countries[i].country=entry.colour;});
   data=paper;const pull=new Float32Array(pullRaw);const warp=new Float32Array(mesh),n=Math.sqrt(warp.length/2)-1;
   try{
-    const response=await fetch(new URL('paper-atlas.png',import.meta.url));
-    if(!response.ok)throw new Error('Could not load polygon colours');
+    const [response,landResponse]=await Promise.all([fetch(new URL('paper-atlas.png?v=d933ca887845',import.meta.url)),fetch(new URL('land-mask.png?v=d700aa956e0c',import.meta.url))]);
+    if(!response.ok||!landResponse.ok)throw new Error('Could not load polygon colours');
     const image=await createImageBitmap(await response.blob(),{colorSpaceConversion:'none'});
-    polygonRenderer=createPaperPolygons(polygonCanvas,warp,n,image,paper,new Float32Array(raw),pull);image.close();
+    const landImage=await createImageBitmap(await landResponse.blob(),{colorSpaceConversion:'none'});
+    polygonRenderer=createPaperPolygons(polygonCanvas,warp,n,image,paper,new Float32Array(raw),pull,landImage);image.close();landImage.close();
   }catch(error){console.warn('Using the canvas polygon renderer:',error.message);}
   points=paperEndpoints(paper.sites.flat(),warp,n,pull);
   const sourceVertices=new Float32Array(raw);
   vertices=paperEndpoints(sourceVertices,warp,n,pull);
   const regionSource=new Float32Array(regionRaw);
-  measureAreas=createRegionAreas({...regions,countries:paper.countries},regionSource,paperEndpoints(regionSource,warp,n,pull));
+  landPoints=paperEndpoints(regionSource,warp,n,pull);landRegions=regions;
+  measureAreas=createRegionAreas({...regions,countries:paper.countries},regionSource,landPoints);
   const edges=[];
   for(let i=0;i<paper.sites.length;i++){
     const a=paper.offsets[i],b=paper.offsets[i+1];
@@ -270,11 +289,11 @@ try{
     });return [...buckets.values()];
   });
   await document.fonts.load('900 24px Chivo');
-  labelGroups=labelAnchors(paper);
+  labelGroups=[paper.countries.map(c=>({name:c.name})),[...new Set(paper.countries.map(c=>c.continent))].map(name=>({name}))];
   context.font='900 100px Chivo';
   labelGroups.forEach((group,mode)=>group.forEach(label=>{
     label.countryIds=paper.countries.flatMap((country,i)=>(mode?country.continent:country.name)===label.name?[i]:[]);
-    const el=document.createElement('span');el.className='map-label';el.hidden=true;
+    const el=document.createElement('span');el.className='map-label';label.opacity=0;el.setAttribute('aria-hidden','true');
     el.textContent=label.name.toUpperCase();
     if(mode===1)el.style.whiteSpace='pre';
     const words=mode===1?label.name.toUpperCase().split(' '):[label.name.toUpperCase()];

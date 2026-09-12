@@ -41,6 +41,11 @@ export function createRegionAreas(data,source,endpoints){
   }
   const positions=new Float64Array(flat),xy=new Float64Array(flat.length/3);
   const totals=new Float64Array(data.countries.length);
+  const landAreas=new Float64Array(data.countries.length),moments=new Float64Array(data.countries.length*2);
+  const labelAreas=new Float64Array(data.countries.length),labelMoments=new Float64Array(data.countries.length*2);
+  totals.centroids=new Float64Array(data.countries.length*2);
+  totals.labelCentroids=new Float64Array(data.countries.length*2);
+  totals.landAreas=landAreas;
   return ({progress,gravity,scale,width,height,cx,cy})=>{
     const a=1-progress,b=progress*(1-gravity),c=progress*gravity;
     const left=cx-width/(2*scale),right=cx+width/(2*scale);
@@ -49,16 +54,25 @@ export function createRegionAreas(data,source,endpoints){
       xy[j]=positions[i]*a+positions[i+2]*b+positions[i+4]*c;
       xy[j+1]=positions[i+1]*a+positions[i+3]*b+positions[i+5]*c;
     }
-    totals.fill(0);
+    totals.fill(0);landAreas.fill(0);moments.fill(0);labelAreas.fill(0);labelMoments.fill(0);
     for(let cell=0;cell<data.country_ids.length;cell++){
       const start=offsets[cell]*2,end=offsets[cell+1]*2;
       if(end-start<6)continue;
-      let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity,sum=0;
+      let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity,sum=0,mx=0,my=0;
       let ax=xy[end-2],ay=xy[end-1];
       for(let j=start;j<end;j+=2){
-        const x=xy[j],y=xy[j+1];sum+=ax*y-x*ay;ax=x;ay=y;
+        const x=xy[j],y=xy[j+1],cross=ax*y-x*ay;
+        sum+=cross;mx+=(ax+x)*cross;my+=(ay+y)*cross;ax=x;ay=y;
         minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,y);maxY=Math.max(maxY,y);
       }
+      const country=data.country_ids[cell],sign=data.signs?.[cell]??1;
+      landAreas[country]+=Math.abs(sum)/2*sign;
+      moments[country*2]+=mx*Math.sign(sum)/6*sign;
+      moments[country*2+1]+=my*Math.sign(sum)/6*sign;
+      const weight=data.centroid_weights?.[cell]??1;
+      labelAreas[country]+=Math.abs(sum)/2*sign*weight;
+      labelMoments[country*2]+=mx*Math.sign(sum)/6*sign*weight;
+      labelMoments[country*2+1]+=my*Math.sign(sum)/6*sign*weight;
       if(maxX<=left||minX>=right||maxY<=top||minY>=bottom)continue;
       let visibleArea=Math.abs(sum)/2;
       if(minX<left||maxX>right||minY<top||maxY>bottom){
@@ -71,6 +85,12 @@ export function createRegionAreas(data,source,endpoints){
         visibleArea=polygon.length>2?area(polygon):0;
       }
       totals[data.country_ids[cell]]+=visibleArea*scale*scale*(data.signs?.[cell]??1);
+    }
+    for(let i=0;i<landAreas.length;i++){
+      totals.centroids[i*2]=landAreas[i]>1e-14?moments[i*2]/landAreas[i]:NaN;
+      totals.centroids[i*2+1]=landAreas[i]>1e-14?moments[i*2+1]/landAreas[i]:NaN;
+      totals.labelCentroids[i*2]=labelAreas[i]>1e-14?labelMoments[i*2]/labelAreas[i]:NaN;
+      totals.labelCentroids[i*2+1]=labelAreas[i]>1e-14?labelMoments[i*2+1]/labelAreas[i]:NaN;
     }
     return totals;
   };

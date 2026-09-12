@@ -1,44 +1,23 @@
-# Borderless ink cartogram
+# Ink and water cartogram
 
-## Scene and marks
+Use fine black polygon edges and small ink dots, with light-blue water (#d9ecf6)
+and white land in dots/monotone views. Polygon fills follow actual country border
+shapes. Country shades share their subregion's hue but differ visibly in lightness,
+saturation and hue; South Asia is blue. Continent mode retains one colour per
+continent. Country colours must remain distinct after the white mix used for fills.
 
-Figure 6's line drawing brought into continuous motion, filling the viewport.
-Black ink on white, no rectangular outline or framed-paper margin. Use the original
-Laguerre cell geometry, fine vector boundaries and dotted coastlines. Dots remain
-small circular marks at the corresponding sites. Both representations share motion.
+Open in normal geography with countries, polygons and push selected, then begin
+the slow loop. Pull is the inverse of the outward deformation at 0.38 strength,
+about 3.6 times the initial mild pull by average site displacement. It is an
+illustrative flow, not a new optimal-transport solve.
 
-## Geography
+Labels use black uppercase Chivo at weight 900. Their centre is the area-weighted
+geometric centroid of the deformed country border, not a population site or a
+collision offset. Holes subtract area and moment. Label size follows visible land
+area; sea extensions do not inflate labels. Overlapping or unreadably small labels
+fade away at their centroid. Opacity uses a 35 ms exponential time constant and
+settles in about 160 ms. Reduced motion skips the fade.
 
-Use longitude and linear latitude at the geographic endpoint and the previous
-wide human-space shape at the expanded endpoint. Omit coastline south of 60 degrees
-south and hide polygon fragments there. None of the population sites are south of
-that cutoff. Remove outer frame edges explicitly rather than hiding them with CSS.
-
-## Colour and type
-
-Monotone has no labels. Country and continent hues stay attached to their cells;
-use lighter polygon fills beneath the black boundaries. Offshore sites receive the
-nearest country's colour. Names use uppercase Chivo, weight 900, tight spacing and
-solid black ink. A fine white knockout keeps names legible over polygon lines.
-Type dimensions scale with the square root of each region's current visible area.
-Measure country land footprints through the same deformation, zoom and viewport
-clipping. Exclude ocean extensions so tiny islands do not get oversized labels.
-Prioritise labels by current area rather than population count. No fixed country
-or continent font sizes. Hide labels below a legible size instead of enlarging them.
-No grey categories, shadows, explanatory panels or legends.
-
-## Motion and gravity
-
-Restore the slow automatic journey with endpoint holds and critically damped
-momentum. Push retains the existing outward cartogram deformation. Pull uses an
-attractive softened inverse-square field sourced by the population sites, with
-reduced mobility in dense cores so incoming material gathers around the cores.
-Switch gravity smoothly without swapping playback direction. Pause stops both
-motions. Reduced motion applies the chosen mode immediately.
-
-## Immersion
-
-Normal view fits the wide map without a frame. Fullscreen covers the available
-screen and hides the radio selectors. Keep a quiet exit glyph at the top right,
-with F and Escape keyboard support. Use native or WebKit fullscreen, and retain
-the same immersive layout where the browser cannot enter native fullscreen.
+Fullscreen extends the outer ocean cells beyond every screen edge and hides the
+selectors. Do not reveal the moving southern cutoff or zoom excessively merely to
+hide it. Keep shared pan/zoom and the same deformation for borders, dots and labels.

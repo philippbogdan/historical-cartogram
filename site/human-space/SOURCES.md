@@ -134,3 +134,34 @@ measuring, so zooming or panning partly out of view changes the measured area.
 Type dimensions scale with the square root of the pixel area, with a fixed
 adjustment for long names. Collision priority also follows current area. No fixed
 population-count threshold or fixed country/continent font size determines size.
+
+## Current colour, water, placement and pull treatment
+
+`country-colours.json`, built by `src/build_country_colours.py`, replaces the older
+country colours at runtime. It retains regional hue families and separates country
+lightness, hue and saturation, checking uniqueness after the polygon white mix.
+`land-mask.png` uses the same Natural Earth footprints as label areas and centroids.
+Its red channel marks land, and green stores the country index plus one. Sea is
+light blue; polygon country fills follow borders rather than cell ownership.
+
+Centroids now come from geometric area moments of the deformed border polygons,
+including holes. They are computed from the whole country shape rather than a
+population site or the clipped viewport. Continent centroids combine those moments.
+Labels remain at their centroids; collisions affect visibility only. A 35 ms
+exponential opacity smoother provides quick fades, including while motion is paused.
+
+The active pull field is now the spatial inverse of the existing outward display
+field, evaluated on the same source geography and blended at strength 0.38. This
+replaces the earlier core-mobility flow. The interior inverse residual is below
+1e-7; queries beyond the outward domain are clamped to its source edge. Metadata
+in `gravity.json` records the field hash, strength and average site displacement.
+
+In fullscreen, `screen-fabric.js` continues the outer ocean-cell fills and edges
+beyond the viewport. This changes no population masses or country footprints and
+keeps the southern cutoff from becoming a white curved strip. The opening state
+is geography, with countries, polygons and push selected.
+
+For the United States country label, Alaska is excluded from the centroid moments
+only. It remains included in the country's visible area, colours, dot population
+and the North America centroid. `centroid_weights` in the footprint metadata
+records the distinction.
