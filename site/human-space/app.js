@@ -87,7 +87,9 @@ function draw(){
   drawLabels();
 }
 function showLabel(label,visible){
-  label.opacity=fadeLabel(label.opacity,visible,frameSeconds,reducedMotion.matches);
+  const elapsed=label.visible===visible?frameSeconds:0;
+  label.visible=visible;
+  label.opacity=fadeLabel(label.opacity,visible,elapsed,reducedMotion.matches);
   label.element.style.opacity=label.opacity;
   label.element.setAttribute('aria-hidden',String(!visible));
   if(label.opacity!==(visible?1:0))labelsAnimating=true;
