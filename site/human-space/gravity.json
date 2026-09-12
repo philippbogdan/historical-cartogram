@@ -1,16 +1,13 @@
 {
-  "model": "Attractive softened inverse-square flow with low mobility in dense cores",
+  "model": "Attractive inverse of the outward transport field, sampled on the same geographic coordinates",
   "paper_sha256": "6c4b3abd00bebcdee5aa88ed673d18f8033c1286f7bd69585a78fc48905cbcb3",
-  "pull_sha256": "3c336fe85b737ac493311ce1ae24087010967abeea2244f8ffb2a51164152ae8",
-  "grid": [
-    256,
-    145
-  ],
+  "warp_sha256": "57c794acc882ee7a3d0f674766afbb06a0950662623aabea2f6cb8cc2520b0b9",
+  "pull_sha256": "faa00073035494ca0074d69f805460299dbf62c3918a6163580b346794bc0eb0",
   "mesh_resolution": 512,
-  "steps": 100,
-  "step_seconds": 0.025,
-  "core_density": 0.0005829575158904116,
-  "softening": 0.00980392156862745,
-  "strength": 0.46329123015975293,
-  "minimum_interpolated_triangle_area": 3.311013431629814e-07
+  "inverse_iterations": 80,
+  "strength": 0.38,
+  "interior_inverse_residual_max": 9.887609342557536e-09,
+  "boundary_policy": "Clamp inverse queries outside the outward map to its source edge",
+  "minimum_interpolated_triangle_area": 1.5966881417028844e-07,
+  "mean_site_displacement": 0.03694800420491971
 }

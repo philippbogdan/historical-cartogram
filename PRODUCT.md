@@ -6,34 +6,37 @@ brand
 
 ## Purpose
 
-A borderless, animated population map using Figure 6's original 8,192 Laguerre
-cells. Keep fine black ink lines and dots on white, with compact radio selectors
-for colour (monotone, countries, continents), representation (dots, polygons),
-and gravity (push, pull). The paper is the visual reference, not a fixed frame.
+A borderless population map using Figure 6's original 8,192 Laguerre cells.
+Open in normal geography with countries, polygons and push selected. Keep compact
+radio selectors for colour, representation and gravity. Water is light blue.
+Countries have distinct shades within geographic subregion hue families.
 
 ## Behaviour
 
-Open in expanded human space and loop slowly between geography and the selected
-force field, with damped momentum and holds. Push spreads dense regions outward.
-Pull attracts surrounding material towards dense cores, gathering at their rims.
-The gravity selector changes the deformation, not the direction of playback.
+Hold the geographic view briefly, then loop slowly between geography and the
+selected force field. Push expands dense areas. Pull uses the inverse outward
+field at the selected moderated strength. Both motions keep damped momentum.
 
-Use a wide latitude-proportional geographic view. Omit the Antarctic coastline
-and the rectangular frame without dropping any population sites. Tap or Space
-pauses/resumes, drag pans, scroll or pinch zooms, Home resets. Reduced motion uses
-immediate changes. No headings, panels, data IDs or branding.
+Use linear latitude in geography. Omit Antarctica without dropping population
+sites. Tap or Space pauses/resumes, drag pans, scroll or pinch zooms, Home resets.
+Reduced motion uses immediate endpoint changes. No explanatory panels or data IDs.
+
+## Labels
+
+Place each label at the geometric centroid of its currently deformed country
+border shape. Continent centroids combine the corresponding country footprints.
+Do not move labels to avoid collisions. Fade smaller overlapping labels out.
+Size text from visible land area, including zoom and clipping. Keep a quick
+exponentially smoothed fade on appearance/disappearance, including when paused.
 
 ## Fullscreen
 
-Like philippbogdan.com/atoms, expand the whole visual and remove the surrounding
-controls. The map fills the screen, with pan and zoom available. Support native
-and WebKit fullscreen, with the same immersive layout if the API is unavailable.
-The corner icon or F toggles fullscreen; Escape exits. Keep the exit icon subdued.
+The visual occupies the screen and selectors disappear. Continue outer ocean
+cells beyond the viewport so no moving cutoff or white strip is exposed.
+Native/WebKit fullscreen and the immersive fallback share the same appearance.
+F toggles, Escape exits, and the corner exit control stays subdued.
 
-## Colour and labels
+## Publication
 
-Country and continent modes have bold black names attached to their regions.
-Size each label from its region's current visible area, following the deformation,
-zoom and viewport clipping. Hide colliding labels and type too small to read. No grey fallback:
-assign offshore sites to their nearest country for presentation. Keep the original
-population allocation intact and document simplifications in the source notes.
+The canonical experience is philippbogdan.com/humeter. Its static bundle is
+published through the existing personal-website repository and deployment.

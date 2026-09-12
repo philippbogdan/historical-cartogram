@@ -5,6 +5,8 @@ import json
 import numpy as np
 from shapely.geometry import Polygon, box
 from shapely.affinity import translate
+from rasterio.features import rasterize
+from PIL import Image
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'site/human-space'
@@ -13,7 +15,7 @@ features=json.loads(source)['features']
 paper_raw=(OUT/'paper.json').read_bytes()
 paper=json.loads(paper_raw)
 assert len(features)==len(paper['countries'])
-vertices=[];offsets=[0];countries=[];signs=[]
+vertices=[];offsets=[0];countries=[];signs=[];centroidWeights=[]
 south=.5-np.log(np.tan(np.pi/4-np.pi/6))/(2*np.pi)
 frame=box(0,0,1,south)
 
@@ -48,6 +50,9 @@ for country,feature in enumerate(features):
                         dense.extend(a+(b-a)*np.arange(count)[:,None]/count)
                     if len(dense)<3:continue
                     vertices.extend(dense);offsets.append(len(vertices));countries.append(country);signs.append(sign)
+                    latitude=np.rad2deg(2*np.arctan(np.exp((.5-np.asarray(dense)[:,1])*2*np.pi))-np.pi/2)
+                    alaska=paper['countries'][country]['name']=='United States' and latitude.min()>50
+                    centroidWeights.append(0 if alaska else 1)
 
 binary=np.asarray(vertices,dtype='<f4').tobytes()
 (OUT/'label-regions.bin').write_bytes(binary)
@@ -55,6 +60,21 @@ record={'source':'Natural Earth 50m country footprints; sea excluded; holes subt
         'source_sha256':hashlib.sha256(source).hexdigest(),
         'paper_sha256':hashlib.sha256(paper_raw).hexdigest(),
         'geometry_sha256':hashlib.sha256(binary).hexdigest(),
-        'offsets':offsets,'country_ids':countries,'signs':signs}
+        'offsets':offsets,'country_ids':countries,'signs':signs,
+        'centroid_weights':centroidWeights,'centroid_exclusions':{'United States':'Alaska, for the country label only'}}
+(OUT/'label-regions.json').write_text(json.dumps(record,separators=(',',':'))+'\n')
+# Use the identical footprints for the water/land background.
+xy=np.asarray(vertices)*2048
+shapes=[];rings=[];owner=0
+for a,b,sign,country in zip(offsets[:-1],offsets[1:],signs,countries):
+    if sign==1:
+        if rings:shapes.append(({'type':'Polygon','coordinates':rings},owner))
+        rings=[];owner=country+1
+    ring=xy[a:b].tolist();ring.append(ring[0]);rings.append(ring)
+if rings:shapes.append(({'type':'Polygon','coordinates':rings},owner))
+mask=rasterize(shapes,out_shape=(2048,2048),dtype='uint8')
+encoded=np.stack(((mask>0).astype('uint8')*255,mask,np.zeros_like(mask)),axis=-1)
+Image.fromarray(encoded).save(OUT/'land-mask.png',optimize=True)
+record['land_mask_sha256']=hashlib.sha256((OUT/'land-mask.png').read_bytes()).hexdigest()
 (OUT/'label-regions.json').write_text(json.dumps(record,separators=(',',':'))+'\n')
 print(f'{len(countries)} rings, {len(vertices)} vertices, {len(binary)} bytes')

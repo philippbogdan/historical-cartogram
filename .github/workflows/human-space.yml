@@ -44,6 +44,8 @@ jobs:
           node --check site/human-space/polygons.js
           node --check site/human-space/paper-geometry.js
           node --check site/human-space/label-area.js
+          node --check site/human-space/label-visibility.js
+          node --check site/human-space/screen-fabric.js
           node --check site/human-space/paper-polygons.js
       - name: Package the human atlas
         run: |
