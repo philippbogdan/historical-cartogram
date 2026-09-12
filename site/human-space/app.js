@@ -5,6 +5,8 @@ import { advanceMotion } from './motion.js?v=cb51c7b4f78f';
 const canvas=document.getElementById('map');
 const context=canvas.getContext('2d',{alpha:false});
 const polygonCanvas=document.getElementById('polygons');
+const coastCanvas=document.getElementById('coastline'),coastContext=coastCanvas.getContext('2d');
+let coastPoints;
 let colourMode=0,representation='dots',groups,worldData,warpData,paletteData,polygonRenderer,polygonPromise;
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 document.querySelectorAll('.selectors input').forEach(input=>input.disabled=true);
@@ -18,6 +20,7 @@ function draw(){
   if(!ready)return;
   context.setTransform(dpr,0,0,dpr,0,0);
   context.fillStyle='#fff';context.fillRect(0,0,width,height);
+  drawCoastline();
   polygonCanvas.hidden=representation!=='polygons'||!polygonRenderer;
   if(!polygonCanvas.hidden){polygonRenderer({width,height,dpr,fit,zoom,cx,cy,progress,colourMode});return;}
   const scale=fit*zoom;
@@ -32,6 +35,24 @@ function draw(){
   }
   context.fill();
   }
+}
+
+function drawCoastline(){
+  coastContext.setTransform(dpr,0,0,dpr,0,0);coastContext.clearRect(0,0,width,height);
+  coastContext.strokeStyle='#000';coastContext.lineWidth=3*Math.pow(zoom,.15);
+  coastContext.lineCap='round';coastContext.lineJoin='round';coastContext.beginPath();
+  const scale=fit*zoom;
+  let lastX=NaN,lastY=NaN;
+  for(let i=0;i<coastPoints.length;i+=8){
+    const x=width/2+(coastPoints[i]+(coastPoints[i+2]-coastPoints[i])*progress-cx)*scale;
+    const y=height/2+(coastPoints[i+1]+(coastPoints[i+3]-coastPoints[i+1])*progress-cy)*scale;
+    const xx=width/2+(coastPoints[i+4]+(coastPoints[i+6]-coastPoints[i+4])*progress-cx)*scale;
+    const yy=height/2+(coastPoints[i+5]+(coastPoints[i+7]-coastPoints[i+5])*progress-cy)*scale;
+    if(Math.max(x,xx)<-5||Math.min(x,xx)>width+5||Math.max(y,yy)<-5||Math.min(y,yy)>height+5)continue;
+    if(x!==lastX||y!==lastY)coastContext.moveTo(x,y);
+    coastContext.lineTo(xx,yy);lastX=xx;lastY=yy;
+  }
+  coastContext.stroke();
 }
 
 function requestDraw(){if(!frame)frame=requestAnimationFrame(tick);}
@@ -49,6 +70,7 @@ function tick(now){
 function resize(){
   width=innerWidth;height=innerHeight;dpr=Math.min(devicePixelRatio||1,3);
   canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+  coastCanvas.width=canvas.width;coastCanvas.height=canvas.height;
   fit=Math.min(width*.92,height*.88/.56);
   requestDraw();
 }
@@ -139,10 +161,12 @@ async function asset(name,type='arrayBuffer'){
   return response[type]();
 }
 try{
-  const [world,raw,motion,palettes]=await Promise.all([asset('world.json','json'),asset('warp.bin'),asset('motion.json','json'),asset('palettes.json?v=50e43e090c07','json')]);
+  const [world,raw,motion,palettes,coastRaw]=await Promise.all([asset('world.json','json'),asset('warp.bin'),asset('motion.json','json'),asset('palettes.json?v=50e43e090c07','json'),asset('coastline.bin')]);
   const warp=new Float32Array(raw),n=world.projection.meshResolution;
   if(warp.length!==2*(n+1)**2||!Array.isArray(motion.pressure))throw new Error('Incomplete map data');
   points=new Float64Array(world.units.flatMap(u=>endpoints(u.uv,warp,n)));pressure=motion.pressure;
+  const coast=new Float32Array(coastRaw);coastPoints=new Float64Array(coast.length*2);
+  for(let i=0;i<coast.length;i+=2)coastPoints.set(endpoints([coast[i],coast[i+1]],warp,n),i*2);
   worldData=world;warpData=warp;paletteData=palettes;
   if(palettes.countries.length!==world.countries.length)throw new Error('Incomplete country palette');
   groups=[0,1,2].map(mode=>{

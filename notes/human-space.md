@@ -117,3 +117,10 @@ polygon colours; Natural Earth continent attributes map countries to shared cont
 The 16 groups with no country assignment use neutral grey in colour modes. Monotone dots are
 black; monotone polygons use black outlines on white. Polygon rendering uses the same warp
 and population atlas with the saved vector boundaries, preserving the shared motion and zoom.
+
+## Coastline layer
+
+Natural Earth 50m coastlines are projected into the atlas frame, split at its longitude seam
+and subdivided before deformation. A transparent Canvas overlay draws a thick black stroke
+above dots or polygons. It shares the same interpolation, pan and zoom; Antarctic coastlines
+are omitted to match the population atlas. Rebuild with `src/build_human_coastline.py`.
