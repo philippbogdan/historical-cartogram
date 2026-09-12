@@ -32,6 +32,7 @@ python src/build_human_space.py
 python src/balance_human_fabric.py
 python src/build_human_motion.py
 python src/build_human_palettes.py
+python src/build_human_coastline.py
 node --test tests/human_*.test.mjs
 ```
 

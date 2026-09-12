@@ -19,3 +19,9 @@ Centre the complete human-space map with a small margin. Fit the whole shape on 
 landscape screens. Begin in human space, hold, then move slowly to geography and back.
 Retain the shared damped momentum. Pause and zoom are direct gestures on the canvas, with
 keyboard equivalents and an accessible description. Reduced-motion users start on a still map.
+
+## Coastline
+
+A thick black coastline follows the same deformation in both dots and polygons. Use rounded
+joins and caps, with a three-pixel stroke at the default zoom. Keep national borders separate
+from this coastline layer.
