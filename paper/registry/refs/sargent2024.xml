@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/8L9v3EzIBW+ft5x+4hsWLbXcMhY</id>
+  <title>arXiv Query: search_query=&amp;id_list=2411.17129&amp;start=0&amp;max_results=10</title>
+  <updated>2026-09-12T15:49:12Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2411.17129" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2411.17129v1</id>
+    <title>Minimum-distortion continuous cartograms by numerically optimized meshes</title>
+    <updated>2024-11-26T05:47:42Z</updated>
+    <link href="https://arxiv.org/abs/2411.17129v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2411.17129v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present an algorithm for creating contiguous cartograms using meshes. We use numerical optimization to minimize cartographic error and distortion by transforming the mesh vertices. The vertices can either be optimized in the plane or optimized on the unit sphere and subsequently projected to the plane. We also present a hybrid "best of both worlds" method, where the vertices are optimized on the sphere while anticipating the distortion caused by the final projection to the plane. We show a significant improvement in the preservation of region shapes compared to existing automated methods. Outside the realm of cartograms, we apply this hybrid technique to optimized map projections, creating the Liquid Earth projection.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.NA" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-11-26T05:47:42Z</published>
+    <arxiv:comment>27 pages, 11 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>Robert C. Sargent</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,867 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/iBVA1r1NJayq7eQyOofwq8y2q34</id>
+  <title>arXiv Query: search_query=all:cartogram&amp;id_list=&amp;start=0&amp;max_results=300</title>
+  <updated>2026-09-12T14:54:59Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:cartogram&amp;start=0&amp;max_results=300&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>300</opensearch:itemsPerPage>
+  <opensearch:totalResults>37</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2608.02512v2</id>
+    <title>On Defining Chart Types Boundaries</title>
+    <updated>2026-08-05T07:35:15Z</updated>
+    <link href="https://arxiv.org/abs/2608.02512v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.02512v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>What makes a Gantt chart? This question proved unexpectedly difficult to answer when we set out to build a design space for Gantt charts. Existing definitions, each shaped by their respective research goals, made different scope choices that we could not directly reconcile. We reasoned about what should and should not count as a Gantt chart, developing concepts and tools along the way. We distinguish features that are essential to a chart type's identity from those that can vary, and use these distinctions to map how chart types relate through what they share and lack. Applying these ideas to Gantt charts, radar charts, and table cartograms, we produce key insights on what boundary work reveals: definitions diverge for functional reasons, drawing boundaries exposes hidden structure in descriptive vocabulary such as feature entanglements, and scope choices shape how far findings can generalize. We came to understand that there is not a definitive answer, but that working through the question produced a functional definition that guided the design space we originally set out to build. Additionally, we present vocabulary and tools for reasoning about chart type boundaries and surfacing these boundary decisions, alongside a documented Gantt chart design space. Our broader reflection is that scope choices in chart-type-centered research---which determine what design spaces include, what grammars generate, and what perceptual studies measure---are research decisions worth making visible.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-03T17:10:28Z</published>
+    <arxiv:comment>11 pages, 7 figs. IEEE VIS 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.HC"/>
+    <author>
+      <name>Chang Han</name>
+    </author>
+    <author>
+      <name>Andrew Mcnutt</name>
+    </author>
+    <author>
+      <name>Katherine E. Isaacs</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.12008v1</id>
+    <title>Automated Responsive Thematic Mapping with Layout Guides</title>
+    <updated>2026-06-10T12:31:24Z</updated>
+    <link href="https://arxiv.org/abs/2606.12008v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.12008v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Thematic maps visually communicate statistical information about spatial units such as countries or states. They must balance the individual readability of those map elements that carry the statistical information and the overall cartographic context. Nowadays, most maps are not static images, but must flexibly respond to a range of device types and display sizes. Current approaches to responsive thematic mapping are limited: they are labor-intensive for practitioners and often rely on combining disjointed visual encodings to cover different device types. In this paper we introduce the first algorithmic framework to efficiently compute responsive thematic maps that smoothly adapt to different display sizes. A key component of our framework is the layout guide: a combinatorial structure which encodes the two essential aspects of a thematic map. The first aspect are the visual requirements of each statistical map element (at least their desired width and height), the second aspect is the cartographic context in the form of relative positions of map elements. Our main algorithmic contribution is the map arranger which takes a visual container as input and returns a suitable layout guide. The map arranger does so in a stable and consistent manner: if the container changes only a little, then so does the layout guide, and the same input container always results in the same layout guide. To use our framework, one needs three ingredients: $(1)$ a reference layout, which corresponds to the ``ideal'' thematic map, $(2)$ a total vertical and horizontal order for all map elements (the desired layouts for containers with extreme aspect ratios), and $(3)$ a thematic mapping algorithm that can construct a thematic map from a layout guide. We demonstrate our framework on two types of thematic maps, namely rectangular and Demers cartograms.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.GR" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-10T12:31:24Z</published>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>Arjen Simons</name>
+    </author>
+    <author>
+      <name>Sarah Schöttler</name>
+    </author>
+    <author>
+      <name>Wouter Meulemans</name>
+    </author>
+    <author>
+      <name>Kevin Verbeek</name>
+    </author>
+    <author>
+      <name>Bettina Speckmann</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.13880v1</id>
+    <title>Fast Time-Varying Contiguous Cartograms Using Integral Images</title>
+    <updated>2026-04-15T13:41:30Z</updated>
+    <link href="https://arxiv.org/abs/2604.13880v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.13880v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms are a technique for visually representing geographically distributed statistical data, where values of a numerical attribute are mapped to the size of geographic regions. Contiguous cartograms preserve the adjacencies of the original regions during the mapping. To be useful, contiguous cartograms also require approximate preservation of shapes and relative positions. Due to these desirable properties, contiguous cartograms are among the most popular ones. Most methods for constructing contiguous cartograms exploit a deformation of the original map. Aiming at the preservation of geographical properties, existing approaches are often algorithmically cumbersome and computationally intensive. We propose a novel deformation technique for computing time-varying contiguous cartograms based on integral images evaluated for a series of discrete density distributions. The density textures represent the given dynamic statistical data. The iterative application of the proposed mapping smoothly transforms the domain to gradually equalize the temporal density, i.e., region areas grow or shrink following their evolutionary statistical data. Global shape preservation at each time step is controlled by a single parameter that can be interactively adjusted by the user. Our efficient GPU implementation of the proposed algorithm is significantly faster than existing state-of-the-art methods while achieving comparable quality for cartographic accuracy, shape preservation, and topological error. We investigate strategies for transitioning between adjacent time steps and discuss the parameter choice. Our approach applies to comparative cartograms' morphing and interactive cartogram exploration.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-15T13:41:30Z</published>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>Vladimir Molchanov</name>
+    </author>
+    <author>
+      <name>Hennes Rave</name>
+    </author>
+    <author>
+      <name>Lars Linsen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2512.24211v1</id>
+    <title>The Malaysian Election Corpus (MECo): Electoral Maps and Cartograms from 1954 to 2025</title>
+    <updated>2025-12-30T13:25:15Z</updated>
+    <link href="https://arxiv.org/abs/2512.24211v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.24211v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Electoral boundaries in Malaysia are not publicly available in machine-readable form. This prevents rigorous analysis of geography-centric issues such as malapportionment and gerrymandering, and constrains spatial perspectives on electoral outcomes. We present the second component of the Malaysian Election Corpus (MECo), an open-access collection of digital electoral boundaries covering all 19 approved delimitation exercises in Malaysia's history, from the first set of Malayan boundaries in 1954 until the 2019 Sabah delimitation. We also auto-generate election-time maps for all federal and state elections up to 2025, and include equal-area and electorate-weighted cartograms to support deeper geospatial analysis. This is the first complete, publicly-available, and machine-readable record of Malaysia's electoral boundaries, and fills a critical gap in the country's electoral data infrastructure.</summary>
+    <category term="stat.AP" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-30T13:25:15Z</published>
+    <arxiv:comment>23 pages, 7 figures, 1 table</arxiv:comment>
+    <arxiv:primary_category term="stat.AP"/>
+    <author>
+      <name>Thevesh Thevananthan</name>
+    </author>
+    <author>
+      <name>Danesh Prakash Chacko</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.08121v2</id>
+    <title>Topology-Preserving Line Densification for Creating Contiguous Cartograms</title>
+    <updated>2026-01-18T14:53:18Z</updated>
+    <link href="https://arxiv.org/abs/2511.08121v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.08121v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms depict geographic regions with areas proportional to quantitative data. However, when created using density-equalizing map projections, cartograms may exhibit invalid topologies if boundary polygons are drawn using only a finite set of vertices connected by straight lines. Here we introduce a method for topology-preserving line densification that guarantees that cartogram regions remain connected and non-overlapping when using density-equalizing map projections. By combining our densification technique with a flow-based cartogram generator, we present a robust framework for strictly topology-preserving cartogram construction. Quantitative evaluations demonstrate that the proposed algorithm produces cartograms with greater accuracy and speed than alternative methods while maintaining comparable shape fidelity.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-11T11:24:21Z</published>
+    <arxiv:comment>27 pages. 9 figures, and 5 tables in the main text. 1 supplementary figure and 6 supplementary tables. Accepted for publication in "Cartography and Geographic Information Science." This version includes higher-resolution figures, a publicly accessible Figshare link to the data, and updated funding information</arxiv:comment>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>Nihal Z. Miaji</name>
+    </author>
+    <author>
+      <name>Adi Singhania</name>
+    </author>
+    <author>
+      <name>Matthias E. Goh</name>
+    </author>
+    <author>
+      <name>Callista Le</name>
+    </author>
+    <author>
+      <name>Atima Tharatipyakul</name>
+    </author>
+    <author>
+      <name>Michael T. Gastner</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2507.11625v2</id>
+    <title>MapIQ: Evaluating Multimodal Large Language Models for Map Question Answering</title>
+    <updated>2025-10-03T18:52:18Z</updated>
+    <link href="https://arxiv.org/abs/2507.11625v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.11625v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent advancements in multimodal large language models (MLLMs) have driven researchers to explore how well these models read data visualizations, e.g., bar charts, scatter plots. More recently, attention has shifted to visual question answering with maps (Map-VQA). However, Map-VQA research has primarily focused on choropleth maps, which cover only a limited range of thematic categories and visual analytical tasks. To address these gaps, we introduce MapIQ, a benchmark dataset comprising 14,706 question-answer pairs across three map types: choropleth maps, cartograms, and proportional symbol maps spanning topics from six distinct themes (e.g., housing, crime). We evaluate multiple MLLMs using six visual analytical tasks, comparing their performance against one another and a human baseline. An additional experiment examining the impact of map design changes (e.g., altered color schemes, modified legend designs, and removal of map elements) provides insights into the robustness and sensitivity of MLLMs, their reliance on internal geographic knowledge, and potential avenues for improving Map-VQA performance.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-15T18:02:57Z</published>
+    <arxiv:comment>Published as a conference paper at COLM 2025</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Varun Srivastava</name>
+    </author>
+    <author>
+      <name>Fan Lei</name>
+    </author>
+    <author>
+      <name>Srija Mukhopadhyay</name>
+    </author>
+    <author>
+      <name>Vivek Gupta</name>
+    </author>
+    <author>
+      <name>Ross Maciejewski</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2411.17129v1</id>
+    <title>Minimum-distortion continuous cartograms by numerically optimized meshes</title>
+    <updated>2024-11-26T05:47:42Z</updated>
+    <link href="https://arxiv.org/abs/2411.17129v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2411.17129v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present an algorithm for creating contiguous cartograms using meshes. We use numerical optimization to minimize cartographic error and distortion by transforming the mesh vertices. The vertices can either be optimized in the plane or optimized on the unit sphere and subsequently projected to the plane. We also present a hybrid "best of both worlds" method, where the vertices are optimized on the sphere while anticipating the distortion caused by the final projection to the plane. We show a significant improvement in the preservation of region shapes compared to existing automated methods. Outside the realm of cartograms, we apply this hybrid technique to optimized map projections, creating the Liquid Earth projection.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.NA" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-11-26T05:47:42Z</published>
+    <arxiv:comment>27 pages, 11 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>Robert C. Sargent</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2410.16833v2</id>
+    <title>Toroidal density-equalizing map for genus-one surfaces</title>
+    <updated>2024-10-31T04:22:43Z</updated>
+    <link href="https://arxiv.org/abs/2410.16833v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2410.16833v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Density-equalizing map is a shape deformation technique originally developed for cartogram creation and sociological data visualization on planar geographical maps. In recent years, there has been an increasing interest in developing density-equalizing mapping methods for surface and volumetric domains and applying them to various problems in geometry processing and imaging science. However, the existing surface density-equalizing mapping methods are only applicable to surfaces with relatively simple topologies but not surfaces with topological holes. In this work, we develop a novel algorithm for computing density-equalizing maps for toroidal surfaces. In particular, different shape deformation effects can be easily achieved by prescribing different population functions on the torus and performing diffusion-based deformations on a planar domain with periodic boundary conditions. Furthermore, the proposed toroidal density-equalizing mapping method naturally leads to an effective method for computing toroidal parameterizations of genus-one surfaces with controllable shape changes, with the toroidal area-preserving parameterization being a prime example. Experimental results are presented to demonstrate the effectiveness of our proposed methods.</summary>
+    <category term="cs.GR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.NA" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-10-22T09:09:15Z</published>
+    <arxiv:primary_category term="cs.GR"/>
+    <arxiv:journal_ref>Journal of Computational and Applied Mathematics, 472, 116844 (2026)</arxiv:journal_ref>
+    <author>
+      <name>Shunyu Yao</name>
+    </author>
+    <author>
+      <name>Gary P. T. Choi</name>
+    </author>
+    <arxiv:doi>10.1016/j.cam.2025.116844</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1016/j.cam.2025.116844" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2409.01339v1</id>
+    <title>Constraint-Based Breakpoints for Responsive Visualization Design and Development</title>
+    <updated>2024-09-02T15:46:36Z</updated>
+    <link href="https://arxiv.org/abs/2409.01339v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.01339v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper introduces constraint-based breakpoints, a technique for designing responsive visualizations for a wide variety of screen sizes and datasets. Breakpoints in responsive visualization define when different visualization designs are shown. Conventionally, breakpoints are static, pre-defined widths, and as such do not account for changes to the visualized dataset or visualization parameters. To guarantee readability and efficient use of space across datasets, these static breakpoints would require manual updates. Constraint-based breakpoints solve this by evaluating visualization-specific constraints on the size of visual elements, overlapping elements, and the aspect ratio of the visualization and available space. Once configured, a responsive visualization with constraint-based breakpoints can adapt to different screen sizes for any dataset. We describe a framework that guides designers in creating a stack of visualization designs for different display sizes and defining constraints for each of these designs. We demonstrate constraint-based breakpoints for different data types and their visualizations: geographic data (choropleth map, proportional circle map, Dorling cartogram, hexagonal grid map, bar chart, waffle chart), network data (node-link diagram, adjacency matrix, arc diagram), and multivariate data (scatterplot, heatmap). Interactive demos and supplemental material are available at https://responsive-vis.github.io/breakpoints/.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-09-02T15:46:36Z</published>
+    <arxiv:comment>12 pages, 9 figures. Accepted to IEEE Transactions on Visualization and Computer Graphics</arxiv:comment>
+    <arxiv:primary_category term="cs.HC"/>
+    <author>
+      <name>Sarah Schöttler</name>
+    </author>
+    <author>
+      <name>Jason Dykes</name>
+    </author>
+    <author>
+      <name>Jo Wood</name>
+    </author>
+    <author>
+      <name>Uta Hinrichs</name>
+    </author>
+    <author>
+      <name>Benjamin Bach</name>
+    </author>
+    <arxiv:doi>10.1109/TVCG.2024.3410097</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TVCG.2024.3410097" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.18573v1</id>
+    <title>Generating grid maps via the snake model</title>
+    <updated>2024-06-04T02:24:39Z</updated>
+    <link href="https://arxiv.org/abs/2406.18573v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2406.18573v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The grid map, often referred to as the tile map, stands as a vital tool in geospatial visualization, possessing unique attributes that differentiate it from more commonly known techniques such as choropleths and cartograms. It transforms geographic regions into grids, which requires the displacement of both region centroids and boundary nodes to establish a coherent grid arrangement. However, existing approaches typically displace region centroids and boundary nodes separately, potentially resulting in self-intersected boundaries and compromised relative orientation relations between regions. In this paper, we introduce a novel approach that leverages the Snake displacement algorithm from cartographic generalization to concurrently displace region centroids and boundary nodes. The revised Constrained Delaunay triangulation (CDT) is employed to represent the relations between regions and serves as a structural foundation for the Snake algorithm. Forces for displacing the region centroids into a grid-like pattern are then computed. These forces are iteratively applied within the Snake model until a satisfactory new boundary is achieved. Subsequently, the grid map is created by aligning the grids with the newly generated boundary, utilizing a one-to-one match algorithm to assign each region to a specific grid. Experimental results demonstrate that the proposed approach excels in maintaining the relative orientation and global shape of regions, albeit with a potential increase in local location deviations. We also present two strategies aligned with existing approaches to generate diverse grid maps for user preferences. Further details and resources are available on our project website: https://github.com/TrentonWei/DorlingMap.git.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CY" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.GR" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-06-04T02:24:39Z</published>
+    <arxiv:comment>10 Pages, 8 Figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <arxiv:journal_ref>Transactions in GIS, 2024, 1-19</arxiv:journal_ref>
+    <author>
+      <name>Zhiwei Wei</name>
+    </author>
+    <author>
+      <name>Nai Yang</name>
+    </author>
+    <author>
+      <name>Wenjia Xu</name>
+    </author>
+    <author>
+      <name>Su Ding</name>
+    </author>
+    <arxiv:doi>10.1111/tgis.13174</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1111/tgis.13174" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2403.16049v2</id>
+    <title>Improving Demand Forecasting in Open Systems with Cartogram-Enhanced Deep Learning</title>
+    <updated>2024-05-26T04:58:09Z</updated>
+    <link href="https://arxiv.org/abs/2403.16049v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2403.16049v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Predicting temporal patterns across various domains poses significant challenges due to their nuanced and often nonlinear trajectories. To address this challenge, prediction frameworks have been continuously refined, employing data-driven statistical methods, mathematical models, and machine learning. Recently, as one of the challenging systems, shared transport systems such as public bicycles have gained prominence due to urban constraints and environmental concerns. Predicting rental and return patterns at bicycle stations remains a formidable task due to the system's openness and imbalanced usage patterns across stations. In this study, we propose a deep learning framework to predict rental and return patterns by leveraging cartogram approaches. The cartogram approach facilitates the prediction of demand for newly installed stations with no training data as well as long-period prediction, which has not been achieved before. We apply this method to public bicycle rental-and-return data in Seoul, South Korea, employing a spatial-temporal convolutional graph attention network. Our improved architecture incorporates batch attention and modified node feature updates for better prediction accuracy across different time scales. We demonstrate the effectiveness of our framework in predicting temporal patterns and its potential applications.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.soc-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-03-24T07:29:12Z</published>
+    <arxiv:comment>11 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Sangjoon Park</name>
+    </author>
+    <author>
+      <name>Yongsung Kwon</name>
+    </author>
+    <author>
+      <name>Hyungjoon Soh</name>
+    </author>
+    <author>
+      <name>Mi Jin Lee</name>
+    </author>
+    <author>
+      <name>Seung-Woo Son</name>
+    </author>
+    <arxiv:doi>10.1016/j.chaos.2024.115032</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1016/j.chaos.2024.115032" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2311.09432v1</id>
+    <title>Urban economics of migration in the cities of the northeast region of Brazil</title>
+    <updated>2023-11-15T23:07:22Z</updated>
+    <link href="https://arxiv.org/abs/2311.09432v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2311.09432v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The focus of this text is to discuss how geographical science can contribute to an understanding of international migration in the 21st century. To this end, in the introduction we present the central ideas, as well as the internal structure of the text. Then, we present the theoretical and methodological approach that guides the research and, in section three, we show the results through texts and cartograms based on secondary data and empirical information. Finally, in the final remarks, we summarize the text with a view to contributing to the proposed debate.</summary>
+    <category term="econ.GN" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-11-15T23:07:22Z</published>
+    <arxiv:comment>16 pages, 8 figures</arxiv:comment>
+    <arxiv:primary_category term="econ.GN"/>
+    <author>
+      <name>Denise Cristina Bomtempo</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2204.12645v2</id>
+    <title>Circular cartograms via the elastic beam algorithm originated from cartographic generalization</title>
+    <updated>2023-04-25T02:06:34Z</updated>
+    <link href="https://arxiv.org/abs/2204.12645v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2204.12645v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The circular cartogram, also known as the Dorling map, is a widely used tool for visualizing statistical data. It represents regions as circles with their areas in proportion to the statistical values and requires circle displacement to avoid overlap and maintain spatial relationships. In this paper, we propose a new approach for circular cartogram production that utilizes the elastic beam displacement algorithm in cartographic generalization. First, the initial circles are generated with their areas in proportion to the statistical values. Second, an elastic beam structure is built as a proximity graph based on the spatial relations between the circles. Third, the circles violating the quality requirements are considered to have a force on the nodes of a beam. Fourth, the elastic beam algorithm is applied to assign forces for each node to determine the new positions of the circles. Steps two through four are repeated until a circular cartogram that meets the defined quality requirements is obtained. The experiments indicate that the proposed approach can successfully generate circular cartograms without overlaps while maintaining topology and relative relationships with higher quality than existing approaches.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-04-27T01:06:37Z</published>
+    <arxiv:comment>25 pages,9 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.HC"/>
+    <author>
+      <name>Wei Zhiwei</name>
+    </author>
+    <author>
+      <name>Ding Su</name>
+    </author>
+    <author>
+      <name>Xu Wenjia</name>
+    </author>
+    <author>
+      <name>Cheng Lu</name>
+    </author>
+    <author>
+      <name>Zhang Song</name>
+    </author>
+    <author>
+      <name>Wang Yang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2201.04272v3</id>
+    <title>Comparative evaluation of the web-based contiguous cartogram generation tool go-cart.io</title>
+    <updated>2024-05-01T11:52:17Z</updated>
+    <link href="https://arxiv.org/abs/2201.04272v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2201.04272v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Area cartograms are map-based data visualizations in which the area of each map region is proportional to the data value it represents. Long utilized in print media, area cartograms have also become increasingly popular online, often accompanying news articles and blog posts. Despite their popularity, there is a dearth of cartogram generation tools accessible to non-technical users unfamiliar with Geographic Information Systems software. Few tools support the generation of contiguous cartograms (i.e., area cartograms that faithfully represent the spatial adjacency of neighboring regions). We thus reviewed existing contiguous cartogram software and compared two web-based cartogram tools: fBlog and go-cart.io. We experimentally evaluated their usability through a user study comprising cartogram generation and analysis tasks. The System Usability Scale was adopted to quantify how participants perceived the usability of both tools. We also collected written feedback from participants to determine the main challenges faced while using the software. Participants generally rated go-cart.io as being more usable than fBlog. Compared to fBlog, go-cart.io offers a greater variety of built-in maps and allows importing data values by file upload. Still, our results suggest that even go-cart.io suffers from poor usability because the graphical user interface is complex and data can only be imported as a comma-separated-values file. We also propose changes to go-cart.io and make general recommendations for web-based cartogram tools to address these concerns.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-01-12T02:06:35Z</published>
+    <arxiv:comment>26 pages, 11 figures, 3 tables; version accepted by PLOS ONE</arxiv:comment>
+    <arxiv:primary_category term="cs.HC"/>
+    <arxiv:journal_ref>PLoS ONE 19(5): e0298192 (2024)</arxiv:journal_ref>
+    <author>
+      <name>Ian K. Duncan</name>
+    </author>
+    <author>
+      <name>Michael T. Gastner</name>
+    </author>
+    <arxiv:doi>10.1371/journal.pone.0298192</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1371/journal.pone.0298192" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2201.02995v2</id>
+    <title>Effectiveness of Area-to-Value Legends and Grid Lines in Contiguous Area Cartograms</title>
+    <updated>2023-05-11T02:08:51Z</updated>
+    <link href="https://arxiv.org/abs/2201.02995v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2201.02995v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>A contiguous area cartogram is a geographic map in which the area of each region is proportional to numerical data (e.g., population size) while keeping neighboring regions connected. In this study, we investigated whether value-to-area legends (square symbols next to the values represented by the squares' areas) and grid lines aid map readers in making better area judgments. We conducted an experiment to determine the accuracy, speed, and confidence with which readers infer numerical data values for the mapped regions. We found that, when only informed about the total numerical value represented by the whole cartogram without any legend, the distribution of estimates for individual regions was centered near the true value with substantial spread. Legends with grid lines significantly reduced the spread but led to a tendency to underestimate the values. Comparing differences between regions or between cartograms revealed that legends and grid lines slowed the estimation without improving accuracy. However, participants were more likely to complete the tasks when legends and grid lines were present, particularly when the area units represented by these features could be interactively selected. We recommend considering the cartogram's use case and purpose before deciding whether to include grid lines or an interactive legend.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-01-09T12:39:07Z</published>
+    <arxiv:comment>Version accepted by IEEE TVCG. 18 pages, 8 figures, 1 table</arxiv:comment>
+    <arxiv:primary_category term="cs.HC"/>
+    <arxiv:journal_ref>IEEE Transactions on Visualization and Computer Graphics, vol. 30, no. 8, pp. 4631-4647, Aug. 2024</arxiv:journal_ref>
+    <author>
+      <name>Kelvin L. T. Fung</name>
+    </author>
+    <author>
+      <name>Simon T. Perrault</name>
+    </author>
+    <author>
+      <name>Michael T. Gastner</name>
+    </author>
+    <arxiv:doi>10.1109/TVCG.2023.3275925</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TVCG.2023.3275925" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2104.04042v1</id>
+    <title>What are Table Cartograms Good for Anyway? An Algebraic Analysis</title>
+    <updated>2021-04-08T20:36:32Z</updated>
+    <link href="https://arxiv.org/abs/2104.04042v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2104.04042v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Unfamiliar or esoteric visual forms arise in many areas of visualization. While such forms can be intriguing, it can be unclear how to make effective use of them without long periods of practice or costly user studies. In this work we analyze the table cartogram-a graphic which visualizes tabular data by bringing the areas of a grid of quadrilaterals into correspondence with the input data, like a heat map that has been "area-ed" rather than colored. Despite having existed for several years, little is known about its appropriate usage. We mend this gap by using Algebraic Visualization Design to show that they are best suited to relatively small tables with ordinal axes for some comparison and outlier identification tasks. In doing so we demonstrate a discount theory-based analysis that can be used to cheaply determine best practices for unknown visualizations.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-04-08T20:36:32Z</published>
+    <arxiv:comment>EuroVis Camera Ready. 16 Pages, 19 Figures, including appendix</arxiv:comment>
+    <arxiv:primary_category term="cs.HC"/>
+    <author>
+      <name>Andrew McNutt</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2101.04199v1</id>
+    <title>Where you live matters: a spatial analysis of COVID-19 mortality</title>
+    <updated>2021-01-11T21:25:13Z</updated>
+    <link href="https://arxiv.org/abs/2101.04199v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2101.04199v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The COVID-19 pandemic has caused ~ 2 million fatalities. Significant progress has been made in advancing our understanding of the disease process, one of the unanswered questions, however, is the anomaly in the case/mortality ratio with Mexico as a clear example. Herein, this anomaly is explored by spatial analysis and whether mortality varies locally according to local factors. To address this, hexagonal cartogram maps (hexbin) used to spatially map COVID-19 mortality and visualise association with patient-level data on demographics and pre-existing health conditions. This was further interrogated at local Mexico City level by choropleth mapping. Our data show that the use of hexagonal cartograms is a better approach for spatial mapping of COVID-19 data in Mexico as it addresses bias in area size and population. We report sex/age-related spatial relationship with mortality amongst the Mexican states and a trend between health conditions and mortality at the state level. Within Mexico City, there is a clear south, north divide with higher mortality in the northern municipalities. Deceased patients in these northern municipalities have the highest pre-existing health conditions. Taken together, this study provides an improved presentation of COVID-19 mapping in Mexico and demonstrates spatial divergence of the mortality in Mexico.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2021-01-11T21:25:13Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Behzad Javaheri</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2011.09714v1</id>
+    <title>Task-Based Effectiveness of Interactive Contiguous Area Cartograms</title>
+    <updated>2020-11-19T08:32:16Z</updated>
+    <link href="https://arxiv.org/abs/2011.09714v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2011.09714v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms are map-based data visualizations in which the area of each map region is proportional to an associated numeric data value (e.g., population or gross domestic product). A cartogram is called contiguous if it conforms to this area principle while also keeping neighboring regions connected. Because of their distorted appearance, contiguous cartograms have been criticized as difficult to read. Some authors have suggested that cartograms may be more legible if they are accompanied by interactive features (e.g., animations, linked brushing, or infotips). We conducted an experiment to evaluate this claim. Participants had to perform visual analysis tasks with interactive and noninteractive contiguous cartograms. The task types covered various aspects of cartogram readability, ranging from elementary lookup tasks to synoptic tasks (i.e., tasks in which participants had to summarize high-level differences between two cartograms). Elementary tasks were carried out equally well with and without interactivity. Synoptic tasks, by contrast, were more difficult without interactive features. With access to interactivity, however, most participants answered even synoptic questions correctly. In a subsequent survey, participants rated the interactive features as "easy to use" and "helpful." Our study suggests that interactivity has the potential to make contiguous cartograms accessible even for those readers who are unfamiliar with interactive computer graphics or do not have a prior affinity to working with maps. Among the interactive features, animations had the strongest positive effect, so we recommend them as a minimum of interactivity when contiguous cartograms are displayed on a computer screen.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-11-19T08:32:16Z</published>
+    <arxiv:comment>18 pages, 5 figures. Supplemental material available by clicking on "Other formats". To be published in IEEE Transactions on Visualization and Computer Graphics</arxiv:comment>
+    <arxiv:primary_category term="cs.HC"/>
+    <arxiv:journal_ref>IEEE Transactions on Visualization and Computer Graphics, vol. 27, no. 3, pp. 2136-2152 (2021)</arxiv:journal_ref>
+    <author>
+      <name>Ian K. Duncan</name>
+    </author>
+    <author>
+      <name>Shi Tingsheng</name>
+    </author>
+    <author>
+      <name>Simon T. Perrault</name>
+    </author>
+    <author>
+      <name>Michael T. Gastner</name>
+    </author>
+    <arxiv:doi>10.1109/TVCG.2020.3041745</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TVCG.2020.3041745" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2006.00285v1</id>
+    <title>Motivating Good Practices for the Creation of Contiguous Area Cartograms</title>
+    <updated>2020-05-30T14:41:56Z</updated>
+    <link href="https://arxiv.org/abs/2006.00285v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2006.00285v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms are maps in which the areas of regions (e.g., countries or provinces) are proportional to a thematic mapping variable (e.g., population or gross domestic product). A cartogram is called contiguous if it keeps geographically adjacent regions connected. Over the past few years, several web tools have been developed for the creation of contiguous cartograms. However, most of these tools do not advise how to use cartograms correctly. To mitigate these shortcomings, we attempt to establish good practices through our recently developed web application go-cart.io: (1) use cartograms to show numeric data that add up to an interpretable total, (2) present a cartogram alongside a conventional map that uses the same color scheme, (3) indicate whether the data for a region are missing, (4) include a legend so that readers can infer the magnitude of the mapping variable, (5) if a cartogram is presented electronically, assist readers with interactive graphics.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-05-30T14:41:56Z</published>
+    <arxiv:comment>10 pages, 6 figures, to appear in the Proceedings of the 8th International Conference on Cartography and GIS</arxiv:comment>
+    <arxiv:primary_category term="cs.HC"/>
+    <arxiv:journal_ref>Proc. 8th Int. Conf. Cartogr. GIS (eds: T. Bandrova, M. Konečný, S. Marinova), vol. 1, pp. 589--598 (Bulgarian Cartographic Association, Sofia, 2020). ISSN: 1314-0604. URL: https://tinyurl.com/icc8-2020-pdf</arxiv:journal_ref>
+    <author>
+      <name>Shi Tingsheng</name>
+    </author>
+    <author>
+      <name>Ian K. Duncan</name>
+    </author>
+    <author>
+      <name>Yen-Ning Chang</name>
+    </author>
+    <author>
+      <name>Michael T. Gastner</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2005.00324v1</id>
+    <title>An Evaluation of Visualization Methods for Population Statistics Based on Choropleth Maps</title>
+    <updated>2020-05-01T12:11:59Z</updated>
+    <link href="https://arxiv.org/abs/2005.00324v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2005.00324v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We evaluate several augmentations to the choropleth map to convey additional information, including glyphs, 3D, cartograms, juxtaposed maps, and shading methods. While choropleth maps are a common method used to represent societal data, with multivariate data they can impede as much as improve understanding. In particular large, low population density regions often dominate the map and can mislead the viewer as to the message conveyed. Our results highlight the potential of 3D choropleth maps as well as the low accuracy of choropleth map tasks with multivariate data. We also introduce and evaluate popcharts, four techniques designed to show the density of population at a very fine scale on top of choropleth maps. All the data, results, and scripts are available from https://osf.io/8rxwg/.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-05-01T12:11:59Z</published>
+    <arxiv:primary_category term="cs.HC"/>
+    <author>
+      <name>Lonni Besançon</name>
+    </author>
+    <author>
+      <name>Matthew Cooper</name>
+    </author>
+    <author>
+      <name>Anders Ynnerman</name>
+    </author>
+    <author>
+      <name>Frédéric Vernier</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2003.09725v1</id>
+    <title>Volumetric density-equalizing reference map with applications</title>
+    <updated>2020-03-21T18:58:51Z</updated>
+    <link href="https://arxiv.org/abs/2003.09725v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2003.09725v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The density-equalizing map, a technique developed for cartogram creation, has been widely applied to data visualization but only for 2D applications. In this work, we propose a novel method called the volumetric density-equalizing reference map (VDERM) for computing density-equalizing map for volumetric domains. Given a prescribed density distribution in a volumetric domain in $\mathbb{R}^3$, the proposed method continuously deforms the domain, with different volume elements enlarged or shrunk according to the density distribution. With the aid of the proposed method, medical and sociological data can be visualized via deformations of 3D objects. The method can also be applied to adaptive remeshing and shape modeling. Furthermore, by exploiting the time-dependent nature of the proposed method, applications to shape morphing can be easily achieved. Experimental results are presented to demonstrate the effectiveness of the proposed method.</summary>
+    <category term="math.NA" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.GR" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2020-03-21T18:58:51Z</published>
+    <arxiv:primary_category term="math.NA"/>
+    <arxiv:journal_ref>Journal of Scientific Computing, 86(3), 41 (2021)</arxiv:journal_ref>
+    <author>
+      <name>Gary P. T. Choi</name>
+    </author>
+    <author>
+      <name>Chris H. Rycroft</name>
+    </author>
+    <arxiv:doi>10.1007/s10915-021-01411-4</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1007/s10915-021-01411-4" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1908.07291v2</id>
+    <title>Computing Stable Demers Cartograms</title>
+    <updated>2019-08-21T11:25:36Z</updated>
+    <link href="https://arxiv.org/abs/1908.07291v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1908.07291v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms are popular for visualizing numerical data for map regions. Maintaining correct adjacencies is a primary quality criterion for cartograms. When there are multiple data values per region (over time or different datasets) shown as animated or juxtaposed cartograms, preserving the viewer's mental-map in terms of stability between cartograms is another important criterion. We present a method to compute stable Demers cartograms, where each region is shown as a square and similar data yield similar cartograms. We enforce orthogonal separation constraints with linear programming, and measure quality in terms of keeping adjacent regions close (cartogram quality) and using similar positions for a region between the different data values (stability). Our method guarantees ability to connect most lost adjacencies with minimal leaders. Experiments show our method yields good quality and stability.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.DS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2019-08-20T12:04:26Z</published>
+    <arxiv:comment>Appears in the Proceedings of the 27th International Symposium on Graph Drawing and Network Visualization (GD 2019)</arxiv:comment>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>Soeren Nickel</name>
+    </author>
+    <author>
+      <name>Max Sondag</name>
+    </author>
+    <author>
+      <name>Wouter Meulemans</name>
+    </author>
+    <author>
+      <name>Markus Chimani</name>
+    </author>
+    <author>
+      <name>Stephen Kobourov</name>
+    </author>
+    <author>
+      <name>Jaakko Peltonen</name>
+    </author>
+    <author>
+      <name>Martin Nöllenburg</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1802.07625v1</id>
+    <title>Fast flow-based algorithm for creating density-equalizing map projections</title>
+    <updated>2018-02-21T15:54:46Z</updated>
+    <link href="https://arxiv.org/abs/1802.07625v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1802.07625v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms are maps that rescale geographic regions (e.g., countries, districts) such that their areas are proportional to quantitative demographic data (e.g., population size, gross domestic product). Unlike conventional bar or pie charts, cartograms can represent correctly which regions share common borders, resulting in insightful visualizations that can be the basis for further spatial statistical analysis. Computer programs can assist data scientists in preparing cartograms, but developing an algorithm that can quickly transform every coordinate on the map (including points that are not exactly on a border) while generating recognizable images has remained a challenge. Methods that translate the cartographic deformations into physics-inspired equations of motion have become popular, but solving these equations with sufficient accuracy can still take several minutes on current hardware. Here we introduce a flow-based algorithm whose equations of motion are numerically easier to solve compared with previous methods. The equations allow straightforward parallelization so that the calculation takes only a few seconds even for complex and detailed input. Despite the speedup, the proposed algorithm still keeps the advantages of previous techniques: with comparable quantitative measures of shape distortion, it accurately scales all areas, correctly fits the regions together and generates a map projection for every point. We demonstrate the use of our algorithm with applications to the 2016 US election results, the gross domestic products of Indian states and Chinese provinces, and the spatial distribution of deaths in the London borough of Kensington and Chelsea between 2011 and 2014.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2018-02-21T15:54:46Z</published>
+    <arxiv:comment>16 pages (including supplementary text), 8 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CG"/>
+    <arxiv:journal_ref>Proc. Natl. Acad. Sci. U.S.A.115(10):E2156-E2164 (2018)</arxiv:journal_ref>
+    <author>
+      <name>Michael T. Gastner</name>
+    </author>
+    <author>
+      <name>Vivien Seguy</name>
+    </author>
+    <author>
+      <name>Pratyush More</name>
+    </author>
+    <arxiv:doi>10.1073/pnas.1712674115</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1073/pnas.1712674115" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1606.00464v2</id>
+    <title>Rectangular Statistical Cartograms in R: The recmap Package</title>
+    <updated>2017-03-24T09:35:08Z</updated>
+    <link href="https://arxiv.org/abs/1606.00464v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1606.00464v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartogram drawing is a technique for showing geography-related statistical information, such as demographic and epidemiological data. The idea is to distort a map by resizing its regions according to a statistical parameter by keeping the map recognizable. This article describes an R package implementing an algorithm called RecMap which approximates every map region by a rectangle where the area corresponds to the given statistical value (maintain zero cartographic error). The package implements the computationally intensive tasks in C++. This paper's contribution is that it demonstrates on real and synthetic maps how recmap can be used, how it is implemented and used with other statistical packages.</summary>
+    <category term="stat.CO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2016-06-01T20:48:23Z</published>
+    <arxiv:comment>26 pages, 13 figures, two tables. Accepted at the Journal of Statistical Software (#2711). The source code is available on CRAN, see https://CRAN.R-project.org/package=recmap</arxiv:comment>
+    <arxiv:primary_category term="stat.CO"/>
+    <arxiv:journal_ref>Journal of Statistical Software, Code Snippets, 86(1), 1-27. (2018)</arxiv:journal_ref>
+    <author>
+      <name>Christian Panse</name>
+    </author>
+    <arxiv:doi>10.18637/jss.v086.c01</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.18637/jss.v086.c01" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1605.08485v3</id>
+    <title>The State of the Art in Cartograms</title>
+    <updated>2016-09-06T05:46:45Z</updated>
+    <link href="https://arxiv.org/abs/1605.08485v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1605.08485v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms combine statistical and geographical information in thematic maps, where areas of geographical regions (e.g., countries, states) are scaled in proportion to some statistic (e.g., population, income). Cartograms make it possible to gain insight into patterns and trends in the world around us and have been very popular visualizations for geo-referenced data for over a century. This work surveys cartogram research in visualization, cartography and geometry, covering a broad spectrum of different cartogram types: from the traditional rectangular and table cartograms, to Dorling and diffusion cartograms. A particular focus is the study of the major cartogram dimensions: statistical accuracy, geographical accuracy, and topological accuracy. We review the history of cartograms, describe the algorithms for generating them, and consider task taxonomies. We also review quantitative and qualitative evaluations, and we use these to arrive at design guidelines and research challenges.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2016-05-27T00:58:30Z</published>
+    <arxiv:primary_category term="cs.HC"/>
+    <author>
+      <name>Sabrina Nusrat</name>
+    </author>
+    <author>
+      <name>Stephen Kobourov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1508.02387v1</id>
+    <title>Indonesia embraces the Data Science</title>
+    <updated>2015-08-10T19:45:48Z</updated>
+    <link href="https://arxiv.org/abs/1508.02387v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1508.02387v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The information era is the time when information is not only largely generated, but also vastly processed in order to extract and generated more information. The complex nature of modern living is represented by the various kind of data. Data can be in the forms of signals, images, texts, or manifolds resembling the horizon of observation. The task of the emerging data sciences are to extract information from the data, for people gain new insights of the complex world. The insights may came from the new way of the data representation, be it a visualizations, mapping, or other. The insights may also come from the implementation of mathematical analysis and or computational processing giving new insights of what the states of the nature represented by the data. Both ways implement the methodologies reducing the dimensionality of the data. The relations between the two functions, representation and analysis are the heart of how information in data is transformed mathematically and computationally into new information. The paper discusses some practices, along with various data coming from the social life in Indonesia to gain new insights about Indonesia in the emerging data sciences. The data sciences in Indonesia has made Indonesian Data Cartograms, Indonesian Celebrity Sentiment Mapping, Ethno-Clustering Maps, social media community detection, and a lot more to come, become possible. All of these are depicted as the exemplifications on how Data Science has become integral part of the technology bringing data closer to people.</summary>
+    <category term="cs.CY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2015-08-10T19:45:48Z</published>
+    <arxiv:comment>Paper presented in South East Asian Mathematical Society (SEAMS) 7th Conference, 10 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CY"/>
+    <author>
+      <name>Hokky Situngkir</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1504.02218v2</id>
+    <title>Evaluating Cartogram Effectiveness</title>
+    <updated>2017-01-02T20:27:53Z</updated>
+    <link href="https://arxiv.org/abs/1504.02218v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1504.02218v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms are maps in which areas of geographic regions (countries, states) appear in proportion to some variable of interest (population, income). Cartograms are popular visualizations for geo-referenced data that have been used for over a century and that make it possible to gain insight into patterns and trends in the world around us. Despite the popularity of cartograms and the large number of cartogram types, there are few studies evaluating the effectiveness of cartograms in conveying information. Based on a recent task taxonomy for cartograms, we evaluate four major different types of cartograms: contiguous, non-contiguous, rectangular, and Dorling cartograms. Specifically, we evaluate the effectiveness of these cartograms by quantitative performance analysis, as well as by subjective preferences. We analyze the results of our study in the context of some prevailing assumptions in the literature of cartography and cognitive science. Finally, we make recommendations for the use of different types of cartograms for different tasks and settings.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2015-04-09T07:58:01Z</published>
+    <arxiv:primary_category term="cs.HC"/>
+    <author>
+      <name>Sabrina Nusrat</name>
+    </author>
+    <author>
+      <name>Md. Jawaherul Alam</name>
+    </author>
+    <author>
+      <name>Stephen G. Kobourov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1502.07792v2</id>
+    <title>Visualizing Cartograms: Goals and Task Taxonomy</title>
+    <updated>2015-04-19T19:31:49Z</updated>
+    <link href="https://arxiv.org/abs/1502.07792v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1502.07792v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms are maps in which areas of geographic regions (countries, states) appear in proportion to some variable of interest (population, income). Cartograms are popular visualizations for geo-referenced data that have been around for over a century. Newspapers, magazines, textbooks, blogs, and presentations frequently employ cartograms to show voting results, popularity, and in general, geographic patterns. Despite the popularity of cartograms and the large number of cartogram variants, there are very few studies evaluating the effectiveness of cartograms in conveying information. In order to design cartograms as a useful visualization tool and to be able to compare the effectiveness of cartograms generated by different methods, we need to study the nature of information conveyed and the specific tasks that can be performed on cartograms. In this paper we consider a set of cartogram visualization tasks, based on standard taxonomies from cartography and information visualization. We then propose a cartogram task taxonomy that can be used to organize not only the tasks considered here but also other tasks that might be added later.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2015-02-26T23:47:08Z</published>
+    <arxiv:primary_category term="cs.HC"/>
+    <author>
+      <name>Sabrina Nusrat</name>
+    </author>
+    <author>
+      <name>Stephen Kobourov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1412.4096v3</id>
+    <title>Materials Cartography: Representing and Mining Material Space Using Structural and Electronic Fingerprints</title>
+    <updated>2014-12-16T17:18:35Z</updated>
+    <link href="https://arxiv.org/abs/1412.4096v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1412.4096v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>As the proliferation of high-throughput approaches in materials science is increasing the wealth of data in the field, the gap between accumulated-information and derived-knowledge widens. We address the issue of scientific discovery in materials databases by introducing novel analytical approaches based on structural and electronic materials fingerprints. The framework is employed to (i) query large databases of materials using similarity concepts, (ii) map the connectivity of the materials space (i.e., as a materials cartogram) for rapidly identifying regions with unique organizations/properties, and (iii) develop predictive Quantitative Materials Structure-Property Relation- ships (QMSPR) models for guiding materials design. In this study, we test these fingerprints by seeking target material properties. As a quantitative example, we model the critical temperatures of known superconductors. Our novel materials fingerprinting and materials cartography approaches contribute to the emerging field of materials informatics by enabling effective computational tools to analyze, visualize, model, and design new materials.</summary>
+    <category term="cond-mat.mtrl-sci" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2014-12-09T20:50:01Z</published>
+    <arxiv:comment>13 pages and 5 figures, Chem. Mater., 2015</arxiv:comment>
+    <arxiv:primary_category term="cond-mat.mtrl-sci"/>
+    <author>
+      <name>Olexandr Isayev</name>
+    </author>
+    <author>
+      <name>Denis Fourches</name>
+    </author>
+    <author>
+      <name>Eugene N. Muratov</name>
+    </author>
+    <author>
+      <name>Corey Oses</name>
+    </author>
+    <author>
+      <name>Kevin Rasch</name>
+    </author>
+    <author>
+      <name>Alexander Tropscha</name>
+    </author>
+    <author>
+      <name>Stefano Curtarolo</name>
+    </author>
+    <arxiv:doi>10.1021/cm503507h</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1021/cm503507h" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1302.3672v7</id>
+    <title>A Polynomial Time Algorithm for Finding Area-Universal Rectangular Layouts</title>
+    <updated>2016-09-15T22:56:32Z</updated>
+    <link href="https://arxiv.org/abs/1302.3672v7" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1302.3672v7" rel="related" type="application/pdf" title="pdf"/>
+    <summary>A rectangular layout $\mathcal{L}$ is a rectangle partitioned into disjoint smaller rectangles so that no four smaller rectangles meet at the same point. Rectangular layouts were originally used as floorplans in VLSI design to represent VLSI chip layouts. More recently, they are used in graph drawing as rectangular cartograms. In these applications, an area $a(r)$ is assigned to each rectangle $r$, and the actual area of $r$ in $\mathcal{L}$ is required to be $a(r)$. Moreover, some applications require that we use combinatorially equivalent rectangular layouts to represent multiple area assignment functions. $\mathcal{L}$ is called {\em area-universal} if any area assignment to its rectangles can be realized by a layout that is combinatorially equivalent to $\mathcal{L}$.
+  A basic question in this area is to determine if a given plane graph $G$ has an area-universal rectangular layout or not. A fixed-parameter-tractable algorithm for solving this problem was obtained in \cite{EMSV12}. Their algorithm takes $O(2^{O(K^2)}n^{O(1)})$ time (where $K$ is the maximum number of degree 4 vertices in any minimal separation component), which is exponential time in general case. It is an open problem to find a true polynomial time algorithm for solving this problem. In this paper, we describe such a polynomial time algorithm.
+  This paper has been revised for many versions. For previous versions, referrers who are familiar with area-universal rectangular layouts always have the same doubt for the correctness of our algorithm. They doubt that our algorithm will give a wrong output which combine two \emph{conflicting} REL together.
+  In the current version, we realize this critical issue for the previous algorithm and we will provide two subsections 5.3 and 5.4 to solve this issue. (A backtracking algorithm to detect wrong outputs.)</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.DS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2013-02-15T04:29:16Z</published>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>Jiun-Jie Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1201.0066v1</id>
+    <title>Computing Cartograms with Optimal Complexity</title>
+    <updated>2011-12-30T05:44:30Z</updated>
+    <link href="https://arxiv.org/abs/1201.0066v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1201.0066v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In a rectilinear dual of a planar graph vertices are represented by simple rectilinear polygons and edges are represented by side-contact between the corresponding polygons. A rectilinear dual is called a cartogram if the area of each region is equal to a pre-specified weight of the corresponding vertex. The complexity of a cartogram is determined by the maximum number of corners (or sides) required for any polygon. In a series of papers the polygonal complexity of such representations for maximal planar graphs has been reduced from the initial 40 to 34, then to 12 and very recently to the currently best known 10. Here we describe a construction with 8-sided polygons, which is optimal in terms of polygonal complexity as 8-sided polygons are sometimes necessary. Specifically, we show how to compute the combinatorial structure and how to refine the representation into an area-universal rectangular layout in linear time. The exact cartogram can be computed from the area-universal rectangular layout with numerical iteration, or can be approximated with a hill-climbing heuristic.
+  We also describe an alternative construction for Hamiltonian maximal planar graphs, which allows us to directly compute the cartograms in linear time. Moreover, we prove that even for Hamiltonian graphs 8-sided rectilinear polygons are necessary, by constructing a non-trivial lower bound example. The complexity of the cartograms can be reduced to 6 if the Hamiltonian path has the extra property that it is one-legged, as in outer-planar graphs. Thus, we have optimal representations (in terms of both polygonal complexity and running time) for Hamiltonian maximal planar and maximal outer-planar graphs.</summary>
+    <category term="cs.DM" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.DS" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2011-12-30T05:44:30Z</published>
+    <arxiv:comment>18 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.DM"/>
+    <author>
+      <name>Md. Jawaherul Alam</name>
+    </author>
+    <author>
+      <name>Therese Biedl</name>
+    </author>
+    <author>
+      <name>Stefan Felsner</name>
+    </author>
+    <author>
+      <name>Michael Kaufmann</name>
+    </author>
+    <author>
+      <name>Stephen G. Kobourov</name>
+    </author>
+    <author>
+      <name>Torsten Ueckerdt</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1112.4626v2</id>
+    <title>Circular-Arc Cartograms</title>
+    <updated>2012-12-06T14:12:29Z</updated>
+    <link href="https://arxiv.org/abs/1112.4626v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1112.4626v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present a new circular-arc cartogram model in which countries are drawn as polygons with circular arcs instead of straight-line segments. Given a political map and values associated with each country in the map, a cartogram is a distorted map in which the areas of the countries are proportional to the corresponding values. In the circular-arc cartogram model straight-line segments can be replaced by circular arcs in order to modify the areas of the polygons, while the corners of the polygons remain fixed. The countries in circular-arc cartograms have the aesthetically pleasing appearance of clouds or snowflakes, depending on whether their edges are bent outwards or inwards. This makes it easy to determine whether a country has grown or shrunk, just by its overall shape. We show that determining whether a given map and given area-values can be realized as a circular-arc cartogram is an NP-hard problem. Next we describe a heuristic method for constructing circular-arc cartograms, which uses a max-flow computation on the dual graph of the map, along with a computation of the straight skeleton of the underlying polygonal decomposition. Our method is implemented and produces cartograms that, while not yet perfectly accurate, achieve many of the desired areas in our real-world examples.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2011-12-20T09:47:17Z</published>
+    <arxiv:comment>10 pages, 14 figures, extended version of proceedings paper in PacificVis 2013</arxiv:comment>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>Jan-Hinrich Kämper</name>
+    </author>
+    <author>
+      <name>Stephen G. Kobourov</name>
+    </author>
+    <author>
+      <name>Martin Nöllenburg</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1105.0398v1</id>
+    <title>Adjacency-Preserving Spatial Treemaps</title>
+    <updated>2011-05-02T18:18:22Z</updated>
+    <link href="https://arxiv.org/abs/1105.0398v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1105.0398v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Rectangular layouts, subdivisions of an outer rectangle into smaller rectangles, have many applications in visualizing spatial information, for instance in rectangular cartograms in which the rectangles represent geographic or political regions. A spatial treemap is a rectangular layout with a hierarchical structure: the outer rectangle is subdivided into rectangles that are in turn subdivided into smaller rectangles. We describe algorithms for transforming a rectangular layout that does not have this hierarchical structure, together with a clustering of the rectangles of the layout, into a spatial treemap that respects the clustering and also respects to the extent possible the adjacencies of the input layout.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2011-05-02T18:18:22Z</published>
+    <arxiv:primary_category term="cs.CG"/>
+    <arxiv:journal_ref>J. Computation Geometry 7 (1): 100-122, 2016</arxiv:journal_ref>
+    <author>
+      <name>Kevin Buchin</name>
+    </author>
+    <author>
+      <name>David Eppstein</name>
+    </author>
+    <author>
+      <name>Maarten Löffler</name>
+    </author>
+    <author>
+      <name>Martin Nöllenburg</name>
+    </author>
+    <author>
+      <name>Rodrigo I. Silveira</name>
+    </author>
+    <arxiv:doi>10.20382/jocg.v7i1a6</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.20382/jocg.v7i1a6" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/0908.3916v1</id>
+    <title>Graph-Theoretic Solutions to Computational Geometry Problems</title>
+    <updated>2009-08-26T23:28:23Z</updated>
+    <link href="https://arxiv.org/abs/0908.3916v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/0908.3916v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>  Many problems in computational geometry are not stated in graph-theoretic terms, but can be solved efficiently by constructing an auxiliary graph and performing a graph-theoretic algorithm on it. Often, the efficiency of the algorithm depends on the special properties of the graph constructed in this way. We survey the art gallery problem, partition into rectangles, minimum-diameter clustering, rectilinear cartogram construction, mesh stripification, angle optimization in tilings, and metric embedding from this perspective.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2009-08-26T23:28:23Z</published>
+    <arxiv:comment>16 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>David Eppstein</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/0901.3924v1</id>
+    <title>Area-Universal Rectangular Layouts</title>
+    <updated>2009-01-25T22:07:47Z</updated>
+    <link href="https://arxiv.org/abs/0901.3924v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/0901.3924v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>  A rectangular layout is a partition of a rectangle into a finite set of interior-disjoint rectangles. Rectangular layouts appear in various applications: as rectangular cartograms in cartography, as floorplans in building architecture and VLSI design, and as graph drawings. Often areas are associated with the rectangles of a rectangular layout and it might hence be desirable if one rectangular layout can represent several area assignments. A layout is area-universal if any assignment of areas to rectangles can be realized by a combinatorially equivalent rectangular layout. We identify a simple necessary and sufficient condition for a rectangular layout to be area-universal: a rectangular layout is area-universal if and only if it is one-sided. More generally, given any rectangular layout L and any assignment of areas to its regions, we show that there can be at most one layout (up to horizontal and vertical scaling) which is combinatorially equivalent to L and achieves a given area assignment. We also investigate similar questions for perimeter assignments. The adjacency requirements for the rectangles of a rectangular layout can be specified in various ways, most commonly via the dual graph of the layout. We show how to find an area-universal layout for a given set of adjacency requirements whenever such a layout exists.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2009-01-25T22:07:47Z</published>
+    <arxiv:comment>19 pages, 16 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>David Eppstein</name>
+    </author>
+    <author>
+      <name>Elena Mumford</name>
+    </author>
+    <author>
+      <name>Bettina Speckmann</name>
+    </author>
+    <author>
+      <name>Kevin Verbeek</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/physics/0603242v3</id>
+    <title>The Geography of Scientific Productivity: Scaling in U.S. Computer Science</title>
+    <updated>2006-10-20T19:46:25Z</updated>
+    <link href="https://arxiv.org/abs/physics/0603242v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/physics/0603242v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>  Here we extract the geographical addresses of authors in the Citeseer database of computer science papers. We show that the productivity of research centres in the United States follows a power-law regime, apart from the most productive centres for which we do not have enough data to reach definite conclusions. To investigate the spatial distribution of computer science research centres in the United States, we compute the two-point correlation function of the spatial point process and show that the observed power-laws do not disappear even when we change the physical representation from geographical space to cartogram space. Our work suggests that the effect of physical location poses a challenge to ongoing efforts to develop realistic models of scientific productivity. We propose that the introduction of a fine scale geography may lead to more sophisticated indicators of scientific output.</summary>
+    <category term="physics.soc-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.data-an" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2006-03-28T17:44:31Z</published>
+    <arxiv:comment>6 pages, 3 figures; minor changes</arxiv:comment>
+    <arxiv:primary_category term="physics.soc-ph"/>
+    <arxiv:journal_ref>J. Stat. Mech. (2006) P10012</arxiv:journal_ref>
+    <author>
+      <name>Rui Carvalho</name>
+    </author>
+    <author>
+      <name>Michael Batty</name>
+    </author>
+    <arxiv:doi>10.1088/1742-5468/2006/10/P10012</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1088/1742-5468/2006/10/P10012" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/physics/0401102v1</id>
+    <title>Diffusion-based method for producing density equalizing maps</title>
+    <updated>2004-01-20T22:39:32Z</updated>
+    <link href="https://arxiv.org/abs/physics/0401102v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/physics/0401102v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>  Map makers have long searched for a way to construct cartograms -- maps in which the sizes of geographic regions such as countries or provinces appear in proportion to their population or some other analogous property. Such maps are invaluable for the representation of census results, election returns, disease incidence, and many other kinds of human data. Unfortunately, in order to scale regions and still have them fit together, one is normally forced to distort the regions' shapes, potentially resulting in maps that are difficult to read. Many methods for making cartograms have been proposed, some of them extremely complex, but all suffer either from this lack of readability or from other pathologies, like overlapping regions or strong dependence on the choice of coordinate axes. Here we present a new technique based on ideas borrowed from elementary physics that suffers none of these drawbacks. Our method is conceptually simple and produces useful, elegant, and easily readable maps. We illustrate the method with applications to the results of the 2000 US presidential election, lung cancer cases in the State of New York, and the geographical distribution of stories appearing in the news.</summary>
+    <category term="physics.data-an" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.soc-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2004-01-20T22:39:32Z</published>
+    <arxiv:comment>12 pages, 3 figures</arxiv:comment>
+    <arxiv:primary_category term="physics.data-an"/>
+    <arxiv:journal_ref>Proc. Natl. Acad. Sci. USA 101, 7499-7504 (2004)</arxiv:journal_ref>
+    <author>
+      <name>Michael T. Gastner</name>
+    </author>
+    <author>
+      <name>M. E. J. Newman</name>
+    </author>
+    <arxiv:doi>10.1073/pnas.0400280101</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1073/pnas.0400280101" title="doi"/>
+  </entry>
+</feed>

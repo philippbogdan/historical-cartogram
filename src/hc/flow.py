@@ -19,8 +19,8 @@ def quad_areas_t(X, Y):
 
 
 class GSMFlow(TorchDiffusionCartogram):
-    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic", device=None):
-        super().__init__(counts, floor, sigma, x_boundary, device)
+    def __init__(self, counts, floor=0.01, sigma=0.0, x_boundary="periodic", device=None, rho=None):
+        super().__init__(counts, floor, sigma, x_boundary, device, rho=rho)
         T = self.torch
         self.rho = T.tensor(self.rho0, dtype=T.float32, device=self.dev)
         phi = self.solve_poisson(self.rho - 1)

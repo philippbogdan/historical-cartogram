@@ -10,3 +10,14 @@ site/map/tiles/*.pmtiles
 site/map/tiles/*.tmp
 site/map/tiles_globe/*.pmtiles
 work/
+# paper build artefacts; the PDF figures and the compiled main.pdf are committed
+paper/figures/*.png
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.blg
+paper/body_test.tex
+paper/body_pandoc.md
+data/raw/ghs3ss/

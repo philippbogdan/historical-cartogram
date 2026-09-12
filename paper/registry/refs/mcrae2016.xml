@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/7c84nen56HkQ0YJSBE/276WwXFM</id>
+  <title>arXiv Query: search_query=&amp;id_list=1612.08077&amp;start=0&amp;max_results=10</title>
+  <updated>2026-09-12T15:49:14Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=1612.08077" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/1612.08077v3</id>
+    <title>Optimal-transport-based mesh adaptivity on the plane and sphere using finite elements</title>
+    <updated>2017-11-22T14:51:57Z</updated>
+    <link href="https://arxiv.org/abs/1612.08077v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1612.08077v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In moving mesh methods, the underlying mesh is dynamically adapted without changing the connectivity of the mesh. We specifically consider the generation of meshes which are adapted to a scalar monitor function through equidistribution. Together with an optimal transport condition, this leads to a Monge-Ampère equation for a scalar mesh potential. We adapt an existing finite element scheme for the standard Monge-Ampère equation to this mesh generation problem; this is a mixed finite element scheme, in which an extra discrete variable is introduced to represent the Hessian matrix of second derivatives. The problem we consider has additional nonlinearities over the basic Monge-Ampère equation due to the implicit dependence of the monitor function on the resulting mesh. We also derive the equivalent Monge-Ampère-like equation for generating meshes on the sphere. The finite element scheme is extended to the sphere, and we provide numerical examples. All numerical experiments are performed using the open-source finite element framework Firedrake.</summary>
+    <category term="math.NA" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2016-12-23T20:11:40Z</published>
+    <arxiv:comment>Updated following reviews, 36 pages</arxiv:comment>
+    <arxiv:primary_category term="math.NA"/>
+    <author>
+      <name>Andrew T. T. McRae</name>
+    </author>
+    <author>
+      <name>Colin J. Cotter</name>
+    </author>
+    <author>
+      <name>Chris J. Budd</name>
+    </author>
+  </entry>
+</feed>

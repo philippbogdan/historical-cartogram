@@ -1,0 +1,5 @@
+cal1024_d_t001: mercator 1024x1024 lat_cut 85.0511 lon0 -168.046875 sigma 3.02 px share 0.95 ocean 0.0 method diffusion {'t_start': 0.01}
+  step 100 t=535 dt=28.8 maxdisp=1.690 dev=28.3247 2s
+  step 200 t=3.79e+05 dt=5.46e+04 maxdisp=3.069 dev=0.0434 4s
+  done: 205 steps (0 rejected), t=7.472e+05, dev=8.56e-04, 4s
+RESULT cal1024_d_t001: err p05/p95 -0.0326/+0.0301 aniso 4.77/40.6 twist 7.02/25.94 disp mean 243.4 popmean 275.7 poprms 293.6 shape 0.844 folds 122 4s

@@ -1,0 +1,18 @@
+{
+ "tag": "cal2048_otcont",
+ "method": "ot",
+ "width": 2048,
+ "W": 2048,
+ "H": 2048,
+ "lat_cut": 85.0511,
+ "lon0": -168.046875,
+ "x_boundary": "wall",
+ "grid": "mercator",
+ "sigma_km": 60.0,
+ "sigma_px": 3.069684414869267,
+ "share": 0.999,
+ "floor": 0.0010010010010010019,
+ "ocean_share": 0.0,
+ "kv": {},
+ "factor": 10
+}

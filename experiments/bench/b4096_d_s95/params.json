@@ -1,0 +1,20 @@
+{
+ "tag": "b4096_d_s95",
+ "method": "diffusion",
+ "width": 4096,
+ "W": 4096,
+ "H": 4096,
+ "lat_cut": 85.0511,
+ "lon0": -167.958984375,
+ "x_boundary": "wall",
+ "grid": "mercator",
+ "sigma_km": 30.0,
+ "sigma_px": 3.069684414869267,
+ "share": 0.95,
+ "floor": 0.052631578947368474,
+ "ocean_share": 0.0,
+ "kv": {
+  "t_start": 0.01
+ },
+ "factor": 5
+}

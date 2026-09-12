@@ -1,0 +1,8 @@
+{
+ "figure": "fig3_tissot",
+ "tags": [
+  "b4096_ot_s95",
+  "b4096_d_s95"
+ ],
+ "indicatrix": "geodesic circles of radius 300 km centred on a 15-degree lon/lat lattice, 96 vertices, warped point by point"
+}

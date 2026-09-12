@@ -1,0 +1,35 @@
+{
+ "figure": "fig5_delhi",
+ "window": {
+  "name": "delhi",
+  "global": "hero4096",
+  "lon": 77.2,
+  "lat": 28.6,
+  "size_deg": 2.0,
+  "cells": 2400,
+  "cell_arcsec": 2.9999999881176924,
+  "sigma_m": 300.0,
+  "population": 69751451.724984
+ },
+ "metrics": {
+  "fallback_global": false,
+  "before_p05": -0.9470831857677677,
+  "before_p95": 2.658051793362282,
+  "after_p05": -0.6956899250747648,
+  "after_p95": 1.6610563304455168,
+  "smoothed_before_p05": -1.1506039542598023,
+  "smoothed_before_p95": 2.8985059159953335,
+  "smoothed_after_p05": -0.37856163745826493,
+  "smoothed_after_p95": 0.4374609126137895,
+  "local_residual": 0.0013841763138771057,
+  "local_folds": 993,
+  "seconds": 112.81477189064026
+ },
+ "people_per_dot": 10000.0,
+ "n_dots": 6975,
+ "tile_path": "/Users/phil/historical-cartogram/data/raw/ghs3ss/delhi_region_3ss.tif",
+ "mesh_path": "/Users/phil/historical-cartogram/experiments/nested/delhi/mesh.npz",
+ "dots": "systematic sampling of the 3 arcsecond raster, seed 20260912; positions mapped through the corner meshes bilinearly",
+ "tile_path_sha256": "04f47c8f2a0bd354",
+ "mesh_path_sha256": "823b2ccdc3a4fda9"
+}

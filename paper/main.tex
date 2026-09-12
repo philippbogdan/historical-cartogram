@@ -1,0 +1,38 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,textwidth=160mm,textheight=240mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{placeins}
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.75}
+\captionsetup{font=small,labelfont=bf,width=0.95\textwidth}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+\graphicspath{{figures/}}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{1.2em}
+\newcommand{\dett}{\operatorname{det}}
+\newcommand{\R}{\mathbb{R}}
+
+\title{The optimal-transport cartogram:\\ world population as a Brenier map}
+\author{Philipp Bogdan\\ \small Department of Computing, Imperial College London\\ \small \texttt{philipp.bogdan24@imperial.ac.uk}}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\input{body}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\end{document}

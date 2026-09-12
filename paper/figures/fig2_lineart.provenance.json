@@ -1,0 +1,9 @@
+{
+ "figure": "fig2_lineart",
+ "tags": [
+  "b4096_ot_s95",
+  "b4096_d_s95"
+ ],
+ "vectors": "Natural Earth 1:50m coastline and admin-0 borders; 15-degree graticule",
+ "note": "folds repaired before drawing (population-aware smoothing of the displacement in empty cells)"
+}

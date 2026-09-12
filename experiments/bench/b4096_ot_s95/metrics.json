@@ -1,0 +1,51 @@
+{
+ "folds": 72606,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.025526630065735748,
+ "log_ratio_popweighted_p50": 4.5024635539195185e-05,
+ "log_ratio_popweighted_p95": 0.023779202294246574,
+ "log_ratio_min": -2.6668537353843504,
+ "log_ratio_max": 12.068583360270825,
+ "anisotropy_popweighted_p50": 3.9305694710826318,
+ "anisotropy_popweighted_p95": 25.085350553684876,
+ "displacement_mean_px": 987.7424108001367,
+ "displacement_max_px": 2041.616071516008,
+ "twist_popweighted_p50_deg": 0.013045448338248309,
+ "twist_popweighted_p95_deg": 0.04726209620459107,
+ "displacement_popweighted_mean_px": 1100.6177850934073,
+ "displacement_popweighted_rms_px": 1172.8053540469434,
+ "transport_cost_popweighted_mean_sq_px": 1375472.3984811765,
+ "km_per_px_equator": 9.77299159961942,
+ "seconds": 131.08595371246338,
+ "shape_error_popweighted": 0.7849147686825542,
+ "shape_error_median": 0.5821384163554695,
+ "worst": [
+  [
+   "United States of America",
+   4.006
+  ],
+  [
+   "El Salvador",
+   1.646
+  ],
+  [
+   "Costa Rica",
+   1.557
+  ],
+  [
+   "Portugal",
+   1.531
+  ],
+  [
+   "Cuba",
+   1.514
+  ]
+ ],
+ "stages": [
+  {
+   "share": 0.95,
+   "residual": 0.022822197526693344,
+   "cell_folds": 74957
+  }
+ ]
+}

@@ -1,0 +1,13 @@
+cal1024_d_tight: mercator 1024x1024 lat_cut 85.0511 lon0 -168.046875 sigma 3.02 px share 0.95 ocean 0.0 method diffusion {'cap_frac': 0.01, 'max_disp': 0.5}
+  step 100 t=58.2 dt=1.16 maxdisp=0.257 dev=79.7941 2s
+  step 200 t=260 dt=3.08 maxdisp=0.285 dev=42.1102 4s
+  step 300 t=662 dt=4.68 maxdisp=0.250 dev=24.0882 6s
+  step 400 t=1.24e+03 dt=6.2 maxdisp=0.251 dev=16.8040 8s
+  step 500 t=2.1e+03 dt=10.8 maxdisp=0.343 dev=12.4417 10s
+  step 600 t=3.53e+03 dt=19 maxdisp=0.462 dev=8.7994 12s
+  step 700 t=5.96e+03 dt=33.1 maxdisp=0.607 dev=5.9762 14s
+  step 800 t=1.03e+04 dt=58 maxdisp=0.759 dev=3.8158 16s
+  step 900 t=1.85e+04 dt=117 maxdisp=1.042 dev=2.1621 18s
+  step 1000 t=3.95e+04 dt=410 maxdisp=1.513 dev=0.8714 20s
+  done: 1091 steps (0 rejected), t=7.687e+05, dev=6.99e-04, 22s
+RESULT cal1024_d_tight: err p05/p95 -0.0915/+0.0794 aniso 4.71/39.6 twist 6.94/25.38 disp mean 243.4 popmean 275.4 poprms 293.4 shape 0.841 folds 67 22s

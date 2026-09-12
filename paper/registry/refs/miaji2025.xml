@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/61Htk8LE+/ogljtj4HGx9cCPmwc</id>
+  <title>arXiv Query: search_query=&amp;id_list=2511.08121&amp;start=0&amp;max_results=10</title>
+  <updated>2026-09-12T15:49:13Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=10&amp;id_list=2511.08121" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>10</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.08121v2</id>
+    <title>Topology-Preserving Line Densification for Creating Contiguous Cartograms</title>
+    <updated>2026-01-18T14:53:18Z</updated>
+    <link href="https://arxiv.org/abs/2511.08121v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.08121v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Cartograms depict geographic regions with areas proportional to quantitative data. However, when created using density-equalizing map projections, cartograms may exhibit invalid topologies if boundary polygons are drawn using only a finite set of vertices connected by straight lines. Here we introduce a method for topology-preserving line densification that guarantees that cartogram regions remain connected and non-overlapping when using density-equalizing map projections. By combining our densification technique with a flow-based cartogram generator, we present a robust framework for strictly topology-preserving cartogram construction. Quantitative evaluations demonstrate that the proposed algorithm produces cartograms with greater accuracy and speed than alternative methods while maintaining comparable shape fidelity.</summary>
+    <category term="cs.CG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-11T11:24:21Z</published>
+    <arxiv:comment>27 pages. 9 figures, and 5 tables in the main text. 1 supplementary figure and 6 supplementary tables. Accepted for publication in "Cartography and Geographic Information Science." This version includes higher-resolution figures, a publicly accessible Figshare link to the data, and updated funding information</arxiv:comment>
+    <arxiv:primary_category term="cs.CG"/>
+    <author>
+      <name>Nihal Z. Miaji</name>
+    </author>
+    <author>
+      <name>Adi Singhania</name>
+    </author>
+    <author>
+      <name>Matthias E. Goh</name>
+    </author>
+    <author>
+      <name>Callista Le</name>
+    </author>
+    <author>
+      <name>Atima Tharatipyakul</name>
+    </author>
+    <author>
+      <name>Michael T. Gastner</name>
+    </author>
+  </entry>
+</feed>

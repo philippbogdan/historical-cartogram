@@ -1,5 +1,13 @@
 # The humeter world
 
+## The paper, 2026-09-12
+
+`paper/main.pdf`: *The optimal-transport cartogram: world population as a Brenier map*, a short methods note
+(matched benchmark against diffusion, local refinement, the semi-discrete counterpart). Rebuild:
+`python src/bench_methods.py ...` for the records (see `paper/tables.py` for the tags), `python paper/figures/fig*.py`,
+then `python paper/tables.py && python paper/fill.py && python paper/build_tex.py && latexmk -pdf paper/main.tex`
+from `paper/`. Claim and evidence registries: `paper/registry/`.
+
 ## Ink cartogram, 2026-09-12
 
 The main page is a full-viewport population cartogram in small black ink dots on white.

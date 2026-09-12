@@ -1,0 +1,71 @@
+{
+ "folds": 78979,
+ "gate_folds": "FAIL",
+ "log_ratio_popweighted_p05": -0.02572968502719621,
+ "log_ratio_popweighted_p50": 0.001702006297662602,
+ "log_ratio_popweighted_p95": 0.020599862108386158,
+ "log_ratio_min": -3.760425790930799,
+ "log_ratio_max": 11.761409060105093,
+ "anisotropy_popweighted_p50": 3.6378106454320775,
+ "anisotropy_popweighted_p95": 15.837820530830179,
+ "displacement_mean_px": 273.27914014283215,
+ "displacement_max_px": 531.7564495400463,
+ "twist_popweighted_p50_deg": 0.014798839313303695,
+ "twist_popweighted_p95_deg": 0.048313076330697396,
+ "displacement_popweighted_mean_px": 288.88993716673804,
+ "displacement_popweighted_rms_px": 307.8595279390203,
+ "transport_cost_popweighted_mean_sq_px": 94777.48894283643,
+ "km_per_px_equator": 39.09196639847768,
+ "seconds": 25.290446758270264,
+ "shape_error_popweighted": 0.7577537626177212,
+ "shape_error_median": 0.5649078410380788,
+ "worst": [
+  [
+   "United States of America",
+   3.935
+  ],
+  [
+   "Portugal",
+   1.57
+  ],
+  [
+   "Norway",
+   1.506
+  ],
+  [
+   "Finland",
+   1.48
+  ],
+  [
+   "El Salvador",
+   1.474
+  ]
+ ],
+ "stages": [
+  {
+   "share": 0.95,
+   "residual": 0.0032960737589746714,
+   "cell_folds": 2878
+  },
+  {
+   "share": 0.98,
+   "residual": 0.0036078528501093388,
+   "cell_folds": 5033
+  },
+  {
+   "share": 0.99,
+   "residual": 0.0032191292848438025,
+   "cell_folds": 15886
+  },
+  {
+   "share": 0.995,
+   "residual": 0.002962464466691017,
+   "cell_folds": 29329
+  },
+  {
+   "share": 0.999,
+   "residual": 0.0035491385497152805,
+   "cell_folds": 80543
+  }
+ ]
+}

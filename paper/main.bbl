@@ -1,0 +1,260 @@
+\begin{thebibliography}{29}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alam et~al.(2015)Alam, Kobourov, and Veeramoni]{alam2015}
+Md.~Jawaherul Alam, Stephen~G. Kobourov, and Sankar Veeramoni.
+\newblock {Quantitative Measures for Cartogram Generation Techniques}.
+\newblock \emph{Computer Graphics Forum}, 34\penalty0 (3):\penalty0 351–360,
+  June 2015.
+\newblock ISSN 1467-8659.
+\newblock \doi{10.1111/cgf.12647}.
+\newblock URL \url{http://dx.doi.org/10.1111/cgf.12647}.
+
+\bibitem[Benamou et~al.(2010)Benamou, Froese, and Oberman]{benamou2010}
+Jean-David Benamou, Brittany~D. Froese, and Adam~M. Oberman.
+\newblock {Two Numerical Methods for the elliptic Monge-Ampère equation}.
+\newblock \emph{ESAIM: Mathematical Modelling and Numerical Analysis},
+  44\penalty0 (4):\penalty0 737–758, February 2010.
+\newblock ISSN 1290-3841.
+\newblock \doi{10.1051/m2an/2010017}.
+\newblock URL \url{http://dx.doi.org/10.1051/m2an/2010017}.
+
+\bibitem[Bogdan(2026)]{repo}
+Philipp Bogdan.
+\newblock historical-cartogram: code, experiments and figures for this paper,
+  2026.
+\newblock URL \url{https://github.com/philippbogdan/historical-cartogram}.
+
+\bibitem[Brenier(1991)]{brenier1991}
+Yann Brenier.
+\newblock {Polar factorization and monotone rearrangement of vector‐valued
+  functions}.
+\newblock \emph{Communications on Pure and Applied Mathematics}, 44\penalty0
+  (4):\penalty0 375–417, June 1991.
+\newblock ISSN 1097-0312.
+\newblock \doi{10.1002/cpa.3160440402}.
+\newblock URL \url{http://dx.doi.org/10.1002/cpa.3160440402}.
+
+\bibitem[Budd and Williams(2009)]{budd2009}
+C.~J. Budd and J.~F. Williams.
+\newblock {Moving Mesh Generation Using the Parabolic Monge–Ampère
+  Equation}.
+\newblock \emph{SIAM Journal on Scientific Computing}, 31\penalty0
+  (5):\penalty0 3438–3465, January 2009.
+\newblock ISSN 1095-7197.
+\newblock \doi{10.1137/080716773}.
+\newblock URL \url{http://dx.doi.org/10.1137/080716773}.
+
+\bibitem[Budd et~al.(2015)Budd, Russell, and Walsh]{budd2015}
+C.J. Budd, R.D. Russell, and E.~Walsh.
+\newblock {The geometry of r-adaptive meshes generated using optimal transport
+  methods}.
+\newblock \emph{Journal of Computational Physics}, 282:\penalty0 113–137,
+  February 2015.
+\newblock ISSN 0021-9991.
+\newblock \doi{10.1016/j.jcp.2014.11.007}.
+\newblock URL \url{http://dx.doi.org/10.1016/j.jcp.2014.11.007}.
+
+\bibitem[Caffarelli(1992)]{caffarelli1992}
+Luis~A. Caffarelli.
+\newblock {The regularity of mappings with a convex potential}.
+\newblock \emph{Journal of the American Mathematical Society}, 5\penalty0
+  (1):\penalty0 99–104, 1992.
+\newblock ISSN 0894-0347.
+\newblock \doi{10.1090/s0894-0347-1992-1124980-8}.
+\newblock URL \url{http://dx.doi.org/10.1090/S0894-0347-1992-1124980-8}.
+
+\bibitem[Carroll and Moore(2008)]{carroll2008}
+Grant Carroll and Antoni Moore.
+\newblock \emph{{A Multi-scale Dynamic Map Using Cartograms to Reflect User
+  Focus}}, page 87–112.
+\newblock Springer Berlin Heidelberg, 2008.
+\newblock ISBN 9783540709701.
+\newblock \doi{10.1007/978-3-540-70970-1_5}.
+\newblock URL \url{http://dx.doi.org/10.1007/978-3-540-70970-1_5}.
+
+\bibitem[Choi and Rycroft(2018)]{choi2018}
+Gary P.~T. Choi and Chris~H. Rycroft.
+\newblock {Density-Equalizing Maps for Simply Connected Open Surfaces}.
+\newblock \emph{SIAM Journal on Imaging Sciences}, 11\penalty0 (2):\penalty0
+  1134–1178, January 2018.
+\newblock ISSN 1936-4954.
+\newblock \doi{10.1137/17m1124796}.
+\newblock URL \url{http://dx.doi.org/10.1137/17M1124796}.
+
+\bibitem[Cohen-Addad et~al.(2018)Cohen-Addad, Klein, and Young]{cohenaddad2018}
+Vincent Cohen-Addad, Philip~N. Klein, and Neal~E. Young.
+\newblock {Balanced centroidal power diagrams for redistricting}.
+\newblock In \emph{Proceedings of the 26th ACM SIGSPATIAL International
+  Conference on Advances in Geographic Information Systems}, SIGSPATIAL ’18,
+  page 389–396. ACM, November 2018.
+\newblock \doi{10.1145/3274895.3274979}.
+\newblock URL \url{http://dx.doi.org/10.1145/3274895.3274979}.
+
+\bibitem[Dougenik et~al.(1985)Dougenik, Chrisman, and Niemeyer]{dougenik1985}
+James~A. Dougenik, Nicholas~R. Chrisman, and Duane~R. Niemeyer.
+\newblock {An algorithm to construct continuous area cartograms}.
+\newblock \emph{The Professional Geographer}, 37\penalty0 (1):\penalty0
+  75–81, February 1985.
+\newblock ISSN 1467-9272.
+\newblock \doi{10.1111/j.0033-0124.1985.00075.x}.
+\newblock URL \url{http://dx.doi.org/10.1111/j.0033-0124.1985.00075.x}.
+
+\bibitem[Gastner and Newman(2004)]{gastner2004}
+Michael~T. Gastner and M.~E.~J. Newman.
+\newblock {Diffusion-based method for producing density-equalizing maps}.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 101\penalty0
+  (20):\penalty0 7499–7504, May 2004.
+\newblock ISSN 1091-6490.
+\newblock \doi{10.1073/pnas.0400280101}.
+\newblock URL \url{http://dx.doi.org/10.1073/pnas.0400280101}.
+
+\bibitem[Gastner et~al.(2018)Gastner, Seguy, and More]{gastner2018}
+Michael~T. Gastner, Vivien Seguy, and Pratyush More.
+\newblock {Fast flow-based algorithm for creating density-equalizing map
+  projections}.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 115\penalty0
+  (10), February 2018.
+\newblock ISSN 1091-6490.
+\newblock \doi{10.1073/pnas.1712674115}.
+\newblock URL \url{http://dx.doi.org/10.1073/pnas.1712674115}.
+
+\bibitem[Hennig(2013)]{hennig2013}
+Benjamin~D. Hennig.
+\newblock \emph{{Rediscovering the World: Map Transformations of Human and
+  Physical Space}}.
+\newblock Springer Berlin Heidelberg, 2013.
+\newblock ISBN 9783642348488.
+\newblock \doi{10.1007/978-3-642-34848-8}.
+\newblock URL \url{http://dx.doi.org/10.1007/978-3-642-34848-8}.
+
+\bibitem[Jacobs and Léger(2020)]{jacobs2020}
+Matt Jacobs and Flavien Léger.
+\newblock {A fast approach to optimal transport: the back-and-forth method}.
+\newblock \emph{Numerische Mathematik}, 146\penalty0 (3):\penalty0 513–544,
+  October 2020.
+\newblock ISSN 0945-3245.
+\newblock \doi{10.1007/s00211-020-01154-8}.
+\newblock URL \url{http://dx.doi.org/10.1007/s00211-020-01154-8}.
+
+\bibitem[Leclerc and M{\'e}rigot(2019)]{pysdot}
+Hugo Leclerc and Quentin M{\'e}rigot.
+\newblock pysdot: semi-discrete optimal transport in python, 2019.
+\newblock URL \url{https://github.com/sd-ot/pysdot}.
+\newblock Version 0.2.39. Accessed 2026-09-12.
+
+\bibitem[Loeper and Rapetti(2005)]{loeper2005}
+Grégoire Loeper and Francesca Rapetti.
+\newblock {Numerical solution of the Monge–Ampère equation by a Newton’s
+  algorithm}.
+\newblock \emph{Comptes Rendus. Mathématique}, 340\penalty0 (4):\penalty0
+  319–324, January 2005.
+\newblock ISSN 1778-3569.
+\newblock \doi{10.1016/j.crma.2004.12.018}.
+\newblock URL \url{http://dx.doi.org/10.1016/j.crma.2004.12.018}.
+
+\bibitem[McRae et~al.(2018)McRae, Cotter, and Budd]{mcrae2018}
+Andrew T.~T. McRae, Colin~J. Cotter, and Chris~J. Budd.
+\newblock {Optimal-Transport--Based Mesh Adaptivity on the Plane and Sphere
+  Using Finite Elements}.
+\newblock \emph{SIAM Journal on Scientific Computing}, 40\penalty0
+  (2):\penalty0 A1121–A1148, January 2018.
+\newblock ISSN 1095-7197.
+\newblock \doi{10.1137/16m1109515}.
+\newblock URL \url{http://dx.doi.org/10.1137/16M1109515}.
+
+\bibitem[Molchanov et~al.(2026)Molchanov, Rave, and Linsen]{molchanov2026}
+Vladimir Molchanov, Hennes Rave, and Lars Linsen.
+\newblock {Fast Time-Varying Contiguous Cartograms Using Integral Images},
+  2026.
+\newblock URL \url{https://arxiv.org/abs/2604.13880}.
+
+\bibitem[Mérigot(2011)]{merigot2011}
+Quentin Mérigot.
+\newblock {A Multiscale Approach to Optimal Transport}.
+\newblock \emph{Computer Graphics Forum}, 30\penalty0 (5):\penalty0
+  1583–1592, August 2011.
+\newblock ISSN 1467-8659.
+\newblock \doi{10.1111/j.1467-8659.2011.02032.x}.
+\newblock URL \url{http://dx.doi.org/10.1111/j.1467-8659.2011.02032.x}.
+
+\bibitem[{Natural Earth}(2022)]{naturalearth}
+{Natural Earth}.
+\newblock Natural earth, free vector and raster map data, version 5.1.1, 2022.
+\newblock URL \url{https://www.naturalearthdata.com/}.
+\newblock Public domain; 1:50m coastline and admin-0 boundaries, 1:110m
+  coastline. Accessed 2026-09-12 via github.com/nvkelso/natural-earth-vector.
+
+\bibitem[Nusrat and Kobourov(2016)]{nusrat2016}
+Sabrina Nusrat and Stephen Kobourov.
+\newblock {The State of the Art in Cartograms}.
+\newblock \emph{Computer Graphics Forum}, 35\penalty0 (3):\penalty0 619–642,
+  June 2016.
+\newblock ISSN 1467-8659.
+\newblock \doi{10.1111/cgf.12932}.
+\newblock URL \url{http://dx.doi.org/10.1111/cgf.12932}.
+
+\bibitem[Sargent(2024)]{sargent2024}
+Robert~C. Sargent.
+\newblock {Minimum-distortion continuous cartograms by numerically optimized
+  meshes}, 2024.
+\newblock URL \url{https://arxiv.org/abs/2411.17129}.
+
+\bibitem[Saumier et~al.(2013)Saumier, Agueh, and Khouider]{saumier2015}
+L.-P. Saumier, M.~Agueh, and B.~Khouider.
+\newblock {An efficient numerical algorithm for the L2 optimal transport
+  problem with periodic densities}.
+\newblock \emph{IMA Journal of Applied Mathematics}, 80\penalty0 (1):\penalty0
+  135–157, June 2013.
+\newblock ISSN 1464-3634.
+\newblock \doi{10.1093/imamat/hxt032}.
+\newblock URL \url{http://dx.doi.org/10.1093/imamat/hxt032}.
+
+\bibitem[Schiavina et~al.(2023)Schiavina, Freire, and MacManus]{ghspop2023}
+Marcello Schiavina, Sergio Freire, and Kytt MacManus.
+\newblock Ghs-pop r2023a - ghs population grid multitemporal (1975-2030), 2023.
+\newblock URL
+  \url{http://data.europa.eu/89h/2ff68a52-5b5b-4a22-8f40-c41da8332cfe}.
+
+\bibitem[Tobler(2004)]{tobler2004}
+Waldo Tobler.
+\newblock {Thirty Five Years of Computer Cartograms}.
+\newblock \emph{Annals of the Association of American Geographers}, 94\penalty0
+  (1):\penalty0 58–73, March 2004.
+\newblock ISSN 1467-8306.
+\newblock \doi{10.1111/j.1467-8306.2004.09401004.x}.
+\newblock URL \url{http://dx.doi.org/10.1111/j.1467-8306.2004.09401004.x}.
+
+\bibitem[Villani(2009)]{villani2009}
+Cédric Villani.
+\newblock \emph{{Optimal Transport}}.
+\newblock Springer Berlin Heidelberg, 2009.
+\newblock ISBN 9783540710509.
+\newblock \doi{10.1007/978-3-540-71050-9}.
+\newblock URL \url{http://dx.doi.org/10.1007/978-3-540-71050-9}.
+
+\bibitem[Weller et~al.(2016)Weller, Browne, Budd, and Cullen]{weller2016}
+Hilary Weller, Philip Browne, Chris Budd, and Mike Cullen.
+\newblock {Mesh adaptation on the sphere using optimal transport and the
+  numerical solution of a Monge–Ampère type equation}.
+\newblock \emph{Journal of Computational Physics}, 308:\penalty0 102–123,
+  March 2016.
+\newblock ISSN 0021-9991.
+\newblock \doi{10.1016/j.jcp.2015.12.018}.
+\newblock URL \url{http://dx.doi.org/10.1016/j.jcp.2015.12.018}.
+
+\bibitem[Zhao et~al.(2013)Zhao, Su, Gu, Kaufman, Sun, Gao, and Luo]{zhao2013}
+Xin Zhao, Zhengyu Su, Xianfeng~David Gu, Arie Kaufman, Jian Sun, Jie Gao, and
+  Feng Luo.
+\newblock {Area-Preservation Mapping using Optimal Mass Transport}.
+\newblock \emph{IEEE Transactions on Visualization and Computer Graphics},
+  19\penalty0 (12):\penalty0 2838–2847, December 2013.
+\newblock ISSN 1077-2626.
+\newblock \doi{10.1109/tvcg.2013.135}.
+\newblock URL \url{http://dx.doi.org/10.1109/TVCG.2013.135}.
+
+\end{thebibliography}

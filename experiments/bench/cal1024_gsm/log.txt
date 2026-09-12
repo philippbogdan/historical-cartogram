@@ -1,0 +1,39 @@
+cal1024_gsm: mercator 1024x1024 lat_cut 85.0511 lon0 -168.046875 sigma 3.02 px share 0.95 ocean 0.0 method gsm {}
+  step 100 t=0.005 dt=5e-05 maxdisp=0.854 dev=217.0636 3s
+  step 200 t=0.01 dt=5e-05 maxdisp=0.794 dev=215.9729 5s
+  step 300 t=0.0154 dt=5.75e-05 maxdisp=0.841 dev=214.7955 8s
+  step 400 t=0.0212 dt=5.75e-05 maxdisp=0.763 dev=213.5411 11s
+  step 500 t=0.0277 dt=6.61e-05 maxdisp=0.816 dev=212.1156 14s
+  step 600 t=0.0344 dt=7.6e-05 maxdisp=0.858 dev=210.6450 16s
+  step 700 t=0.0421 dt=7.6e-05 maxdisp=0.787 dev=208.9861 19s
+  step 800 t=0.0504 dt=8.75e-05 maxdisp=0.802 dev=207.1705 22s
+  step 900 t=0.0591 dt=8.75e-05 maxdisp=0.764 dev=205.2629 24s
+  step 1000 t=0.069 dt=0.000101 maxdisp=0.798 dev=203.1091 27s
+  step 1100 t=0.0792 dt=0.000116 maxdisp=0.855 dev=200.8857 30s
+  step 1200 t=0.0908 dt=0.000116 maxdisp=0.765 dev=198.3628 32s
+  step 1300 t=0.104 dt=0.000133 maxdisp=0.832 dev=195.4993 35s
+  step 1400 t=0.117 dt=0.000133 maxdisp=0.756 dev=192.5980 38s
+  step 1500 t=0.133 dt=0.000153 maxdisp=0.824 dev=189.2701 41s
+  step 1600 t=0.149 dt=0.000176 maxdisp=0.851 dev=185.6934 43s
+  step 1700 t=0.167 dt=0.000176 maxdisp=0.797 dev=181.8564 46s
+  step 1800 t=0.185 dt=0.000202 maxdisp=0.844 dev=177.7604 49s
+  step 1900 t=0.206 dt=0.000202 maxdisp=0.757 dev=173.3478 52s
+  step 2000 t=0.229 dt=0.000233 maxdisp=0.807 dev=168.2866 54s
+  step 2100 t=0.254 dt=0.000268 maxdisp=0.872 dev=162.8772 57s
+  step 2200 t=0.28 dt=0.000268 maxdisp=0.792 dev=157.0416 60s
+  step 2300 t=0.308 dt=0.000308 maxdisp=0.822 dev=150.9609 62s
+  step 2400 t=0.339 dt=0.000308 maxdisp=0.780 dev=144.2500 65s
+  step 2500 t=0.373 dt=0.000354 maxdisp=0.822 dev=136.8444 68s
+  step 2600 t=0.408 dt=0.000354 maxdisp=0.759 dev=129.1269 72s
+  step 2700 t=0.448 dt=0.000407 maxdisp=0.808 dev=120.4021 75s
+  step 2800 t=0.49 dt=0.000468 maxdisp=0.858 dev=111.4603 78s
+  step 2900 t=0.536 dt=0.000468 maxdisp=0.789 dev=101.2538 81s
+  step 3000 t=0.587 dt=0.000538 maxdisp=0.856 dev=90.2971 84s
+  step 3100 t=0.64 dt=0.000538 maxdisp=0.782 dev=78.5596 87s
+  step 3200 t=0.699 dt=0.000619 maxdisp=0.834 dev=65.7481 90s
+  step 3300 t=0.761 dt=0.000619 maxdisp=0.761 dev=52.2500 94s
+  step 3400 t=0.831 dt=0.000712 maxdisp=0.815 dev=37.0106 97s
+  step 3500 t=0.902 dt=0.000712 maxdisp=0.797 dev=21.4878 100s
+  step 3600 t=0.983 dt=0.000818 maxdisp=0.865 dev=3.8228 103s
+  done: 3621 steps (1 rejected), t=1, dev=0.00e+00, 104s
+RESULT cal1024_gsm: err p05/p95 -0.1484/+0.1034 aniso 14.99/128.7 twist 38.95/100.68 disp mean 320.0 popmean 276.5 poprms 306.5 shape 1.281 folds 12484 104s
