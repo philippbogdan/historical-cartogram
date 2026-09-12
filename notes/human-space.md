@@ -109,3 +109,11 @@ readouts or style controls. It starts in human space and uses the existing dampe
 for slow automatic round trips. Direct gestures and keyboard input operate on the drawing.
 Reduced motion starts paused in human space. Previous colour-lens interface notes above are
 historical; the source data and numerical checks remain intact.
+
+## Colour and representation selectors, 12 September 2026
+
+Two native radio groups are the only visible UI. The existing country IDs determine dot and
+polygon colours; Natural Earth continent attributes map countries to shared continent colours.
+The 16 groups with no country assignment use neutral grey in colour modes. Monotone dots are
+black; monotone polygons use black outlines on white. Polygon rendering uses the same warp
+and population atlas with the saved vector boundaries, preserving the shared motion and zoom.

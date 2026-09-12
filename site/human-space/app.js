@@ -1,9 +1,13 @@
 import { endpoints } from './geometry.js';
+import { createPolygons } from './polygons.js?v=a425a9731878';
 import { advanceMotion } from './motion.js?v=cb51c7b4f78f';
 
 const canvas=document.getElementById('map');
 const context=canvas.getContext('2d',{alpha:false});
+const polygonCanvas=document.getElementById('polygons');
+let colourMode=0,representation='dots',groups,worldData,warpData,paletteData,polygonRenderer,polygonPromise;
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
+document.querySelectorAll('.selectors input').forEach(input=>input.disabled=true);
 const pointers=new Map();
 let points,pressure,frame=0,last=0,holdUntil=0,ready=false;
 let progress=1,velocity=0,target=0,playing=!reducedMotion.matches;
@@ -14,16 +18,20 @@ function draw(){
   if(!ready)return;
   context.setTransform(dpr,0,0,dpr,0,0);
   context.fillStyle='#fff';context.fillRect(0,0,width,height);
-  context.fillStyle='#000';context.beginPath();
+  polygonCanvas.hidden=representation!=='polygons'||!polygonRenderer;
+  if(!polygonCanvas.hidden){polygonRenderer({width,height,dpr,fit,zoom,cx,cy,progress,colourMode});return;}
   const scale=fit*zoom;
   const radius=Math.max(.65,Math.min(1.05,fit/1100))*Math.pow(zoom,.25);
-  for(let i=0;i<points.length;i+=4){
+  for(const group of groups[colourMode]){
+  context.fillStyle=group.colour;context.beginPath();
+  for(const i of group.indices){
     const x=width/2+(points[i]+(points[i+2]-points[i])*progress-cx)*scale;
     const y=height/2+(points[i+1]+(points[i+3]-points[i+1])*progress-cy)*scale;
     if(x<-radius||x>width+radius||y<-radius||y>height+radius)continue;
     context.moveTo(x+radius,y);context.arc(x,y,radius,0,Math.PI*2);
   }
   context.fill();
+  }
 }
 
 function requestDraw(){if(!frame)frame=requestAnimationFrame(tick);}
@@ -104,6 +112,23 @@ canvas.addEventListener('keydown',e=>{
   if(e.key==='+'||e.key==='=')zoomAt(1.4,width/2,height/2);
   if(e.key==='-')zoomAt(1/1.4,width/2,height/2);
 });
+document.querySelectorAll('input[name="colour"]').forEach(input=>input.addEventListener('change',()=>{
+  colourMode=Number(input.value);requestDraw();
+}));
+document.querySelectorAll('input[name="representation"]').forEach(input=>input.addEventListener('change',async()=>{
+  representation=input.value;requestDraw();
+  if(representation==='polygons'&&ready&&!polygonRenderer){
+    try{
+      if(!polygonPromise)polygonPromise=(async()=>{
+        const [response,edgeBuffer]=await Promise.all([fetch(new URL('atlas.png',import.meta.url)),asset('edges.bin')]);
+        if(!response.ok)throw new Error('Could not load polygon atlas');
+        const image=await createImageBitmap(await response.blob(),{colorSpaceConversion:'none'});
+        polygonRenderer=createPolygons(polygonCanvas,warpData,worldData.projection.meshResolution,image,worldData.units,paletteData,new Float32Array(edgeBuffer));image.close();
+      })();
+      await polygonPromise;requestDraw();
+    }catch(error){console.error(error);polygonPromise=null;representation='dots';document.querySelector('input[value="dots"]').checked=true;requestDraw();}
+  }
+}));
 addEventListener('resize',resize);
 document.addEventListener('visibilitychange',()=>{last=performance.now();if(!document.hidden){holdUntil=last+1000;requestDraw();}});
 reducedMotion.addEventListener('change',()=>{pause();});
@@ -114,10 +139,20 @@ async function asset(name,type='arrayBuffer'){
   return response[type]();
 }
 try{
-  const [world,raw,motion]=await Promise.all([asset('world.json','json'),asset('warp.bin'),asset('motion.json','json')]);
+  const [world,raw,motion,palettes]=await Promise.all([asset('world.json','json'),asset('warp.bin'),asset('motion.json','json'),asset('palettes.json?v=50e43e090c07','json')]);
   const warp=new Float32Array(raw),n=world.projection.meshResolution;
   if(warp.length!==2*(n+1)**2||!Array.isArray(motion.pressure))throw new Error('Incomplete map data');
   points=new Float64Array(world.units.flatMap(u=>endpoints(u.uv,warp,n)));pressure=motion.pressure;
+  worldData=world;warpData=warp;paletteData=palettes;
+  if(palettes.countries.length!==world.countries.length)throw new Error('Incomplete country palette');
+  groups=[0,1,2].map(mode=>{
+    const buckets=new Map();world.units.forEach((u,i)=>{
+      const rgb=mode===0?[0,0,0]:palettes.countries[u.country][mode===1?'country':'continental'];
+      const colour=`rgb(${rgb.join(',')})`;
+      if(!buckets.has(colour))buckets.set(colour,{colour,indices:[]});buckets.get(colour).indices.push(i*4);
+    });return [...buckets.values()];
+  });
+  document.querySelectorAll('.selectors input').forEach(input=>input.disabled=false);
   ready=true;holdUntil=performance.now()+3200;last=performance.now();resize();
 }catch(error){
   console.error(error);

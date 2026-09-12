@@ -6,9 +6,9 @@ brand
 
 ## Purpose
 
-A population cartogram made only of small black ink dots on white. No visible interface,
-branding, text, country labels, boundaries, colour fills, legends or style choices.
-The drawing is the entire experience. This presentation supersedes the earlier coloured atlas.
+A population cartogram on white with two compact radio groups at the top left.
+Colour: monotone, countries, continents. Representation: dots, polygons. Default to black
+ink dots. These are the only visible controls; no branding, map labels, headings or panels.
 
 ## Behaviour
 

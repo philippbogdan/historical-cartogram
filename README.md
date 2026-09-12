@@ -11,7 +11,7 @@ from `paper/`. Claim and evidence registries: `paper/registry/`.
 ## Ink cartogram, 2026-09-12
 
 The main page is a full-viewport population cartogram in small black ink dots on white.
-There are no visible controls, labels, text, colour fills or alternative styles. It opens in
+Two compact radio groups select monotone/countries/continents and dots/polygons. It opens in
 human space and moves slowly between human space and geography. Tap or Space pauses;
 drag pans; scroll or pinch zooms; Home resets the view. Reduced motion starts with a still map.
 
@@ -20,7 +20,7 @@ Run locally: `python -m http.server 8777 --directory site`.
 Verify population, geometry and momentum: `node --test tests/human_*.test.mjs`.
 
 The Canvas renderer uses the existing 8,192 population groups and deformation. It loads no
-fonts, country texture, polygon edges or economic colours. The underlying data and technical
+fonts or economic colours. Polygon geometry and its categorical atlas load on first use. The underlying data and technical
 checks remain available in the repository. Sources and reuse terms are in
 [`site/human-space/SOURCES.md`](site/human-space/SOURCES.md).
 
@@ -31,6 +31,7 @@ python src/build_human_units.py
 python src/build_human_space.py
 python src/balance_human_fabric.py
 python src/build_human_motion.py
+python src/build_human_palettes.py
 node --test tests/human_*.test.mjs
 ```
 
