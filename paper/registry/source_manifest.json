@@ -856,7 +856,7 @@
         "pmcid": "",
         "url": "https://github.com/philippbogdan/historical-cartogram"
       },
-      "locator": "commit 5e8e4b5; produced by src/bench_methods.py on 2026-09-12",
+      "locator": "commit 7616143; produced by src/bench_methods.py on 2026-09-12",
       "confidentiality": "public",
       "verification": {
         "status": "verified",
@@ -880,7 +880,7 @@
         "pmcid": "",
         "url": "https://github.com/philippbogdan/historical-cartogram"
       },
-      "locator": "commit 5e8e4b5; produced by src/nested_solve.py on 2026-09-12",
+      "locator": "commit 7616143; produced by src/nested_solve.py on 2026-09-12",
       "confidentiality": "public",
       "verification": {
         "status": "verified",
@@ -904,7 +904,7 @@
         "pmcid": "",
         "url": "https://github.com/philippbogdan/historical-cartogram"
       },
-      "locator": "commit 5e8e4b5; produced by src/m11_powerdiagram.py on 2026-09-12",
+      "locator": "commit 7616143; produced by src/m11_powerdiagram.py on 2026-09-12",
       "confidentiality": "public",
       "verification": {
         "status": "verified",
@@ -928,7 +928,7 @@
         "pmcid": "",
         "url": "https://github.com/philippbogdan/historical-cartogram"
       },
-      "locator": "https://github.com/philippbogdan/historical-cartogram commit 5e8e4b5",
+      "locator": "https://github.com/philippbogdan/historical-cartogram commit 7616143",
       "confidentiality": "public",
       "verification": {
         "status": "verified",

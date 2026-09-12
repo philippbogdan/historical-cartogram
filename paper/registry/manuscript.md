@@ -107,10 +107,4 @@ Two observations may be useful beyond this construction. A diffusion start time 
 
 The code, the experiment records with every parameter and metric, the figure scripts with provenance files, and the manuscript source are public in the repository [@E104]; the population raster is the public GHS-POP R2023A release [@E028] and the boundaries are Natural Earth [@E029]. [claim:C035] [evidence:E028,E029,E104]
 
-## Funding {-}
 
-No funding was received for this work. [claim:C036] [evidence:E104]
-
-## Competing interests {-}
-
-The author declares no competing interests. [claim:C037] [evidence:E104]
