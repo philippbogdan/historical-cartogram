@@ -63,3 +63,31 @@ grid through the final cell geometry. `verification.json` records the delivered
 asset hashes. The repository's `tests/human_space.test.mjs` checks population
 accounting, all rendered triangles over the continuous transformation, compatible
 economic years and the delivered asset hashes.
+
+## Interactive Figure 6 (12 September 2026)
+
+The active renderer now uses `paper.json` and `paper-cells.bin`, exported by
+`src/build_paper_hero.py` directly from `experiments/M11_power_8192_2048/sites.npz`.
+These are the original 8,192 Laguerre cells from `paper/figures/fig6_power.py`,
+with 999,998.593833 people per cell and the original square Mercator frame.
+The metadata records the source and geometry hashes. The older world, atlas and
+population verification assets above remain archived in this bundle; their cell
+allocation is not the active Figure 6 drawing.
+
+Push and pull animate the Figure 6 geometry forward and backward through the
+existing smoothed `warp.bin` display mesh, using the established momentum timing.
+This is an interactive illustration, not a new optimal-transport solve. The mesh's
+longitude seam differs from the paper frame by 0.046875 degrees, less than one tenth
+of a mesh cell. Polygon edges are subdivided at at most 1/512 of the frame width
+before mapping. The reference endpoint is the original, undeformed power diagram.
+The coastline uses the same Natural Earth 110m source as Figure 6.
+
+Colours and labels simplify attribution: a site's containing country supplies its
+colour, with the nearest country used for the 383 offshore sites. Whole cells take
+that colour, including their ocean extensions. Island groups classified by Natural
+Earth as open ocean receive a geographic continent for display. This changes no
+population masses, sites or cell boundaries. Country colours have a saturation
+floor; polygon fills mix their colour with white. No missing-value grey is drawn.
+Country names are anchored to a site belonging to that country, with small offsets
+to avoid overlaps, prioritised by
+site count, and suppressed on collisions; smaller names appear when zooming in.

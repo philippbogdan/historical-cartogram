@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Human geography in black ink dots.">
+  <meta name="description" content="The power diagram of humanity. An interactive figure in black ink.">
   <title>Humeter</title>
   <link rel="icon" href="human-space/icon.svg?v=6c865740be67" type="image/svg+xml">
-  <link rel="stylesheet" href="human-space/style.css?v=3f92c68c1ecf">
-  <script type="module" src="human-space/app.js?v=a172ce4354d9"></script>
+  <link rel="stylesheet" href="human-space/style.css?v=920938e8ed2b">
+  <script type="module" src="human-space/app.js?v=6a4f3f9646f6"></script>
 </head>
 <body>
   <div class="selectors">
@@ -18,12 +18,16 @@
       <label><input type="radio" name="colour" value="2">continents</label>
     </fieldset>
     <fieldset aria-label="Representation">
-      <label><input type="radio" name="representation" value="dots" checked>dots</label>
-      <label><input type="radio" name="representation" value="polygons">polygons</label>
+      <label><input type="radio" name="representation" value="dots">dots</label>
+      <label><input type="radio" name="representation" value="polygons" checked>polygons</label>
+    </fieldset>
+    <fieldset aria-label="Movement">
+      <label><input type="radio" name="direction" value="1" checked>push</label>
+      <label><input type="radio" name="direction" value="0">pull</label>
     </fieldset>
   </div>
-  <canvas id="polygons" hidden aria-hidden="true"></canvas>
-  <canvas id="coastline" aria-hidden="true"></canvas>
-  <canvas id="map" tabindex="0" role="img" aria-label="Population cartogram. Each dot or polygon represents about one million people. The same dots move between geography and human space. Tap or press Space to pause. Drag to pan, scroll or pinch to zoom. Left and right arrows change the view. Home resets the zoom."></canvas>
+  <button id="expand" aria-label="Expand map" title="Expand map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg></button>
+  <div id="labels"></div>
+  <canvas id="map" tabindex="0" role="img" aria-label="Figure 6, the power diagram of humanity. Each dot or polygon represents about one million people. Push expands the drawing into human space; pull returns it to geography. Tap or press Space to pause or resume. Drag to pan, scroll or pinch to zoom. Left and right arrows change the view. Home resets the zoom."></canvas>
 </body>
 </html>
