@@ -3,13 +3,15 @@
 ## Scene
 
 A person looks directly at a pointillist population map, like a sheet of white paper printed
-with fine black ink. The map occupies the viewport without any surrounding interface.
+with fine ink. The map occupies the viewport with two small native radio groups at the top left.
 
 ## Marks
 
-Black circular dots on pure white. One persistent dot per existing population group. Small
-antialiased marks, with restrained size growth when zoomed. No lines, fills, labels, typography,
-shadows, borders, panels or alternative rendering styles.
+Default to black circular dots on pure white. One persistent dot per population group.
+Country mode uses the existing country palette; continent mode uses a shared colour for each
+Natural Earth continent. Polygon mode fills the same population cells with fine boundaries,
+or uses black outlines on white in monotone. The colour group is left of the representation
+group. Native radios and small plain labels are the only interface.
 
 ## Composition and motion
 

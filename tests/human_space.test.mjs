@@ -82,3 +82,22 @@ test('Every shipped data file matches the measured artifact and loads from a pro
   assert.ok(!/(?:src|href)="\//.test(html), 'Root-relative URLs break a repository Pages site');
   assert.ok(existsSync(`${assets}OFL.txt`));
 });
+
+test('Colour palettes match country IDs and geographic continent anchors',()=>{
+  const palettes=JSON.parse(readFileSync(`${assets}palettes.json`));
+  assert.equal(palettes.world_sha256,createHash('sha256').update(readFileSync(`${assets}world.json`)).digest('hex'));
+  assert.equal(palettes.countries.length,world.countries.length);
+  const continentColours=new Map();
+  palettes.countries.forEach((entry,i)=>{
+    assert.equal(entry.name,world.countries[i].name);
+    if(i)assert.deepEqual(entry.country,world.countries[i].colour);
+    for(const rgb of [entry.country,entry.continental])assert.ok(rgb.length===3&&rgb.every(c=>Number.isInteger(c)&&c>=0&&c<=255));
+    if(entry.continent){
+      if(continentColours.has(entry.continent))assert.deepEqual(entry.continental,continentColours.get(entry.continent));
+      continentColours.set(entry.continent,entry.continental);
+    }
+  });
+  for(const [name,continent] of Object.entries({Brazil:'South America',"People's Republic of China":'Asia',Nigeria:'Africa',France:'Europe',Australia:'Oceania',Canada:'North America'})){
+    assert.equal(palettes.countries.find(c=>c.name===name)?.continent,continent);
+  }
+});

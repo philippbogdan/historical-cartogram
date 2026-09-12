@@ -1,3 +1,8 @@
+## Selector update, 2026-09-12
+
+Two radio groups select colour (monotone, countries, continents) and representation
+(dots, polygons). They are the only visible interface.
+
 # Current presentation, 2026-09-12
 
 The live route is now the ink-only cartogram: black dots on white, with no visible UI.
