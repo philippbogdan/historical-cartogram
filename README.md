@@ -1,4 +1,28 @@
-# The humeter world
+# The optimal-transport cartogram
+
+A population cartogram resizes places so their area represents how many people live there.
+That leaves many ways to distort the map. Here, GHS-POP R2023A data for 2025 and the
+Monge-Ampère solver of Benamou, Froese and Oberman give a Brenier map with much less local
+rotation and uneven stretching than Gastner-Newman diffusion.
+
+**Over 600-fold lower median local rotation:** 0.013° against 8.8° for diffusion on a
+4096 by 4096 Mercator grid. Median anisotropy, the ratio of stretches along the principal
+directions, falls from 6.30 to 3.93. Both medians are population-weighted. These reductions
+come without extra population movement: population-weighted mean squared displacement
+differs by less than 0.5%. The transport solve takes 131 seconds against 123 seconds for
+diffusion on an Apple M4 Mac mini.
+
+The theoretical least-movement property brings no practical gain here: diffusion is
+already nearly optimal.
+
+The benchmark uses this paper's own diffusion implementation on the same grid, walls
+and density, with 30 km smoothing and a 5% uniform floor. Folded cells remain at ocean
+creases in the raw transport mesh, where discretisation breaks the continuum guarantee
+against folding. Fold counts are reported; repairs are for drawing only.
+The flow-based method of Gastner, Seguy and More was not benchmarked.
+
+[Read the paper](paper/main.pdf), [check the measurements](paper/numbers.json), or
+[explore the interactive map](https://philippbogdan.github.io/historical-cartogram/).
 
 ## The paper, 2026-09-12
 
@@ -47,7 +71,8 @@ accuracy claim of the current human-space experience.
 
 A map of the Earth in which **area is people**: every square centimetre of the picture holds the
 same number of human beings. Built from the finest complete population raster (GHS-POP, 100 m) by
-optimal transport, so nothing rotates and everything moves as little as it can. Land is pure; the
+optimal transport, whose continuum map has no local rotation and minimises population-weighted
+mean squared displacement. Land is pure; the
 ocean keeps 5% of the frame. The unit of length is the *humeter*: 1 hm is 1 km at the world-average
 density, about 16 people per km².
 
