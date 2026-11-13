@@ -21,7 +21,7 @@ creases in the raw transport mesh, where discretisation breaks the continuum gua
 against folding. Fold counts are reported; repairs are for drawing only.
 The flow-based method of Gastner, Seguy and More was not benchmarked.
 
-[Read the paper](paper/main.pdf), [check the measurements](paper/numbers.json), or
+[Read the paper](paper/main.pdf) ([arXiv:2609.14089](https://arxiv.org/abs/2609.14089)), [check the measurements](paper/numbers.json), or
 [explore the interactive map](https://philippbogdan.github.io/historical-cartogram/).
 
 ## The paper, 2026-09-12
